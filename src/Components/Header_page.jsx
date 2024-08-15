@@ -23,7 +23,7 @@ const Header_page = ({ toggleSidebar }) => {
         </div>
         <div className="relative">
           <img
-            src="/User.jpg"
+            // src="/User.jpg"
             alt="User Avatar"
             className="w-8 h-8 transition duration-200 border-2 border-transparent rounded-full md:w-10 md:h-10 hover:border-gray-300"
           />

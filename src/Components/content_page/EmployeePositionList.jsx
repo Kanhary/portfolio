@@ -45,7 +45,7 @@ const EmployeePositionList = () => {
 
     return (
         <div>
-            <h1 className='mb-8 text-3xl font-extrabold text-center text-gray-800'>Employee Position List</h1>
+            <h1 className='mb-8 text-3xl font-extrabold text-center text-gray-800 font-kantumruy'>Employee Position List</h1>
             <div className='flex justify-end'>
                 <button
                     id='addPositionbtn'
@@ -56,7 +56,7 @@ const EmployeePositionList = () => {
                 </button>
             </div>
 
-            <div className='mx-4 mt-6 overflow-x-auto rounded-lg shadow-inner max-h-96'>
+            <div className='mx-4 mt-6 overflow-x-auto rounded-lg shadow-inner max-h-96 font-khmer'>
                 <table className='min-w-full table-auto'>
                     <thead className={`text-xs text-gray-600 uppercase ${isModalOpen ? 'bg-white' : 'sticky top-0 z-30 bg-indigo-100'}`}>
                         <tr>
