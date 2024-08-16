@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FaPen } from "react-icons/fa";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaPen, FaTrashAlt } from "react-icons/fa";
 
 const EmployeePositionList = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -168,7 +167,7 @@ const EmployeePositionList = () => {
           </div>
           {/* Table */}
           <div className='overflow-x-auto'>
-            <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+            <table className='w-full text-sm text-left text-gray-500 table-fixed dark:text-gray-400'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                 <tr>
                   <th scope='col' className='sticky left-0 py-3 pl-4 pr-0 bg-gray-50'>Action</th>
@@ -186,56 +185,51 @@ const EmployeePositionList = () => {
                       <button type='button' className='p-2 mr-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400'><FaPen /></button>
                       <button type='button' className='p-2 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400'><FaTrashAlt /></button>
                     </td>
-                    <th scope='row' className='px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white'>{employee.code}</th>
-                    <td className='px-4 py-3'>{employee.position}</td>
-                    <td className='px-4 py-3'></td>
-                    <td className='px-4 py-3'></td>
+                    <td className='px-4 py-2'>{employee.code}</td>
+                    <td className='px-4 py-2'>{employee.position}</td>
+                    <td className='px-4 py-2'>{employee.lastBy}</td>
+                    <td className='px-4 py-2'>{employee.lastDate}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           {/* Pagination */}
-          <div className='flex items-center justify-between p-4 bg-white dark:bg-gray-800'>
-            {/* Pagination Controls */}
-            <nav aria-label='Pagination'>
-              <ul className='inline-flex items-center -space-x-px'>
-                {/* Previous Button */}
+          <div className='flex items-center justify-between p-4'>
+            <span className='text-sm text-gray-700 dark:text-gray-400'>
+              Showing {indexOfFirstRecord + 1} to {Math.min(indexOfLastRecord, employees.length)} of {employees.length} results
+            </span>
+            <nav className='flex items-center'>
+              <ul className='inline-flex space-x-2'>
                 <li>
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className='flex items-center justify-center p-2 text-gray-500 rounded-l-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700'
+                    className='px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-primary-800'
                   >
-                    <svg className='w-5 h-5' aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
-                      <path fillRule='evenodd' d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z' clipRule='evenodd' />
+                    <svg className='w-4 h-4' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+                      <path fillRule='evenodd' d='M7.293 14.293a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414L12.414 10l-3.707 3.707a1 1 0 01-1.414 0z' clipRule='evenodd' />
                     </svg>
                   </button>
                 </li>
-                {/* Page Numbers */}
                 {getPaginationItems().map((page, index) => (
                   <li key={index}>
-                    {page === '...' ? (
-                      <span className='p-2 text-gray-500 dark:text-gray-400'>...</span>
-                    ) : (
-                      <button
-                        onClick={() => handlePageChange(page)}
-                        className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400'} hover:bg-gray-100 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700`}
-                      >
-                        {page}
-                      </button>
-                    )}
+                    <button
+                      onClick={() => handlePageChange(page)}
+                      className={`px-4 py-2 text-sm font-medium ${page === currentPage ? 'text-blue-600 bg-blue-100' : 'text-gray-500 bg-white'} border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-primary-800`}
+                    >
+                      {page}
+                    </button>
                   </li>
                 ))}
-                {/* Next Button */}
                 <li>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className='flex items-center justify-center p-2 text-gray-500 rounded-r-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700'
+                    className='px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-primary-800'
                   >
-                    <svg className='w-5 h-5' aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
-                      <path fillRule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clipRule='evenodd' />
+                    <svg className='w-4 h-4' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+                      <path fillRule='evenodd' d='M12.707 14.293a1 1 0 010-1.414L9.414 10l3.293-3.707a1 1 0 10-1.414-1.414L7.586 10l3.707 3.707a1 1 0 001.414 0z' clipRule='evenodd' />
                     </svg>
                   </button>
                 </li>

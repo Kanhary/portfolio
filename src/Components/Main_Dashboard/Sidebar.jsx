@@ -27,8 +27,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     >
       <nav className="flex flex-col h-full">
         <ul className="flex flex-col mt-6 space-y-1">
-          <NavItem icon={<AiFillHome />} text="Dashboard" to="/dashboard" onClick={handleLinkClick} />
-          <NavItem icon={<FaLaptop />} text="Computer" to="/computer" onClick={handleLinkClick} />
+          <NavItem icon={<AiFillHome />} text="Dashboard" to="/main-dashboard/dashboard" onClick={handleLinkClick} />
+          <NavItem icon={<FaLaptop />} text="Computer" to="/main-dashboard/computer" onClick={handleLinkClick} />
           <NavItem
             icon={<FaUserFriends />}
             text="Employee"
@@ -37,14 +37,14 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           />
           {isEmployeeMenuOpen && (
             <ul className="ml-4 space-y-1">
-              <SubmenuItem text="Employee Position List" to="/employee/position-list" onClick={handleLinkClick} />
-              <SubmenuItem text="Gender List" to="/employee/gender-list" onClick={handleLinkClick} />
+              <SubmenuItem text="Employee Position List" to="/main-dashboard/employee/position-list" onClick={handleLinkClick} />
+              <SubmenuItem text="Gender List" to="/main-dashboard/employee/gender-list" onClick={handleLinkClick} />
             </ul>
           )}
           <NavItem icon={<FaScrewdriverWrench />} text="Maintenance" to="/maintenance" onClick={handleLinkClick} />
-          <NavItem icon={<FaCog />} text="Settings" to="/settings" onClick={handleLinkClick} />
-          <NavItem icon={<HiChartBar />} text="Report" to="/report" onClick={handleLinkClick} />
-          <NavItem icon={<BsFillQuestionCircleFill />} text="Help" to="/help" onClick={handleLinkClick} />
+          <NavItem icon={<FaCog />} text="Settings" to="/main-dashboard/settings" onClick={handleLinkClick} />
+          <NavItem icon={<HiChartBar />} text="Report" to="/main-dashboard/report" onClick={handleLinkClick} />
+          <NavItem icon={<BsFillQuestionCircleFill />} text="Help" to="/main-dashboard/help" onClick={handleLinkClick} />
         </ul>
       </nav>
     </aside>
