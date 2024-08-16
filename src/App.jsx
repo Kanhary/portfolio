@@ -21,7 +21,7 @@ function App() {
   };
   return (
     <Router>
-      <div className='flex flex-col h-screen'>
+      <div className='flex flex-col h-screen '>
         <Header_page toggleSidebar={toggleSidebar} />
         <div className='flex flex-1'>
           <Sidebar isSidebarOpen={isSidebarOpen} />

@@ -45,15 +45,10 @@
 .read-the-docs {
   color: #888;
 }
-.sidebar{
-  height: 100vh;
-            min-height: 200px;
-            overflow: auto;
-            background: #a7e9c5;
-            color: #48793c;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 10px;
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 

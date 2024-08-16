@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaPen } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
 const EmployeePositionList = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -77,11 +79,10 @@ const EmployeePositionList = () => {
     { code: '68', position: 'នាយក' },
     { code: '69', position: 'នាយករង' },
     { code: '70', position: 'អ្នកគ្រប់គ្រង' },
-    
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 8;
+  const recordsPerPage = 7;
   const totalPages = Math.ceil(employees.length / recordsPerPage);
 
   const handlePageChange = (pageNumber) => {
@@ -92,9 +93,26 @@ const EmployeePositionList = () => {
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentEmployees = employees.slice(indexOfFirstRecord, indexOfLastRecord);
 
+  const getPaginationItems = () => {
+    let pages = [];
+    if (totalPages <= 7) {
+      pages = [...Array(totalPages)].map((_, index) => index + 1);
+    } else {
+      pages = [1, 2, 3, '...', totalPages];
+      if (currentPage < 4) {
+        pages = [1, 2, 3, 4, 5, '...', totalPages];
+      } else if (currentPage > totalPages - 3) {
+        pages = [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+      } else {
+        pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+      }
+    }
+    return pages;
+  };
+
   return (
-    <section className='p-3 bg-gray-50 dark:bg-gray-900 sm:p-5 font-khmer'>
-      <h1 className='mb-4 text-2xl font-semibold text-center'>Employee Position List</h1>
+    <section className='p-3 mt-10 bg-gray-50 dark:bg-gray-900 sm:p-5 font-khmer'>
+      <h1 className='text-2xl font-semibold text-center'>Employee Position List</h1>
       <div className='max-w-screen-xl px-4 mx-auto lg:px-12'>
         <div className='relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg'>
           {/* Search and Action Buttons */}
@@ -115,7 +133,7 @@ const EmployeePositionList = () => {
             </div>
             {/* Action Buttons */}
             <div className='flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3'>
-              <button  type='button' className='flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800'> 
+              <button type='button' className='flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800'>
                 <svg className='h-3.5 w-3.5 mr-2' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
                   <path clipRule='evenodd' fillRule='evenodd' d='M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z' />
                 </svg>
@@ -153,21 +171,20 @@ const EmployeePositionList = () => {
             <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                 <tr>
-                  <th scope='col' className='sticky left-0 py-3 pl-4 pr-0 bg-gray-50'></th>
+                  <th scope='col' className='sticky left-0 py-3 pl-4 pr-0 bg-gray-50'>Action</th>
                   <th scope='col' className='py-3 pl-4 pr-0'>Code</th>
-                  <th scope='col' className='px-4 py-3 '>Position</th>
+                  <th scope='col' className='px-4 py-3'>Position</th>
                   <th scope='col' className='px-4 py-3'>Last By</th>
                   <th scope='col' className='px-4 py-3'>Last Date</th>
-                  <th scope='col' className='px-4 py-3'>
-                    <span className='sr-only'>Actions</span>
-                  </th>
                 </tr>
               </thead>
               <tbody>
                 {currentEmployees.map(employee => (
                   <tr key={employee.code}>
-                    <td className='sticky left-0 px-4 py-3 bg-gray-50'>
-                      <input type='checkbox' className='w-4 h-4 border-gray-300 rounded form-checkbox text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-primary-400' />
+                    <td className='sticky left-0 py-3 pl-4 bg-gray-50'>
+                      <input type='checkbox' className='w-4 h-4 mx-2 border-gray-300 rounded form-checkbox text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-primary-400' />
+                      <button type='button' className='p-2 mr-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400'><FaPen /></button>
+                      <button type='button' className='p-2 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400'><FaTrashAlt /></button>
                     </td>
                     <th scope='row' className='px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white'>{employee.code}</th>
                     <td className='px-4 py-3'>{employee.position}</td>
@@ -179,44 +196,52 @@ const EmployeePositionList = () => {
             </table>
           </div>
           {/* Pagination */}
-          <nav className='flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0' aria-label='Table navigation'>
-            <span className='text-sm font-normal text-gray-500 dark:text-gray-400'>
-              Showing 
-              <span className='font-semibold text-gray-900 dark:text-white'> {indexOfFirstRecord + 1}-{Math.min(indexOfLastRecord, employees.length)} </span>
-              of 
-              <span className='font-semibold text-gray-900 dark:text-white'> {employees.length} </span>
-            </span>
-            <ul className='inline-flex items-stretch -space-x-px'>
-              <li>
-                <button
-                  className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === 1 ? 'cursor-not-allowed' : ''}`}
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  Previous
-                </button>
-              </li>
-              {[...Array(totalPages)].map((_, index) => (
-                <li key={index}>
+          <div className='flex items-center justify-between p-4 bg-white dark:bg-gray-800'>
+            {/* Pagination Controls */}
+            <nav aria-label='Pagination'>
+              <ul className='inline-flex items-center -space-x-px'>
+                {/* Previous Button */}
+                <li>
                   <button
-                    className={`flex items-center justify-center px-3 h-8 leading-tight ${currentPage === index + 1 ? 'text-primary-600 bg-primary-50 border border-gray-300 dark:bg-gray-700 dark:text-white' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'}`}
-                    onClick={() => handlePageChange(index + 1)}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className='flex items-center justify-center p-2 text-gray-500 rounded-l-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700'
                   >
-                    {index + 1}
+                    <svg className='w-5 h-5' aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                      <path fillRule='evenodd' d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z' clipRule='evenodd' />
+                    </svg>
                   </button>
                 </li>
-              ))}
-              <li>
-                <button
-                  className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === totalPages ? 'cursor-not-allowed' : ''}`}
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                >
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
+                {/* Page Numbers */}
+                {getPaginationItems().map((page, index) => (
+                  <li key={index}>
+                    {page === '...' ? (
+                      <span className='p-2 text-gray-500 dark:text-gray-400'>...</span>
+                    ) : (
+                      <button
+                        onClick={() => handlePageChange(page)}
+                        className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400'} hover:bg-gray-100 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700`}
+                      >
+                        {page}
+                      </button>
+                    )}
+                  </li>
+                ))}
+                {/* Next Button */}
+                <li>
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className='flex items-center justify-center p-2 text-gray-500 rounded-r-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700'
+                  >
+                    <svg className='w-5 h-5' aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                      <path fillRule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clipRule='evenodd' />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </section>

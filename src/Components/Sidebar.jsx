@@ -21,7 +21,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <aside
-      className={`sidebar fixed left-0 h-full bg-gray-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 Kantumruy ${
+      className={`sidebar fixed left-0 h-full bg-gray-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 mt-15 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } md:relative md:translate-x-0 md:w-64`}
     >
