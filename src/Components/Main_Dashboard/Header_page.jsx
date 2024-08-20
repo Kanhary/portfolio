@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Header_page = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
+  };
+  const handleLogout = () => {
+    // Clear any authentication data here (e.g., localStorage, cookies)
+    localStorage.removeItem('authToken'); // Example, adjust based on your auth setup
+    navigate('/'); // Redirect to login page
   };
 
   return (
@@ -48,16 +55,7 @@ const Header_page = ({ toggleSidebar }) => {
                 </div>
                 <ul className="py-1">
                   <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleLogout}>Sign out</a>
                   </li>
                 </ul>
               </div>

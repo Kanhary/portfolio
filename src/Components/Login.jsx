@@ -97,33 +97,25 @@ const LoginForm = () => {
                   ទាក់ទងការិយាល័យព័ត៌មានវិទ្យា
                 </a>
               </div>
-              <button className="relative inline-block w-full px-4 py-4 font-medium rounded-lg group">
-                <span className="absolute inset-0 w-full h-full transition duration-500 ease-out transform translate-x-1 translate-y-1.5 bg-gray-400 group-hover:-translate-x-0 group-hover:-translate-y-0 rounded-md"></span>
-                <span className="absolute inset-0 w-full h-full rounded-md bg-gradient-to-l from-gray-700 to-slate-500"></span>
-                <span className="relative text-white text-[18px] font-light">
-                  បញ្ចូលគណនី
-                </span>
-              </button>
+              <div className="flex items-center justify-center">
+                <button
+                  className="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden text-base font-semibold text-white transition-all duration-300 ease-in-out bg-blue-500 border rounded-md group/button backdrop-blur-lg hover:scale-110 hover:shadow-xl hover:shadow-blue-600/50 border-white/20"
+                >
+                  <span class="text-lg">បញ្ចូលគណនី</span>
+                  <div
+                    className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]"
+                  >
+                    <div className="relative w-10 h-full bg-white/30"></div>
+                  </div>
+                </button>
+              </div>
             </form>
           </div>
 
-          <div className="flex flex-col items-center justify-center w-full px-6 rounded-b-lg md:w-1/2 bg-gradient-to-br from-gray-800 to-slate-500 md:rounded-r-lg md:rounded-bl-none">
-            <h2 className="text-2xl font-semibold text-center text-white md:text-3xl">
-              សូមស្វាគមន៍ការត្រឡប់មកវិញ!
-            </h2>
-            <br />
-            <p className="text-sm font-light text-center text-white md:text-base">
-              សូមស្វាគមន៍ការត្រឡប់មកវិញ! យើងរីករាយណាស់ដែលមានអ្នកនៅទីនេះ។ វាល្អណាស់ដែលបានជួបអ្នកម្តងទៀត។ យើងសង្ឃឹមថាអ្នកមានពេលវេលាដ៏មានសុវត្ថិភាព និងរីករាយពីចម្ងាយ។
-            </p>
-            <div className="flex items-center justify-center gap-4 py-6 mt-4 border-t border-white/50">
-              <button className="py-3 px-3 border border-gray-500 flex gap-3 text-[13px] text-white rounded-lg font-extralight hover:text-zinc-400 duration-300">
-                <img src="/Google-icon.png" className="w-4 h-4" alt="Google" /> ភ្ជាប់គណនី Google
-              </button>
-              <button className="py-3 px-3 border border-gray-500 flex gap-3 text-[13px] text-white rounded-lg font-extralight hover:text-zinc-400 duration-300">
-                <img src="/Facebook_Logo.png" className="w-4 h-4" alt="Facebook" /> គេហទំព័រ Facebook
-              </button>
-            </div>
+          <div className="flex flex-col items-center justify-center w-full rounded-b-lg md:w-1/2 bg-gradient-to-br md:rounded-r-lg md:rounded-bl-none">
+            <img src="/login_bg.jpg" alt="" className="object-cover w-full h-full rounded-lg" />
           </div>
+
         </div>
       </div>
     </div>

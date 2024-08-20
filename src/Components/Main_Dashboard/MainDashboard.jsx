@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header_page from './Header_page';
 import Sidebar from './Sidebar';
-import Dashboard from './content_page/Dashboard';
 import Computer from './content_page/Computer';
 import EmployeePositionList from './content_page/EmployeePositionList';
 import GenderList from './content_page/GenderList';
@@ -10,9 +9,22 @@ import Maintenance from './content_page/Maintenance';
 import Setting from './content_page/Setting';
 import Help from './content_page/Help';
 import Report from './content_page/Report';
+import Loader from './commons/Loader';
+import EmployeeInformation from './content_page/EmployeeInformation';
+import Dashboard from './content_page/Dashboard/Dashboard';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loader/>;
+  }
 
   const toggleSidebar = () => {
     setSidebarOpen(prevState => !prevState);
@@ -25,10 +37,11 @@ function MainDashboard() {
         <Sidebar isSidebarOpen={isSidebarOpen} />
         <main className='flex-1 p-6 overflow-y-auto bg-gray-100'>
           <Routes>
-            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='dashboard' element={<Dashboard/>} />
             <Route path='computer' element={<Computer />} />
-            <Route path='employee/position-list' element={<EmployeePositionList />} />
+            <Route path='employee/position-list' element={<EmployeePositionList/>} />
             <Route path='employee/gender-list' element={<GenderList />} />
+            <Route path='employee/employee-information' element={<EmployeeInformation/>} />
             <Route path='maintenance' element={<Maintenance />} />
             <Route path='setting' element={<Setting />} />
             <Route path='report' element={<Report />} />
