@@ -96,7 +96,7 @@ const GenderList = () => {
 
   return (
     <section className='mt-10 dark:bg-gray-900 font-khmer'>
-      <h1 className='text-2xl font-semibold text-center'>Gender List</h1>
+      <h1 className='text-2xl font-semibold text-center'>Gender</h1>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
