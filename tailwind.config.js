@@ -13,6 +13,8 @@ module.exports = {
       khmer: ["Kantumruy Pro", 'sans-serif']
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }
 
