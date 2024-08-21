@@ -37,9 +37,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     <aside
       className={`fixed left-0 top-0 h-full bg-gradient-to-r from-slate-900 to-slate-700 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:relative md:translate-x-0 md:w-64`}
+      } md:translate-x-0 md:w-64`}
     >
-      <nav className="flex flex-col h-full overflow-y-auto ">
+      <nav className="flex flex-col h-full">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
           <NavItem 
             icon={<AiFillHome />} 
@@ -111,7 +111,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           />
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
-
             text="Help" 
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 

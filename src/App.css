@@ -9,6 +9,10 @@
   padding: 2rem;
   text-align: center;
 }
+:root {
+  --sidebar-width: 16rem; /* Adjust this value based on your sidebar width */
+}
+
 
 .logo {
   height: 6em;
