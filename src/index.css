@@ -7,4 +7,18 @@
     font-family :"Regular";
     src: url("./assets/Font/KantumrutPro-Regular.ttf") format('truetype');
 }
-
+/* Custom scrollbars for modal */
+.modal-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Adjust the width to make it smaller */
+  }
+  
+  .modal-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d1d5db; /* Blue color for the scrollbar */
+    border-radius: 100px; /* Rounded corners */
+  }
+  
+  .modal-scrollbar::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Light background for the track */
+    border-radius: 100px;
+  }
+  

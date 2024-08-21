@@ -16,7 +16,7 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === 'user' && password === 'password') {
+    if (username === 'Pheakdey' && password === '123') {
       navigate('/main-dashboard'); // Redirect to dashboard on successful login
     } else {
       setError('Invalid username or password');

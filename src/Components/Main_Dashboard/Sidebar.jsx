@@ -40,7 +40,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       } md:relative md:translate-x-0 md:w-64`}
     >
       <nav className="flex flex-col h-full overflow-y-auto ">
-        <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
+        <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer ">
           <NavItem 
             icon={<AiFillHome />} 
             text="Dashboard" 

@@ -160,7 +160,7 @@ const EmployeePositionList = () => {
 
   return (
     <section className='mt-10 font-khmer'>
-      <h1 className='text-2xl font-semibold text-center'>Employee Position List</h1>
+      <h1 className='text-2xl font-semibold text-center'>Employee Position</h1>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
@@ -211,7 +211,7 @@ const EmployeePositionList = () => {
                 {currentEmployees.map(employee => (
                   <tr key={employee.code} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                     <td className='sticky left-0 flex px-6 py-4 bg-white'>
-                      <input type="checkbox" className="mr-1 action-checkbox" />
+                      <input type="checkbox" className=" action-checkbox mr-3" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.code, employee.position)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.code)} />
                     </td>
