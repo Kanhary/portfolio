@@ -37,9 +37,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     <aside
       className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900  text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:relative md:translate-x-0 md:w-64`}
+      } md:translate-x-0 md:w-64`}
     >
-      <nav className="flex flex-col h-full overflow-y-auto">
+      <nav className="flex flex-col h-full overflow-y-auto ">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
           <NavItem 
             icon={<AiFillHome />} 
@@ -97,7 +97,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           />
           <NavItem 
             icon={<FaCog />} 
-            text="ការកំណត់មុខងារ" 
+            text="Settings" 
             to="/main-dashboard/settings" 
             onClick={() => handleLinkClick('Settings')} 
             isActive={activeItem === 'Settings'} 
@@ -112,7 +112,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
 
-            text="ជំនួយ" 
+            text="Help" 
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 
             isActive={activeItem === 'Help'} 
