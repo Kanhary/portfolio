@@ -1,193 +1,78 @@
 import React, { useState } from 'react';
+import { FiUser, FiLock, FiBell, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
 
 const Setting = () => {
-  const [activeTab, setActiveTab] = useState('profile');
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'profile':
-        return <ProfileSettings />;
-      case 'account':
-        return <AccountSettings />;
-      case 'notifications':
-        return <NotificationSettings />;
-      case 'privacy':
-        return <PrivacySettings />;
-      default:
-        return null;
-    }
-  };
+  const toggleNotifications = () => setNotificationsEnabled(!notificationsEnabled);
+  const toggleDarkMode = () => setDarkModeEnabled(!darkModeEnabled);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      <div className="flex flex-col justify-center py-8 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-3xl">
-          <div className="bg-white shadow-lg sm:rounded-lg">
-            <div className="flex">
-              {/* Sidebar Navigation */}
-              <nav className="w-1/4 p-4 space-y-2 bg-gray-200 sm:rounded-l-lg">
-                <button
-                  onClick={() => setActiveTab('profile')}
-                  className={`block w-full px-4 py-2 text-left rounded-lg hover:bg-blue-500 hover:text-white ${
-                    activeTab === 'profile' ? 'bg-blue-600 text-white' : 'text-gray-700 '
-                  }`}
-                >
-                  Profile
-                </button>
-                <button
-                  onClick={() => setActiveTab('account')}
-                  className={`block w-full px-4 py-2 text-left rounded-lg hover:bg-blue-500 hover:text-white ${
-                    activeTab === 'account' ? 'bg-blue-600 text-white' : 'text-gray-700'
-                  }`}
-                >
-                  Account
-                </button>
-                <button
-                  onClick={() => setActiveTab('notifications')}
-                  className={`block w-full px-4 py-2 text-left rounded-lg hover:bg-blue-500 hover:text-white ${
-                    activeTab === 'notifications' ? 'bg-blue-600 text-white' : 'text-gray-700'
-                  }`}
-                >
-                  Notifications
-                </button>
-                <button
-                  onClick={() => setActiveTab('privacy')}
-                  className={`block w-full px-4 py-2 text-left rounded-lg hover:bg-blue-500 hover:text-white ${
-                    activeTab === 'privacy' ? 'bg-blue-600 text-white' : 'text-gray-700 '
-                  }`}
-                >
-                  Privacy
-                </button>
-              </nav>
+    <div className="min-h-screen p-6 mt-5 bg-gray-100 font-khmer">
+      <div className="container mx-auto">
+      <h1 className='text-xl font-medium text-blue-800'>ការកំណត់</h1>
+      <div className='mt-3 mb-3 border'></div>
 
-              {/* Main Content Area */}
-              <div className="w-3/4 p-6">
-                {renderContent()}
-              </div>
-            </div>
+        {/* Profile Settings */}
+        <div className="p-6 mb-6 bg-white rounded-lg shadow-md">
+          <h3 className="mb-4 text-xl font-medium text-gray-700">Profile Settings</h3>
+          <div className="flex items-center mb-4">
+            <FiUser className="w-6 h-6 mr-3 text-gray-500" />
+            <input
+              type="text"
+              placeholder="Username"
+              className="w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+          <div className="flex items-center mb-4">
+            <FiLock className="w-6 h-6 mr-3 text-gray-500" />
+            <input
+              type="password"
+              placeholder="Change Password"
+              className="w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+        </div>
+
+        {/* Notification Settings */}
+        <div className="p-6 mb-6 bg-white rounded-lg shadow-md">
+          <h3 className="mb-4 text-xl font-medium text-gray-700">Notification Settings</h3>
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600">Enable Notifications</span>
+            <button
+              onClick={toggleNotifications}
+              className="p-2 text-white bg-indigo-600 rounded-full focus:outline-none"
+            >
+              {notificationsEnabled ? (
+                <FiToggleRight className="w-6 h-6" />
+              ) : (
+                <FiToggleLeft className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Display Settings */}
+        <div className="p-6 mb-6 bg-white rounded-lg shadow-md">
+          <h3 className="mb-4 text-xl font-medium text-gray-700">Display Settings</h3>
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600">Dark Mode</span>
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 text-white bg-indigo-600 rounded-full focus:outline-none"
+            >
+              {darkModeEnabled ? (
+                <FiToggleRight className="w-6 h-6" />
+              ) : (
+                <FiToggleLeft className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-// Profile Settings Section
-const ProfileSettings = () => (
-  <div>
-    <h2 className="text-lg font-semibold text-gray-900">Profile Settings</h2>
-    <div className="mt-4">
-      {/* Profile form fields */}
-      <div className="mb-4">
-        <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          className="block w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          className="block w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-        Save Changes
-      </button>
-    </div>
-  </div>
-);
-
-// Account Settings Section
-const AccountSettings = () => (
-  <div>
-    <h2 className="text-lg font-semibold text-gray-900">Account Settings</h2>
-    <div className="mt-4">
-      {/* Account form fields */}
-      <div className="mb-4">
-        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          className="block w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-        Update Password
-      </button>
-    </div>
-  </div>
-);
-
-// Notifications Settings Section
-const NotificationSettings = () => (
-  <div>
-    <h2 className="text-lg font-semibold text-gray-900">Notification Settings</h2>
-    <div className="mt-4">
-      {/* Notification toggles */}
-      <div className="mb-4">
-        <label className="flex items-center">
-          <input
-            type="checkbox"
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <span className="ml-2 text-sm text-gray-900">Email Notifications</span>
-        </label>
-      </div>
-      <div className="mb-4">
-        <label className="flex items-center">
-          <input
-            type="checkbox"
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <span className="ml-2 text-sm text-gray-900 ">Push Notifications</span>
-        </label>
-      </div>
-      <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-        Save Settings
-      </button>
-    </div>
-  </div>
-);
-
-// Privacy Settings Section
-const PrivacySettings = () => (
-  <div>
-    <h2 className="text-lg font-semibold text-gray-900">Privacy Settings</h2>
-    <div className="mt-4">
-      {/* Privacy settings */}
-      <div className="mb-4">
-        <label className="flex items-center">
-          <input
-            type="checkbox"
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <span className="ml-2 text-sm text-gray-900">Make Profile Public</span>
-        </label>
-      </div>
-      <div className="mb-4">
-        <label className="flex items-center">
-          <input
-            type="checkbox"
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <span className="ml-2 text-sm text-gray-900">Enable Activity Status</span>
-        </label>
-      </div>
-      <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-        Save Changes
-      </button>
-    </div>
-  </div>
-);
 
 export default Setting;

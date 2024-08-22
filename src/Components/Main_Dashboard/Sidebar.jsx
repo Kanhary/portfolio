@@ -98,7 +98,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavItem 
             icon={<FaCog />} 
             text="ការកំណត់" 
-            to="/main-dashboard/settings" 
+            to="/main-dashboard/setting" 
             onClick={() => handleLinkClick('Settings')} 
             isActive={activeItem === 'Settings'} 
           />
