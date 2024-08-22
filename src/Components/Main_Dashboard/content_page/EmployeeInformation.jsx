@@ -256,47 +256,49 @@ const EmployeeInformation = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentEmployees.map(employee => (
-                  <tr key={employee.id} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='flex px-6 py-4 mt-2'>
-                    <input type="checkbox" className="mr-3 action-checkbox" />
-                    <FaPen
-                    className="text-blue-500 cursor-pointer hover:text-blue-700"
-                    onClick={() => openEditModal(employee.id,employee.code,employee.fullname,employee.lastname,employee.gender,
-                      employee.height,employee.weight,employee.birthdate,employee.nation,employee.nation,employee.region,
-                      employee.birthdate_address,employee.address,employee.phone_number,employee.email,employee.special_number,
-                      employee.marital_status,employee.company,employee.branch,employee.department,employee.office,employee.position,
-                      employee.last_modified_by,employee.last_modified_date)} // Replace 'yourItem' with the actual item
-                    />
-                    <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={handleClick}/>
-                    </td>
-                    <td className='px-4 py-3'>{employee.id}</td>
-                    <td className='px-4 py-3'>{employee.code}</td>
-                    <td className='px-4 py-3'>{employee.fullname}</td>
-                    <td className='px-4 py-3'>{employee.lastname}</td>
-                    <td className='px-4 py-3'>{employee.gender}</td>
-                    <td className='px-4 py-3'>{employee.height}</td>
-                    <td className='px-4 py-3'>{employee.weight}</td>
-                    <td className='px-4 py-3'>{employee.birthdate}</td>
-                    <td className='px-4 py-3'>{employee.nation}</td>
-                    <td className='px-4 py-3'>{employee.nationality}</td>
-                    <td className='px-4 py-3'>{employee.region}</td>
-                    <td className='px-4 py-3'>{employee.birthdate_address}</td>
-                    <td className='px-4 py-3'>{employee.address}</td>
-                    <td className='px-4 py-3'>{employee.phone_number}</td>
-                    <td className='px-4 py-3'>{employee.email}</td>
-                    <td className='px-4 py-3'>{employee.special_number}</td>
-                    <td className='px-4 py-3'>{employee.marital_status}</td>
-                    <td className='px-4 py-3'>{employee.company}</td>
-                    <td className='px-4 py-3'>{employee.branch}</td>
-                    <td className='px-4 py-3'>{employee.department}</td>
-                    <td className='px-4 py-3'>{employee.office}</td>
-                    <td className='px-4 py-3'>{employee.position}</td>
-                    <td className='px-4 py-3 '>{employee.last_modified_by}</td>
-                    <td className='px-4 py-3'>{employee.last_modified_date}</td>
-                  </tr>
-                ))}
-              </tbody>
+  {currentEmployees.map(employee => (
+    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl hover:translate-y-[-4px]'>
+      <td className='flex px-6 py-4 mt-2'>
+        <input type="checkbox" className="mr-3 action-checkbox" />
+        <FaPen
+          className="text-blue-500 cursor-pointer hover:text-blue-700"
+          onClick={() => openEditModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
+            employee.height, employee.weight, employee.birthdate, employee.nation, employee.nationality, employee.region,
+            employee.birthdate_address, employee.address, employee.phone_number, employee.email, employee.special_number,
+            employee.marital_status, employee.company, employee.branch, employee.department, employee.office, employee.position,
+            employee.last_modified_by, employee.last_modified_date)}
+        />
+        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={handleClick}/>
+      </td>
+      <td className='px-4 py-3'>{employee.id}</td>
+      <td className='px-4 py-3'>{employee.code}</td>
+      <td className='px-4 py-3'>{employee.fullname}</td>
+      <td className='px-4 py-3'>{employee.lastname}</td>
+      <td className='px-4 py-3'>{employee.gender}</td>
+      <td className='px-4 py-3'>{employee.height}</td>
+      <td className='px-4 py-3'>{employee.weight}</td>
+      <td className='px-4 py-3'>{employee.birthdate}</td>
+      <td className='px-4 py-3'>{employee.nation}</td>
+      <td className='px-4 py-3'>{employee.nationality}</td>
+      <td className='px-4 py-3'>{employee.region}</td>
+      <td className='px-4 py-3'>{employee.birthdate_address}</td>
+      <td className='px-4 py-3'>{employee.address}</td>
+      <td className='px-4 py-3'>{employee.phone_number}</td>
+      <td className='px-4 py-3'>{employee.email}</td>
+      <td className='px-4 py-3'>{employee.special_number}</td>
+      <td className='px-4 py-3'>{employee.marital_status}</td>
+      <td className='px-4 py-3'>{employee.company}</td>
+      <td className='px-4 py-3'>{employee.branch}</td>
+      <td className='px-4 py-3'>{employee.department}</td>
+      <td className='px-4 py-3'>{employee.office}</td>
+      <td className='px-4 py-3'>{employee.position}</td>
+      <td className='px-4 py-3'>{employee.last_modified_by}</td>
+      <td className='px-4 py-3'>{employee.last_modified_date}</td>
+    </tr>
+  ))}
+</tbody>
+
+
             </table>
           </div>
 
