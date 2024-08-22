@@ -35,29 +35,29 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900  text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
+      className={`fixed left-0 top-0 h-full bg-gradient-to-r from-slate-900 to-slate-700 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0 md:w-64`}
     >
-      <nav className="flex flex-col h-full overflow-y-auto ">
+      <nav className="flex flex-col h-full">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
           <NavItem 
             icon={<AiFillHome />} 
-            text="តារាងបង្ហាញទិន្នន័យ" 
+            text="Dashboard" 
             to="/main-dashboard/dashboard" 
             onClick={() => handleLinkClick('Dashboard')} 
             isActive={activeItem === 'Dashboard'} 
           />
           <NavItem 
             icon={<FaLaptop />} 
-            text="តារាងទិន្នន័យកុំព្យូទ័រ" 
+            text="Computer" 
             to="/main-dashboard/computer" 
             onClick={() => handleLinkClick('Computer')} 
             isActive={activeItem === 'Computer'} 
           />
           <NavItem
             icon={<FaUserFriends />}
-            text="តារាងបុគ្គលិក"
+            text="Employee"
             onClick={() => {toggleEmployeeMenu(); handleLinkClick('Employee');}}
             isActive={activeItem === 'Employee'}
             dropdownIcon={isEmployeeMenuOpen ? <FaChevronUp /> : <FaChevronDown />} // Dropdown icon logic
@@ -69,19 +69,19 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           >
             <ul className="ml-6 space-y-1">
               <SubmenuItem 
-                text="តារាងបញ្ជីបុគ្គលិក" 
+                text="Employee Position List" 
                 to="/main-dashboard/employee/position-list" 
                 onClick={() => handleLinkClick('Employee Position List')} 
                 isActive={activeItem === 'Employee Position List'} 
               />
               <SubmenuItem 
-                text="តារាងបញ្ជីភេទ" 
+                text="Gender List" 
                 to="/main-dashboard/employee/gender-list" 
                 onClick={() => handleLinkClick('Gender List')} 
                 isActive={activeItem === 'Gender List'} 
               />
               <SubmenuItem 
-                text="តារាងបញ្ចូលព័ត៌មានបុគ្គលិក" 
+                text="Employee Information" 
                 to="/main-dashboard/employee/employee-information" 
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
@@ -90,7 +90,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           </div>
           <NavItem 
             icon={<FaScrewdriverWrench />} 
-            text="ការថែទាំ" 
+            text="Maintenance" 
             to="/main-dashboard/maintenance" 
             onClick={() => handleLinkClick('Maintenance')} 
             isActive={activeItem === 'Maintenance'} 
@@ -98,20 +98,19 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavItem 
             icon={<FaCog />} 
             text="Settings" 
-            to="/main-dashboard/settings" 
-            onClick={() => handleLinkClick('Settings')} 
-            isActive={activeItem === 'Settings'} 
+            to="/main" 
+            onClick={() => handleLinkClick('Setting')} 
+            isActive={activeItem === 'Setting'} 
           />
           <NavItem 
             icon={<HiChartBar />} 
-            text="របាយកាណ៍" 
+            text="Report" 
             to="/main-dashboard/report" 
             onClick={() => handleLinkClick('Report')} 
             isActive={activeItem === 'Report'} 
           />
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
-
             text="Help" 
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 
