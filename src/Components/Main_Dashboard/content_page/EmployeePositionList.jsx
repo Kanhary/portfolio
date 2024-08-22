@@ -131,7 +131,7 @@ const EmployeePositionList = () => {
 
   return (
     <section className='mt-10 font-khmer'>
-      <h1 className='top-0 text-2xl font-semibold text-center '>តារាងមុខតំណែងបុគ្គលិក</h1>
+      <h1 className='text-2xl font-semibold text-center'>Employee Position List</h1>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
@@ -174,19 +174,19 @@ const EmployeePositionList = () => {
             <table className='w-full text-[15px] left text-gray-500 text- '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 ">Action</th>
-                  <th scope="col" className="px-4 py-3">Code</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '200px' }}>Position</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '200px' }}>Description</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 text-start">Action</th>
+                  <th scope="col" className="px-4 py-3 text-start">Code</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Position</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Description</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentEmployees.map(employee => (
                   <tr key={employee.code} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                     <td className='sticky left-0 flex px-6 py-4 bg-white'>
-                      <input type="checkbox" className="mr-1 action-checkbox" />
+                      <input type="checkbox" className=" action-checkbox mr-3" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.code, employee.position)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.code)} />
                     </td>

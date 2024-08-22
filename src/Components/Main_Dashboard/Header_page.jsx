@@ -40,11 +40,11 @@ const Header_page = ({ toggleSidebar }) => {
             </button>
             <a href="#" className="flex ms-2 md:me-24">
               <img src='/LOGO PPAP.png' className="h-8 me-3" alt="PPAP Logo" />
-              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">PPAP</span>
+              <span className="self-center text-xl font-meduim sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
             </a>
           </div>
           <div className='relative flex items-center ms-3'>
-            <button 
+          <button 
               className="relative mr-5 text-gray-600 hover:text-gray-800" 
               onClick={handleNotificationsToggle}
             >
@@ -72,7 +72,6 @@ const Header_page = ({ toggleSidebar }) => {
                 </ul>
               </div>
             )}
-
             <button 
               type='button' 
               className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 ' 
@@ -82,18 +81,15 @@ const Header_page = ({ toggleSidebar }) => {
               <span className='sr-only'>Open user menu</span>
               <img src="/User.jpg" className='w-8 h-8 rounded-full' alt="User Photo" />
             </button>
-            
             {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-48 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg top-full'>
+              <div className='absolute right-0 z-50 w-48 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg top-full '>
                 <div className='px-4 py-3'>
-                  <p className='text-gray-900 text-ms'>Uk Kagnary</p>
-                  <p className='text-sm font-medium text-gray-900 truncate'>ukkanhary04@gmail.com</p>
+                  <p className='text-gray-900 text-ms '>Uk Kagnary</p>
+                  <p className='text-sm font-medium text-gray-900 truncate '>ukkanhary04@gmail.com</p>
                 </div>
                 <ul className="py-1">
                   <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleLogout}>
-                      Sign out
-                    </a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " onClick={handleLogout}>Sign out</a>
                   </li>
                 </ul>
               </div>
