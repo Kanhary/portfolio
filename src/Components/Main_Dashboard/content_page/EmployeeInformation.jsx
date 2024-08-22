@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
+import Swal from 'sweetalert2';
 
 const EmployeeInformation = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -9,11 +10,9 @@ const EmployeeInformation = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [photoName, setPhotoName] = useState('');
-  
-  // const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     id: '',
     code: '',
@@ -38,6 +37,8 @@ const EmployeeInformation = () => {
     position: '',
     photo: null,
   });
+
+  
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -84,7 +85,37 @@ const EmployeeInformation = () => {
     setIsEditModalOpen(false);
   };
   
+  //Update and Save
+  const updateClick = () => {
+    Swal.fire({
+      position: "center",  // Change to 'center' to center the alert
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+  
 
+  const handleClick = ()=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#22c55e",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
   const employees = [
     // Sample data, replace with your actual data
     { id: 1, code: '001', fullname: 'សែម ភក្តី', lastname: 'Sem Pheakdey', gender: 'Male', height: '185cm', weight: '75kg', birthdate: '1990-01-01', nation: 'khmer',nationality: 'khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្រះចក,ខណ្ឌឬស្សីកែវ,រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្រះចក,ខណ្ឌឬស្សីកែវ,រាជធានីភ្នំពេញ', phone_number: '0123456789', email: 'johndoe@example.com', special_number: '010 444 152', marital_status: 'Single', company: 'Phnom Penh AutonomousPort', branch: 'TS3', department: 'នាយកដ្ឋានរដ្ឋបាល', office: 'ការិយាល័យព័ត៌មានវិទ្យា', position: 'Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
@@ -158,7 +189,7 @@ const EmployeeInformation = () => {
   return (
     <section className='mt-14 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>តារាងបង្ហាញព័ត៌មានបុគ្គលិក</h1>
-      <div className='mt-3 border'></div>
+      <div className='mt-3 border' ></div>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
@@ -237,7 +268,7 @@ const EmployeeInformation = () => {
                       employee.marital_status,employee.company,employee.branch,employee.department,employee.office,employee.position,
                       employee.last_modified_by,employee.last_modified_date)} // Replace 'yourItem' with the actual item
                     />
-                    <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" />
+                    <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={handleClick}/>
                     </td>
                     <td className='px-4 py-3'>{employee.id}</td>
                     <td className='px-4 py-3'>{employee.code}</td>
@@ -493,7 +524,7 @@ const EmployeeInformation = () => {
         <div className="flex justify-center gap-5 p-6 mt-4">
           <button
             type="button"
-            onClick={handleSaveEmployee}
+            onClick={updateClick}
             className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
           >
             <p className='text-base font-normal'>រក្សាទុក</p>
@@ -677,8 +708,8 @@ const EmployeeInformation = () => {
               <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="button"
-                  onClick={handleSaveEmployee}
-                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                  onClick={updateClick}
+                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 " 
                 >
                   <p className='text-base font-normal'>រក្សាទុក</p>
                 </button>

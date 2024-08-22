@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FiBell } from "react-icons/fi";
 
@@ -6,6 +6,9 @@ const Header_page = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const dropdownRef = useRef(null);
+  const notificationsRef = useRef(null);
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
@@ -19,6 +22,24 @@ const Header_page = ({ toggleSidebar }) => {
     localStorage.removeItem('authToken'); // Example, adjust based on your auth setup
     navigate('/'); // Redirect to login page
   };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+        notificationsRef.current && !notificationsRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+        setIsNotificationsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
@@ -44,9 +65,10 @@ const Header_page = ({ toggleSidebar }) => {
             </a>
           </div>
           <div className='relative flex items-center ms-3'>
-          <button 
+            <button 
               className="relative mr-5 text-gray-600 hover:text-gray-800" 
               onClick={handleNotificationsToggle}
+              ref={notificationsRef}
             >
               <FiBell size={24} />
               <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs text-white bg-red-500 rounded-full">
@@ -54,46 +76,51 @@ const Header_page = ({ toggleSidebar }) => {
               </span>
             </button>
 
-            {isNotificationsOpen && (
-              <div className='absolute z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg right-16 top-full'>
-                <div className='px-4 py-3 text-gray-900'>
-                  <p className='font-semibold'>Notifications</p>
-                </div>
-                <ul className="py-1">
-                  <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    New employee added
-                  </li>
-                  <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    System update available
-                  </li>
-                  <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    Server backup completed
-                  </li>
-                </ul>
+            {/* Notifications Dropdown with Animation */}
+            <div className={`absolute z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg right-16 top-full transition-all duration-300 ease-in-out transform ${
+              isNotificationsOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'
+            }`}>
+              <div className='px-4 py-3 text-gray-900'>
+                <p className='font-semibold'>Notifications</p>
               </div>
-            )}
+              <ul className="py-1">
+                <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  New employee added
+                </li>
+                <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  System update available
+                </li>
+                <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  Server backup completed
+                </li>
+              </ul>
+            </div>
+
             <button 
               type='button' 
               className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 ' 
               aria-expanded={isDropdownOpen ? "true" : "false"} 
               onClick={handleDropdownToggle}
+              ref={dropdownRef}
             >
               <span className='sr-only'>Open user menu</span>
               <img src="/User.jpg" className='w-8 h-8 rounded-full' alt="User Photo" />
             </button>
-            {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-48 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg top-full '>
-                <div className='px-4 py-3'>
-                  <p className='text-gray-900 text-ms '>Uk Kagnary</p>
-                  <p className='text-sm font-medium text-gray-900 truncate '>ukkanhary04@gmail.com</p>
-                </div>
-                <ul className="py-1">
-                  <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " onClick={handleLogout}>Sign out</a>
-                  </li>
-                </ul>
+
+            {/* User Menu Dropdown with Animation */}
+            <div className={`absolute right-0 z-50 w-48 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg top-full transition-all duration-300 ease-in-out transform ${
+              isDropdownOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'
+            }`}>
+              <div className='px-4 py-3'>
+                <p className='text-gray-900 text-ms '>Uk Kagnary</p>
+                <p className='text-sm font-medium text-gray-900 truncate '>ukkanhary04@gmail.com</p>
               </div>
-            )}
+              <ul className="py-1">
+                <li>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " onClick={handleLogout}>Sign out</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

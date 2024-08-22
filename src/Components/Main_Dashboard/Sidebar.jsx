@@ -6,6 +6,8 @@ import { FaScrewdriverWrench } from "react-icons/fa6";
 import { HiChartBar } from "react-icons/hi2";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Importing chevron icons
+import AOS from 'aos'; // Import AOS
+import 'aos/dist/aos.css'; // Import AOS styles
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [isEmployeeMenuOpen, setEmployeeMenuOpen] = useState(false);
@@ -15,6 +17,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const submenuRef = useRef(null);
 
   useEffect(() => {
+    AOS.init({ duration: 1000 }); // Initialize AOS with custom settings
     if (isEmployeeMenuOpen) {
       setSubmenuHeight(`${submenuRef.current.scrollHeight}px`);
     } else {
@@ -35,18 +38,23 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900  text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
+      className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        
       } md:translate-x-0 md:w-64`}
+      
+      // data-aos="fade-right" // AOS animation for the sidebar
     >
-      <nav className="flex flex-col h-full overflow-y-auto ">
+      <nav className="flex flex-col h-full overflow-y-auto">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
+          
           <NavItem 
             icon={<AiFillHome />} 
             text="តារាងបង្ហាញទិន្នន័យ" 
             to="/main-dashboard/dashboard" 
             onClick={() => handleLinkClick('Dashboard')} 
             isActive={activeItem === 'Dashboard'} 
+            // data-aos="fade-left" // AOS animation for individual nav items
           />
           <NavItem 
             icon={<FaLaptop />} 
@@ -54,6 +62,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/computer" 
             onClick={() => handleLinkClick('Computer')} 
             isActive={activeItem === 'Computer'} 
+            // data-aos="fade-left" // AOS animation for individual nav items
           />
           <NavItem
             icon={<FaUserFriends />}
@@ -61,6 +70,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             onClick={() => {toggleEmployeeMenu(); handleLinkClick('Employee');}}
             isActive={activeItem === 'Employee'}
             dropdownIcon={isEmployeeMenuOpen ? <FaChevronUp /> : <FaChevronDown />} // Dropdown icon logic
+            // data-aos="fade-left" // AOS animation for individual nav items
           />
           <div
             ref={submenuRef}
@@ -73,18 +83,21 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 to="/main-dashboard/employee/position-list" 
                 onClick={() => handleLinkClick('Employee Position List')} 
                 isActive={activeItem === 'Employee Position List'} 
+                // data-aos="fade-left" // AOS animation for submenu items
               />
               <SubmenuItem 
                 text="តារាងបញ្ជីភេទ" 
                 to="/main-dashboard/employee/gender-list" 
                 onClick={() => handleLinkClick('Gender List')} 
                 isActive={activeItem === 'Gender List'} 
+                // data-aos="fade-right" // AOS animation for submenu items
               />
               <SubmenuItem 
                 text="តារាងបញ្ចូលព័ត៌មានបុគ្គលិក" 
                 to="/main-dashboard/employee/employee-information" 
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
+                // data-aos="fade-right" // AOS animation for submenu items
               />
             </ul>
           </div>
@@ -94,6 +107,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/maintenance" 
             onClick={() => handleLinkClick('Maintenance')} 
             isActive={activeItem === 'Maintenance'} 
+            // data-aos="fade-right" // AOS animation for individual nav items
+            
           />
           <NavItem 
             icon={<FaCog />} 
@@ -101,6 +116,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/settings" 
             onClick={() => handleLinkClick('Settings')} 
             isActive={activeItem === 'Settings'} 
+            // data-aos="fade-right" // AOS animation for individual nav items
           />
           <NavItem 
             icon={<HiChartBar />} 
@@ -108,14 +124,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/report" 
             onClick={() => handleLinkClick('Report')} 
             isActive={activeItem === 'Report'} 
+            // data-aos="fade-right" // AOS animation for individual nav items
           />
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
-
             text="ជំនួយ" 
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 
             isActive={activeItem === 'Help'} 
+            // data-aos="fade-right" // AOS animation for individual nav items
           />
         </ul>
       </nav>
@@ -123,7 +140,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   );
 };
 
-// Navigation Item Component
 const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
   return (
     <li
@@ -133,13 +149,23 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
       onClick={onClick ? onClick : null}
     >
       <Link to={to} className="flex items-center w-full">
+        {/* Icon without animation */}
         <span className="text-xl">{icon}</span>
-        <span className="ml-3 text-base font-normal">{text}</span>
+        {/* Text with AOS animation */}
+        <span 
+          className="ml-3 text-base font-normal" 
+          data-aos="fade-right" // AOS animation for text
+          data-aos-duration="2000" // Custom duration for the text animation
+        >
+          {text}
+        </span>
       </Link>
       {dropdownIcon && <span>{dropdownIcon}</span>} {/* Dropdown icon rendered here */}
     </li>
   );
 };
+
+
 
 // Submenu Item Component
 const SubmenuItem = ({ text, to, onClick, isActive }) => {

@@ -13,6 +13,7 @@ import Loader from './commons/Loader';
 import EmployeeInformation from './content_page/EmployeeInformation';
 import Dashboard from './content_page/Dashboard/Dashboard';
 
+
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
   const [loading, setLoading] = useState(true);
