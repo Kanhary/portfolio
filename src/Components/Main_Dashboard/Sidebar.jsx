@@ -98,9 +98,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavItem 
             icon={<FaCog />} 
             text="Settings" 
-            to="/main" 
-            onClick={() => handleLinkClick('Setting')} 
-            isActive={activeItem === 'Setting'} 
+            to="/main-dashboard/settings" 
+            onClick={() => handleLinkClick('Settings')} 
+            isActive={activeItem === 'Settings'} 
           />
           <NavItem 
             icon={<HiChartBar />} 
@@ -111,6 +111,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           />
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
+
             text="Help" 
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 
@@ -133,7 +134,7 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
     >
       <Link to={to} className="flex items-center w-full">
         <span className="text-xl">{icon}</span>
-        <span className="ml-3 text-base font-medium">{text}</span>
+        <span className="ml-3 text-base font-normal">{text}</span>
       </Link>
       {dropdownIcon && <span>{dropdownIcon}</span>} {/* Dropdown icon rendered here */}
     </li>
