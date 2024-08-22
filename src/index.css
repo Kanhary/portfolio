@@ -14,7 +14,7 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #6b7280; 
-  border-radius: 10px;
+  border-radius: 13px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
