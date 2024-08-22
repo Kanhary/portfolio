@@ -97,7 +97,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           />
           <NavItem 
             icon={<FaCog />} 
-            text="Settings" 
+            text="ការកំណត់" 
             to="/main-dashboard/settings" 
             onClick={() => handleLinkClick('Settings')} 
             isActive={activeItem === 'Settings'} 
@@ -112,7 +112,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
 
-            text="Help" 
+            text="ជំនួយ" 
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 
             isActive={activeItem === 'Help'} 
@@ -134,7 +134,7 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
     >
       <Link to={to} className="flex items-center w-full">
         <span className="text-xl">{icon}</span>
-        <span className="ml-3 text-base font-medium">{text}</span>
+        <span className="ml-3 text-base font-normal">{text}</span>
       </Link>
       {dropdownIcon && <span>{dropdownIcon}</span>} {/* Dropdown icon rendered here */}
     </li>
