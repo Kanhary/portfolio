@@ -131,7 +131,7 @@ const EmployeePositionList = () => {
 
   return (
     <section className='mt-10 font-khmer'>
-      <h1 className='top-0 text-2xl font-semibold text-center '>តារាងមុខតំណែងបុគ្គលិក</h1>
+      <h1 className='text-2xl font-semibold text-center'>Employee Position List</h1>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
@@ -186,7 +186,7 @@ const EmployeePositionList = () => {
                 {currentEmployees.map(employee => (
                   <tr key={employee.code} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                     <td className='sticky left-0 flex px-6 py-4 bg-white'>
-                      <input type="checkbox" className="mr-1 action-checkbox" />
+                      <input type="checkbox" className=" action-checkbox mr-3" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.code, employee.position)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.code)} />
                     </td>
@@ -273,24 +273,24 @@ const EmployeePositionList = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Code</label>
+                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
                     id="code"
                     value={formData.code}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Position</label>
+                  <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700">Position</label>
                   <input
                     type="text"
                     id="position"
                     value={formData.position}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
@@ -301,19 +301,20 @@ const EmployeePositionList = () => {
                   id="description"
                   value={formData.description}
                   onChange={handleChange}
-                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none dark:text-gray-200 bg-gray-50 dark:bg-gray-700 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 dark:focus:ring-blue-500"
+                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 "
                 />
               </div>
             </div>
-            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 dark:bg-gray-900 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
-              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md dark:text-gray-300 dark:bg-gray-800 hover:shadow-lg hover:scale-105 md:w-auto">
-                Cancel
-              </button>
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+              
               <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save
               </button>
               <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save & New
+              </button>
+              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+                Cancel
               </button>
             </footer>
           </div>
@@ -323,71 +324,62 @@ const EmployeePositionList = () => {
 
 
         {isEditModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          
-          <div className="w-1/2 bg-white rounded-lg shadow-lg">
-            <header className='flex items-center justify-between w-full p-3 rounded-t-lg bg-slate-300'>
-              <h2 className="text-xl font-semibold">កែមុខតំណែង</h2>
-              <button className="text-2xl" onClick={closeEditModal}>
-                &times;
-              </button>
-            </header>
-            <form className='p-4'>
-              <div className='flex w-full'>
-                <div className="mb-4">
-                  <label htmlFor="code" className="block text-sm font-medium text-gray-700 ">Code</label>
-                  <input
-                    type="text"
-                    id="code"
-                    value={formData.code}
-                    onChange={handleChange}
-                    className="block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 "
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="position" className="block text-sm font-medium text-gray-700">Position</label>
-                  <input
-                    type="text"
-                    id="position"
-                    value={formData.position}
-                    onChange={handleChange}
-                    className="block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 "
-                  />
-                </div>
-              </div>
-              <div className="mb-4">
-                <label htmlFor="position" className="block text-sm font-medium text-gray-700">Description</label>
-                <textarea
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+        <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
+          <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+            <h2 className="text-xl font-bold text-white md:text-2xl">កែមុខតំណែងថ្មី</h2>
+            <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
+              &times;
+            </button>
+          </header>
+          <div className="px-6 py-6 space-y-6">
+            <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+              {/* Input for Code */}
+              <div className="w-full md:w-1/2">
+                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 ">Code</label>
+                <input
                   type="text"
-                  id="description"
-                  value={formData.description}
+                  id="code"
+                  value={formData.code}
                   onChange={handleChange}
-                  className="block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 "
+                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                 />
               </div>
-              <div className="flex justify-between mt-6">
-                
-                <div className='flex justify-normal'>
-                  <button
-                    type="button"
-                    onClick={handleSave}
-                    className="px-4 py-2 mr-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 "
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    onClick={closeEditModal}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 "
-                  >
-                    Cancel
-                  </button>
-                </div>
+              {/* Input for Position */}
+              <div className="w-full md:w-1/2">
+                <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700">Position</label>
+                <input
+                  type="text"
+                  id="position"
+                  value={formData.position}
+                  onChange={handleChange}
+                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                />
               </div>
-            </form>
+            </div>
+            {/* Input for Description */}
+            <div>
+              <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-70">Description</label>
+              <textarea
+                id="description"
+                value={formData.description}
+                onChange={handleChange}
+                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500"
+              />
+            </div>
           </div>
+          <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 dark:bg-gray-900 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+            
+            <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
+              Save
+            </button>
+            <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+              Cancel
+            </button>
+          </footer>
         </div>
-      )}
+      </div>
+    )}
     </section>
   );
 };
