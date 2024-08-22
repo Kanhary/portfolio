@@ -273,24 +273,24 @@ const EmployeePositionList = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Code</label>
+                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
                     id="code"
                     value={formData.code}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Position</label>
+                  <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700">Position</label>
                   <input
                     type="text"
                     id="position"
                     value={formData.position}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
@@ -301,11 +301,11 @@ const EmployeePositionList = () => {
                   id="description"
                   value={formData.description}
                   onChange={handleChange}
-                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none dark:text-gray-200 bg-gray-50 dark:bg-gray-700 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 dark:focus:ring-blue-500"
+                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 "
                 />
               </div>
             </div>
-            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 dark:bg-gray-900 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
               
               <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save
@@ -313,7 +313,7 @@ const EmployeePositionList = () => {
               <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save & New
               </button>
-              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md dark:text-gray-300 dark:bg-gray-800 hover:shadow-lg hover:scale-105 md:w-auto">
+              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
                 Cancel
               </button>
             </footer>
@@ -336,35 +336,35 @@ const EmployeePositionList = () => {
             <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
               {/* Input for Code */}
               <div className="w-full md:w-1/2">
-                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Code</label>
+                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 ">Code</label>
                 <input
                   type="text"
                   id="code"
                   value={formData.code}
                   onChange={handleChange}
-                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                 />
               </div>
               {/* Input for Position */}
               <div className="w-full md:w-1/2">
-                <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Position</label>
+                <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700">Position</label>
                 <input
                   type="text"
                   id="position"
                   value={formData.position}
                   onChange={handleChange}
-                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                 />
               </div>
             </div>
             {/* Input for Description */}
             <div>
-              <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Description</label>
+              <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-70">Description</label>
               <textarea
                 id="description"
                 value={formData.description}
                 onChange={handleChange}
-                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none dark:text-gray-200 bg-gray-50 dark:bg-gray-700 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 dark:focus:ring-blue-500"
+                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500"
               />
             </div>
           </div>
@@ -373,7 +373,7 @@ const EmployeePositionList = () => {
             <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
               Save
             </button>
-            <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md dark:text-gray-300 dark:bg-gray-800 hover:shadow-lg hover:scale-105 md:w-auto">
+            <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
               Cancel
             </button>
           </footer>

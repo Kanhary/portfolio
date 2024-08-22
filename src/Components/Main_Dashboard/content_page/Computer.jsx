@@ -143,14 +143,14 @@ const Computer = () => {
                   <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
                   <th scope="col" className="px-4 py-3">Code</th>
                   <th scope='col' className='px-4 py-3'>Brand</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Model</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Model</th>
                   <th scope='col' className='px-4 py-3'>Processor</th>
                   <th scope='col' className='px-4 py-3'>RAM</th>
                   <th scope='col' className='px-4 py-3'>Department</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>User</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Location</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope='col' className='px-4 py-3 text-start' style={{ minWidth: '150px' }}>User</th>
+                  <th scope='col' className='px-4 py-3 text-start' style={{ minWidth: '150px' }}>Location</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -245,102 +245,102 @@ const Computer = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Code</label>
+                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
                     id="code"
                     value={formData.code}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="brand" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Brand</label>
+                  <label htmlFor="brand" className="block mb-2 text-sm font-semibold text-gray-700">Brand</label>
                   <input
                     type="text"
                     id="brand"
                     value={formData.brand}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 "
                   />
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="model" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Model</label>
+                  <label htmlFor="model" className="block mb-2 text-sm font-semibold text-gray-700 ">Model</label>
                   <input
                     type="text"
                     id="model"
                     value={formData.model}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="processor" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Processor</label>
+                  <label htmlFor="processor" className="block mb-2 text-sm font-semibold text-gray-700">Processor</label>
                   <input
                     type="text"
                     id="processor"
                     value={formData.processor}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="ram" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">RAM</label>
+                  <label htmlFor="ram" className="block mb-2 text-sm font-semibold text-gray-700">RAM</label>
                   <input
                     type="text"
                     id="ram"
                     value={formData.ram}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="department" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Department</label>
+                  <label htmlFor="department" className="block mb-2 text-sm font-semibold text-gray-70">Department</label>
                   <input
                     type="text"
                     id="department"
                     value={formData.department}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="user" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">User</label>
+                  <label htmlFor="user" className="block mb-2 text-sm font-semibold text-gray-70">User</label>
                   <input
                     type="text"
                     id="user"
                     value={formData.user}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 "
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="location" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Location</label>
+                  <label htmlFor="location" className="block mb-2 text-sm font-semibold text-gray-700">Location</label>
                   <input
                     type="text"
                     id="location"
                     value={formData.location}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               
             </div>
-            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 dark:bg-gray-900 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
               
               <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save
@@ -348,7 +348,7 @@ const Computer = () => {
               <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save & New
               </button>
-              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md dark:text-gray-300 dark:bg-gray-800 hover:shadow-lg hover:scale-105 md:w-auto">
+              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
                 Cancel
               </button>
             </footer>
@@ -370,108 +370,108 @@ const Computer = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Code</label>
+                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
                     id="code"
                     value={formData.code}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500 "
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                     disabled
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="brand" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Brand</label>
+                  <label htmlFor="brand" className="block mb-2 text-sm font-semibold text-gray-700 ">Brand</label>
                   <input
                     type="text"
                     id="brand"
                     value={formData.brand}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="model" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Model</label>
+                  <label htmlFor="model" className="block mb-2 text-sm font-semibold text-gray-700 ">Model</label>
                   <input
                     type="text"
                     id="model"
                     value={formData.model}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="processor" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Processor</label>
+                  <label htmlFor="processor" className="block mb-2 text-sm font-semibold text-gray-700">Processor</label>
                   <input
                     type="text"
                     id="processor"
                     value={formData.processor}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="ram" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">RAM</label>
+                  <label htmlFor="ram" className="block mb-2 text-sm font-semibold text-gray-700">RAM</label>
                   <input
                     type="text"
                     id="ram"
                     value={formData.ram}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="department" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Department</label>
+                  <label htmlFor="department" className="block mb-2 text-sm font-semibold text-gray-700">Department</label>
                   <input
                     type="text"
                     id="department"
                     value={formData.department}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="user" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">User</label>
+                  <label htmlFor="user" className="block mb-2 text-sm font-semibold text-gray-700">User</label>
                   <input
                     type="text"
                     id="user"
                     value={formData.user}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="location" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Location</label>
+                  <label htmlFor="location" className="block mb-2 text-sm font-semibold text-gray-700">Location</label>
                   <input
                     type="text"
                     id="location"
                     value={formData.location}
                     onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm dark:text-gray-200 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-500"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               
             </div>
-            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 dark:bg-gray-900 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
             
             <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
               Save
             </button>
-            <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md dark:text-gray-300 dark:bg-gray-800 hover:shadow-lg hover:scale-105 md:w-auto">
+            <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
               Cancel
             </button>
           </footer>
