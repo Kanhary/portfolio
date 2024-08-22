@@ -537,11 +537,11 @@ const EmployeeInformation = () => {
                   { id: 'height', label: 'កម្ពស់', type: 'text' },
                   { id: 'weight', label: 'ទម្ងន់', type: 'text' },
                   { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                  { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
+                  { id: 'birthdate_address', label: 'ទីកន្លែងកំណើត', type: 'text' },
                   { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                  { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
+                  { id: 'phone_number', label: 'លេខទូរសព្ទ', type: 'text' },
                   { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                  { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
+                  { id: 'special_number', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
                     <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>

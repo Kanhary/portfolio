@@ -186,7 +186,7 @@ const EmployeePositionList = () => {
                 {currentEmployees.map(employee => (
                   <tr key={employee.code} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                     <td className='sticky left-0 flex px-6 py-4 bg-white'>
-                      <input type="checkbox" className=" action-checkbox mr-3" />
+                      <input type="checkbox" className="mr-3 action-checkbox" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.code, employee.position)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.code)} />
                     </td>
@@ -343,6 +343,7 @@ const EmployeePositionList = () => {
                   value={formData.code}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  disabled
                 />
               </div>
               {/* Input for Position */}
