@@ -4,6 +4,7 @@ import { FaPen, FaTrashAlt } from "react-icons/fa";
 const EmployeeInformation = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); // Manage the selected item to edit
+  const [editingEmployee, setEditingEmployee] = useState(null);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,6 +67,23 @@ const EmployeeInformation = () => {
   
 
   const recordsPerPage = 8;
+  //open edit modal
+  const openEditModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
+    setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    setIsEditModalOpen(true);
+  };
+  
+  //close edit modal
+  const closeEditModal = () => {
+    setEditingEmployee(null);
+    setFormData({ id: '', code: '', fullname: '', lastname: '',gender: '', height: '', weight: '',
+      birthdate: '', nation: '', nationality: '', region: '', birthdate_address: '', address: '',
+      phone_number: '',email: '', specialNumber: '', marital_status: '', company: '', branch: '', 
+      department: '', office: '', position: '',last_modified_by: '', last_modified_date: '' });
+    setIsEditModalOpen(false);
+  };
+  
 
   const employees = [
     // Sample data, replace with your actual data
@@ -140,7 +158,7 @@ const EmployeeInformation = () => {
   return (
     <section className='mt-14 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>តារាងបង្ហាញព័ត៌មានបុគ្គលិក</h1>
-      <div className='border mt-3'></div>
+      <div className='mt-3 border'></div>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
@@ -166,11 +184,11 @@ const EmployeeInformation = () => {
               </form>
             </div>
             <div className='flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3'>
-              <button type='button' className='flex items-start justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 duration-300' onClick={() => setIsAddModalOpen(true)}>
+              <button type='button' className='flex items-start justify-center px-4 py-2 text-sm font-medium text-white duration-300 rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300' onClick={() => setIsAddModalOpen(true)}>
               <svg className="h-3.5 w-3.5 mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>
-                <p className='font-normal text-base'> បញ្ចូលព័ត៌មានបុគ្គលិក</p>
+                <p className='text-base font-normal'> បញ្ចូលព័ត៌មានបុគ្គលិក</p>
               </button>
             </div>
           </div>
@@ -179,7 +197,7 @@ const EmployeeInformation = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
-                  <th scope="col" className="px-4 py-3 bg-gray-50 mr-3">Action</th>
+                  <th scope="col" className="px-4 py-3 mr-3 bg-gray-50">Action</th>
                   <th scope="col" className="px-4 py-3">ID</th>
                   <th scope="col" className="px-4 py-3">Code</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
@@ -213,7 +231,11 @@ const EmployeeInformation = () => {
                     <input type="checkbox" className="mr-3 action-checkbox" />
                     <FaPen
                     className="text-blue-500 cursor-pointer hover:text-blue-700"
-                    onClick={() => setIsEditModalOpen(true)} // Replace 'yourItem' with the actual item
+                    onClick={() => openEditModal(employee.id,employee.code,employee.fullname,employee.lastname,employee.gender,
+                      employee.height,employee.weight,employee.birthdate,employee.nation,employee.nation,employee.region,
+                      employee.birthdate_address,employee.address,employee.phone_number,employee.email,employee.special_number,
+                      employee.marital_status,employee.company,employee.branch,employee.department,employee.office,employee.position,
+                      employee.last_modified_by,employee.last_modified_date)} // Replace 'yourItem' with the actual item
                     />
                     <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" />
                     </td>
@@ -239,7 +261,7 @@ const EmployeeInformation = () => {
                     <td className='px-4 py-3'>{employee.department}</td>
                     <td className='px-4 py-3'>{employee.office}</td>
                     <td className='px-4 py-3'>{employee.position}</td>
-                    <td className='px-4 py-3               '>{employee.last_modified_by}</td>
+                    <td className='px-4 py-3 '>{employee.last_modified_by}</td>
                     <td className='px-4 py-3'>{employee.last_modified_date}</td>
                   </tr>
                 ))}
@@ -307,14 +329,14 @@ const EmployeeInformation = () => {
       {isAddModalOpen && (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-      <div className="bg-gray-100 p-4 mb-6 flex items-center justify-between w-full sticky top-0 border-b border-dashed border-gray-300">
-        <h2 className="text-2xl font-medium text-blue-800 font-khmer flex-1 ml-3">
+      <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+        <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
           បញ្ចូលព័ត៌មានបុគ្គលិក
         </h2>
         <button
           type="button"
           onClick={closeEmployeeModal}
-          className="text-gray-500 hover:text-gray-700 bg-gray-100 px-2 py-2 rounded-md ring-1 ring-gray-400 mr-2"
+          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -323,7 +345,7 @@ const EmployeeInformation = () => {
       </div>
 
       <form>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 py-6 px-8">
+        <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
           {[
             { id: 'code', label: 'អត្ថលេខ', type: 'text' },
             { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text' },
@@ -344,7 +366,7 @@ const EmployeeInformation = () => {
                 id={id}
                 value={formData[id] || ''}
                 onChange={handleChange}
-                className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+                className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
               />
             </div>
           ))}
@@ -355,7 +377,7 @@ const EmployeeInformation = () => {
               id="gender"
               value={formData.gender || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             >
               <option value="">ជ្រើសរើស</option>
               <option value="male">ប្រុស</option>
@@ -369,7 +391,7 @@ const EmployeeInformation = () => {
               id="family"
               value={formData.family || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             >
               <option value="">ជ្រើសរើស</option>
               <option value="single">លីវ</option>
@@ -383,7 +405,7 @@ const EmployeeInformation = () => {
               id="region"
               value={formData.region || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             >
               <option value="">ជ្រើសរើស</option>
               <option value="cambodia">កម្ពុជា</option>
@@ -400,7 +422,7 @@ const EmployeeInformation = () => {
               id="nation"
               value={formData.nation || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             />
           </div>
           
@@ -411,7 +433,7 @@ const EmployeeInformation = () => {
               id="nationality"
               value={formData.nationality || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             />
           </div>
 
@@ -421,7 +443,7 @@ const EmployeeInformation = () => {
               id="department"
               value={formData.department || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             >
               <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
               <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
@@ -439,7 +461,7 @@ const EmployeeInformation = () => {
               id="office"
               value={formData.office || ''}
               onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
             >
               <option value="">ជ្រើសរើសការិយាល័យ</option>
               <option value="department">ការិយាល័យរដ្ឋបាល</option>
@@ -462,26 +484,26 @@ const EmployeeInformation = () => {
                 id={id}
                 value={formData[id] || ''}
                 onChange={handleChange}
-                className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+                className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
               />
             </div>
           ))}
         </div>
 
-        <div className="flex justify-center mt-4 p-6 gap-5">
+        <div className="flex justify-center gap-5 p-6 mt-4">
           <button
             type="button"
             onClick={handleSaveEmployee}
             className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
           >
-            <p className='font-normal text-base'>រក្សាទុក</p>
+            <p className='text-base font-normal'>រក្សាទុក</p>
           </button>
           <button
             type="button"
             onClick={closeEmployeeModal}
-            className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 border-dashed"
+            className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
           >
-            <p className='font-normal text-base'>ចាកចេញ</p>
+            <p className='text-base font-normal'>ចាកចេញ</p>
           </button>
         </div>
       </form>
@@ -491,14 +513,14 @@ const EmployeeInformation = () => {
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="bg-gray-100 p-4 mb-6 flex items-center justify-between w-full sticky top-0 border-b border-dashed border-gray-300">
-              <h2 className="text-2xl font-medium text-blue-800 font-khmer flex-1 ml-3">
+            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+              <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
                 កែប្រែព័ត៌មានបុគ្គលិក
               </h2>
               <button
                 type="button"
-                onClick={closeEm}
-                className="text-gray-500 hover:text-gray-700 bg-gray-100 px-2 py-2 rounded-md ring-1 ring-gray-400 mr-2"
+                onClick={closeEditModal}
+                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -507,7 +529,7 @@ const EmployeeInformation = () => {
             </div>
 
             <form>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 py-6 px-8">
+              <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
                 {[
                   { id: 'code', label: 'អត្ថលេខ', type: 'text' },
                   { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text' },
@@ -528,7 +550,7 @@ const EmployeeInformation = () => {
                       id={id}
                       value={formData[id] || ''}
                       onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                     />
                   </div>
                 ))}
@@ -539,7 +561,7 @@ const EmployeeInformation = () => {
                     id="gender"
                     value={formData.gender || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="male">ប្រុស</option>
@@ -553,7 +575,7 @@ const EmployeeInformation = () => {
                     id="family"
                     value={formData.family || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="single">លីវ</option>
@@ -567,7 +589,7 @@ const EmployeeInformation = () => {
                     id="region"
                     value={formData.region || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="cambodia">កម្ពុជា</option>
@@ -584,7 +606,7 @@ const EmployeeInformation = () => {
                     id="nation"
                     value={formData.nation || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   />
                 </div>
                 
@@ -595,7 +617,7 @@ const EmployeeInformation = () => {
                     id="nationality"
                     value={formData.nationality || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   />
                 </div>
 
@@ -605,7 +627,7 @@ const EmployeeInformation = () => {
                     id="department"
                     value={formData.department || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
                     <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
@@ -623,7 +645,7 @@ const EmployeeInformation = () => {
                     id="office"
                     value={formData.office || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1 text-gray-500"
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសការិយាល័យ</option>
                     <option value="department">ការិយាល័យរដ្ឋបាល</option>
@@ -646,26 +668,26 @@ const EmployeeInformation = () => {
                       id={id}
                       value={formData[id] || ''}
                       onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 outline-none focus:ring-1"
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                     />
                   </div>
                 ))}
               </div>
 
-              <div className="flex justify-center mt-4 p-6 gap-5">
+              <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="button"
                   onClick={handleSaveEmployee}
                   className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                 >
-                  <p className='font-normal text-base'>រក្សាទុក</p>
+                  <p className='text-base font-normal'>រក្សាទុក</p>
                 </button>
                 <button
                   type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 border-dashed"
+                  onClick={closeEditModal}
+                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
                 >
-                  <p className='font-normal text-base'>ចាកចេញ</p>
+                  <p className='text-base font-normal'>ចាកចេញ</p>
                 </button>
               </div>
             </form>

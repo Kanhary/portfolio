@@ -8,8 +8,9 @@
     src: url("./assets/Font/KantumrutPro-Regular.ttf") format('truetype');
 }
 /* Global custom scrollbar styles */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
 /* Track */
@@ -24,12 +25,8 @@
   border-radius: 5px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #4b5563; 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(81,57,96);
+  background: linear-gradient(90deg, rgba(81,57,96,1) 0%, rgba(22,68,107,1) 8%, rgba(28,52,75,1) 100%);
 }
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background-color: #e5e7eb; 
-  border-radius: 10px; 
-}
-
