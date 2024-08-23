@@ -43,9 +43,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   const handleLinkClick = (itemName) => {
     setActiveItem(itemName);
-    if (window.innerWidth < 768) {
-      toggleSidebar();
-    }
+    
   };
 
   return (
