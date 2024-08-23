@@ -96,7 +96,8 @@ const GenderList = () => {
 
   return (
     <section className='mt-10 font-khmer'>
-      <h1 className='text-2xl font-semibold text-center'>តារាង</h1>
+      <h1 className='text-xl font-medium text-blue-800'>តារាងបញ្ជីភេទ</h1>
+      <div className='mt-3 border'></div>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
@@ -113,7 +114,7 @@ const GenderList = () => {
                     type="text"
                     id='simple-search'
                     className='block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 '
-                    placeholder='Search'
+                    placeholder='ស្វែងរក'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     required=""

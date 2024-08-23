@@ -46,7 +46,7 @@ const LoginForm = () => {
     data-aos="zoom-in"
     data-aos-duration="2000"
   >
-    <div className="flex flex-col w-full max-w-4xl bg-white rounded-lg shadow-2xl md:flex-row">
+    <div className="flex flex-col w-full max-w-4xl bg-white shadow-2xl rounded-2xl md:flex-row">
       <div className="w-full p-6 md:w-1/2 md:p-10">
         <img
           src="/LOGO PPAP.png"
@@ -111,7 +111,7 @@ const LoginForm = () => {
           </div>
           <div className="flex items-center justify-center">
             <button
-              className="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden text-base font-meduim text-white transition-all duration-300 ease-in-out bg-blue-500 border rounded-md group/button backdrop-blur-lg hover:scale-110 hover:shadow-xl hover:shadow-blue-600/50 border-white/20 "
+              className="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden text-base text-white transition-all duration-300 ease-in-out bg-blue-500 border rounded-md font-meduim group/button backdrop-blur-lg hover:scale-110 hover:shadow-xl hover:shadow-blue-600/50 border-white/20 "
             >
               <span className="text-lg">បញ្ចូលគណនី</span>
               <div
@@ -125,7 +125,7 @@ const LoginForm = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center w-full rounded-b-lg md:w-1/2 bg-gradient-to-br md:rounded-r-lg md:rounded-bl-none">
-        <img src="/login_bg.jpg" alt="" className="object-cover w-full h-full rounded-lg" />
+        <img src="/login_bg.jpg" alt="" className="object-cover w-full h-full rounded-r-2xl" />
       </div>
 
     </div>

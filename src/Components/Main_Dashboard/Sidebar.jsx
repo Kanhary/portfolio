@@ -113,7 +113,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavItem 
             icon={<FaCog />} 
             text="ការកំណត់" 
-            to="/main-dashboard/settings" 
+            to="/main-dashboard/setting" 
             onClick={() => handleLinkClick('Settings')} 
             isActive={activeItem === 'Settings'} 
             // data-aos="fade-right" // AOS animation for individual nav items
