@@ -76,7 +76,7 @@ const Header_page = ({ toggleSidebar }) => {
             </button>
 
             {isNotificationsOpen && (
-              <div className='absolute z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg right-16 top-full'>
+              <div className='absolute z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg right-16 top-full'>
                 <div className='px-4 py-3 text-gray-900'>
                   <p className='flex font-semibold'><BiBell size={18} className='my-1 mr-2' />Notifications</p>
                 </div>
@@ -104,10 +104,10 @@ const Header_page = ({ toggleSidebar }) => {
               <img src="/User.jpg" className='w-8 h-8 rounded-full' alt="User Photo" />
             </button>
             {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-48 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg top-full '>
+              <div className='absolute right-0 z-50 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg w-52 top-full '>
                 <div className='px-4 py-3'>
-                  <p className='text-gray-900 text-ms '>Uk Kagnary</p>
-                  <p className='text-sm font-medium text-gray-900 truncate '>ukkanhary04@gmail.com</p>
+                  <p className='font-bold text-gray-900 text-ms'>Uk Kagnary</p>
+                  <p className='py-1 text-sm font-medium text-gray-400 truncate'>ukkanhary04@gmail.com</p>
                 </div>
                 <ul className="py-1">
                   <li>
