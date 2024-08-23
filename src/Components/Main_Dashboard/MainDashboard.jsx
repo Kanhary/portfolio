@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Header_page from './Header_page';
 import Sidebar from './Sidebar';
 import Computer from './content_page/Computer';
@@ -13,11 +13,10 @@ import Loader from './commons/Loader';
 import EmployeeInformation from './content_page/EmployeeInformation';
 import Dashboard from './content_page/Dashboard/Dashboard';
 
-
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
@@ -41,6 +40,8 @@ function MainDashboard() {
         }`}
       >
         <Routes>
+          {/* Redirect from /main-dashboard to /main-dashboard/dashboard */}
+          <Route path='/' element={<Navigate to='dashboard' />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='computer' element={<Computer />} />
           <Route path='employee/position-list' element={<EmployeePositionList />} />

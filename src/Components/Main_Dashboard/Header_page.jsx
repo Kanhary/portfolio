@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
+
 const Header_page = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -22,23 +23,23 @@ const Header_page = ({ toggleSidebar }) => {
     navigate('/'); // Redirect to login page
   };
 
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current && !dropdownRef.current.contains(event.target) &&
-        notificationsRef.current && !notificationsRef.current.contains(event.target)
-      ) {
-        setIsDropdownOpen(false);
-        setIsNotificationsOpen(false);
-      }
-    };
+  // // Close dropdowns when clicking outside
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (
+  //       dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+  //       notificationsRef.current && !notificationsRef.current.contains(event.target)
+  //     ) {
+  //       setIsDropdownOpen(false);
+  //       setIsNotificationsOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   return (
     <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
@@ -60,7 +61,7 @@ const Header_page = ({ toggleSidebar }) => {
             </button>
             <a href="#" className="flex ms-2 md:me-24">
               <img src='/LOGO PPAP.png' className="h-8 me-3" alt="PPAP Logo" />
-              <span className="self-center text-xl font-meduim sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
+              <span className="self-center text-xl font-medium sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
             </a>
           </div>
           <div className='relative flex items-center ms-3'>
