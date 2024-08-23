@@ -89,7 +89,7 @@ const Header_page = ({ toggleSidebar }) => {
                 </div>
                 <ul className="py-1">
                   <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 " onClick={handleLogout}>Sign out</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 " onClick={handleLogout}>Sign out</a>
                   </li>
                 </ul>
               </div>
