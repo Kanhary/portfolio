@@ -12,6 +12,9 @@ import Report from './content_page/Report';
 import Loader from './commons/Loader';
 import EmployeeInformation from './content_page/EmployeeInformation';
 import Dashboard from './content_page/Dashboard/Dashboard';
+import User from './content_page/System_Setting/User';
+import Role from './content_page/System_Setting/Role';
+import Permission from './content_page/System_Setting/Permission';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -47,6 +50,9 @@ function MainDashboard() {
           <Route path='employee/position-list' element={<EmployeePositionList />} />
           <Route path='employee/gender-list' element={<GenderList />} />
           <Route path='employee/employee-information' element={<EmployeeInformation />} />
+          <Route path='system-setting/user' element={<User/>} />
+          <Route path='system-setting/role' element={<Role/>} />
+          <Route path='system-setting/permission' element={<Permission/>} />
           <Route path='maintenance' element={<Maintenance />} />
           <Route path='setting' element={<Setting />} />
           <Route path='report' element={<Report />} />

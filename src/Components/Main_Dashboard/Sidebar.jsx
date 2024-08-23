@@ -11,10 +11,13 @@ import 'aos/dist/aos.css'; // Import AOS styles
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [isEmployeeMenuOpen, setEmployeeMenuOpen] = useState(false);
+  const [isSystemSettingMenuOpen, setSystemSettingMenuOpen] = useState(false); // State for System Setting submenu
   const [activeItem, setActiveItem] = useState('');
   const [submenuHeight, setSubmenuHeight] = useState('0px'); // State for submenu height
+  const [systemSubmenuHeight, setSystemSubmenuHeight] = useState('0px'); // State for System Setting submenu height
 
   const submenuRef = useRef(null);
+  const systemSubmenuRef = useRef(null); // Ref for System Setting submenu
 
   useEffect(() => {
     AOS.init({ duration: 1000 }); // Initialize AOS with custom settings
@@ -23,10 +26,19 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     } else {
       setSubmenuHeight('0px');
     }
-  }, [isEmployeeMenuOpen]);
+    if (isSystemSettingMenuOpen) {
+      setSystemSubmenuHeight(`${systemSubmenuRef.current.scrollHeight}px`);
+    } else {
+      setSystemSubmenuHeight('0px');
+    }
+  }, [isEmployeeMenuOpen, isSystemSettingMenuOpen]);
 
   const toggleEmployeeMenu = () => {
     setEmployeeMenuOpen(prevState => !prevState);
+  };
+
+  const toggleSystemSettingMenu = () => {
+    setSystemSettingMenuOpen(prevState => !prevState);
   };
 
   const handleLinkClick = (itemName) => {
@@ -43,18 +55,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         
       } md:translate-x-0 md:w-64`}
       
-      // data-aos="fade-right" // AOS animation for the sidebar
     >
       <nav className="flex flex-col h-full overflow-y-auto">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
-          
           <NavItem 
             icon={<AiFillHome />} 
             text="តារាងបង្ហាញទិន្នន័យ" 
             to="/main-dashboard/dashboard" 
             onClick={() => handleLinkClick('Dashboard')} 
             isActive={activeItem === 'Dashboard'} 
-            // data-aos="fade-left" // AOS animation for individual nav items
           />
           <NavItem 
             icon={<FaLaptop />} 
@@ -62,7 +71,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/computer" 
             onClick={() => handleLinkClick('Computer')} 
             isActive={activeItem === 'Computer'} 
-            // data-aos="fade-left" // AOS animation for individual nav items
           />
           <NavItem
             icon={<FaUserFriends />}
@@ -70,7 +78,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             onClick={() => {toggleEmployeeMenu(); handleLinkClick('Employee');}}
             isActive={activeItem === 'Employee'}
             dropdownIcon={isEmployeeMenuOpen ? <FaChevronUp /> : <FaChevronDown />} // Dropdown icon logic
-            // data-aos="fade-left" // AOS animation for individual nav items
           />
           <div
             ref={submenuRef}
@@ -83,40 +90,63 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 to="/main-dashboard/employee/position-list" 
                 onClick={() => handleLinkClick('Employee Position List')} 
                 isActive={activeItem === 'Employee Position List'} 
-                // data-aos="fade-left" // AOS animation for submenu items
               />
               <SubmenuItem 
                 text="តារាងបញ្ជីភេទ" 
                 to="/main-dashboard/employee/gender-list" 
                 onClick={() => handleLinkClick('Gender List')} 
                 isActive={activeItem === 'Gender List'} 
-                // data-aos="fade-right" // AOS animation for submenu items
               />
               <SubmenuItem 
                 text="តារាងបញ្ចូលព័ត៌មានបុគ្គលិក" 
                 to="/main-dashboard/employee/employee-information" 
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
-                // data-aos="fade-right" // AOS animation for submenu items
               />
             </ul>
           </div>
+
+          {/* System Setting Menu */}
+          <NavItem
+            icon={<FaCog />}
+            text="ការកំណត់ប្រព័ន្ធ"
+            onClick={() => {toggleSystemSettingMenu(); handleLinkClick('System Setting');}}
+            isActive={activeItem === 'System Setting'}
+            dropdownIcon={isSystemSettingMenuOpen ? <FaChevronUp /> : <FaChevronDown />} // Dropdown icon logic for System Setting
+          />
+          <div
+            ref={systemSubmenuRef}
+            style={{ height: systemSubmenuHeight }}
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+          >
+            <ul className="ml-6 space-y-1">
+              <SubmenuItem 
+                text="អ្នកប្រើប្រាស់" 
+                to="/main-dashboard/system-setting/user" 
+                onClick={() => handleLinkClick('User')} 
+                isActive={activeItem === 'User'} 
+              />
+              <SubmenuItem 
+                text="តួនាទី" 
+                to="/main-dashboard/system-setting/role" 
+                onClick={() => handleLinkClick('Role')} 
+                isActive={activeItem === 'Role'} 
+              />
+              <SubmenuItem 
+                text="ការអនុញ្ញាត" 
+                to="/main-dashboard/system-setting/permission" 
+                onClick={() => handleLinkClick('Permission')} 
+                isActive={activeItem === 'Permission'} 
+              />
+            </ul>
+          </div>
+
           <NavItem 
             icon={<FaScrewdriverWrench />} 
             text="ការថែទាំ" 
             to="/main-dashboard/maintenance" 
             onClick={() => handleLinkClick('Maintenance')} 
             isActive={activeItem === 'Maintenance'} 
-            // data-aos="fade-right" // AOS animation for individual nav items
-            
-          />
-          <NavItem 
-            icon={<FaCog />} 
-            text="ការកំណត់" 
-            to="/main-dashboard/setting" 
-            onClick={() => handleLinkClick('Settings')} 
-            isActive={activeItem === 'Settings'} 
-            // data-aos="fade-right" // AOS animation for individual nav items
           />
           <NavItem 
             icon={<HiChartBar />} 
@@ -124,7 +154,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/report" 
             onClick={() => handleLinkClick('Report')} 
             isActive={activeItem === 'Report'} 
-            // data-aos="fade-right" // AOS animation for individual nav items
           />
           <NavItem 
             icon={<BsFillQuestionCircleFill />}
@@ -132,7 +161,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to="/main-dashboard/help" 
             onClick={() => handleLinkClick('Help')} 
             isActive={activeItem === 'Help'} 
-            // data-aos="fade-right" // AOS animation for individual nav items
           />
         </ul>
       </nav>
@@ -164,8 +192,6 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
     </li>
   );
 };
-
-
 
 // Submenu Item Component
 const SubmenuItem = ({ text, to, onClick, isActive }) => {
