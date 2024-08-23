@@ -12,8 +12,8 @@ const Computer = () => {
   const [editingComputer, setEditingComputer] = useState(null);
 
   const computers = [
-    {code: 'C001',brand: 'Dell',model: 'XPS 13',processor: 'Intel i7',ram: '16GB',department: 'IT',user: 'John Doe',location: 'Office 101'},
-    {code: 'C002',brand: 'Apple',model: 'MacBook Pro',processor: 'M1',ram: '32GB',department: 'Design',user: 'Jane Smith',location: 'Office 102'}
+    {code: 'C001',brand: 'Dell',model: 'XPS 13',processor: 'Intel i7',ram: '16GB',department: 'នាយកដ្ឋានរដ្ឋបាល',user: 'អ៊ុក​ កញ្ញារី',location: 'Office 101'},
+    {code: 'C002',brand: 'Apple',model: 'MacBook Pro',processor: 'M1',ram: '32GB',department: 'នាយកដ្ឋានរដ្ឋបាល',user: 'អ៊ុក​ កញ្ញារី',location: 'Office 102'}
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
