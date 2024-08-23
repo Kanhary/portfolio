@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { FiBell } from "react-icons/fi";
-
+import { BiBell } from "react-icons/bi";
 const Header_page = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -70,7 +69,7 @@ const Header_page = ({ toggleSidebar }) => {
               onClick={handleNotificationsToggle}
               ref={notificationsRef}
             >
-              <FiBell size={24} />
+              <BiBell size={24} />
               <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs text-white bg-red-500 rounded-full">
                 3
               </span>
@@ -79,7 +78,7 @@ const Header_page = ({ toggleSidebar }) => {
             {isNotificationsOpen && (
               <div className='absolute z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg right-16 top-full'>
                 <div className='px-4 py-3 text-gray-900'>
-                  <p className='font-semibold'>Notifications</p>
+                  <p className='flex font-semibold'><BiBell size={18} className='my-1 mr-2' />Notifications</p>
                 </div>
                 <ul className="py-1">
                   <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
