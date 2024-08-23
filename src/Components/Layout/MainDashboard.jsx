@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Header_page from './Header_page';
+import Header_page from './HeaderPage';
 import Sidebar from './Sidebar';
-import Computer from './content_page/Computer';
-import EmployeePositionList from './content_page/EmployeePositionList';
-import GenderList from './content_page/GenderList';
-import Maintenance from './content_page/Maintenance';
-import Setting from './content_page/Setting';
-import Help from './content_page/Help';
-import Report from './content_page/Report';
-import Loader from './commons/Loader';
-import EmployeeInformation from './content_page/EmployeeInformation';
-import Dashboard from './content_page/Dashboard/Dashboard';
-import User from './content_page/System_Setting/User';
-import Role from './content_page/System_Setting/Role';
-import Permission from './content_page/System_Setting/Permission';
+import Computer from '../Pages/Computer';
+import EmployeePositionList from '../Pages/employee/EmployeePositionList';
+import GenderList from '../Pages/employee/GenderList';
+import Maintenance from '../Pages/Maintenance';
+import Setting from '../Pages/Setting';
+import Help from '../Pages/Help';
+import Report from '../Pages/Report';
+import Loader from '../commons/Loader';
+import EmployeeInformation from '../Pages/employee/EmployeeInformation';
+import Dashboard from '../Pages/Dashboard';
+import User from '../SystemSetting/User';
+import Role from '../SystemSetting/Role';
+import Permission from '../SystemSetting/Permission';
+import NotFound from '../Pages/NotFound';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -57,15 +58,13 @@ function MainDashboard() {
           <Route path='setting' element={<Setting />} />
           <Route path='report' element={<Report />} />
           <Route path='help' element={<Help />} />
-          <Route path='*' element={<NotFound />} /> {/* Handle unmatched routes */}
+          <Route path='*' element={<NotFound/>} /> {/* Handle unmatched routes */}
         </Routes>
       </main>
     </div>
   );
 }
 
-function NotFound() {
-  return <div className='p-6 text-center text-gray-700'>Page Not Found</div>;
-}
+
 
 export default MainDashboard;

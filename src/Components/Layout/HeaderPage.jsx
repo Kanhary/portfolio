@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
 
-const Header_page = ({ toggleSidebar }) => {
+const HeaderPage = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();
@@ -124,4 +124,4 @@ const Header_page = ({ toggleSidebar }) => {
   );
 };
 
-export default Header_page;
+export default HeaderPage;
