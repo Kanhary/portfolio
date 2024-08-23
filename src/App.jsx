@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Login from './Components/Login';
-import MainDashboard from './Components/Main_Dashboard/MainDashboard';
+
+import MainDashboard from './Components/Layout/MainDashboard';
+import LoginForm from './Components/auth/Login';
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Login route */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LoginForm/>} />
         {/* Redirect root path to /main-dashboard */}
         {/* <Route path="/" element={<Navigate to="/main-dashboard" />} /> */}
         
