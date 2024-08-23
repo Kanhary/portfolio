@@ -64,7 +64,7 @@ const Header_page = ({ toggleSidebar }) => {
                     New employee added
                   </li>
                   <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    System update available
+                    Server backup completed
                   </li>
                   <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Server backup completed
