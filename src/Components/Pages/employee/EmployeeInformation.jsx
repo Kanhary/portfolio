@@ -14,6 +14,31 @@ const EmployeeInformation = () => {
   const [photoName, setPhotoName] = useState('');
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const nothingChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    Object.keys(formData).forEach((key) => {
+      if (!formData[key]) {
+        newErrors[key] = 'This field is required';
+      }
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      // Handle form submission
+      console.log('Form Data:', formData);
+    }
+  };
 
   const [formData, setFormData] = useState({
     id: '',
@@ -223,7 +248,7 @@ const EmployeeInformation = () => {
                   <input
                     type="text"
                     id='simple-search'
-                    className='block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 '
+                    className='block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-300 focus:border-primary-00 focus:outline-none focus:ring-1 '
                     placeholder='Search by Full Name or Code'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -378,189 +403,222 @@ const EmployeeInformation = () => {
       </div>
       
       {isAddModalOpen && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-      <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
-        <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
-          បញ្ចូលព័ត៌មានបុគ្គលិក
-        </h2>
-        <button
-          type="button"
-          onClick={closeEmployeeModal}
-          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-
-      <form>
-        <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
-          {[
-            { id: 'code', label: 'អត្ថលេខ', type: 'text' },
-            { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text' },
-            { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text' },
-            { id: 'height', label: 'កម្ពស់', type: 'text' },
-            { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-            { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-            { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
-            { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-            { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
-            { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-            { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-          ].map(({ id, label, type }) => (
-            <div key={id} className="flex flex-col gap-2">
-              <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
-              <input
-                type={type}
-                id={id}
-                value={formData[id] || ''}
-                onChange={handleChange}
-                className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-              />
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
+            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+              <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
+                បញ្ចូលព័ត៌មានបុគ្គលិក
+              </h2>
+              <button
+                type="button"
+                onClick={closeEmployeeModal}
+                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
             </div>
-          ))}
-          
-          <div className="flex flex-col gap-2">
-            <label htmlFor="gender" className="text-sm font-medium text-gray-700">ភេទ</label>
-            <select
-              id="gender"
-              value={formData.gender || ''}
-              onChange={handleChange}
-              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            >
-              <option value="">ជ្រើសរើស</option>
-              <option value="male">ប្រុស</option>
-              <option value="female">ស្រី</option>
-            </select>
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="family" className="text-sm font-medium text-gray-700">ស្ថានភាពគ្រួសារ</label>
-            <select
-              id="family"
-              value={formData.family || ''}
-              onChange={handleChange}
-              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            >
-              <option value="">ជ្រើសរើស</option>
-              <option value="single">លីវ</option>
-              <option value="married">មានគូរស្វាមី</option>
-            </select>
-          </div>
-          
-          <div className="flex flex-col gap-2">
-            <label htmlFor="region" className="text-sm font-medium text-gray-700">ប្រទេស</label>
-            <select
-              id="region"
-              value={formData.region || ''}
-              onChange={handleChange}
-              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            >
-              <option value="">ជ្រើសរើស</option>
-              <option value="cambodia">កម្ពុជា</option>
-              <option value="thailand">ថៃ</option>
-              <option value="vietnam">វៀតណាម</option>
-              {/* Add more regions as needed */}
-            </select>
-          </div>
+            <form>
+              <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
+                
+                {[
+                  { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
+                  { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
+                  { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
+                  { id: 'height', label: 'កម្ពស់', type: 'text' },
+                  { id: 'weight', label: 'ទម្ងន់', type: 'text' },
+                  { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
+                  { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
+                  { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
+                  { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
+                  { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
+                  { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
+                ].map(({ id, label, type, required }) => (
+                  <div key={id} className="flex flex-col gap-2">
+                    <label htmlFor={id} className="text-sm font-medium text-gray-700 flex gap-1">{required && !formData[id] && (
+                      <p className="text-red-600 text-sm">* </p>
+                    )}{label}</label>
+                    <input
+                      type={type}
+                      id={id}
+                      value={formData[id] || ''}
+                      onChange={handleChange}
+                      required={required}
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    />
+                    {/* {required && !formData[id] && (
+                      <p className="text-red-600 text-sm">This field is required</p>
+                    )} */}
+                  </div>
+                ))}
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="nation" className="text-sm font-medium text-gray-700">ជនជាតិ</label>
-            <input
-              type="text"
-              id="nation"
-              value={formData.nation || ''}
-              onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            />
-          </div>
-          
-          <div className="flex flex-col gap-2">
-            <label htmlFor="nationality" className="text-sm font-medium text-gray-700">សញ្ជាតិ</label>
-            <input
-              type="text"
-              id="nationality"
-              value={formData.nationality || ''}
-              onChange={handleChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            />
-          </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="gender" className="text-sm font-medium text-gray-70 flex gap-1">{!formData.gender && <p className="text-red-600 text-sm">*</p>}ភេទ</label>
+                  <select
+                    id="gender"
+                    value={formData.gender || ''}
+                    onChange={handleChange}
+                    required
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  >
+                    <option value="">ជ្រើសរើស</option>
+                    <option value="male">ប្រុស</option>
+                    <option value="female">ស្រី</option>
+                  </select>
+                  {/* {!formData.gender && <p className="text-red-600 text-sm">This field is required</p>} */}
+                </div>
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="department" className="text-sm font-medium text-gray-700">នាយកដ្ឋាន</label>
-            <select
-              id="department"
-              value={formData.department || ''}
-              onChange={handleChange}
-              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            >
-              <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
-              <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
-              <option value="it">នាយកដ្ឋាននាវាចរណ៍</option>
-              <option value="pa">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
-              <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="family" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.family && <p className="text-red-600 text-sm">*</p>}ស្ថានភាពគ្រួសារ</label>
+                  <select
+                    id="family"
+                    value={formData.family || ''}
+                    onChange={handleChange}
+                    required
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  >
+                    <option value="">ជ្រើសរើស</option>
+                    <option value="single">លីវ</option>
+                    <option value="married">មានគូរស្វាមី</option>
+                  </select>
+                  {/* {!formData.family && <p className="text-red-600 text-sm">This field is required</p>} */}
+                </div>
 
-              {/* Add more departments as needed */}
-            </select>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="region" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.region && <p className="text-red-600 text-sm">*</p>}ប្រទេស</label>
+                  <select
+                    id="region"
+                    value={formData.region || ''}
+                    onChange={handleChange}
+                    required
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  >
+                    <option value="">ជ្រើសរើស</option>
+                    <option value="cambodia">កម្ពុជា</option>
+                    <option value="thailand">ថៃ</option>
+                    <option value="vietnam">វៀតណាម</option>
+                    {/* Add more regions as needed */}
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="nation" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.nation && <p className="text-red-600 text-sm">*</p>}ជនជាតិ</label>
+                  <input
+                    type="text"
+                    id="nation"
+                    value={formData.nation || ''}
+                    onChange={handleChange}
+                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="nationality" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.nationality && <p className="text-red-600 text-sm">*</p>}សញ្ជាតិ</label>
+                  <input
+                    type="text"
+                    id="nationality"
+                    value={formData.nationality || ''}
+                    onChange={handleChange}
+                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="department" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.department && <p className="text-red-600 text-sm ">*</p>}នាយកដ្ឋាន</label>
+                  <select
+                    id="department"
+                    value={formData.department || ''}
+                    onChange={handleChange}
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  >
+                    <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
+                    <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
+                    <option value="it">នាយកដ្ឋាននាវាចរណ៍</option>
+                    <option value="pa">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
+                    <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
+                    {/* Add more departments as needed */}
+                  </select>
+                  {/* {!formData.department && <p className="text-red-600 text-sm">This field is required</p>} */}
+
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="office" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.office && <p className="text-red-600 text-sm">*</p>}ការិយាល័យ</label>
+                  <select
+                    id="office"
+                    value={formData.office || ''}
+                    onChange={handleChange}
+                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                  >
+                    <option value="">ជ្រើសរើសការិយាល័យ</option>
+                    <option value="department">ការិយាល័យរដ្ឋបាល</option>
+                    <option value="it">ការិយាល័យព័ត៌មានវិទ្យា</option>
+                    <option value="accounting">ការិយាល័យគណនេយ្យ</option>
+                    {/* Add more offices as needed */}
+                  </select>
+                  {/* {!formData.office && <p className="text-red-600 text-sm">This field is required</p>} */}
+
+                </div>
+
+                {[
+                  { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
+                  // { id: 'position', label: 'តួនាទី', type: 'text' }
+                ].map(({ id, label, type }) => (
+                  <div key={id} className="flex flex-col gap-2">
+                    <label htmlFor={id} className="text-sm font-medium text-gray-700 flex gap-1">{!formData.company && <p className="text-red-600 text-sm">*</p>}{label}</label>
+                    
+                    <input
+                      type={type}
+                      id={id}
+                      value={formData[id] || ''}
+                      onChange={handleChange}
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    />
+                  </div>
+                ))}
+
+      {[
+                  // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
+                  { id: 'position', label: 'តួនាទី', type: 'text' }
+                ].map(({ id, label, type }) => (
+                  <div key={id} className="flex flex-col gap-2">
+                    <label htmlFor={id} className="text-sm font-medium text-gray-700 flex gap-1">{!formData.position && <p className="text-red-600 text-sm">*</p>}{label}</label>
+                    
+                    <input
+                      type={type}
+                      id={id}
+                      value={formData[id] || ''}
+                      onChange={handleChange}
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    />
+                  </div>
+                ))}
+              </div>
+              
+
+              <div className="flex justify-center gap-5 p-6 mt-4">
+                <button
+                  type="submit"
+                  // onClick={updateClick}
+                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                >
+                  <p className='text-base font-normal'>រក្សាទុក</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={closeEmployeeModal}
+                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                >
+                  <p className='text-base font-normal'>ចាកចេញ</p>
+                </button>
+              </div>
+            </form>
           </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="office" className="text-sm font-medium text-gray-700">ការិយាល័យ</label>
-            <select
-              id="office"
-              value={formData.office || ''}
-              onChange={handleChange}
-              className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-            >
-              <option value="">ជ្រើសរើសការិយាល័យ</option>
-              <option value="department">ការិយាល័យរដ្ឋបាល</option>
-              <option value="it">ការិយាល័យព័ត៌មានវិទ្យា</option>
-              <option value="it">ការិយាល័យគណនេយ្យ</option>
-              {/* <option value="it"></option> */}
-
-              {/* Add more offices as needed */}
-            </select>
-          </div>
-          
-          {[
-            { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-            { id: 'position', label: 'តួនាទី', type: 'text' }
-          ].map(({ id, label, type }) => (
-            <div key={id} className="flex flex-col gap-2">
-              <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
-              <input
-                type={type}
-                id={id}
-                value={formData[id] || ''}
-                onChange={handleChange}
-                className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-              />
-            </div>
-          ))}
         </div>
+      )}
 
-        <div className="flex justify-center gap-5 p-6 mt-4">
-          <button
-            type="button"
-            onClick={updateClick}
-            className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-          >
-            <p className='text-base font-normal'>រក្សាទុក</p>
-          </button>
-          <button
-            type="button"
-            onClick={closeEmployeeModal}
-            className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-          >
-            <p className='text-base font-normal'>ចាកចេញ</p>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
