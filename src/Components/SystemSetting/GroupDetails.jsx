@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Role = () => {
+const GroupDetails = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Role = () => {
   )
 }
 
-export default Role
+export default GroupDetails

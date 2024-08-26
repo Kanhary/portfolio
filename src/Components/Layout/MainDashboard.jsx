@@ -13,9 +13,11 @@ import Loader from '../commons/Loader';
 import EmployeeInformation from '../Pages/employee/EmployeeInformation';
 import Dashboard from '../Pages/Dashboard';
 import User from '../SystemSetting/User';
-import Role from '../SystemSetting/Role';
-import Permission from '../SystemSetting/Permission';
+
 import NotFound from '../Pages/NotFound';
+import GroupMaster from '../SystemSetting/GroupMaster';
+import ItemPermission from '../SystemSetting/ItemPermission';
+import GroupDetails from '../SystemSetting/GroupDetails';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -52,8 +54,9 @@ function MainDashboard() {
           <Route path='employee/gender-list' element={<GenderList />} />
           <Route path='employee/employee-information' element={<EmployeeInformation />} />
           <Route path='system-setting/user' element={<User/>} />
-          <Route path='system-setting/role' element={<Role/>} />
-          <Route path='system-setting/permission' element={<Permission/>} />
+          <Route path='system-setting/group-master' element={<GroupMaster/>} />
+          <Route path='system-setting/item-permission' element={<ItemPermission/>} />
+          <Route path='system-setting/group-details'element={<GroupDetails/>} />
           <Route path='maintenance' element={<Maintenance />} />
           <Route path='setting' element={<Setting />} />
           <Route path='report' element={<Report />} />

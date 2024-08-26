@@ -125,16 +125,22 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 isActive={activeItem === 'User'} 
               />
               <SubmenuItem 
-                text="តួនាទី" 
-                to="/main-dashboard/system-setting/role" 
-                onClick={() => handleLinkClick('Role')} 
-                isActive={activeItem === 'Role'} 
+                text="Group Master" 
+                to="/main-dashboard/system-setting/group-master" 
+                onClick={() => handleLinkClick('Group-Master')} 
+                isActive={activeItem === 'Group-Master'} 
               />
               <SubmenuItem 
-                text="ការអនុញ្ញាត" 
-                to="/main-dashboard/system-setting/permission" 
-                onClick={() => handleLinkClick('Permission')} 
-                isActive={activeItem === 'Permission'} 
+                text="Item Permission" 
+                to="/main-dashboard/system-setting/item-permission" 
+                onClick={() => handleLinkClick('Item-Permission')} 
+                isActive={activeItem === 'Item-Permission'} 
+              />
+              <SubmenuItem 
+                text="Group Details" 
+                to="/main-dashboard/system-setting/group-details" 
+                onClick={() => handleLinkClick('Group-details')} 
+                isActive={activeItem === 'Group-Details'} 
               />
             </ul>
           </div>
