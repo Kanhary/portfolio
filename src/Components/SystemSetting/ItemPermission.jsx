@@ -1,30 +1,39 @@
 import React, { useState } from 'react';
-import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { FaPen, FaTrashAlt } from "react-icons/fa"
 
-const Permission = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const ItemPermission = () => {
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ code: '', position: '' });
-  const [editingGender, setEditingGender] = useState(null);
+  const [formData, setFormData] = useState({code: '', functionCode: '',function: ''});
+  const [editingItemPermission,setEditingItemPermission] = useState(null);
+  
+  const items = [
+    {code: '001', functionCode: 'Dashboard', functionName: 'Dashboard'},
+    {code: '002', functionCode: 'Computer', functionName: 'Computer'},
+    {code: '003', functionCode: 'EmployeePositionList', functionName: 'Employee Position List'},
+    {code: '004', functionCode: 'GenderList' ,functionName: 'Gender List'},
+    {code: '005', functionCode: 'EmployeeInformation', functionName: 'Employee Information'},
+    {code: '006', functionCode: 'User', functionName: 'Users'},
+    {code: '007', functionCode: 'GroupMaster', functionName: 'Group Master'},
+    {code: '008', functionCode: 'ItemPermission', functionName: 'Item Permission'},
+    {code: '009', functionCode: 'GroupDetail', functionName: 'Group Details'},
+    {code: '0010', functionCode: 'Maintenance', functionName: 'Maintenance'},
+    {code: '0011', functionCode: 'Report', functionName: 'Report'},
+    {code: '0012', functionCode: 'Help', functionName: 'Help'}
+    
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
 
-  const permissions = [
-    { code: 'ITEM-0001', codeFunction: 'FORMUSERGROUP', discription: 'option for add user system to group and can remove user from group', type: 'SEC' }, 
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
-  const filteredGender = permissions.filter(permission =>
-    permission.codeFunction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    permission.code.includes(searchTerm)
+  const filterItemPermission = items.filter(item =>
+    item.functionCode.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+    item.code.includes(searchTerm)
   );
-  const totalPages = Math.ceil(filteredGender.length / recordsPerPage);
-
+  const totalPages = Math.ceil(filterItemPermission.length / recordsPerPage);
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
@@ -33,7 +42,7 @@ const Permission = () => {
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentGenders = filteredGender.slice(indexOfFirstRecord, indexOfLastRecord);
+  const currentItemPermission = filterItemPermission.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const getPaginationItems = () => {
     let pages = [];
@@ -54,15 +63,15 @@ const Permission = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  const openEditModal = (code, codeFunction, discription, type) => {
-    setEditingGender({ code, codeFunction, discription, type });
-    setFormData({ code, codeFunction, discription, type });
+  const openEditModal = (code, functionCode, functionName) => {
+    setEditingGroupMaster({ code, functionCode, functionCode });
+    setFormData({ code, functionCode, functionName });
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
-    setEditingGender(null);
-    setFormData({ code: '', codeFunction: '', discription: '', type: ''});
+    setEditingGroupMaster(null);
+    setFormData({ code: '', functionCode: '', functionName: '' });
     setIsEditModalOpen(false);
   };
 
@@ -73,7 +82,7 @@ const Permission = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', codeFunction: '', discription: '', type: ''});
+    setFormData({ code: '', functionCode: '', functionName: '' });
   };
 
   const handleSave = () => {
@@ -86,14 +95,29 @@ const Permission = () => {
     closeEditModal();
   };
 
-  const deleteGender = (code) => {
-    if (window.confirm("Are you sure you want to delete this employee?")) {
-      // Your delete logic here...
-    }
-  };
+  const handleClick = ()=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#22c55e",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
+  
   return (
-   <section className='mt-10 font-khmer'>
-    <h1 className='text-xl font-medium text-blue-800'>ការអនុញ្ញាត</h1>
+    <section className='mt-10 font-khmer'>
+    <h1 className='text-xl font-medium text-blue-800'>Item Permission</h1>
       <div className='mt-3 border'></div>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
@@ -139,25 +163,27 @@ const Permission = () => {
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 ">Action</th>
                   <th scope="col" className="px-4 py-3">Code</th>
-                  <th scope='col' className='px-4 py-3'>Function Code</th>
-                  <th scope='col' className='px-4 py-3'style={{ minWidth: '300px' }}>Description</th>
-                  <th scope='col' className='px-4 py-3'>Type</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '300px' }}>Function Code</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '300px' }}>Function Name</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
-                {currentGenders.map((permission, index) => (
+                {currentItemPermission.map((item, index) => (
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                       <td className='sticky left-0 flex px-6 py-4 bg-white'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
-                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(user.code, user.username, user.firstname, user.lastname, user.phoneNumber, user.email)} />
-                        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteGender(user.code)} />
+                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" 
+                        // onClick={() => openEditModal(user.code, user.username, user.firstname, user.lastname, user.phoneNumber, user.email)} 
+                        />
+                        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" 
+                        // onClick={() => deleteGender(user.code)} 
+                        />
                     </td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{permission.code}</td>
-                    <td className='px-4 py-3' >{permission.codeFunction}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '500px' }}>{permission.discription}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{permission.type}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{item.code}</td>
+                    <td className='px-4 py-3' >{item.functionCode}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{item.functionName}</td>
                     <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
                     <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
                     </tr>
@@ -224,7 +250,8 @@ const Permission = () => {
         </div>
       </div>
    </section>
+
   )
 }
 
-export default Permission
+export default ItemPermission

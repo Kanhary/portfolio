@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
-import Swal from 'sweetalert2';
 
-
-const User = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const GroupMaster = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ code: '', username: '', firstname: '',lastname: '',phoneNumber: '', email: '' });
-  const [editingGender, setEditingGender] = useState(null);
+  const [formData, setFormData] = useState({code: '', groupCode: '',groupName: ''});
+  const [editingGroupMaster,setEditingGroupMaster] = useState(null);
+  
+  const groupMaster = [
+    {code: '001', groupCode: 'Admin', groupName: 'super-admin'},
+    {code: '002', groupCode: 'User', groupName: 'user'},
+    {code: '003', groupCode: 'Editor', groupName: 'Editor'}
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
 
-  const users = [
-    { code: 'USER-0004', username: 'admin', firstname: 'Uk', lastname: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' }, 
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
-  const filteredUser = users.filter(user =>
-    user.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.code.includes(searchTerm)
+  const filterGroupMaster = groupMaster.filter(groupmaster =>
+    groupmaster.groupCode.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+    groupmaster.code.includes(searchTerm)
   );
-  const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
-
+  const totalPages = Math.ceil(filterGroupMaster.length / recordsPerPage);
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
@@ -35,7 +31,7 @@ const User = () => {
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
+  const currentGroupMaster = filterGroupMaster.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const getPaginationItems = () => {
     let pages = [];
@@ -56,15 +52,15 @@ const User = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  const openEditModal = (code, username, firstname, lastname, phoneNumber, email) => {
-    setEditingGender({ code, username, firstname, lastname, phoneNumber, email });
-    setFormData({ code, username, firstname, lastname, phoneNumber, email });
+  const openEditModal = (code, groupCode, groupName) => {
+    setEditingGroupMaster({ code, groupCode, groupName });
+    setFormData({ code, groupCode, groupName });
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
-    setEditingGender(null);
-    setFormData({ code: '', username: '', firstname: '', lastname: '', phoneNumber: '', email: '' });
+    setEditingGroupMaster(null);
+    setFormData({ code: '', groupCode: '', groupName: '' });
     setIsEditModalOpen(false);
   };
 
@@ -75,7 +71,7 @@ const User = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', username: '', firstname: '', lastname: '', phoneNumber: '', email: '' });
+    setFormData({ code: '', groupCode: '', groupName: '' });
   };
 
   const handleSave = () => {
@@ -108,9 +104,10 @@ const User = () => {
     });
   }
 
+  
   return (
     <section className='mt-10 font-khmer'>
-      <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>
+    <h1 className='text-xl font-medium text-blue-800'>Group Master</h1>
       <div className='mt-3 border'></div>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
@@ -155,30 +152,26 @@ const User = () => {
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 ">Action</th>
-                  <th scope="col" className="px-4 py-3">Code</th>
-                  <th scope='col' className='px-4 py-3'>Username</th>
-                  <th scope='col' className='px-4 py-3'>FirstName</th>
-                  <th scope='col' className='px-4 py-3'>Last Name</th>
-                  <th scope='col' className='px-4 py-3'>Phone Number</th>
-                  <th scope='col' className='px-4 py-3'>Email</th>
+                  <th scope='col' className='px-4 py-3'>Code Group</th>
+                  <th scope='col' className='px-4 py-3'style={{ minWidth: '300px' }}>Code Name</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
-                {currentUsers.map((user, index) => (
+                {currentGroupMaster.map((groupmaster, index) => (
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                       <td className='sticky left-0 flex px-6 py-4 bg-white'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
-                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(user.code, user.username, user.firstname, user.lastname, user.phoneNumber, user.email)} />
-                        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={handleClick} />
+                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" 
+                        onClick={() => openEditModal(groupmaster.code, groupmaster.groupCode, groupmaster.groupName)}
+                        />
+                        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" 
+                        onClick={() => deleteGender(groupmaster.code)} 
+                        />
                     </td>
-                    <td className='px-4 py-3'>{user.code}</td>
-                    <td className='px-4 py-3' >{user.username}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '100px' }}>{user.firstname}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{user.lastname}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{user.phoneNumber}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{user.email}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{groupmaster.groupCode}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '500px' }}>{groupmaster.groupName}</td>
                     <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
                     <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
                     </tr>
@@ -244,7 +237,7 @@ const User = () => {
           </div>
         </div>
       </div>
-
+      
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
@@ -269,64 +262,26 @@ const User = () => {
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                  <label htmlFor="groupCode" className="block mb-2 text-sm font-semibold text-gray-700">Group Code</label>
                   <input
                     type="text"
-                    id="username"
-                    value={formData.username}
+                    id="groupCode"
+                    value={formData.groupCode}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="firstname" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    value={formData.firstname}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="lastname" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
-                  <input
-                    type="text"
-                    id="lastname"
-                    value={formData.lastname}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
+              <div>
+                <label htmlFor="groupName" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Group Name</label>
+                <textarea
+                  id="groupName"
+                  value={formData.groupName}
+                  onChange={handleChange}
+                  className="block w-full h-10 px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500"
+                />
               </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
-                  <input
-                    type="text"
-                    id="phoneNumeber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
+
             </div>
             <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
               
@@ -344,7 +299,7 @@ const User = () => {
         </div>
       )}
 
-        {isEditModalOpen && (
+      {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
             <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
@@ -369,63 +324,24 @@ const User = () => {
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                  <label htmlFor="groupCode" className="block mb-2 text-sm font-semibold text-gray-700">Group Code</label>
                   <input
                     type="text"
-                    id="username"
-                    value={formData.username}
+                    id="groupCode"
+                    value={formData.groupCode}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="firstname" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    value={formData.firstname}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="lastname" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
-                  <input
-                    type="text"
-                    id="lastname"
-                    value={formData.lastname}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
-                  <input
-                    type="text"
-                    id="phoneNumeber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
+              <div>
+                <label htmlFor="groupName" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Group Name</label>
+                <textarea
+                  id="groupName"
+                  value={formData.groupName}
+                  onChange={handleChange}
+                  className="block w-full h-10 px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500"
+                />
               </div>
             </div>
             <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
@@ -433,9 +349,7 @@ const User = () => {
               <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save
               </button>
-              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
-                Save & New
-              </button>
+              
               <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
                 Cancel
               </button>
@@ -443,9 +357,10 @@ const User = () => {
           </div>
         </div>
       )}
-    
-    </section>
-  );
-};
 
-export default User;
+   </section>
+
+  )
+}
+
+export default GroupMaster
