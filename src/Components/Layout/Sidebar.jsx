@@ -5,22 +5,25 @@ import { FaLaptop, FaUserFriends, FaCog } from "react-icons/fa";
 import { FaScrewdriverWrench } from "react-icons/fa6";
 import { HiChartBar } from "react-icons/hi2";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Importing chevron icons
-import AOS from 'aos'; // Import AOS
-import 'aos/dist/aos.css'; // Import AOS styles
+import { FaChevronDown, FaChevronUp } from "react-icons/fa"; 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [isEmployeeMenuOpen, setEmployeeMenuOpen] = useState(false);
-  const [isSystemSettingMenuOpen, setSystemSettingMenuOpen] = useState(false); // State for System Setting submenu
+  const [isSystemSettingMenuOpen, setSystemSettingMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('');
-  const [submenuHeight, setSubmenuHeight] = useState('0px'); // State for submenu height
-  const [systemSubmenuHeight, setSystemSubmenuHeight] = useState('0px'); // State for System Setting submenu height
+  const [submenuHeight, setSubmenuHeight] = useState('0px');
+  const [systemSubmenuHeight, setSystemSubmenuHeight] = useState('0px');
 
   const submenuRef = useRef(null);
-  const systemSubmenuRef = useRef(null); // Ref for System Setting submenu
+  const systemSubmenuRef = useRef(null);
 
   useEffect(() => {
-    AOS.init({ duration: 1000 }); // Initialize AOS with custom settings
+    AOS.init({ duration: 1000 });
+  }, []);
+
+  useEffect(() => {
     if (isEmployeeMenuOpen) {
       setSubmenuHeight(`${submenuRef.current.scrollHeight}px`);
     } else {
@@ -43,16 +46,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   const handleLinkClick = (itemName) => {
     setActiveItem(itemName);
-    
   };
 
   return (
     <aside
       className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        
       } md:translate-x-0 md:w-64`}
-      
     >
       <nav className="flex flex-col h-full overflow-y-auto">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
@@ -75,7 +75,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             text="តារាងបុគ្គលិក"
             onClick={() => {toggleEmployeeMenu(); handleLinkClick('Employee');}}
             isActive={activeItem === 'Employee'}
-            dropdownIcon={isEmployeeMenuOpen ? <FaChevronUp /> : <FaChevronDown />} // Dropdown icon logic
+            dropdownIcon={isEmployeeMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
           />
           <div
             ref={submenuRef}
@@ -104,13 +104,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             </ul>
           </div>
 
-          {/* System Setting Menu */}
           <NavItem
             icon={<FaCog />}
             text="ការកំណត់ប្រព័ន្ធ"
             onClick={() => {toggleSystemSettingMenu(); handleLinkClick('System Setting');}}
             isActive={activeItem === 'System Setting'}
-            dropdownIcon={isSystemSettingMenuOpen ? <FaChevronUp /> : <FaChevronDown />} // Dropdown icon logic for System Setting
+            dropdownIcon={isSystemSettingMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
           />
           <div
             ref={systemSubmenuRef}
@@ -171,27 +170,24 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
     <li
       className={`flex items-center justify-between px-4 py-3 transition-colors duration-200 cursor-pointer hover:bg-white/10 rounded-md ${
         isActive ? 'bg-white/10' : ''
-      }`} 
+      }`}
       onClick={onClick ? onClick : null}
     >
       <Link to={to} className="flex items-center w-full">
-        {/* Icon without animation */}
         <span className="text-xl">{icon}</span>
-        {/* Text with AOS animation */}
         <span 
           className="ml-3 text-base font-normal" 
-          data-aos="fade-right" // AOS animation for text
-          data-aos-duration="2000" // Custom duration for the text animation
+          data-aos="fade-right" 
+          data-aos-delay="200"
         >
           {text}
         </span>
       </Link>
-      {dropdownIcon && <span>{dropdownIcon}</span>} {/* Dropdown icon rendered here */}
+      {dropdownIcon && <span>{dropdownIcon}</span>}
     </li>
   );
 };
 
-// Submenu Item Component
 const SubmenuItem = ({ text, to, onClick, isActive }) => {
   return (
     <li className={`flex items-center px-6 py-2 transition-colors duration-200 rounded-md cursor-pointer ${isActive ? 'text-sky-300' : ''}`}>

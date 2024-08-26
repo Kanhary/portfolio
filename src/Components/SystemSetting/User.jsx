@@ -14,16 +14,16 @@ const User = () => {
   };
 
   const users = [
-    { code: 'admin123', username: 'admin', firstname: 'Uk', lastname: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' }, 
+    { code: 'USER-0004', username: 'admin', firstname: 'Uk', lastname: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' }, 
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
-  const filteredGender = users.filter(user =>
+  const filteredUser = users.filter(user =>
     user.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.code.includes(searchTerm)
   );
-  const totalPages = Math.ceil(filteredGender.length / recordsPerPage);
+  const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -33,7 +33,7 @@ const User = () => {
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentGenders = filteredGender.slice(indexOfFirstRecord, indexOfLastRecord);
+  const currentUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const getPaginationItems = () => {
     let pages = [];
@@ -150,7 +150,7 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentGenders.map((user, index) => (
+                {currentUsers.map((user, index) => (
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                       <td className='sticky left-0 flex px-6 py-4 bg-white'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
@@ -171,7 +171,6 @@ const User = () => {
 
             </table>
           </div>
-
          
           {/* Pagination */}
           <div className="flex flex-col items-center justify-between p-4 md:flex-row">
@@ -229,6 +228,205 @@ const User = () => {
           </div>
         </div>
       </div>
+
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
+            <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
+              <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
+                &times;
+              </button>
+            </header>
+            <div className="px-6 py-6 space-y-6">
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <input
+                    type="text"
+                    id="code"
+                    value={formData.code}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="firstname" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
+                  <input
+                    type="text"
+                    id="firstname"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="lastname" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
+                  <input
+                    type="text"
+                    id="phoneNumeber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+            </div>
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+              
+              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save
+              </button>
+              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save & New
+              </button>
+              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+                Cancel
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
+
+        {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
+            <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
+              <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
+                &times;
+              </button>
+            </header>
+            <div className="px-6 py-6 space-y-6">
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <input
+                    type="text"
+                    id="code"
+                    value={formData.code}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                    disabled
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="firstname" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
+                  <input
+                    type="text"
+                    id="firstname"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="lastname" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
+                  <input
+                    type="text"
+                    id="phoneNumeber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+            </div>
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+              
+              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save
+              </button>
+              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save & New
+              </button>
+              <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+                Cancel
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
     
     </section>
   );
