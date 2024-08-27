@@ -64,7 +64,7 @@ const ItemPermission = () => {
   const closeAddModal = () => setIsAddModalOpen(false);
 
   const openEditModal = (code, functionCode, functionName) => {
-    setEditingItemPermission({ code, functionCode, functionCode });
+    setEditingItemPermission({ code, functionCode, functionName });
     setFormData({ code, functionCode, functionName });
     setIsEditModalOpen(true);
   };
@@ -88,6 +88,7 @@ const ItemPermission = () => {
   const handleSave = () => {
     console.log('Save clicked', formData);
     closeAddModal();
+    closeEditModal();
   };
 
   const handleUpdate = () => {
