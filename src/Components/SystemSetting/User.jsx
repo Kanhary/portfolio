@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import {AddUser} from '../../api/user.js'
 
 
 const User = () => {
@@ -10,6 +11,7 @@ const User = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({ code: '', username: '', firstname: '',lastname: '',phoneNumber: '', email: '' });
   const [editingUser, setEditingUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -80,8 +82,14 @@ const User = () => {
 
   const handleSave = () => {
     console.log('Save clicked', formData);
-    closeAddModal();
-    closeEditModal();
+    AddUser(formData).then((res) => {
+      console.log('res ==> {}',res)
+      if(res.code == 200){
+        closeAddModal();
+        closeEditModal();
+      }
+    })
+    
   };
 
   // const handleUpdate = () => {

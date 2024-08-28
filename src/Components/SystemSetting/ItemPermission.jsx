@@ -21,10 +21,8 @@ const ItemPermission = () => {
     {code: '009', functionCode: 'GroupDetail', functionName: 'Group Details'},
     {code: '0010', functionCode: 'Maintenance', functionName: 'Maintenance'},
     {code: '0011', functionCode: 'Report', functionName: 'Report'},
-    {code: '0012', functionCode: 'Help', functionName: 'Help'}
+    {code: '0012', functionCode: 'Help', functionName: 'Help'},
     
-
-
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
