@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import {AddUser} from '../../api/user.js'
 
 
 const User = () => {
@@ -9,7 +10,8 @@ const User = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({ code: '', username: '', firstname: '',lastname: '',phoneNumber: '', email: '' });
-  const [editingGender, setEditingGender] = useState(null);
+  const [editingUser, setEditingUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -57,13 +59,13 @@ const User = () => {
   const closeAddModal = () => setIsAddModalOpen(false);
 
   const openEditModal = (code, username, firstname, lastname, phoneNumber, email) => {
-    setEditingGender({ code, username, firstname, lastname, phoneNumber, email });
+    setEditingUser({ code, username, firstname, lastname, phoneNumber, email });
     setFormData({ code, username, firstname, lastname, phoneNumber, email });
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
-    setEditingGender(null);
+    setEditingUser(null);
     setFormData({ code: '', username: '', firstname: '', lastname: '', phoneNumber: '', email: '' });
     setIsEditModalOpen(false);
   };
@@ -80,13 +82,20 @@ const User = () => {
 
   const handleSave = () => {
     console.log('Save clicked', formData);
-    closeAddModal();
+    AddUser(formData).then((res) => {
+      console.log('res ==> {}',res)
+      if(res.code == 200){
+        closeAddModal();
+        closeEditModal();
+      }
+    })
+    
   };
 
-  const handleUpdate = () => {
-    console.log('Update clicked', formData);
-    closeEditModal();
-  };
+  // const handleUpdate = () => {
+  //   console.log('Update clicked', formData);
+  //   closeEditModal();
+  // };
 
   const handleClick = ()=>{
     Swal.fire({
@@ -348,7 +357,7 @@ const User = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
             <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
+              <h2 className="text-xl font-bold text-white md:text-2xl">កែប្រែអ្នកប្រើប្រាស់</h2>
               <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
                 &times;
               </button>
@@ -433,9 +442,7 @@ const User = () => {
               <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save
               </button>
-              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
-                Save & New
-              </button>
+              
               <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
                 Cancel
               </button>

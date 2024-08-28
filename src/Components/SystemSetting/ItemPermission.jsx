@@ -21,10 +21,8 @@ const ItemPermission = () => {
     {code: '009', functionCode: 'GroupDetail', functionName: 'Group Details'},
     {code: '0010', functionCode: 'Maintenance', functionName: 'Maintenance'},
     {code: '0011', functionCode: 'Report', functionName: 'Report'},
-    {code: '0012', functionCode: 'Help', functionName: 'Help'}
+    {code: '0012', functionCode: 'Help', functionName: 'Help'},
     
-
-
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,7 +62,7 @@ const ItemPermission = () => {
   const closeAddModal = () => setIsAddModalOpen(false);
 
   const openEditModal = (code, functionCode, functionName) => {
-    setEditingItemPermission({ code, functionCode, functionCode });
+    setEditingItemPermission({ code, functionCode, functionName });
     setFormData({ code, functionCode, functionName });
     setIsEditModalOpen(true);
   };
@@ -88,6 +86,7 @@ const ItemPermission = () => {
   const handleSave = () => {
     console.log('Save clicked', formData);
     closeAddModal();
+    closeEditModal();
   };
 
   const handleUpdate = () => {

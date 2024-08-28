@@ -77,6 +77,7 @@ const GroupMaster = () => {
   const handleSave = () => {
     console.log('Save clicked', formData);
     closeAddModal();
+    closeEditModal();
   };
 
   const handleUpdate = () => {
