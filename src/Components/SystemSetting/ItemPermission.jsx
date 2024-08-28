@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa"
 
 const ItemPermission = () => {
-  
+  const INITAIL_FORM_DATA = {code: '', functionCode: '',function: ''}
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({code: '', functionCode: '',function: ''});
+  const [formData, setFormData] = useState(INITAIL_FORM_DATA);
   const [editingItemPermission,setEditingItemPermission] = useState(null);
   
   const items = [
@@ -69,7 +69,7 @@ const ItemPermission = () => {
 
   const closeEditModal = () => {
     setEditingItemPermission(null);
-    setFormData({ code: '', functionCode: '', functionName: '' });
+    setFormData(INITAIL_FORM_DATA);
     setIsEditModalOpen(false);
   };
 
@@ -80,7 +80,7 @@ const ItemPermission = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', functionCode: '', functionName: '' });
+    setFormData(INITAIL_FORM_DATA);
   };
 
   const handleSave = () => {

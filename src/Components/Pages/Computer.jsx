@@ -5,10 +5,11 @@ import { FaAngleRight } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa";
 
 const Computer = () => {
+  const INITAIL_FORM_DATA = {code: '', brand: '', model: '', processor: '', ram: '', department: '', user: '', location: ''}
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ code: '', model: '', description: '' });
+  const [formData, setFormData] = useState(INITAIL_FORM_DATA);
   const [editingComputer, setEditingComputer] = useState(null);
 
   const computers = [
@@ -61,7 +62,7 @@ const Computer = () => {
 
   const closeEditModal = () => {
     setEditingComputer(null);
-    setFormData({ code: '', brand: '', model: '', processor: '', ram: '', department: '', user: '', location: ''});
+    setFormData(INITAIL_FORM_DATA);
     setIsEditModalOpen(false);
   };
 
@@ -72,7 +73,7 @@ const Computer = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', brand: '', model: '', processor: '', ram: '', department: '', user: '', location: '' });
+    setFormData(INITAIL_FORM_DATA );
   };
 
   const handleSave = () => {

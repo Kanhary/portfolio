@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 
 const EmployeePositionList = () => {
+  const INITAIL_FORM_DATA = {code: '', position: ''}
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ code: '', position: '' });
+  const [formData, setFormData] = useState(INITAIL_FORM_DATA);
   const [editingEmployee, setEditingEmployee] = useState(null);
 
   
@@ -99,7 +100,7 @@ const EmployeePositionList = () => {
 
   const closeEditModal = () => {
     setEditingEmployee(null);
-    setFormData({ code: '', position: '', description: '' });
+    setFormData(INITAIL_FORM_DATA);
     setIsEditModalOpen(false);
   };
 
@@ -110,7 +111,7 @@ const EmployeePositionList = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', position: '', description: '' });
+    setFormData(INITAIL_FORM_DATA);
   };
 
   const handleSave = () => {
