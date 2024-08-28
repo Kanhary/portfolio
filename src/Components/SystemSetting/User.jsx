@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import {AddUser} from '../../api/user.js'
-
+import { AddUser } from '../../api/user.js';
 
 const User = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ code: '', username: '', firstname: '',lastname: '',phoneNumber: '', email: '' });
+  const [formData, setFormData] = useState({ userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' });
   const [editingUser, setEditingUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Added loading state
 
@@ -18,14 +17,14 @@ const User = () => {
   };
 
   const users = [
-    { code: 'USER-0004', username: 'admin', firstname: 'Uk', lastname: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' }, 
+    { userCode: 'USER-0004', userName: 'admin', firstName: 'Uk', lastName: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' }, 
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
   const filteredUser = users.filter(user =>
-    user.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.code.includes(searchTerm)
+    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.userCode.includes(searchTerm)
   );
   const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
 
@@ -58,15 +57,15 @@ const User = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  const openEditModal = (code, username, firstname, lastname, phoneNumber, email) => {
-    setEditingUser({ code, username, firstname, lastname, phoneNumber, email });
-    setFormData({ code, username, firstname, lastname, phoneNumber, email });
+  const openEditModal = (user) => {
+    setEditingUser(user);
+    setFormData(user);
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setEditingUser(null);
-    setFormData({ code: '', username: '', firstname: '', lastname: '', phoneNumber: '', email: '' });
+    setFormData({ userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' });
     setIsEditModalOpen(false);
   };
 
@@ -77,27 +76,21 @@ const User = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', username: '', firstname: '', lastname: '', phoneNumber: '', email: '' });
+    setFormData({ userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' });
   };
 
   const handleSave = () => {
     console.log('Save clicked', formData);
     AddUser(formData).then((res) => {
-      console.log('res ==> {}',res)
-      if(res.code == 200){
+      console.log('res ==> {}', res);
+      if (res.code === 200) {
         closeAddModal();
         closeEditModal();
       }
-    })
-    
+    });
   };
 
-  // const handleUpdate = () => {
-  //   console.log('Update clicked', formData);
-  //   closeEditModal();
-  // };
-
-  const handleClick = ()=>{
+  const handleClick = () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -115,7 +108,7 @@ const User = () => {
         });
       }
     });
-  }
+  };
 
   return (
     <section className='mt-10 font-khmer'>
@@ -130,7 +123,7 @@ const User = () => {
                 <div className='relative w-full'>
                   <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
                     <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                     </svg>
                   </div>
                   <input
@@ -160,13 +153,13 @@ const User = () => {
           </div>
           
           <div className='w-full overflow-x-auto'>
-            <table className='w-full text-sm text-left text-gray-500 '>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
+            <table className='w-full text-sm text-left text-gray-500'>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 ">Action</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
                   <th scope="col" className="px-4 py-3">Code</th>
                   <th scope='col' className='px-4 py-3'>Username</th>
-                  <th scope='col' className='px-4 py-3'>FirstName</th>
+                  <th scope='col' className='px-4 py-3'>First Name</th>
                   <th scope='col' className='px-4 py-3'>Last Name</th>
                   <th scope='col' className='px-4 py-3'>Phone Number</th>
                   <th scope='col' className='px-4 py-3'>Email</th>
@@ -175,28 +168,36 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentUsers.map((user, index) => (
-                    <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                      <td className='sticky left-0 flex px-6 py-4 bg-white'>
-                        <input type="checkbox" className="mr-1 action-checkbox" />
-                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(user.code, user.username, user.firstname, user.lastname, user.phoneNumber, user.email)} />
-                        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={handleClick} />
+                {currentUsers.map(user => (
+                  <tr key={user.userCode} className='border-b'>
+                    <td className='flex items-center px-4 py-3 space-x-3'>
+                      <button
+                        className='text-blue-600 hover:text-blue-800'
+                        onClick={() => openEditModal(user)}
+                      >
+                        <FaPen />
+                      </button>
+                      <button
+                        className='text-red-600 hover:text-red-800'
+                        onClick={() => handleClick()}
+                      >
+                        <FaTrashAlt />
+                      </button>
                     </td>
-                    <td className='px-4 py-3'>{user.code}</td>
-                    <td className='px-4 py-3' >{user.username}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '100px' }}>{user.firstname}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{user.lastname}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{user.phoneNumber}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{user.email}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
-                    <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
-                    </tr>
+                    <td className='px-4 py-3'>{user.userCode}</td>
+                    <td className='px-4 py-3'>{user.userName}</td>
+                    <td className='px-4 py-3'>{user.firstName}</td>
+                    <td className='px-4 py-3'>{user.lastName}</td>
+                    <td className='px-4 py-3'>{user.phoneNumber}</td>
+                    <td className='px-4 py-3'>{user.email}</td>
+                    <td className='px-4 py-3'>{user.lastBy || '-'}</td>
+                    <td className='px-4 py-3'>{user.lastDate || '-'}</td>
+                  </tr>
                 ))}
-            </tbody>
-
+              </tbody>
             </table>
           </div>
-         
+
           {/* Pagination */}
           <div className="flex flex-col items-center justify-between p-4 md:flex-row">
             <span className="mb-4 text-sm text-gray-600 md:mb-0">
@@ -267,22 +268,22 @@ const User = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <label htmlFor="userCode" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
-                    id="code"
-                    value={formData.code}
+                    id="userCode"
+                    value={formData.userCode}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                  <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
                   <input
                     type="text"
-                    id="username"
-                    value={formData.username}
+                    id="userName"
+                    value={formData.userName}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
@@ -291,22 +292,22 @@ const User = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="firstname" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
+                  <label htmlFor="firstName" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
                   <input
                     type="text"
-                    id="firstname"
-                    value={formData.firstname}
+                    id="firstName"
+                    value={formData.firstName}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="lastname" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
+                  <label htmlFor="lastName" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
                   <input
                     type="text"
-                    id="lastname"
-                    value={formData.lastname}
+                    id="lastName"
+                    value={formData.lastName}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
@@ -318,7 +319,7 @@ const User = () => {
                   <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
                   <input
                     type="text"
-                    id="phoneNumeber"
+                    id="phoneNumber"
                     value={formData.phoneNumber}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
@@ -353,104 +354,82 @@ const User = () => {
         </div>
       )}
 
-        {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
-            <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-              <h2 className="text-xl font-bold text-white md:text-2xl">កែប្រែអ្នកប្រើប្រាស់</h2>
-              <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
-                &times;
-              </button>
-            </header>
-            <div className="px-6 py-6 space-y-6">
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
-                  <input
-                    type="text"
-                    id="code"
-                    value={formData.code}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    disabled
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
-                  <input
-                    type="text"
-                    id="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
+
+      {/* Edit User Modal */}
+      {isEditModalOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center'>
+          <div className='w-11/12 max-w-md p-6 bg-white rounded-lg shadow-lg'>
+            <h2 className='mb-4 text-xl font-semibold'>Edit User</h2>
+            <form className='space-y-4'>
+              <input
+                type="text"
+                id="userCode"
+                placeholder='User Code'
+                value={formData.userCode}
+                onChange={handleChange}
+                className='w-full p-2 border border-gray-300 rounded'
+                disabled
+              />
+              <input
+                type="text"
+                id="userName"
+                placeholder='Username'
+                value={formData.userName}
+                onChange={handleChange}
+                className='w-full p-2 border border-gray-300 rounded'
+              />
+              <input
+                type="text"
+                id="firstName"
+                placeholder='First Name'
+                value={formData.firstName}
+                onChange={handleChange}
+                className='w-full p-2 border border-gray-300 rounded'
+              />
+              <input
+                type="text"
+                id="lastName"
+                placeholder='Last Name'
+                value={formData.lastName}
+                onChange={handleChange}
+                className='w-full p-2 border border-gray-300 rounded'
+              />
+              <input
+                type="text"
+                id="phoneNumber"
+                placeholder='Phone Number'
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                className='w-full p-2 border border-gray-300 rounded'
+              />
+              <input
+                type="email"
+                id="email"
+                placeholder='Email'
+                value={formData.email}
+                onChange={handleChange}
+                className='w-full p-2 border border-gray-300 rounded'
+              />
+              <div className='flex justify-between'>
+                <button
+                  type='button'
+                  className='px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700'
+                  onClick={handleSave}
+                >
+                  Save
+                </button>
+                <button
+                  type='button'
+                  className='px-4 py-2 text-white bg-gray-600 rounded hover:bg-gray-700'
+                  onClick={closeEditModal}
+                >
+                  Cancel
+                </button>
               </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="firstname" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    value={formData.firstname}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="lastname" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
-                  <input
-                    type="text"
-                    id="lastname"
-                    value={formData.lastname}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
-                  <input
-                    type="text"
-                    id="phoneNumeber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Position */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-            </div>
-            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
-              
-              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
-                Save
-              </button>
-              
-              <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
-                Cancel
-              </button>
-            </footer>
+            </form>
           </div>
         </div>
       )}
-    
     </section>
   );
 };
