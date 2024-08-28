@@ -4,20 +4,22 @@ import Swal from 'sweetalert2';
 import { AddUser } from '../../api/user.js';
 
 const User = () => {
+  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' };
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [editingUser, setEditingUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(prev => !prev);
   };
 
   const users = [
-    { userCode: 'USER-0004', userName: 'admin', firstName: 'Uk', lastName: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' }, 
+    { userCode: 'USER-0004', userName: 'admin', firstName: 'Uk', lastName: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,7 +57,10 @@ const User = () => {
   };
 
   const openAddModal = () => setIsAddModalOpen(true);
-  const closeAddModal = () => setIsAddModalOpen(false);
+  const closeAddModal = () => {
+    setFormData(INITIAL_FORM_DATA);
+    setIsAddModalOpen(false);
+  };
 
   const openEditModal = (user) => {
     setEditingUser(user);
@@ -65,7 +70,7 @@ const User = () => {
 
   const closeEditModal = () => {
     setEditingUser(null);
-    setFormData({ userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' });
+    setFormData(INITIAL_FORM_DATA);
     setIsEditModalOpen(false);
   };
 
@@ -76,18 +81,42 @@ const User = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' });
+    setFormData(INITIAL_FORM_DATA);
   };
 
   const handleSave = () => {
-    console.log('Save clicked', formData);
+  
+    setIsLoading(true); 
     AddUser(formData).then((res) => {
-      console.log('res ==> {}', res);
-      if (res.code === 200) {
+      setIsLoading(false); 
+      if (res.data.code == '200') {
         closeAddModal();
         closeEditModal();
+        Swal.fire({
+          text: 'Successful',
+          icon: 'success',
+          confirmButtonText: 'Okay'
+        });
+      } 
+      else {
+        // Handle error case
+        Swal.fire({
+          title: 'Error!',
+          text: 'Something went wrong.',
+          icon: 'error',
+          confirmButtonText: 'Okay'
+        });
       }
-    });
+    })
+    //.catch(() => {
+    //   setIsLoading(false); // End loading in case of error
+    //   Swal.fire({
+    //     title: 'Error!',
+    //     text: 'Something went wrong.',
+    //     icon: 'error',
+    //     confirmButtonText: 'Okay'
+    //   });
+    // });
   };
 
   const handleClick = () => {
@@ -109,7 +138,6 @@ const User = () => {
       }
     });
   };
-
   return (
     <section className='mt-10 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>

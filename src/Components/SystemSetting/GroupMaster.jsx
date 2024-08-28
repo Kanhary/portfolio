@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 
 const GroupMaster = () => {
+  const INITAIL_FORM_DATA = {code: '', groupCode: '',groupName: ''};
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [formData, setFormData] = useState({code: '', groupCode: '',groupName: ''});
+  const [formData, setFormData] = useState(INITAIL_FORM_DATA);
   const [editingGroupMaster,setEditingGroupMaster] = useState(null);
   
   const groupMaster = [
     {code: '001', groupCode: 'Admin', groupName: 'super-admin'},
     {code: '002', groupCode: 'User', groupName: 'user'},
     {code: '003', groupCode: 'Editor', groupName: 'Editor'}
-
-
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,7 +59,7 @@ const GroupMaster = () => {
 
   const closeEditModal = () => {
     setEditingGroupMaster(null);
-    setFormData({ code: '', groupCode: '', groupName: '' });
+    setFormData(INITAIL_FORM_DATA);
     setIsEditModalOpen(false);
   };
 
@@ -71,7 +70,7 @@ const GroupMaster = () => {
 
   const handleSaveNew = () => {
     console.log('Save & New clicked', formData);
-    setFormData({ code: '', groupCode: '', groupName: '' });
+    setFormData(INITAIL_FORM_DATA);
   };
 
   const handleSave = () => {
@@ -104,8 +103,7 @@ const GroupMaster = () => {
       }
     });
   }
-
-  
+    
   return (
     <section className='mt-10 font-khmer'>
     <h1 className='text-xl font-medium text-blue-800'>Group Master</h1>

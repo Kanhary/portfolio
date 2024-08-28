@@ -187,7 +187,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
                     />
                 </div>
 
-                <div className="flex gap-4 px-6 pb-4">
+                <div className="flex justify-end gap-4 px-6 pb-4">
                     <button
                         onClick={handleSubmit}
                         className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700"
