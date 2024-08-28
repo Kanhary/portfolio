@@ -357,76 +357,99 @@ const User = () => {
 
       {/* Edit User Modal */}
       {isEditModalOpen && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center'>
-          <div className='w-11/12 max-w-md p-6 bg-white rounded-lg shadow-lg'>
-            <h2 className='mb-4 text-xl font-semibold'>Edit User</h2>
-            <form className='space-y-4'>
-              <input
-                type="text"
-                id="userCode"
-                placeholder='User Code'
-                value={formData.userCode}
-                onChange={handleChange}
-                className='w-full p-2 border border-gray-300 rounded'
-                disabled
-              />
-              <input
-                type="text"
-                id="userName"
-                placeholder='Username'
-                value={formData.userName}
-                onChange={handleChange}
-                className='w-full p-2 border border-gray-300 rounded'
-              />
-              <input
-                type="text"
-                id="firstName"
-                placeholder='First Name'
-                value={formData.firstName}
-                onChange={handleChange}
-                className='w-full p-2 border border-gray-300 rounded'
-              />
-              <input
-                type="text"
-                id="lastName"
-                placeholder='Last Name'
-                value={formData.lastName}
-                onChange={handleChange}
-                className='w-full p-2 border border-gray-300 rounded'
-              />
-              <input
-                type="text"
-                id="phoneNumber"
-                placeholder='Phone Number'
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                className='w-full p-2 border border-gray-300 rounded'
-              />
-              <input
-                type="email"
-                id="email"
-                placeholder='Email'
-                value={formData.email}
-                onChange={handleChange}
-                className='w-full p-2 border border-gray-300 rounded'
-              />
-              <div className='flex justify-between'>
-                <button
-                  type='button'
-                  className='px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700'
-                  onClick={handleSave}
-                >
-                  Save
-                </button>
-                <button
-                  type='button'
-                  className='px-4 py-2 text-white bg-gray-600 rounded hover:bg-gray-700'
-                  onClick={closeEditModal}
-                >
-                  Cancel
-                </button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
+            <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+              <h2 className="text-xl font-bold text-white md:text-2xl">កែប្រែអ្នកប្រើប្រាស់</h2>
+              <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
+                &times;
+              </button>
+            </header>
+            <div className="px-6 py-6 space-y-6">
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="userCode" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <input
+                    type="text"
+                    id="userCode"
+                    value={formData.userCode}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                    disabled
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                  <input
+                    type="text"
+                    id="userName"
+                    value={formData.userName}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
               </div>
-            </form>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="firstName" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="lastName" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
+                  <input
+                    type="text"
+                    id="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Input for Position */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+            </div>
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+              
+              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save
+              </button>
+              
+              <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+                Cancel
+              </button>
+            </footer>
           </div>
         </div>
       )}
