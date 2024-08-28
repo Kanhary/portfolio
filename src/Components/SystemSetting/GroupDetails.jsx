@@ -92,7 +92,7 @@ const GroupDetails = () => {
 
   return (
     <section className="mt-14 font-khmer">
-      <h1 className="text-xl font-medium text-blue-800">តារាងបង្ហាញព័ត៌មានបុគ្គលិក</h1>
+      <h1 className="text-xl font-medium text-blue-800">តារាងបង្ហាញទិ្នន័យគ្រុប</h1>
       <div className="mt-3 border-b"></div>
       <div className="w-full mt-4">
         <div className="relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg">
