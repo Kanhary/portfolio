@@ -142,9 +142,9 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
     };
 
     const functionCodes = [
-        'Dashboard', 'Computer', 'Employee Position List', 'Gender List',
-        'Employee Information', 'User', 'Group Master', 'Item Permission',
-        'Group Details', 'Report', 'Help'
+        'តារាងបង្ហាញទិន្នន័យ', 'តារាងទិន្នន័យកំុព្យូទ័រ', 'តារាងបញ្ញីបុគ្គលិក', 'តារាងបញ្ញីភេទបុគ្គលិក',
+        'តារាងបញ្ចូលព័ត៌មានបុគ្គលិក', 'អ្នកប្រើប្រាស់', 'Group Master', 'Item Permission',
+        'Group Details','ការថែទាំ', 'របាយការណ៍', 'ជំនួយ'
     ];
 
     return isOpen ? (
@@ -211,43 +211,46 @@ const PermissionsPage = () => {
     const [selectedRole, setSelectedRole] = useState('Admin');
     const [permissions, setPermissions] = useState({
         Admin: {
-            Dashboard: { view: true, update: true, delete: true },
-            Computer: { view: true, update: true, delete: true },
-            'Employee Position List': { view: true, update: true, delete: true },
-            'Gender List': { view: true, update: true, delete: true },
-            'Employee Information': { view: true, update: true, delete: true },
-            User: { view: true, update: true, delete: true },
+            'តារាងបង្ហាញទិន្នន័យ': { view: true, update: true, delete: true },
+            'តារាងទិន្នន័យកំុព្យូទ័រ': { view: true, update: true, delete: true },
+            'តារាងបញ្ញីបុគ្គលិក': { view: true, update: true, delete: true },
+            'តារាងបញ្ញីភេទបុគ្គលិក': { view: true, update: true, delete: true },
+            'តារាងបញ្ចូលព័ត៌មានបុគ្គលិក': { view: true, update: true, delete: true },
+            'អ្នកប្រើប្រាស់': { view: true, update: true, delete: true },
             'Group Master': { view: true, update: true, delete: true },
             'Item Permission': { view: true, update: true, delete: true },
             'Group Details': { view: true, update: true, delete: true },
-            Report: { view: true, update: true, delete: true },
-            Help: { view: true, update: true, delete: true }
+            'ការថែទាំ':{ view: true, update: true, delete: true },
+            'របាយការណ៍': { view: true, update: true, delete: true },
+            'ជំនួយ': { view: true, update: true, delete: true }
         },
         Editor: {
-            Dashboard: { view: true, update: true, delete: false },
-            Computer: { view: true, update: true, delete: false },
-            'Employee Position List': { view: true, update: true, delete: false },
-            'Gender List': { view: true, update: true, delete: false },
-            'Employee Information': { view: true, update: true, delete: false },
-            User: { view: true, update: false, delete: false },
+            'តារាងបង្ហាញទិន្នន័យ': { view: true, update: true, delete: false },
+            'តារាងទិន្នន័យកំុព្យូទ័រ': { view: true, update: true, delete: false },
+            'តារាងបញ្ញីបុគ្គលិក': { view: true, update: true, delete: false },
+            'តារាងបញ្ញីភេទបុគ្គលិក': { view: true, update: true, delete: false },
+            'តារាងបញ្ចូលព័ត៌មានបុគ្គលិក': { view: true, update: true, delete: false },
+            'អ្នកប្រើប្រាស់': { view: true, update: false, delete: false },
             'Group Master': { view: true, update: false, delete: false },
             'Item Permission': { view: true, update: false, delete: false },
             'Group Details': { view: true, update: false, delete: false },
-            Report: { view: true, update: false, delete: false },
-            Help: { view: true, update: false, delete: false }
+            'ការថែទាំ':{ view: true, update: true, delete: false },
+            'របាយការណ៍': { view: true, update: true, delete: false },
+            'ជំនួយ': { view: true, update: true, delete: false }
         },
         User: {
-            Dashboard: { view: true, update: false, delete: false },
-            Computer: { view: true, update: false, delete: false },
-            'Employee Position List': { view: true, update: false, delete: false },
-            'Gender List': { view: true, update: false, delete: false },
-            'Employee Information': { view: true, update: false, delete: false },
-            User: { view: true, update: false, delete: false },
+            'តារាងបង្ហាញទិន្នន័យ': { view: true, update: false, delete: false },
+            'តារាងទិន្នន័យកំុព្យូទ័រ': { view: true, update: false, delete: false },
+            'តារាងបញ្ញីបុគ្គលិក': { view: true, update: false, delete: false },
+            'តារាងបញ្ញីភេទបុគ្គលិក': { view: true, update: false, delete: false },
+            'តារាងបញ្ចូលព័ត៌មានបុគ្គលិក': { view: true, update: false, delete: false },
+            'អ្នកប្រើប្រាស់': { view: true, update: false, delete: false },
             'Group Master': { view: false, update: false, delete: false },
             'Item Permission': { view: false, update: false, delete: false },
             'Group Details': { view: false, update: false, delete: false },
-            Report: { view: false, update: false, delete: false },
-            Help: { view: true, update: false, delete: false }
+            'ការថែទាំ':{ view: true, update: false, delete: false },
+            'របាយការណ៍': { view: false, update: false, delete: false },
+            'ជំនួយ': { view: true, update: false, delete: false }
         }
     });
     const [isEditing, setIsEditing] = useState(false);
@@ -304,42 +307,44 @@ const PermissionsPage = () => {
         <div className="min-h-screen p-6 mt-10 space-y-6 bg-gray-50 font-khmer">
             <h1 className="mb-6 text-4xl font-bold text-gray-900">Permissions Management</h1>
             
-            <div>
+            <div className="w-full lg:flex lg:items-center lg:justify-between">
                 {/* Role Selection */}
-            <div className="mb-6">
-                <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-700">Select Role</label>
-                <select
-                    id="role"
-                    value={selectedRole}
-                    onChange={handleRoleChange}
-                    className="w-1/4 p-3 transition-shadow bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md"
-                >
-                    <option value="Admin">Admin</option>
-                    <option value="Editor">Editor</option>
-                    <option value="User">User</option>
-                </select>
+                <div className="w-full mb-6 lg:w-1/3">
+                    <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-700">Select Role</label>
+                    <select
+                        id="role"
+                        value={selectedRole}
+                        onChange={handleRoleChange}
+                        className="w-full p-3 transition-shadow bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md"
+                    >
+                        <option value="Admin">Admin</option>
+                        <option value="Editor">Editor</option>
+                        <option value="User">User</option>
+                    </select>
+                </div>
+
+                {/* Global Edit and Add New Buttons */}
+                <div className="flex flex-col gap-4 lg:flex-row lg:gap-6 lg:w-2/3 lg:pl-4">
+                    {!isEditing && (
+                        <>
+                            <button
+                                onClick={handleEditClick}
+                                className="flex items-center gap-3 px-6 py-3 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 w-full lg:w-[48%]"
+                            >
+                                <FaEdit /> <span className="font-medium">Edit Permissions</span>
+                            </button>
+                            <button
+                                onClick={handleAddNewClick}
+                                className="flex items-center gap-3 px-6 py-3 text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 w-full lg:w-[48%]"
+                            >
+                                <FaPlus /> <span className="font-medium">Add New</span>
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
 
-            {/* Global Edit and Add New Buttons */}
-            <div className="flex gap-4 mb-6">
-                {!isEditing && (
-                    <>
-                        <button
-                            onClick={handleEditClick}
-                            className="flex items-center gap-3 px-6 py-3 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
-                        >
-                            <FaEdit /> <span className="font-medium">Edit Permissions</span>
-                        </button>
-                        <button
-                            onClick={handleAddNewClick}
-                            className="flex items-center gap-3 px-6 py-3 text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700"
-                        >
-                            <FaPlus /> <span className="font-medium">Add New</span>
-                        </button>
-                    </>
-                )}
-            </div>
-            </div>
+
 
             {/* Permissions Management */}
             <FunctionCodeCheckboxes

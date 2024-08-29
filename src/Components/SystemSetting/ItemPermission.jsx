@@ -10,12 +10,12 @@ const ItemPermission = () => {
   const [editingItemPermission,setEditingItemPermission] = useState(null);
   
   const items = [
-    {code: '001', functionCode: 'Dashboard', functionName: 'Dashboard'},
-    {code: '002', functionCode: 'Computer', functionName: 'Computer'},
-    {code: '003', functionCode: 'EmployeePositionList', functionName: 'Employee Position List'},
-    {code: '004', functionCode: 'GenderList' ,functionName: 'Gender List'},
-    {code: '005', functionCode: 'EmployeeInformation', functionName: 'Employee Information'},
-    {code: '006', functionCode: 'User', functionName: 'Users'},
+    {code: '001', functionCode: 'តារាងបង្ហាញទិន្នន័យ', functionName: 'Dashboard'},
+    {code: '002', functionCode: 'តារាងទិន្នន័យកំុព្យូទ័រ', functionName: 'Computer'},
+    {code: '003', functionCode: 'តារាងបញ្ញីបុគ្គលិក', functionName: 'Employee Position List'},
+    {code: '004', functionCode: 'តារាងបញ្ញីភេទបុគ្គលិក',functionName: 'Gender List'},
+    {code: '005', functionCode: 'តារាងបញ្ចូលព័ត៌មានបុគ្គលិក', functionName: 'Employee Information'},
+    {code: '006', functionCode: 'អ្នកប្រើប្រាស់', functionName: 'Users'},
     {code: '007', functionCode: 'GroupMaster', functionName: 'Group Master'},
     {code: '008', functionCode: 'ItemPermission', functionName: 'Item Permission'},
     {code: '009', functionCode: 'GroupDetail', functionName: 'Group Details'},

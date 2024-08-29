@@ -90,7 +90,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 isActive={activeItem === 'Employee Position List'} 
               />
               <SubmenuItem 
-                text="តារាងបញ្ជីភេទ" 
+                text="តារាងបញ្ញីភេទបុគ្គលិក" 
                 to="/main-dashboard/employee/gender-list" 
                 onClick={() => handleLinkClick('Gender List')} 
                 isActive={activeItem === 'Gender List'} 
