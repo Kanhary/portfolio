@@ -23,7 +23,7 @@ const User = () => {
     { userCode: 'USER-0004', userName: 'admin', firstName: 'Uk', lastName: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' },
   ];
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);//this line mean that the display of current page will display the first page
   const recordsPerPage = 8;
   const filteredUser = users.filter(user =>
     user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -37,7 +37,7 @@ const User = () => {
     }
   };
 
-  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfLastRecord = currentPage * recordsPerPage;//determine the position where the last record on the current page ends
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
 

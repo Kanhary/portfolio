@@ -14,44 +14,46 @@ const Loader = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
+      <style>
+        {`
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
           }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
 
-        @keyframes pulse {
-          0% {
-            opacity: 1;
-            transform: scale(1);
+          @keyframes pulse {
+            0% {
+              opacity: 1;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 0.5;
+              transform: scale(1.2);
+            }
+            100% {
+              opacity: 1;
+              transform: scale(1);
+            }
           }
-          50% {
-            opacity: 0.5;
-            transform: scale(1.2);
+
+          .border-gradient {
+            border-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ef4444);
+            border-image-slice: 1;
           }
-          100% {
-            opacity: 1;
-            transform: scale(1);
+
+          .animate-spin {
+            animation: spin 1.5s linear infinite;
           }
-        }
 
-        .border-gradient {
-          border-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ef4444);
-          border-image-slice: 1;
-        }
-
-        .animate-spin {
-          animation: spin 1.5s linear infinite;
-        }
-
-        .animate-pulse {
-          animation: pulse 1.5s infinite;
-        }
-      `}</style>
+          .animate-pulse {
+            animation: pulse 1.5s infinite;
+          }
+        `}
+      </style>
     </div>
   );
 };
