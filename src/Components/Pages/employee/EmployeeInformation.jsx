@@ -311,8 +311,8 @@ const EmployeeInformation = () => {
               </thead>
               <tbody>
   {currentEmployees.map(employee => (
-    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl hover:translate-y-[-4px]'>
-      <td className='flex px-6 py-4 mt-2 sticky left-0 bg-white'>
+    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl '>
+      <td className='flex px-6 py-4 mt-2 sticky left-0 hover:bg-gray-100 '>
         <input type="checkbox" className="mr-3 action-checkbox" />
         <FaPen
           className="text-blue-500 cursor-pointer hover:text-blue-700"
