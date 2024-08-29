@@ -26,9 +26,9 @@ const FunctionCodeCheckboxes = ({ permissions, onChange, isEditing, functionCode
                                     <input 
                                         type="checkbox" 
                                         checked={permissions[code].view} 
-                                        onChange={() => onChange(code, 'view')}
+                                        onChange={() => isEditing && onChange(code, 'view')}
                                         className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                        disabled={!isEditing || functionCode !== code}
+                                        disabled={!isEditing}
                                     />
                                 </label>
                             </td>
@@ -37,9 +37,9 @@ const FunctionCodeCheckboxes = ({ permissions, onChange, isEditing, functionCode
                                     <input 
                                         type="checkbox" 
                                         checked={permissions[code].update} 
-                                        onChange={() => onChange(code, 'update')}
+                                        onChange={() => isEditing && onChange(code, 'update')}
                                         className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                        disabled={!isEditing || functionCode !== code}
+                                        disabled={!isEditing}
                                     />
                                 </label>
                             </td>
@@ -48,9 +48,9 @@ const FunctionCodeCheckboxes = ({ permissions, onChange, isEditing, functionCode
                                     <input 
                                         type="checkbox" 
                                         checked={permissions[code].delete} 
-                                        onChange={() => onChange(code, 'delete')}
+                                        onChange={() => isEditing && onChange(code, 'delete')}
                                         className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                        disabled={!isEditing || functionCode !== code}
+                                        disabled={!isEditing}
                                     />
                                 </label>
                             </td>
@@ -61,6 +61,7 @@ const FunctionCodeCheckboxes = ({ permissions, onChange, isEditing, functionCode
         </div>
     );
 };
+
 
 // AddNewModal Component
 const FunctionCodeTable = ({ functionCodes, selectedFunctionCodes, onChange }) => {
@@ -124,7 +125,6 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
     const handleRoleChange = (e) => {
         setSelectedRole(e.target.value);
     };
-
     const handleFunctionCodeChange = (code, action, isChecked) => {
         setSelectedFunctionCodes(prev => ({
             ...prev,
@@ -134,6 +134,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
             }
         }));
     };
+    
 
     const handleSubmit = () => {
         const functionCodesList = Object.keys(selectedFunctionCodes);
@@ -253,32 +254,48 @@ const PermissionsPage = () => {
             'ជំនួយ': { view: true, update: false, delete: false }
         }
     });
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleCheckboxChange = (functionCode, action) => {
-        setPermissions(prev => {
-            const updatedPermissions = { ...prev };
-            const currentPermissions = updatedPermissions[selectedRole];
-            currentPermissions[functionCode] = {
-                ...currentPermissions[functionCode],
-                [action]: !currentPermissions[functionCode][action]
-            };
-            return updatedPermissions;
-        });
+    const handleCheckboxChange = (code, action) => {
+        setPermissions(prevPermissions => ({
+            ...prevPermissions,
+            [selectedRole]: {
+                ...prevPermissions[selectedRole],
+                [code]: {
+                    ...prevPermissions[selectedRole][code],
+                    [action]: !prevPermissions[selectedRole][code][action],
+                },
+            },
+        }));
     };
+    
+    
 
     const handleRoleChange = (e) => {
         setSelectedRole(e.target.value);
     };
 
     const handleEditClick = () => {
-        setIsEditing(true);
+        setIsEditing(selectedRole); // Set the role to edit based on the selectedRole
     };
+    
 
     const handleSave = () => {
-        setIsEditing(false);
+        setPermissions(prevPermissions => {
+            if (isEditing) {
+                return {
+                    ...prevPermissions,
+                    [isEditing]: {
+                        ...prevPermissions[isEditing]
+                    },
+                };
+            }
+            return prevPermissions;
+        });
+        setIsEditing(null); // Reset editing state after save
     };
+    
 
     const handleCancel = () => {
         setIsEditing(false);

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import { AddUser } from '../../api/user.js';
+import { AddUser, GetUser } from '../../api/user.js';
 
 const User = () => {
   const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' };
@@ -14,21 +14,21 @@ const User = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [editingUser, setEditingUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
   };
-
-  const users = [
-    { userCode: 'USER-0004', userName: 'admin', firstName: 'Uk', lastName: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' },
-  ];
-
   const [currentPage, setCurrentPage] = useState(1);//this line mean that the display of current page will display the first page
   const recordsPerPage = 8;
   const filteredUser = users.filter(user =>
-    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.userCode.includes(searchTerm)
+    (user.firstName && user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.userCode && user.userCode.includes(searchTerm))
   );
+  
   const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
 
   const handlePageChange = (pageNumber) => {
@@ -84,6 +84,21 @@ const User = () => {
     console.log('Save & New clicked', formData);
     setFormData(INITIAL_FORM_DATA);
   };
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+        try {
+            const response = await GetUser();  // Call the GetUser function
+            setUsers(response.data);  // Assuming the API returns data in `response.data`
+            setLoading(false);
+        } catch (err) {
+            setError(err.message || 'An error occurred');
+            setLoading(false);
+        }
+    };
+
+    fetchUsers();
+    }, []);
 
   const handleSave = () => {
   
@@ -198,7 +213,7 @@ const User = () => {
               </thead>
               <tbody>
                 {currentUsers.map(user => (
-                  <tr key={user.userCode} className='border-b'>
+                  <tr key={`${user.userCode}-${user.userName}`} className='border-b'>
                     <td className='flex items-center px-4 py-3 space-x-3'>
                       <button
                         className='text-blue-600 hover:text-blue-800'
