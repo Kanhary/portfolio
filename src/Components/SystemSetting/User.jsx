@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import { AddUser } from '../../api/user.js';
+import { AddUser, GetUser } from '../../api/user.js';
 
 const User = () => {
-  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phoneNumber: '', email: '' };
+  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phone: '', email: '', password: '' };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,32 +13,29 @@ const User = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [editingUser, setEditingUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(prev => !prev);
-  };
-
-  const users = [
-    { userCode: 'USER-0004', userName: 'admin', firstName: 'Uk', lastName: 'Kagnary', phoneNumber: '0988767543', email: 'admin@gmail.com' },
-  ];
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
+
   const filteredUser = users.filter(user =>
-    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.userCode.includes(searchTerm)
+    (user.firstName && user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.userCode && user.userCode.includes(searchTerm))
   );
+
   const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
   };
-
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const getPaginationItems = () => {
     let pages = [];
@@ -84,11 +81,27 @@ const User = () => {
     setFormData(INITIAL_FORM_DATA);
   };
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await GetUser();  
+        setUsers(response.data);
+        setLoading(false);
+        
+      } catch (err) {
+        setError(err.message || 'An error occurred');
+        setLoading(false);
+        console.log("fail to get api");
+      }
+    };
+
+    fetchUsers();
+  }, [currentPage]);
+
   const handleSave = () => {
-  
-    setIsLoading(true); 
+    setIsLoading(true);
     AddUser(formData).then((res) => {
-      setIsLoading(false); 
+      setIsLoading(false);
       if (res.data.code == '200') {
         closeAddModal();
         closeEditModal();
@@ -97,9 +110,7 @@ const User = () => {
           icon: 'success',
           confirmButtonText: 'Okay'
         });
-      } 
-      else {
-        // Handle error case
+      } else {
         Swal.fire({
           title: 'Error!',
           text: 'Something went wrong.',
@@ -107,16 +118,7 @@ const User = () => {
           confirmButtonText: 'Okay'
         });
       }
-    })
-    //.catch(() => {
-    //   setIsLoading(false); // End loading in case of error
-    //   Swal.fire({
-    //     title: 'Error!',
-    //     text: 'Something went wrong.',
-    //     icon: 'error',
-    //     confirmButtonText: 'Okay'
-    //   });
-    // });
+    });
   };
 
   const handleClick = () => {
@@ -186,19 +188,20 @@ const User = () => {
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
                   <th scope="col" className="px-4 py-3">Code</th>
-                  <th scope='col' className='px-4 py-3'>Username</th>
-                  <th scope='col' className='px-4 py-3'>First Name</th>
-                  <th scope='col' className='px-4 py-3'>Last Name</th>
-                  <th scope='col' className='px-4 py-3'>Phone Number</th>
-                  <th scope='col' className='px-4 py-3'>Email</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Username</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>First Name</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Last Name</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Phone Number</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Email</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Password</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentUsers.map(user => (
-                  <tr key={user.userCode} className='border-b'>
-                    <td className='flex items-center px-4 py-3 space-x-3'>
+                  <tr key={`${user.userCode}-${user.userName}`} className='border-b'>
+                    <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white'>
                       <button
                         className='text-blue-600 hover:text-blue-800'
                         onClick={() => openEditModal(user)}
@@ -216,8 +219,9 @@ const User = () => {
                     <td className='px-4 py-3'>{user.userName}</td>
                     <td className='px-4 py-3'>{user.firstName}</td>
                     <td className='px-4 py-3'>{user.lastName}</td>
-                    <td className='px-4 py-3'>{user.phoneNumber}</td>
+                    <td className='px-4 py-3'>{user.phone}</td>
                     <td className='px-4 py-3'>{user.email}</td>
+                    <td className='px-4 py-3'>{user.password}</td>
                     <td className='px-4 py-3'>{user.lastBy || '-'}</td>
                     <td className='px-4 py-3'>{user.lastDate || '-'}</td>
                   </tr>
