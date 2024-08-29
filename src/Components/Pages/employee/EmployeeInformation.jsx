@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import LongCourse from './LongCourse';
+import TabMenu from './TabMenu';
 
 
 
@@ -282,7 +283,7 @@ const EmployeeInformation = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
-                  <th scope="col" className="px-4 py-3 mr-3 bg-gray-50 sticky left-0">Action</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-50">Action</th>
                   <th scope="col" className="px-4 py-3">ID</th>
                   <th scope="col" className="px-4 py-3">Code</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
@@ -311,8 +312,8 @@ const EmployeeInformation = () => {
               </thead>
               <tbody>
   {currentEmployees.map(employee => (
-    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl '>
-      <td className='flex px-6 py-4 mt-2 sticky left-0 hover:bg-gray-100 '>
+    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl hover:translate-y-[-4px]'>
+      <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
         <input type="checkbox" className="mr-3 action-checkbox" />
         <FaPen
           className="text-blue-500 cursor-pointer hover:text-blue-700"
@@ -430,7 +431,7 @@ const EmployeeInformation = () => {
                 </svg>
               </button>
             </div>
-
+            <TabMenu/>
             <form onSubmitCapture={handleSubmit}>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
                 
@@ -448,8 +449,8 @@ const EmployeeInformation = () => {
                   { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
                 ].map(({ id, label, type, required }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="text-sm font-medium text-gray-700 flex gap-1">{required && !formData[id] && (
-                      <p className="text-red-600 text-sm">* </p>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{required && !formData[id] && (
+                      <p className="text-sm text-red-600">* </p>
                     )}{label}</label>
                     <input
                       type={type}
@@ -460,13 +461,13 @@ const EmployeeInformation = () => {
                       className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                     />
                     {/* {required && !formData[id] && (
-                      <p className="text-red-600 text-sm">This field is required</p>
+                      <p className="text-sm text-red-600">This field is required</p>
                     )} */}
                   </div>
                 ))}
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="gender" className="text-sm font-medium text-gray-70 flex gap-1">{!formData.gender && <p className="text-red-600 text-sm">*</p>}ភេទ</label>
+                  <label htmlFor="gender" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.gender && <p className="text-sm text-red-600">*</p>}ភេទ</label>
                   <select
                     id="gender"
                     value={formData.gender || ''}
@@ -478,11 +479,11 @@ const EmployeeInformation = () => {
                     <option value="male">ប្រុស</option>
                     <option value="female">ស្រី</option>
                   </select>
-                  {/* {!formData.gender && <p className="text-red-600 text-sm">This field is required</p>} */}
+                  {/* {!formData.gender && <p className="text-sm text-red-600">This field is required</p>} */}
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="family" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.family && <p className="text-red-600 text-sm">*</p>}ស្ថានភាពគ្រួសារ</label>
+                  <label htmlFor="family" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.family && <p className="text-sm text-red-600">*</p>}ស្ថានភាពគ្រួសារ</label>
                   <select
                     id="family"
                     value={formData.family || ''}
@@ -494,11 +495,11 @@ const EmployeeInformation = () => {
                     <option value="single">លីវ</option>
                     <option value="married">មានគូរស្វាមី</option>
                   </select>
-                  {/* {!formData.family && <p className="text-red-600 text-sm">This field is required</p>} */}
+                  {/* {!formData.family && <p className="text-sm text-red-600">This field is required</p>} */}
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="region" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.region && <p className="text-red-600 text-sm">*</p>}ប្រទេស</label>
+                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
                   <select
                     id="region"
                     value={formData.region || ''}
@@ -515,7 +516,7 @@ const EmployeeInformation = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="nation" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.nation && <p className="text-red-600 text-sm">*</p>}ជនជាតិ</label>
+                  <label htmlFor="nation" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nation && <p className="text-sm text-red-600">*</p>}ជនជាតិ</label>
                   <input
                     type="text"
                     id="nation"
@@ -526,7 +527,7 @@ const EmployeeInformation = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="nationality" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.nationality && <p className="text-red-600 text-sm">*</p>}សញ្ជាតិ</label>
+                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
                   <input
                     type="text"
                     id="nationality"
@@ -537,7 +538,7 @@ const EmployeeInformation = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="department" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.department && <p className="text-red-600 text-sm ">*</p>}នាយកដ្ឋាន</label>
+                  <label htmlFor="department" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.department && <p className="text-sm text-red-600 ">*</p>}នាយកដ្ឋាន</label>
                   <select
                     id="department"
                     value={formData.department || ''}
@@ -551,12 +552,12 @@ const EmployeeInformation = () => {
                     <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
                     {/* Add more departments as needed */}
                   </select>
-                  {/* {!formData.department && <p className="text-red-600 text-sm">This field is required</p>} */}
+                  {/* {!formData.department && <p className="text-sm text-red-600">This field is required</p>} */}
 
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="office" className="text-sm font-medium text-gray-700 flex gap-1">{!formData.office && <p className="text-red-600 text-sm">*</p>}ការិយាល័យ</label>
+                  <label htmlFor="office" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.office && <p className="text-sm text-red-600">*</p>}ការិយាល័យ</label>
                   <select
                     id="office"
                     value={formData.office || ''}
@@ -569,7 +570,7 @@ const EmployeeInformation = () => {
                     <option value="accounting">ការិយាល័យគណនេយ្យ</option>
                     {/* Add more offices as needed */}
                   </select>
-                  {/* {!formData.office && <p className="text-red-600 text-sm">This field is required</p>} */}
+                  {/* {!formData.office && <p className="text-sm text-red-600">This field is required</p>} */}
 
                 </div>
 
@@ -578,7 +579,7 @@ const EmployeeInformation = () => {
                   // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="text-sm font-medium text-gray-700 flex gap-1">{!formData.company && <p className="text-red-600 text-sm">*</p>}{label}</label>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.company && <p className="text-sm text-red-600">*</p>}{label}</label>
                     
                     <input
                       type={type}
@@ -595,7 +596,7 @@ const EmployeeInformation = () => {
                   { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="text-sm font-medium text-gray-700 flex gap-1">{!formData.position && <p className="text-red-600 text-sm">*</p>}{label}</label>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.position && <p className="text-sm text-red-600">*</p>}{label}</label>
                     
                     <input
                       type={type}
@@ -815,6 +816,7 @@ const EmployeeInformation = () => {
         </div>
       )}
       <div>
+        
         <LongCourse/>
       </div>
     </section> 
