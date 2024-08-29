@@ -10,6 +10,7 @@ const User = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  //isEditMoodalOpen is the current value of the state and setIsEditModalOpen  is used to update the value of the state
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [editingUser, setEditingUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -86,9 +87,9 @@ const User = () => {
 
   const handleSave = () => {
   
-    setIsLoading(true); 
+    setIsLoading(true); // Start loading
     AddUser(formData).then((res) => {
-      setIsLoading(false); 
+      setIsLoading(false); // End loading
       if (res.data.code == '200') {
         closeAddModal();
         closeEditModal();
