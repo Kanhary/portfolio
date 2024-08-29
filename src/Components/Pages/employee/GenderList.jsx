@@ -96,7 +96,7 @@ const GenderList = () => {
 
   return (
     <section className='mt-10 font-khmer'>
-      <h1 className='text-xl font-medium text-blue-800'>តារាងបញ្ជីភេទ</h1>
+      <h1 className='text-xl font-medium text-blue-800'>តារាងបញ្ជីភេទបុគ្គលិក</h1>
       <div className='mt-3 border'></div>
       <div className='w-full mt-4'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>

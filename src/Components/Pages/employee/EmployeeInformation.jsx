@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import LongCourse from './LongCourse';
 
 
 
@@ -32,12 +33,20 @@ const EmployeeInformation = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  
+  const [submittedData, setSubmittedData] = useState(null);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [id]: value
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Handle form submission
-      console.log('Form Data:', formData);
-    }
+    setSubmittedData(formData);
   };
 
   const [formData, setFormData] = useState({
@@ -67,13 +76,13 @@ const EmployeeInformation = () => {
 
   
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { id, value } = e.target;
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     [id]: value,
+  //   }));
+  // };
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -101,6 +110,8 @@ const EmployeeInformation = () => {
     setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
     setIsEditModalOpen(true);
   };
+
+  
   
   //close edit modal
   const closeEditModal = () => {
@@ -271,7 +282,7 @@ const EmployeeInformation = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
-                  <th scope="col" className="px-4 py-3 mr-3 bg-gray-50">Action</th>
+                  <th scope="col" className="px-4 py-3 mr-3 bg-gray-50 sticky left-0">Action</th>
                   <th scope="col" className="px-4 py-3">ID</th>
                   <th scope="col" className="px-4 py-3">Code</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
@@ -301,7 +312,7 @@ const EmployeeInformation = () => {
               <tbody>
   {currentEmployees.map(employee => (
     <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl hover:translate-y-[-4px]'>
-      <td className='flex px-6 py-4 mt-2'>
+      <td className='flex px-6 py-4 mt-2 sticky left-0 bg-white'>
         <input type="checkbox" className="mr-3 action-checkbox" />
         <FaPen
           className="text-blue-500 cursor-pointer hover:text-blue-700"
@@ -420,7 +431,7 @@ const EmployeeInformation = () => {
               </button>
             </div>
 
-            <form>
+            <form onSubmitCapture={handleSubmit}>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
                 
                 {[
@@ -803,7 +814,10 @@ const EmployeeInformation = () => {
           </div>
         </div>
       )}
-    </section>
+      <div>
+        <LongCourse/>
+      </div>
+    </section> 
   );
 };
 

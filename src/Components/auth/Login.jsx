@@ -131,25 +131,24 @@ const LoginForm = () => {
     alt=""
     className="object-cover w-full h-full rounded-r-2xl"
   />
-  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue opacity-80 rounded-r-2xl"></div> 
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-white/20 opacity-80 rounded-r-2xl"></div> 
   <div className="absolute inset-0 flex items-center justify-center text-white flex-col px-6">
     <h1 className="text-3xl font-semibold">សូមស្វាគមន៍មកកាន់ប្រព័ន្ធកុំព្យូទ័រ</h1><br />
     <p className="text-sm font-light text-center">យើងមានសេចក្ដីរីករាយដែលបានឃើញអ្នកនៅទីនេះ។ ប្រព័ន្ធរបស់យើងត្រូវបានរចនាឡើងដើម្បីធ្វើឱ្យបទពិសោធន៍របស់អ្នកមានភាពរលូន និងមានប្រសិទ្ធភាព។ មិនថាអ្នកមកដើម្បីគ្រប់គ្រងភារកិច្ចរបស់អ្នក, រុករកមុខងារថ្មីៗ, ឬត្រឹមតែស្វែងរកវិធីប្រកបដោយប្រសិទ្ធិភាព, យើងរួសរាយដើម្បីជួយស្រួលដល់អ្នក។ បើអ្នកត្រូវការជំនួយ អាចទាក់ទងមកយើងបាន។ សូមរីករាយក្នុងការប្រើប្រាស់ប្រព័ន្ធរបស់យើង!</p>
     <div className="flex items-center justify-center gap-4 py-6 border-t border-white/50 mt-4">
     <a href="https://ppap.com.kh/" target="_blank" rel="noopener noreferrer">
-  <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-extralight hover:text-green-300 duration-300 bg-white/20">
+  <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-light hover:text-green-300 duration-300 bg-white/20">
     <img src="/public/Chrome.png" alt="" className="w-4 h-4" />
     គេហទំព័រ Website
   </button>
-</a>
+    </a>
 
-<a href="https://www.facebook.com/ppap.mpwt.7?mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer">
-  <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-extralight hover:text-blue-600 duration-300 bg-white/20">
-    <img src="/public/Facebook_logo.png" alt="Facebook" className="w-4 h-4" />
-    គេហទំព័រ Facebook
-  </button>
-</a>
-
+    <a href="https://www.facebook.com/ppap.mpwt.7?mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer">
+      <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-light hover:text-blue-700 duration-300 bg-white/20">
+        <img src="/public/Facebook_logo.png" alt="Facebook" className="w-4 h-4" />
+        គេហទំព័រ Facebook
+      </button>
+    </a>
     </div>
   </div>
 </div>

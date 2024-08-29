@@ -82,26 +82,33 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             style={{ height: submenuHeight }}
             className="overflow-hidden transition-all duration-300 ease-in-out"
           >
-            <ul className="ml-6 space-y-1">
+          <ul className="ml-8 space-y-1 list-disc">
+            <li className="">
               <SubmenuItem 
                 text="តារាងបញ្ជីបុគ្គលិក" 
                 to="/main-dashboard/employee/position-list" 
                 onClick={() => handleLinkClick('Employee Position List')} 
                 isActive={activeItem === 'Employee Position List'} 
               />
+            </li>
+            <li className="">
               <SubmenuItem 
                 text="តារាងបញ្ជីភេទ" 
                 to="/main-dashboard/employee/gender-list" 
                 onClick={() => handleLinkClick('Gender List')} 
                 isActive={activeItem === 'Gender List'} 
               />
+            </li>
+            <li className="">
               <SubmenuItem 
                 text="តារាងបញ្ចូលព័ត៌មានបុគ្គលិក" 
                 to="/main-dashboard/employee/employee-information" 
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
               />
-            </ul>
+            </li>
+          </ul>
+
           </div>
 
           <NavItem
@@ -116,32 +123,41 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             style={{ height: systemSubmenuHeight }}
             className="overflow-hidden transition-all duration-300 ease-in-out"
           >
-            <ul className="ml-6 space-y-1">
+          <ul className="ml-8 space-y-1 list-disc">
+            <li className="">
               <SubmenuItem 
                 text="អ្នកប្រើប្រាស់" 
                 to="/main-dashboard/system-setting/user" 
                 onClick={() => handleLinkClick('User')} 
                 isActive={activeItem === 'User'} 
               />
+            </li>
+            <li className="">
               <SubmenuItem 
                 text="Group Master" 
                 to="/main-dashboard/system-setting/group-master" 
                 onClick={() => handleLinkClick('Group-Master')} 
                 isActive={activeItem === 'Group-Master'} 
               />
+            </li>
+            <li className="">
               <SubmenuItem 
                 text="Item Permission" 
                 to="/main-dashboard/system-setting/item-permission" 
                 onClick={() => handleLinkClick('Item-Permission')} 
                 isActive={activeItem === 'Item-Permission'} 
               />
+            </li>
+            <li className="">
               <SubmenuItem 
                 text="Group Details" 
                 to="/main-dashboard/system-setting/group-details" 
-                onClick={() => handleLinkClick('Group-details')} 
+                onClick={() => handleLinkClick('Group-Details')} 
                 isActive={activeItem === 'Group-Details'} 
               />
-            </ul>
+            </li>
+          </ul>
+
           </div>
 
           <NavItem 
