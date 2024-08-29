@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import { AddUser, GetUser } from '../../api/user.js';
+// import { AddUser, GetUser } from '../../api/user.js';
+import { AddUser, GetUser } from '@/api/user.js';
 
 const User = () => {
   const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phone: '', email: '', password: '', cardId: '', picture: '' };

@@ -1,4 +1,5 @@
-import request from '../utils/requst.js'
+// import request from '../utils/requst.js'
+import request from '@/utils/requst'
 
 export function AddUser(data) {
     console.log(data);
