@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { AddUser, GetUser } from '@/api/user.js';
 
 const User = () => {
-  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phone: '', email: '', password: '' };
+  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phone: '', email: '', password: '', cardId: '', picture: '' };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -141,6 +141,15 @@ const User = () => {
       }
     });
   };
+
+  const handlePictureChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // You can add logic here to handle the selected file, such as setting it in the state
+      console.log('Selected file:', file);
+      // Example: setFormData({ ...formData, picture: file });
+    }
+  };
   return (
     <section className='mt-10 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>
@@ -195,6 +204,7 @@ const User = () => {
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Phone Number</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Email</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Password</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Card ID</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
@@ -223,8 +233,9 @@ const User = () => {
                     <td className='px-4 py-3'>{user.phone}</td>
                     <td className='px-4 py-3'>{user.email}</td>
                     <td className='px-4 py-3'>{user.password}</td>
-                    <td className='px-4 py-3'>{user.lastBy || '-'}</td>
-                    <td className='px-4 py-3'>{user.lastDate || '-'}</td>
+                    <td className='px-4 py-3'>{user.cardId}</td>
+                    <td className='px-4 py-3'>{user.lastBy}</td>
+                    <td className='px-4 py-3'>{user.lastDate}</td>
                   </tr>
                 ))}
               </tbody>
@@ -310,7 +321,7 @@ const User = () => {
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
-                {/* Input for Position */}
+                {/* Input for Username */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
                   <input
@@ -323,7 +334,7 @@ const User = () => {
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
+                {/* Input for First Name */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="firstName" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
                   <input
@@ -334,7 +345,7 @@ const User = () => {
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
-                {/* Input for Position */}
+                {/* Input for Last Name */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="lastName" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
                   <input
@@ -347,7 +358,7 @@ const User = () => {
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
+                {/* Input for Phone Number */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
                   <input
@@ -358,7 +369,7 @@ const User = () => {
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
-                {/* Input for Position */}
+                {/* Input for Email */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
                   <input
@@ -370,9 +381,53 @@ const User = () => {
                   />
                 </div>
               </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Card ID */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
+                  <input
+                    type="text"
+                    id="cardId"
+                    value={formData.cardId}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                  />
+                </div>
+                {/* Custom Picture Upload */}
+                <div className="w-full md:w-1/2">
+                  <label className="block mb-2 text-sm font-semibold text-gray-700">Picture</label>
+                  <div className="flex items-center">
+                    <label
+                      htmlFor="picture"
+                      className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-500 rounded-lg shadow-sm cursor-pointer hover:bg-blue-600 hover:border-blue-600"
+                    >
+                      <svg
+                        className="w-5 h-5 mr-2 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 16v4a1 1 0 001 1h14a1 1 0 001-1v-4M16 8l4 4m0 0l-4 4m4-4H4"
+                        ></path>
+                      </svg>
+                      Upload Picture
+                    </label>
+                    <input
+                      type="file"
+                      id="picture"
+                      onChange={handlePictureChange}
+                      className="hidden"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
-              
               <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
                 Save
               </button>
@@ -386,6 +441,7 @@ const User = () => {
           </div>
         </div>
       )}
+
 
 
       {/* Edit User Modal */}
