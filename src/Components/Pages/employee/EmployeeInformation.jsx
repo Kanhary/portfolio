@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import LongCourse from './LongCourse';
 import TabMenu from './TabMenu';
+// import LongCourse from './LongCourse';
 
 
 
@@ -37,18 +37,18 @@ const EmployeeInformation = () => {
   
   const [submittedData, setSubmittedData] = useState(null);
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: value
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { id, value } = e.target;
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     [id]: value
+  //   }));
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmittedData(formData);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setSubmittedData(formData);
+  // };
 
   const [formData, setFormData] = useState({
     id: '',
@@ -312,7 +312,7 @@ const EmployeeInformation = () => {
               </thead>
               <tbody>
   {currentEmployees.map(employee => (
-    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 hover:bg-gray-100 hover:shadow-2xl hover:translate-y-[-4px]'>
+    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 '>
       <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
         <input type="checkbox" className="mr-3 action-checkbox" />
         <FaPen
@@ -352,7 +352,6 @@ const EmployeeInformation = () => {
     </tr>
   ))}
 </tbody>
-
 
             </table>
           </div>
@@ -431,8 +430,8 @@ const EmployeeInformation = () => {
                 </svg>
               </button>
             </div>
-            <TabMenu/>
-            <form onSubmitCapture={handleSubmit}>
+            <div className='sticky top-16'><TabMenu/></div>
+            {/* <form onSubmitCapture={handleSubmit}>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
                 
                 {[
@@ -460,9 +459,7 @@ const EmployeeInformation = () => {
                       required={required}
                       className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                     />
-                    {/* {required && !formData[id] && (
-                      <p className="text-sm text-red-600">This field is required</p>
-                    )} */}
+                  
                   </div>
                 ))}
 
@@ -479,7 +476,6 @@ const EmployeeInformation = () => {
                     <option value="male">ប្រុស</option>
                     <option value="female">ស្រី</option>
                   </select>
-                  {/* {!formData.gender && <p className="text-sm text-red-600">This field is required</p>} */}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -495,7 +491,6 @@ const EmployeeInformation = () => {
                     <option value="single">លីវ</option>
                     <option value="married">មានគូរស្វាមី</option>
                   </select>
-                  {/* {!formData.family && <p className="text-sm text-red-600">This field is required</p>} */}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -511,7 +506,6 @@ const EmployeeInformation = () => {
                     <option value="cambodia">កម្ពុជា</option>
                     <option value="thailand">ថៃ</option>
                     <option value="vietnam">វៀតណាម</option>
-                    {/* Add more regions as needed */}
                   </select>
                 </div>
 
@@ -550,9 +544,7 @@ const EmployeeInformation = () => {
                     <option value="it">នាយកដ្ឋាននាវាចរណ៍</option>
                     <option value="pa">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
                     <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
-                    {/* Add more departments as needed */}
                   </select>
-                  {/* {!formData.department && <p className="text-sm text-red-600">This field is required</p>} */}
 
                 </div>
 
@@ -568,15 +560,12 @@ const EmployeeInformation = () => {
                     <option value="department">ការិយាល័យរដ្ឋបាល</option>
                     <option value="it">ការិយាល័យព័ត៌មានវិទ្យា</option>
                     <option value="accounting">ការិយាល័យគណនេយ្យ</option>
-                    {/* Add more offices as needed */}
                   </select>
-                  {/* {!formData.office && <p className="text-sm text-red-600">This field is required</p>} */}
 
                 </div>
 
                 {[
                   { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-                  // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
                     <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.company && <p className="text-sm text-red-600">*</p>}{label}</label>
@@ -592,7 +581,6 @@ const EmployeeInformation = () => {
                 ))}
 
       {[
-                  // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
                   { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
@@ -613,7 +601,6 @@ const EmployeeInformation = () => {
               <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
-                  // onClick={updateClick}
                   className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                 >
                   <p className='text-base font-normal'>រក្សាទុក</p>
@@ -626,7 +613,7 @@ const EmployeeInformation = () => {
                   <p className='text-base font-normal'>ចាកចេញ</p>
                 </button>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
       )}
@@ -815,10 +802,10 @@ const EmployeeInformation = () => {
           </div>
         </div>
       )}
-      <div>
+      {/* <div>
         
         <LongCourse/>
-      </div>
+      </div> */}
     </section> 
   );
 };
