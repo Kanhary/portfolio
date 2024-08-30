@@ -5,9 +5,8 @@ import Swal from 'sweetalert2';
 import { AddUser, GetUser } from '@/api/user.js';
 
 const User = () => {
-  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phone: '', email: '', password: '', cardId: '', picture: '' };
+  const INITIAL_FORM_DATA = { userCode: '', userName: '', firstName: '', lastName: '', phone: '', email: '', password: '', cardId: '', empId: '', picture: null };
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -17,6 +16,8 @@ const User = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
@@ -27,10 +28,6 @@ const User = () => {
   );
 
   const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
-
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -77,10 +74,56 @@ const User = () => {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSaveNew = () => {
-    console.log('Save & New clicked', formData);
-    setFormData(INITIAL_FORM_DATA);
+  const handleSaveNew = async () => {
+    const validationErrors = {};
+  
+    // Check required fields
+    if (!formData.userCode) validationErrors.userCode = 'User Code is required';
+    if (!formData.userName) validationErrors.userName = 'User Name is required';
+    if (!formData.firstName) validationErrors.firstName = 'First Name is required';
+    if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
+    if (!formData.email) validationErrors.email = 'Email is required';
+    if (!formData.password) validationErrors.password = 'Password is required';
+    if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
+    if (!formData.empId) validationErrors.empId = 'Employee ID is required';
+    
+    // If there are validation errors, set the errors state and do not proceed with the save
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+  
+    setIsLoading(true);
+    try {
+      const res = await AddUser(formData); // Ensure AddUser is correctly implemented
+  
+      if (res.data.code === '200') {
+        Swal.fire({
+          text: 'Successfully saved. Ready for a new entry!',
+          icon: 'success',
+          confirmButtonText: 'Okay'
+        });
+        setFormData(INITIAL_FORM_DATA); // Reset form for new entry
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Something went wrong while saving.',
+          icon: 'error',
+          confirmButtonText: 'Okay'
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to connect to the server.',
+        icon: 'error',
+        confirmButtonText: 'Okay'
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -99,28 +142,52 @@ const User = () => {
     fetchUsers();
   }, [currentPage]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    // Reset previous errors
+    const validationErrors = {};
+  
+    // Check required fields
+    if (!formData.userCode) validationErrors.userCode = 'User Code is required';
+    if (!formData.userName) validationErrors.userName = 'User Name is required';
+    if (!formData.firstName) validationErrors.firstName = 'First Name is required';
+    if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
+    if (!formData.email) validationErrors.email = 'Email is required';
+    if (!formData.password) validationErrors.password = 'Password is required';
+    if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
+  
+    // If there are validation errors, set the errors state and do not proceed with the save
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+  
     setIsLoading(true);
-    AddUser(formData).then((res) => {
+    try {
+      const res = await AddUser(formData); // Ensure AddUser is correctly implemented
+  
       setIsLoading(false);
-      if (res.data.code == '200') {
-        closeAddModal();
-        closeEditModal();
+  
+      if (res.data.code === '200') {
+        closeAddModal(); // Close modal only after success message is shown
         Swal.fire({
-          text: 'Successful',
+          text: 'Done',
           icon: 'success',
           confirmButtonText: 'Okay'
+        }).then(() => {
+          // Additional actions if needed after the user acknowledges the success message
         });
-      } else {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Something went wrong.',
-          icon: 'error',
-          confirmButtonText: 'Okay'
-        });
-      }
-    });
+      } 
+    } catch (error) {
+      setIsLoading(false);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to connect to the server.',
+        icon: 'error',
+        confirmButtonText: 'Okay'
+      });
+    }
   };
+  
 
   const handleClick = () => {
     Swal.fire({
@@ -142,12 +209,13 @@ const User = () => {
     });
   };
 
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+
   const handlePictureChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // You can add logic here to handle the selected file, such as setting it in the state
-      console.log('Selected file:', file);
-      // Example: setFormData({ ...formData, picture: file });
+      setFormData({ ...formData, picture: file });
+      setUploadSuccess(true);  // Show success message
     }
   };
   return (
@@ -197,7 +265,7 @@ const User = () => {
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
-                  <th scope="col" className="px-4 py-3">Code</th>
+                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>User Code</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Username</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>First Name</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Last Name</th>
@@ -205,12 +273,13 @@ const User = () => {
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Email</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Password</th>
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Card ID</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Employee ID</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
-                {currentUsers.map(user => (
+                {users.map(user => (
                   <tr key={`${user.userCode}-${user.userName}`} className='border-b'>
                     <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white'>
                       <button
@@ -234,6 +303,7 @@ const User = () => {
                     <td className='px-4 py-3'>{user.email}</td>
                     <td className='px-4 py-3'>{user.password}</td>
                     <td className='px-4 py-3'>{user.cardId}</td>
+                    <td className='px-4 py-3'>{user.empId}</td>
                     <td className='px-4 py-3'>{user.lastBy}</td>
                     <td className='px-4 py-3'>{user.lastDate}</td>
                   </tr>
@@ -298,149 +368,193 @@ const User = () => {
           </div>
         </div>
       </div>
-
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
-            <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
-              <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
-                &times;
-              </button>
-            </header>
-            <div className="px-6 py-6 space-y-6">
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Code */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="userCode" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
-                  <input
-                    type="text"
-                    id="userCode"
-                    value={formData.userCode}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Username */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
-                  <input
-                    type="text"
-                    id="userName"
-                    value={formData.userName}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for First Name */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="firstName" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Last Name */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="lastName" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Phone Number */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
-                  <input
-                    type="text"
-                    id="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Input for Email */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Card ID */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
-                  <input
-                    type="text"
-                    id="cardId"
-                    value={formData.cardId}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                  />
-                </div>
-                {/* Custom Picture Upload */}
-                <div className="w-full md:w-1/2">
-                  <label className="block mb-2 text-sm font-semibold text-gray-700">Picture</label>
-                  <div className="flex items-center">
-                    <label
-                      htmlFor="picture"
-                      className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-500 rounded-lg shadow-sm cursor-pointer hover:bg-blue-600 hover:border-blue-600"
-                    >
-                      <svg
-                        className="w-5 h-5 mr-2 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 16v4a1 1 0 001 1h14a1 1 0 001-1v-4M16 8l4 4m0 0l-4 4m4-4H4"
-                        ></path>
-                      </svg>
-                      Upload Picture
-                    </label>
-                    <input
-                      type="file"
-                      id="picture"
-                      onChange={handlePictureChange}
-                      className="hidden"
-                    />
-                  </div>
-                </div>
-              </div>
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+    <div className="relative w-full mx-auto overflow-auto transition-all transform bg-white shadow-2xl lg:w-2/3 rounded-xl h-2/3 lg:h-5/6">
+      <header className="sticky top-0 flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+        <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
+        <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
+          &times;
+        </button>
+      </header>
+      <div className="flex flex-col px-6 py-6 space-y-6 md:flex-row md:space-x-6">
+        {/* Left Side: Form Inputs */}
+        <div className="w-full space-y-6 md:w-3/4">
+          <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+            {/* Input for Code */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="userCode" className="block mb-2 text-sm font-semibold text-gray-700">User Code</label>
+              <input
+                type="text"
+                id="userCode"
+                value={formData.userCode}
+                onChange={handleChange}
+                className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.userCode ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+              />
+              {errors.userCode && <p className="mt-1 text-xs text-red-500">{errors.userCode}</p>}
             </div>
-            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
-              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
-                Save
-              </button>
-              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
-                Save & New
-              </button>
-              <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
-                Cancel
-              </button>
-            </footer>
+            {/* Input for Username */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+              <input
+                type="text"
+                id="userName"
+                value={formData.userName}
+                onChange={handleChange}
+                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+            {/* Input for First Name */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="firstName" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+              />
+              {errors.firstName && <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>}
+            </div>
+            {/* Input for Last Name */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="lastName" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+              />
+              {errors.lastName && <p className="mt-1 text-xs text-red-500">{errors.lastName}</p>}
+            </div>
+          </div>
+          <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+            {/* Input for Phone Number */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
+              <input
+                type="text"
+                id="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+              />
+            </div>
+            <div className="w-full md:w-1/2">
+              <label htmlFor="empId" className="block mb-2 text-sm font-semibold text-gray-700">Employee ID</label>
+              <select
+                id="empId"
+                value={formData.empId}
+                onChange={handleChange}
+                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+              >
+                <option value="" disabled>Select an Employee ID</option>
+                {/* Replace these options with dynamic data as needed */}
+                <option value="1">Employee 1</option>
+                <option value="2">Employee 2</option>
+                <option value="3">Employee 3</option>
+                {/* Add more options as needed */}
+              </select>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+            {/* Input for Card ID */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
+              <input
+                type="text"
+                id="cardId"
+                value={formData.cardId}
+                onChange={handleChange}
+                className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.cardId ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+              />
+              {errors.cardId && <p className="mt-1 text-xs text-red-500">{errors.cardId}</p>}
+            </div>
+            {/* Input for Password */}
+            <div className="w-full md:w-1/2">
+              <label htmlFor="password" className="block mb-2 text-sm font-semibold text-gray-700">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+              />
+              {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
+            </div>
+          </div>
+          <div className="w-full">
+            <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
+            <input
+              type="text"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+            />
           </div>
         </div>
-      )}
+
+        {/* Right Side: Picture Upload */}
+        <div className="flex items-center w-full space-y-4 justify-evenly lg:justify-center lg:flex-col md:w-1/4">
+          <div className="relative flex items-center justify-center w-32 h-32 overflow-hidden bg-gray-100 rounded-lg shadow-md">
+            {formData.picture ? (
+              <img
+                src={URL.createObjectURL(formData.picture)}
+                alt="Profile"
+                className="object-cover w-full h-full"
+              />
+            ) : (
+              <svg
+              className="w-10 h-10 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            )}
+          </div>
+          <input
+            type="file"
+            id="picture"
+            accept="image/*"
+            onChange={handlePictureChange}
+            className="hidden"
+          />
+          <label
+            htmlFor="picture"
+            className="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 focus:outline-none"
+          >
+          {formData.picture ? "Change Picture" : "Upload Picture"}
+          </label>
+        </div>
+      </div>
+
+      <footer className="flex flex-col items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+              
+        <button onClick={handleSave} className="w-full px-5 py-2 mb-3 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0">
+          Save
+        </button>
+        <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
+          Save & New
+        </button>
+        <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+          Cancel
+        </button>
+      </footer>
+    </div>
+  </div>
+)}
 
 
 
@@ -542,6 +656,8 @@ const User = () => {
           </div>
         </div>
       )}
+
+      
     </section>
   );
 };
