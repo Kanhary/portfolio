@@ -194,7 +194,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen py-6 mt-5 font-sans bg-gray-100">
+    <div className="flex flex-col min-h-screen py-6 mt-5 font-sans bg-gray-100 font-khmer">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Dashboard Overview</h1>
       
       <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
@@ -273,23 +273,24 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="p-6 bg-white rounded-lg shadow-lg">
-        <h3 className="mb-4 text-lg font-semibold text-gray-800">Recent Activities</h3>
-        {recentActivities.map((activity) => (
-          <div
-            key={activity.id}
-            className="flex items-center px-6 py-4 transition-colors border-b border-gray-200 last:border-none hover:bg-gray-50"
-          >
-            <div className="p-3 bg-gray-100 rounded-full">
-              {activity.icon}
-            </div>
-            <div className="ml-4">
-              <p className="text-sm text-gray-600">{activity.activity}</p>
-              <p className="text-xs text-gray-400">{activity.time}</p>
-            </div>
-          </div>
-        ))}
+      <div className="p-6 bg-gradient-to-r from-white to-gray-50 rounded-lg shadow-lg">
+  <h3 className="mb-4 text-lg font-semibold text-gray-800">Recent Activities</h3>
+  {recentActivities.map((activity) => (
+    <div
+      key={activity.id}
+      className="flex items-center px-6 py-4 transition-transform border-b border-gray-200 last:border-none hover:bg-indigo-50 transform hover:scale-105 rounded-md"
+    >
+      <div className="p-3 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full shadow-sm">
+        {activity.icon}
       </div>
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-700">{activity.activity}</p>
+        <p className="text-xs text-gray-500">{activity.time}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

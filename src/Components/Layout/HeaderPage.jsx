@@ -61,7 +61,7 @@ const HeaderPage = ({ toggleSidebar }) => {
             </button>
             <a href="#" className="flex ms-2 md:me-24">
               <img src='/LOGO PPAP.png' className="h-8 me-3" alt="PPAP Logo" />
-              <span className="self-center text-xl font-medium sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
+              <span className="self-center text-base font-medium sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
             </a>
           </div>
           <div className='relative flex items-center ms-3'>
@@ -77,23 +77,42 @@ const HeaderPage = ({ toggleSidebar }) => {
             </button>
 
             {isNotificationsOpen && (
-              <div className='absolute z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg right-16 top-full'>
-                <div className='px-4 py-3 text-gray-900'>
-                  <p className='flex font-semibold'><BiBell size={18} className='my-1 mr-2' />Notifications</p>
+              <div className="absolute z-50 w-72 mt-2 right-16 top-full bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden font-khmer">
+                {/* Header */}
+                <div className="px-5 py-3 bg-gray-100 border-b border-gray-200">
+                  <p className="flex items-center font-medium text-gray-900">
+                    <BiBell size={20} className="text-indigo-500 mr-2" />
+                    សារជូនដំណឹង
+                  </p>
                 </div>
-                <ul className="py-1">
-                  <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    New employee added
+
+                {/* Notifications List */}
+                <ul className="divide-y divide-gray-200">
+                  <li className="px-4 py-3 flex items-center hover:bg-gray-50 transition-colors">
+                    <div className="flex-shrink-0 w-2.5 h-2.5 bg-indigo-500 rounded-full"></div>
+                    <div className="ml-3 text-sm text-gray-700">
+                      New employee added
+                      <p className="text-xs text-gray-500 mt-0.5">Just now</p>
+                    </div>
                   </li>
-                  <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    System update available
+                  <li className="px-4 py-3 flex items-center hover:bg-gray-50 transition-colors">
+                    <div className="flex-shrink-0 w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+                    <div className="ml-3 text-sm text-gray-700">
+                      System update available
+                      <p className="text-xs text-gray-500 mt-0.5">5 minutes ago</p>
+                    </div>
                   </li>
-                  <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    Server backup completed
+                  <li className="px-4 py-3 flex items-center hover:bg-gray-50 transition-colors">
+                    <div className="flex-shrink-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+                    <div className="ml-3 text-sm text-gray-700">
+                      Server backup completed
+                      <p className="text-xs text-gray-500 mt-0.5">1 hour ago</p>
+                    </div>
                   </li>
                 </ul>
               </div>
             )}
+
             <button 
               type='button' 
               className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 ' 
@@ -105,7 +124,7 @@ const HeaderPage = ({ toggleSidebar }) => {
               <img src="/User.jpg" className='w-8 h-8 rounded-full' alt="User Photo" />
             </button>
             {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full '>
+              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
                 <div className='px-4 py-3'>
                   <p className='font-bold text-gray-900 text-ms'>Uk Kagnary</p>
                   <p className='py-1 text-sm font-medium text-gray-400 truncate'>ukkanhary04@gmail.com</p>

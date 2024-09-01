@@ -414,209 +414,29 @@ const EmployeeInformation = () => {
       </div>
       
       {isAddModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
-              <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
-                បញ្ចូលព័ត៌មានបុគ្គលិក
-              </h2>
-              <button
-                type="button"
-                onClick={closeEmployeeModal}
-                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-            <div className='sticky top-16'><TabMenu/></div>
-            {/* <form onSubmitCapture={handleSubmit}>
-              <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
-                
-                {[
-                  { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
-                  { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
-                  { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
-                  { id: 'height', label: 'កម្ពស់', type: 'text' },
-                  { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-                  { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                  { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
-                  { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                  { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
-                  { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                  { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-                ].map(({ id, label, type, required }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{required && !formData[id] && (
-                      <p className="text-sm text-red-600">* </p>
-                    )}{label}</label>
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      required={required}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  
-                  </div>
-                ))}
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+    <div className="relative w-full max-w-md sm:max-w-4xl md:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[550px]  modal-scrollbar mt-14 sm:ml-52 md:ml-0">
+      <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 z-50 py-4 border-b-2 border-dashed border-gray-300">
+        <h2 className="flex-1 ml-3 text-xl sm:text-2xl md:text-2xl font-medium text-blue-800 font-khmer leading-2">
+          បញ្ចូលព័ត៌មានបុគ្គលិក
+        </h2>
+        <button
+          type="button"
+          onClick={closeEmployeeModal}
+          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div className="px-4 ">
+        <TabMenu />
+      </div>
+    </div>
+  </div>
+)}
 
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="gender" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.gender && <p className="text-sm text-red-600">*</p>}ភេទ</label>
-                  <select
-                    id="gender"
-                    value={formData.gender || ''}
-                    onChange={handleChange}
-                    required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="male">ប្រុស</option>
-                    <option value="female">ស្រី</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="family" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.family && <p className="text-sm text-red-600">*</p>}ស្ថានភាពគ្រួសារ</label>
-                  <select
-                    id="family"
-                    value={formData.family || ''}
-                    onChange={handleChange}
-                    required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="single">លីវ</option>
-                    <option value="married">មានគូរស្វាមី</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
-                  <select
-                    id="region"
-                    value={formData.region || ''}
-                    onChange={handleChange}
-                    required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="cambodia">កម្ពុជា</option>
-                    <option value="thailand">ថៃ</option>
-                    <option value="vietnam">វៀតណាម</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="nation" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nation && <p className="text-sm text-red-600">*</p>}ជនជាតិ</label>
-                  <input
-                    type="text"
-                    id="nation"
-                    value={formData.nation || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
-                  <input
-                    type="text"
-                    id="nationality"
-                    value={formData.nationality || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="department" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.department && <p className="text-sm text-red-600 ">*</p>}នាយកដ្ឋាន</label>
-                  <select
-                    id="department"
-                    value={formData.department || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
-                    <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
-                    <option value="it">នាយកដ្ឋាននាវាចរណ៍</option>
-                    <option value="pa">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
-                    <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
-                  </select>
-
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="office" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.office && <p className="text-sm text-red-600">*</p>}ការិយាល័យ</label>
-                  <select
-                    id="office"
-                    value={formData.office || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើសការិយាល័យ</option>
-                    <option value="department">ការិយាល័យរដ្ឋបាល</option>
-                    <option value="it">ការិយាល័យព័ត៌មានវិទ្យា</option>
-                    <option value="accounting">ការិយាល័យគណនេយ្យ</option>
-                  </select>
-
-                </div>
-
-                {[
-                  { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.company && <p className="text-sm text-red-600">*</p>}{label}</label>
-                    
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
-
-      {[
-                  { id: 'position', label: 'តួនាទី', type: 'text' }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.position && <p className="text-sm text-red-600">*</p>}{label}</label>
-                    
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
-              </div>
-              
-
-              <div className="flex justify-center gap-5 p-6 mt-4">
-                <button
-                  type="submit"
-                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-                >
-                  <p className='text-base font-normal'>រក្សាទុក</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>ចាកចេញ</p>
-                </button>
-              </div>
-            </form> */}
-          </div>
-        </div>
-      )}
 
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -634,8 +454,8 @@ const EmployeeInformation = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
-            </div>
 
+            </div>
             <form>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
                 {[

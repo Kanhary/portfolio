@@ -133,7 +133,7 @@ const LoginForm = () => {
   />
   <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-white/20 opacity-80 rounded-r-2xl"></div> 
   <div className="absolute inset-0 flex items-center justify-center text-white flex-col px-6">
-    <h1 className="text-3xl font-semibold">សូមស្វាគមន៍មកកាន់ប្រព័ន្ធកុំព្យូទ័រ</h1><br />
+    <h1 className="text-3xl font-semibold ">សូមស្វាគមន៍មកកាន់ប្រព័ន្ធកុំព្យូទ័រ</h1><br />
     <p className="text-sm font-light text-center">យើងមានសេចក្ដីរីករាយដែលបានឃើញអ្នកនៅទីនេះ។ ប្រព័ន្ធរបស់យើងត្រូវបានរចនាឡើងដើម្បីធ្វើឱ្យបទពិសោធន៍របស់អ្នកមានភាពរលូន និងមានប្រសិទ្ធភាព។ មិនថាអ្នកមកដើម្បីគ្រប់គ្រងភារកិច្ចរបស់អ្នក, រុករកមុខងារថ្មីៗ, ឬត្រឹមតែស្វែងរកវិធីប្រកបដោយប្រសិទ្ធិភាព, យើងរួសរាយដើម្បីជួយស្រួលដល់អ្នក។ បើអ្នកត្រូវការជំនួយ អាចទាក់ទងមកយើងបាន។ សូមរីករាយក្នុងការប្រើប្រាស់ប្រព័ន្ធរបស់យើង!</p>
     <div className="flex items-center justify-center gap-4 py-6 border-t border-white/50 mt-4">
     <a href="https://ppap.com.kh/" target="_blank" rel="noopener noreferrer">
