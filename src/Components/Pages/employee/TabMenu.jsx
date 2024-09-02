@@ -431,12 +431,12 @@ const TabMenu = () => {
                       >
                         បញ្ចូលវគ្គសិក្សារយៈពេលវែង
                       </button>
-                      <button
+                      {/* <button
                         className={`block px-3 py-1 text-sm font-medium text-left ${activeTab === 'tab3' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
                         onClick={() => handleTabChange('tab3')}
                       >
                         បញ្ចូលវគ្គសិក្សារយៈពេលខ្លី
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -466,7 +466,7 @@ const TabMenu = () => {
                     style={{ borderRadius: '9999px' }}
                   />
                 </button>
-                <button
+                {/* <button
                   className={`px-4 py-2 font-medium text-xs sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab3' ? 'text-blue-800' : 'text-black'}`}
                   onClick={() => handleTabChange('tab3')}
                 >
@@ -475,7 +475,7 @@ const TabMenu = () => {
                     className={`block h-[2px] mt-2 transition-all duration-300 ${activeTab === 'tab3' ? 'w-full bg-gradient-to-r from-blue-800 to-blue-600' : 'w-0 bg-transparent'}`}
                     style={{ borderRadius: '9999px' }}
                   />
-                </button>
+                </button> */}
               </div>
 
               {/* Content */}
