@@ -265,15 +265,15 @@ const TabMenu = () => {
       case 'tab2':
         return (
           <div className="p-4">
-            <form onSubmit={handleFormSubmit} className="space-y-6 p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleFormSubmit} className="p-6 space-y-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* From Date Input */}
                 <div>
                   <label htmlFor="from" className="block text-sm font-semibold text-gray-800">From</label>
                   <input
                     type="date"
                     id="from"
-                    className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.from}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, from: e.target.value }))}
                     required
@@ -286,7 +286,7 @@ const TabMenu = () => {
                   <input
                     type="date"
                     id="to"
-                    className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.to}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, to: e.target.value }))}
                     required
@@ -299,7 +299,7 @@ const TabMenu = () => {
                   <input
                     type="text"
                     id="course"
-                    className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.course}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, course: e.target.value }))}
                     required
@@ -312,7 +312,7 @@ const TabMenu = () => {
                   <input
                     type="text"
                     id="organize"
-                    className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.organize}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, organize: e.target.value }))}
                     required
@@ -322,14 +322,14 @@ const TabMenu = () => {
                 {/* Location Radio Buttons */}
                 <div className="md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-800">Location</label>
-                  <div className="mt-2 flex items-center space-x-6">
+                  <div className="flex items-center mt-2 space-x-6">
                     <label className="flex items-center">
                       <input
                         type="radio"
                         name="location"
                         checked={newCourse.inCountry}
                         onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: true }))}
-                        className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                       />
                       <span className="ml-2 text-sm text-gray-800">In Country</span>
                     </label>
@@ -339,7 +339,7 @@ const TabMenu = () => {
                         name="location"
                         checked={!newCourse.inCountry}
                         onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: false }))}
-                        className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                       />
                       <span className="ml-2 text-sm text-gray-800">Out of Country</span>
                     </label>
@@ -352,7 +352,7 @@ const TabMenu = () => {
                   <input
                     type="text"
                     id="lastBy"
-                    className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.lastBy}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, lastBy: e.target.value }))}
                     required
