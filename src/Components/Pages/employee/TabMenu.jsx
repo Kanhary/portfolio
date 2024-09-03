@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const TabMenu = () => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: '',
     code: '',
@@ -44,6 +45,14 @@ const TabMenu = () => {
     setIsAddModalOpen(false);
   };
   
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(prev => !prev);
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setIsDropdownOpen(false); // Close dropdown on tab change
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -62,7 +71,7 @@ const TabMenu = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <div className="p-4 -mb-8 ">
+        return <div className="p-4 -mb-8">
           <div className='overflow-auto '>
           <form onSubmitCapture={handleSubmit}>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
@@ -261,7 +270,7 @@ const TabMenu = () => {
             </form>
           </div>
         </div>;
-        
+
       case 'tab2':
         return (
           <div className="p-4">
@@ -269,7 +278,7 @@ const TabMenu = () => {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* From Date Input */}
                 <div>
-                  <label htmlFor="from" className="block text-sm font-semibold text-gray-800">From</label>
+                  <label htmlFor="from" className="block text-sm font-medium text-gray-800">ចាប់ផ្តើម</label>
                   <input
                     type="date"
                     id="from"
@@ -282,7 +291,7 @@ const TabMenu = () => {
 
                 {/* To Date Input */}
                 <div>
-                  <label htmlFor="to" className="block text-sm font-semibold text-gray-800">To</label>
+                  <label htmlFor="to" className="block text-sm font-medium text-gray-800">ដល់</label>
                   <input
                     type="date"
                     id="to"
@@ -295,7 +304,7 @@ const TabMenu = () => {
 
                 {/* Course Input */}
                 <div>
-                  <label htmlFor="course" className="block text-sm font-semibold text-gray-800">Course</label>
+                  <label htmlFor="course" className="block text-sm font-medium text-gray-800">វគ្គសិក្សា</label>
                   <input
                     type="text"
                     id="course"
@@ -308,7 +317,7 @@ const TabMenu = () => {
 
                 {/* Organize Input */}
                 <div>
-                  <label htmlFor="organize" className="block text-sm font-semibold text-gray-800">Organize</label>
+                  <label htmlFor="organize" className="block text-sm font-medium text-gray-800">ក្រុមហ៊ុន</label>
                   <input
                     type="text"
                     id="organize"
@@ -331,7 +340,7 @@ const TabMenu = () => {
                         onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: true }))}
                         className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                       />
-                      <span className="ml-2 text-sm text-gray-800">In Country</span>
+                      <span className="ml-2 text-sm font-normal text-gray-800">In Country</span>
                     </label>
                     <label className="flex items-center">
                       <input
@@ -347,7 +356,7 @@ const TabMenu = () => {
                 </div>
 
                 {/* Last Modified By Input */}
-                <div className="md:col-span-2">
+                {/* <div className="md:col-span-2">
                   <label htmlFor="lastBy" className="block text-sm font-semibold text-gray-800">Last Modified By</label>
                   <input
                     type="text"
@@ -357,23 +366,23 @@ const TabMenu = () => {
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, lastBy: e.target.value }))}
                     required
                   />
-                </div>
+                </div> */}
               </div>
 
               {/* Form Actions */}
-              <div className="flex justify-end space-x-4">
-                <button
-                  type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-500 bg-gray-100 rounded-lg hover:bg-gray-200"
-                  onClick={() => setActiveTab('tab1')} // Navigate back to Tab 1
-                >
-                  Cancel
-                </button>
+              <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+                  className="px-8 py-2 text-base font-normal text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                 >
-                  Save
+                  រក្សាទុក
+                </button>
+                <button
+                  type="button"
+                  className="px-6 py-4 text-base font-normal text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                  onClick={() => setActiveTab('tab1')} // Navigate back to Tab 1
+                >
+                  បោះបង់
                 </button>
               </div>
             </form>
@@ -387,31 +396,93 @@ const TabMenu = () => {
   };
 
   return (
-    <div>
-      <div className="flex border-b">
-        <button
-          className={`px-4 py-2 font-medium text-sm ${activeTab === 'tab1' ? 'border-b-2 border-blue-900 text-blue-800' : 'text-black'}`}
-          onClick={() => setActiveTab('tab1')}
-        >
-          បញ្ចូលព័ត៌មានបុគ្គលិក
-        </button>
-        <button
-          className={`px-4 py-2 font-medium text-sm ${activeTab === 'tab2' ? 'border-b-2 border-blue-900 text-blue-800' : 'text-black'}`}
-          onClick={() => setActiveTab('tab2')}
-        >
-          បញ្ចូលវគ្គសិក្សារយៈពេលវែង
-        </button>
-        <button
-          className={`px-4 py-2 font-medium text-sm ${activeTab === 'tab3' ? 'border-b-2 border-blue-900 text-blue-800' : 'text-black'}`}
-          onClick={() => setActiveTab('tab3')}
-        >
-          បញ្ចូលវគ្គសិក្សារយៈពេលខ្លី
-        </button>
-      </div>
-      <div className="mt-4">
-        {renderContent()}
-      </div>
-    </div>
+        <div className="relative">
+              {/* Dropdown Menu for Small Screens */}
+              <div className="md:hidden sticky top-[75px]">
+                <button
+                  onClick={handleDropdownToggle}
+                  className="flex items-center justify-between px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 ml-3 border border-gray-300 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                >
+                  <span>
+                    {activeTab === 'tab1' && 'បញ្ចូលព័ត៌មានបុគ្គលិក'}
+                    {activeTab === 'tab2' && 'បញ្ចូលវគ្គសិក្សារយៈពេលវែង'}
+                    {activeTab === 'tab3' && 'បញ្ចូលវគ្គសិក្សារយៈពេលខ្លី'}
+                  </span>
+                  <svg className="w-4 h-4 ml-2 text-blue-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    isDropdownOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <div className="flex justify-center w-48 mt-1 ml-3 bg-white border border-gray-300 rounded-lg">
+                    <div className="px-2 py-2 font-normal">
+                      <button
+                        className={`block px-3 py-1 text-sm font-medium  text-left ${activeTab === 'tab1' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
+                        onClick={() => handleTabChange('tab1')}
+                      >
+                        បញ្ចូលព័ត៌មានបុគ្គលិក
+                      </button>
+                      <button
+                        className={`block px-3 py-1 text-sm font-medium text-left ${activeTab === 'tab2' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
+                        onClick={() => handleTabChange('tab2')}
+                      >
+                        បញ្ចូលវគ្គសិក្សារយៈពេលវែង
+                      </button>
+                      {/* <button
+                        className={`block px-3 py-1 text-sm font-medium text-left ${activeTab === 'tab3' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
+                        onClick={() => handleTabChange('tab3')}
+                      >
+                        បញ្ចូលវគ្គសិក្សារយៈពេលខ្លី
+                      </button> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              {/* Tabs for Larger Screens */}
+              <div className="hidden md:flex top-[180px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full">
+                <button
+                  className={`px-4 py-2 font-medium text-sm sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab1' ? 'text-blue-800' : 'text-black'}`}
+                  onClick={() => handleTabChange('tab1')}
+                >
+                  បញ្ចូលព័ត៌មានបុគ្គលិក
+                  <span
+                    className={`block h-[2px] mt-2 transition-all duration-300 ${activeTab === 'tab1' ? 'w-full bg-gradient-to-r from-blue-800 to-blue-600' : 'w-0 bg-transparent'}`}
+                    style={{ borderRadius: '9999px' }}
+                  />
+                </button>
+                <button
+                  className={`px-4 py-2 font-medium text-xs sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab2' ? 'text-blue-800' : 'text-black'}`}
+                  onClick={() => handleTabChange('tab2')}
+                >
+                  បញ្ចូលវគ្គសិក្សារយៈពេលវែង
+                  <span
+                    className={`block h-[2px] mt-2 transition-all duration-300 ${activeTab === 'tab2' ? 'w-full bg-gradient-to-r from-blue-800 to-blue-600' : 'w-0 bg-transparent'}`}
+                    style={{ borderRadius: '9999px' }}
+                  />
+                </button>
+                {/* <button
+                  className={`px-4 py-2 font-medium text-xs sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab3' ? 'text-blue-800' : 'text-black'}`}
+                  onClick={() => handleTabChange('tab3')}
+                >
+                  បញ្ចូលវគ្គសិក្សារយៈពេលខ្លី
+                  <span
+                    className={`block h-[2px] mt-2 transition-all duration-300 ${activeTab === 'tab3' ? 'w-full bg-gradient-to-r from-blue-800 to-blue-600' : 'w-0 bg-transparent'}`}
+                    style={{ borderRadius: '9999px' }}
+                  />
+                </button> */}
+              </div>
+
+              {/* Content */}
+              <div className="mt-4">
+                {renderContent()}
+              </div>
+        </div>
   );
 };
 

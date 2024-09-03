@@ -53,6 +53,7 @@ const GenderList = () => {
     return pages;
   };
 
+
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 

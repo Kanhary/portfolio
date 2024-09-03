@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { FaPen, FaTrashAlt, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import TabMenu from './TabMenu';
 // import LongCourse from './LongCourse';
@@ -93,6 +93,32 @@ const EmployeeInformation = () => {
     }));
   };
 
+  const handleDelete = (id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If confirmed, filter out the employee
+            const updatedEmployees = employees.filter(employee => employee.id !== id);
+            setEmployees(updatedEmployees);
+
+            // Show success message
+            Swal.fire(
+                'Deleted!',
+                'The employee has been deleted.',
+                'success'
+            );
+        }
+    });
+};
+
+
   const handleSaveEmployee = () => {
     // Handle save logic here
     console.log('Saving employee data:', formData);
@@ -171,7 +197,8 @@ const EmployeeInformation = () => {
     console.log(filteredUsers);
   };
   
-  const employees = [
+  const [employees, setEmployees] = useState([
+
     { id: '1', code: '001', fullname: 'សែម ភក្តី', lastname: 'Sem Pheakdey', gender: 'Male', height: '185cm', weight: '75kg', birthdate: '1990-01-01', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្រះចក, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្រះចក, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0123456789', email: 'sem.pheakdey@example.com', special_number: '010 444 152', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS3', department: 'Administration', office: 'IT Department', position: 'Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
     { id: '2', code: '002', fullname: 'សុជឿន ជ័យនេត', lastname: 'Sokhoeun Chhaynet', gender: 'Female', height: '160cm', weight: '55kg', birthdate: '1985-05-15', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ដេក, ខណ្ឌភ្នំពេញ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ដេក, ខណ្ឌភ្នំពេញ, រាជធានីភ្នំពេញ', phone_number: '0987654321', email: 'sokhoeun.chhaynet@example.com', special_number: '010 555 123', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS4', department: 'Finance', office: 'Engineering Office', position: 'Senior Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
     { id: '3', code: '003', fullname: 'អ៊ុំ ម៉េង', lastname: 'Um Meng', gender: 'Male', height: '175cm', weight: '68kg', birthdate: '1988-07-22', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ទន្លេបត, ខណ្ឌសៀមរាប, រាជធានីសៀមរាប', address: 'សង្កាត់ទន្លេបត, ខណ្ឌសៀមរាប, រាជធានីសៀមរាប', phone_number: '0976543210', email: 'um.meng@example.com', special_number: '010 666 789', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS5', department: 'Technology', office: 'Research Department', position: 'IT Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
@@ -186,26 +213,8 @@ const EmployeeInformation = () => {
     { id: '12', code: '012', fullname: 'យ៉ែត សំអាង', lastname: 'Yet Somang', gender: 'Male', height: '180cm', weight: '75kg', birthdate: '1984-01-19', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងកេងកង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងកេងកង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', phone_number: '0967891234', email: 'yet.somang@example.com', special_number: '010 999 000', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS14', department: 'IT', office: 'IT Support Office', position: 'IT Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
     { id: '13', code: '013', fullname: 'ទេព សុភាព', lastname: 'Teap Sophap', gender: 'Female', height: '160cm', weight: '57kg', birthdate: '1992-07-09', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ឫស្សីកែវ, ខណ្ឌឫស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ឫស្សីកែវ, ខណ្ឌឫស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0976543210', email: 'teap.sophap@example.com', special_number: '010 888 999', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS15', department: 'R&D', office: 'Research Office', position: 'Research Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
     { id: '14', code: '014', fullname: 'សេក ប៉ូលី', lastname: 'Sek Polley', gender: 'Male', height: '172cm', weight: '68kg', birthdate: '1986-03-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', phone_number: '0939876543', email: 'sek.polley@example.com', special_number: '010 555 666', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS16', department: 'Operations', office: 'Operations Office', position: 'Operations Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '15', code: '015', fullname: 'ទេព សុធា', lastname: 'Teap Sothea', gender: 'Female', height: '164cm', weight: '59kg', birthdate: '1994-05-30', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់គោកព្រះ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់គោកព្រះ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0923456789', email: 'teap.sothea@example.com', special_number: '010 333 555', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS17', department: 'Training', office: 'Training Office', position: 'Training Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '16', code: '016', fullname: 'ចាន់ សុខសាន្ត', lastname: 'Chan Soksan', gender: 'Male', height: '170cm', weight: '65kg', birthdate: '1985-09-14', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ចោមចៅ, ខណ្ឌចោមចៅ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ចោមចៅ, ខណ្ឌចោមចៅ, រាជធានីភ្នំពេញ', phone_number: '0976543210', email: 'chan.soksan@example.com', special_number: '010 666 777', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS18', department: 'Legal', office: 'Legal Affairs Office', position: 'Legal Assistant', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '17', code: '017', fullname: 'សុខ សុវត្ថិ', lastname: 'Sok Sovath', gender: 'Female', height: '157cm', weight: '55kg', birthdate: '1989-10-17', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្លែក, ខណ្ឌស្លែក, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្លែក, ខណ្ឌស្លែក, រាជធានីភ្នំពេញ', phone_number: '0961234567', email: 'sok.sovath@example.com', special_number: '010 444 666', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS19', department: 'Sales', office: 'Sales Office', position: 'Sales Representative', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '18', code: '018', fullname: 'ពុធ សុវណ្ណ', lastname: 'Put Sovann', gender: 'Male', height: '175cm', weight: '70kg', birthdate: '1983-12-26', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងកែង, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងកែង, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0936543210', email: 'put.sovann@example.com', special_number: '010 555 888', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS20', department: 'Engineering', office: 'Engineering Office', position: 'Engineer', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '19', code: '019', fullname: 'សំ មុនី', lastname: 'Som Mony', gender: 'Female', height: '162cm', weight: '58kg', birthdate: '1991-11-05', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់សង្កែ, ខណ្ឌសង្កែ, រាជធានីភ្នំពេញ', address: 'សង្កាត់សង្កែ, ខណ្ឌសង្កែ, រាជធានីភ្នំពេញ', phone_number: '0959876543', email: 'som.mony@example.com', special_number: '010 777 999', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS21', department: 'Customer Service', office: 'Support Office', position: 'Customer Support Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '20', code: '020', fullname: 'រឿង សុចក្រម', lastname: 'Roeung Sokram', gender: 'Male', height: '180cm', weight: '75kg', birthdate: '1982-06-13', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជួលវែង, ខណ្ឌកណ្តាល, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជួលវែង, ខណ្ឌកណ្តាល, រាជធានីភ្នំពេញ', phone_number: '0971234567', email: 'roeung.sokram@example.com', special_number: '010 888 111', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS22', department: 'Marketing', office: 'Marketing Office', position: 'Marketing Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '21', code: '021', fullname: 'លី សុវណ្ណ', lastname: 'Ly Sovann', gender: 'Female', height: '155cm', weight: '52kg', birthdate: '1988-04-15', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជ្រៃកោះ, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជ្រៃកោះ, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', phone_number: '0966543210', email: 'ly.sovann@example.com', special_number: '010 333 777', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS23', department: 'IT', office: 'IT Services Office', position: 'IT Support Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '22', code: '022', fullname: 'ទិត្យ មន្នី', lastname: 'Tith Moni', gender: 'Male', height: '169cm', weight: '66kg', birthdate: '1987-07-22', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់អូរ៉ង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', address: 'សង្កាត់អូរ៉ង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', phone_number: '0938765432', email: 'tith.moni@example.com', special_number: '010 444 888', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS24', department: 'Operations', office: 'Operational Support Office', position: 'Operations Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '23', code: '023', fullname: 'ជ័យ មុន្នី', lastname: 'Chhay Mony', gender: 'Female', height: '160cm', weight: '56kg', birthdate: '1993-01-29', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ទួលគោក, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', address: 'សង្កាត់ទួលគោក, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', phone_number: '0975432109', email: 'chhay.mony@example.com', special_number: '010 777 999', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS25', department: 'Finance', office: 'Accounting Office', position: 'Financial Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '24', code: '024', fullname: 'វ៉ាន់ សុផល', lastname: 'Vann Sophal', gender: 'Male', height: '173cm', weight: '67kg', birthdate: '1985-02-11', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់កំពង់ឃុំ, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់កំពង់ឃុំ, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0934567890', email: 'vann.sophal@example.com', special_number: '010 555 999', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS26', department: 'Legal', office: 'Legal Office', position: 'Legal Counsel', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '25', code: '025', fullname: 'គឹម សុខសម', lastname: 'Kim Soksam', gender: 'Female', height: '164cm', weight: '60kg', birthdate: '1990-10-10', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជ្រៃអង្គរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជ្រៃអង្គរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0965432102', email: 'kim.soksam@example.com', special_number: '010 888 111', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS27', department: 'HR', office: 'HR Services Office', position: 'HR Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '26', code: '026', fullname: 'គិម សុវណ្ណ', lastname: 'Kim Sovann', gender: 'Male', height: '176cm', weight: '70kg', birthdate: '1984-09-15', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងដូង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងដូង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', phone_number: '0976543211', email: 'kim.sovann@example.com', special_number: '010 999 222', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS28', department: 'IT', office: 'IT Office', position: 'Systems Administrator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '27', code: '027', fullname: 'អេង សុវណ្ណ', lastname: 'Eng Sovann', gender: 'Female', height: '158cm', weight: '54kg', birthdate: '1992-06-06', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់គោកពេជ្រ, ខណ្ឌភ្នំពេញកណ្តាល, រាជធានីភ្នំពេញ', address: 'សង្កាត់គោកពេជ្រ, ខណ្ឌភ្នំពេញកណ្តាល, រាជធានីភ្នំពេញ', phone_number: '0964321098', email: 'eng.sovann@example.com', special_number: '010 555 777', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS29', department: 'Training', office: 'Training & Development Office', position: 'Training Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '28', code: '028', fullname: 'សុខ សាវី', lastname: 'Sok Savy', gender: 'Male', height: '169cm', weight: '68kg', birthdate: '1986-03-20', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្ទឹងមាស, ខណ្ឌស្ទឹងមាស, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្ទឹងមាស, ខណ្ឌស្ទឹងមាស, រាជធានីភ្នំពេញ', phone_number: '0975432101', email: 'sok.savy@example.com', special_number: '010 888 999', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS30', department: 'Engineering', office: 'Engineering & Design Office', position: 'Project Engineer', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '29', code: '029', fullname: 'ឈូង សុខ', lastname: 'Choung Sok', gender: 'Female', height: '162cm', weight: '59kg', birthdate: '1991-07-05', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់គោកពន្លា, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់គោកពន្លា, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0958765432', email: 'choung.sok@example.com', special_number: '010 999 000', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS31', department: 'Sales', office: 'Sales & Marketing Office', position: 'Sales Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '30', code: '030', fullname: 'ហេង សុវណ្ណ', lastname: 'Heng Sovann', gender: 'Male', height: '174cm', weight: '72kg', birthdate: '1983-05-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ព្រែកឈរ, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', address: 'សង្កាត់ព្រែកឈរ, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', phone_number: '0937654321', email: 'heng.sovann@example.com', special_number: '010 666 555', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS32', department: 'Customer Service', office: 'Customer Care Office', position: 'Customer Service Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '31', code: '031', fullname: 'មី សុផាត', lastname: 'Mey Sophat', gender: 'Female', height: '159cm', weight: '55kg', birthdate: '1994-08-10', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់វត្តស្ដារ, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', address: 'សង្កាត់វត្តស្ដារ, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', phone_number: '0965432102', email: 'mey.sophat@example.com', special_number: '010 777 555', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS33', department: 'Finance', office: 'Finance Department', position: 'Accountant', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '32', code: '032', fullname: 'សោម សុវណ្ណ', lastname: 'Saom Sovann', gender: 'Male', height: '170cm', weight: '70kg', birthdate: '1988-12-20', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់កំពង់ទូរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់កំពង់ទូរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0938765432', email: 'saom.sovann@example.com', special_number: '010 555 888', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS34', department: 'Marketing', office: 'Marketing Department', position: 'Marketing Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '33', code: '033', fullname: 'ណុច សុភា', lastname: 'Nok Sophea', gender: 'Female', height: '157cm', weight: '53kg', birthdate: '1990-02-28', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ទឹកជ្រោះ, ខណ្ឌទឹកជ្រោះ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ទឹកជ្រោះ, ខណ្ឌទឹកជ្រោះ, រាជធានីភ្នំពេញ', phone_number: '0956543210', email: 'nok.sophea@example.com', special_number: '010 444 777', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS35', department: 'R&D', office: 'Research & Development Office', position: 'Research Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-];
+
+]);
   const filteredEmployees = employees.filter(employee =>
     employee.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -284,7 +293,7 @@ const EmployeeInformation = () => {
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-50">Action</th>
-                  <th scope="col" className="px-4 py-3">ID</th>
+                  <th scope="col" className="px-4 py-3">NO</th>
                   <th scope="col" className="px-4 py-3">Code</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '180px' }}>Latan name</th>
@@ -311,20 +320,26 @@ const EmployeeInformation = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Icon That can Edit, Viewd, Delete */}
   {currentEmployees.map(employee => (
     <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200 '>
       <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
-        <input type="checkbox" className="mr-3 action-checkbox" />
-        <FaPen
-          className="text-blue-500 cursor-pointer hover:text-blue-700"
-          onClick={() => openEditModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
-            employee.height, employee.weight, employee.birthdate, employee.nation, employee.nationality, employee.region,
-            employee.birthdate_address, employee.address, employee.phone_number, employee.email, employee.special_number,
-            employee.marital_status, employee.company, employee.branch, employee.department, employee.office, employee.position,
-            employee.last_modified_by, employee.last_modified_date)}
-        />
-        <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={handleClick}/>
+          <input type="checkbox" className="mr-3 action-checkbox" />
+          <FaPen
+              className="text-blue-500 cursor-pointer hover:text-blue-700"
+              onClick={() => openEditModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
+              employee.height, employee.weight, employee.birthdate, employee.nation, employee.nationality, employee.region,
+              employee.birthdate_address, employee.address, employee.phone_number, employee.email, employee.special_number,
+              employee.marital_status, employee.company, employee.branch, employee.department, employee.office, employee.position,
+              employee.last_modified_by, employee.last_modified_date)}
+          />
+            <FaEye
+                className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
+                onClick={() => viewDetails(employee.id)}
+            />
+          <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => handleDelete(employee.id)}/>
       </td>
+
       <td className='px-4 py-3'>{employee.id}</td>
       <td className='px-4 py-3'>{employee.code}</td>
       <td className='px-4 py-3'>{employee.fullname}</td>
@@ -414,209 +429,29 @@ const EmployeeInformation = () => {
       </div>
       
       {isAddModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
-              <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
-                បញ្ចូលព័ត៌មានបុគ្គលិក
-              </h2>
-              <button
-                type="button"
-                onClick={closeEmployeeModal}
-                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-            <div className='sticky top-16'><TabMenu/></div>
-            {/* <form onSubmitCapture={handleSubmit}>
-              <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
-                
-                {[
-                  { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
-                  { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
-                  { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
-                  { id: 'height', label: 'កម្ពស់', type: 'text' },
-                  { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-                  { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                  { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
-                  { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                  { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
-                  { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                  { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-                ].map(({ id, label, type, required }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{required && !formData[id] && (
-                      <p className="text-sm text-red-600">* </p>
-                    )}{label}</label>
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      required={required}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  
-                  </div>
-                ))}
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+    <div className="relative w-full max-w-md sm:max-w-4xl md:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[550px]  modal-scrollbar mt-14 sm:ml-52 md:ml-0">
+      <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 z-50 py-4 border-b-2 border-dashed border-gray-300">
+        <h2 className="flex-1 ml-3 text-xl sm:text-2xl md:text-2xl font-medium text-blue-800 font-khmer leading-2">
+          បញ្ចូលព័ត៌មានបុគ្គលិក
+        </h2>
+        <button
+          type="button"
+          onClick={closeEmployeeModal}
+          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div className="px-4 ">
+        <TabMenu />
+      </div>
+    </div>
+  </div>
+)}
 
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="gender" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.gender && <p className="text-sm text-red-600">*</p>}ភេទ</label>
-                  <select
-                    id="gender"
-                    value={formData.gender || ''}
-                    onChange={handleChange}
-                    required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="male">ប្រុស</option>
-                    <option value="female">ស្រី</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="family" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.family && <p className="text-sm text-red-600">*</p>}ស្ថានភាពគ្រួសារ</label>
-                  <select
-                    id="family"
-                    value={formData.family || ''}
-                    onChange={handleChange}
-                    required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="single">លីវ</option>
-                    <option value="married">មានគូរស្វាមី</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
-                  <select
-                    id="region"
-                    value={formData.region || ''}
-                    onChange={handleChange}
-                    required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="cambodia">កម្ពុជា</option>
-                    <option value="thailand">ថៃ</option>
-                    <option value="vietnam">វៀតណាម</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="nation" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nation && <p className="text-sm text-red-600">*</p>}ជនជាតិ</label>
-                  <input
-                    type="text"
-                    id="nation"
-                    value={formData.nation || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
-                  <input
-                    type="text"
-                    id="nationality"
-                    value={formData.nationality || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="department" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.department && <p className="text-sm text-red-600 ">*</p>}នាយកដ្ឋាន</label>
-                  <select
-                    id="department"
-                    value={formData.department || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
-                    <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
-                    <option value="it">នាយកដ្ឋាននាវាចរណ៍</option>
-                    <option value="pa">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
-                    <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
-                  </select>
-
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="office" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.office && <p className="text-sm text-red-600">*</p>}ការិយាល័យ</label>
-                  <select
-                    id="office"
-                    value={formData.office || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើសការិយាល័យ</option>
-                    <option value="department">ការិយាល័យរដ្ឋបាល</option>
-                    <option value="it">ការិយាល័យព័ត៌មានវិទ្យា</option>
-                    <option value="accounting">ការិយាល័យគណនេយ្យ</option>
-                  </select>
-
-                </div>
-
-                {[
-                  { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.company && <p className="text-sm text-red-600">*</p>}{label}</label>
-                    
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
-
-      {[
-                  { id: 'position', label: 'តួនាទី', type: 'text' }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.position && <p className="text-sm text-red-600">*</p>}{label}</label>
-                    
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
-              </div>
-              
-
-              <div className="flex justify-center gap-5 p-6 mt-4">
-                <button
-                  type="submit"
-                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-                >
-                  <p className='text-base font-normal'>រក្សាទុក</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>ចាកចេញ</p>
-                </button>
-              </div>
-            </form> */}
-          </div>
-        </div>
-      )}
 
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -634,171 +469,11 @@ const EmployeeInformation = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
+
             </div>
-
-            <form>
-              <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
-                {[
-                  { id: 'code', label: 'អត្ថលេខ', type: 'text' },
-                  { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text' },
-                  { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text' },
-                  { id: 'height', label: 'កម្ពស់', type: 'text' },
-                  { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-                  { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                  { id: 'birthdate_address', label: 'ទីកន្លែងកំណើត', type: 'text' },
-                  { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                  { id: 'phone_number', label: 'លេខទូរសព្ទ', type: 'text' },
-                  { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                  { id: 'special_number', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
-                
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="gender" className="text-sm font-medium text-gray-700">ភេទ</label>
-                  <select
-                    id="gender"
-                    value={formData.gender || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="male">ប្រុស</option>
-                    <option value="female">ស្រី</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="family" className="text-sm font-medium text-gray-700">ស្ថានភាពគ្រួសារ</label>
-                  <select
-                    id="family"
-                    value={formData.family || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="single">លីវ</option>
-                    <option value="married">មានគូរស្វាមី</option>
-                  </select>
-                </div>
-                
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="region" className="text-sm font-medium text-gray-700">ប្រទេស</label>
-                  <select
-                    id="region"
-                    value={formData.region || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើស</option>
-                    <option value="cambodia">កម្ពុជា</option>
-                    <option value="thailand">ថៃ</option>
-                    <option value="vietnam">វៀតណាម</option>
-                    {/* Add more regions as needed */}
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="nation" className="text-sm font-medium text-gray-700">ជនជាតិ</label>
-                  <input
-                    type="text"
-                    id="nation"
-                    value={formData.nation || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  />
-                </div>
-                
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="nationality" className="text-sm font-medium text-gray-700">សញ្ជាតិ</label>
-                  <input
-                    type="text"
-                    id="nationality"
-                    value={formData.nationality || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="department" className="text-sm font-medium text-gray-700">នាយកដ្ឋាន</label>
-                  <select
-                    id="department"
-                    value={formData.department || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
-                    <option value="hr">នាយកដ្ខានរដ្ឋបាល</option>
-                    <option value="it">នាយកដ្ឋាននាវាចរណ៍</option>
-                    <option value="pa">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
-                    <option value="nr">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
-
-                    {/* Add more departments as needed */}
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="office" className="text-sm font-medium text-gray-700">ការិយាល័យ</label>
-                  <select
-                    id="office"
-                    value={formData.office || ''}
-                    onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="">ជ្រើសរើសការិយាល័យ</option>
-                    <option value="department">ការិយាល័យរដ្ឋបាល</option>
-                    <option value="it">ការិយាល័យព័ត៌មានវិទ្យា</option>
-                    <option value="it">ការិយាល័យគណនេយ្យ</option>
-                    {/* <option value="it"></option> */}
-
-                    {/* Add more offices as needed */}
-                  </select>
-                </div>
-                
-                {[
-                  { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-                  { id: 'position', label: 'តួនាទី', type: 'text' }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex justify-center gap-5 p-6 mt-4">
-                <button
-                  type="button"
-                  onClick={updateClick}
-                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 " 
-                >
-                  <p className='text-base font-normal'>រក្សាទុក</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={closeEditModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>ចាកចេញ</p>
-                </button>
-              </div>
-            </form>
+            <div>
+              <TabMenu/>
+            </div>
           </div>
         </div>
       )}

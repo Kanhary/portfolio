@@ -35,3 +35,51 @@
 input[type="checkbox"] {
   accent-color: #3b82f6; /* Tailwind's blue-600 */
 }
+
+
+/* TailwindCSS or custom styles */
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination-page,
+.pagination-previous,
+.pagination-next,
+.pagination-break {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb; /* Tailwind Gray-200 */
+  background-color: #fff; /* Tailwind White */
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pagination-active {
+  background-color: #2563eb; /* Tailwind Blue-600 */
+  color: #fff; /* Tailwind White */
+  border-color: #2563eb; /* Tailwind Blue-600 */
+}
+
+.pagination-arrow {
+  font-size: 14px;
+}
+
+.pagination-dots {
+  font-size: 14px;
+}
+
+.pagination-page:hover,
+.pagination-previous:hover,
+.pagination-next:hover,
+.pagination-break:hover {
+  background-color: #f3f4f6; /* Tailwind Gray-100 */
+  border-color: #d1d5db; /* Tailwind Gray-300 */
+}

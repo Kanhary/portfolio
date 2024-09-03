@@ -5,7 +5,7 @@ export function AddUser(data) {
     console.log(data);
     return request({
         method: "POST",
-        url: '/userSystem/addUser ',
+        url: '/userSystem/addUser',
         data: data
     });
 }
@@ -14,7 +14,7 @@ export function GetUser(params) {
     console.log(params);
     return request({
         method: "GET",
-        url: '/userSystem/getByUser/USER-0001',
+        url: '/userSystem/getAllUser',
         params: params  
     });
 }
@@ -28,10 +28,25 @@ export function GetEmp(params) {
     });
 }
 
-export function UpdateUser(data) {
+export function UpdateUser(id, data) {
     return request({
-        method: "POST",
-        url: '/user/updateusersystem',
+        method: 'POST',
+        url: `/userSystem/updateUser/${id}`,
         data: data
+    });
+}
+
+export function CheckUser(data) {
+    return request({
+        method: 'POST',
+        url: '/userSystem/checkusers',
+        data: data
+    });
+}
+
+export function DeleteUser(userCode) {
+    return request({
+        method: 'POST',
+        url: `/userSystem/delete/${userCode}`,
     });
 }
