@@ -67,26 +67,29 @@ const FunctionCodeCheckboxes = ({ permissions, onChange, isEditing, functionCode
 const FunctionCodeTable = ({ functionCodes, selectedFunctionCodes, onChange }) => {
     return (
         <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
-                <thead className="bg-gray-100">
+            <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+                <thead className="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
                     <tr>
-                        <th className="p-4 text-left text-gray-700">Function Code</th>
-                        <th className="p-4 text-left text-gray-700">View</th>
-                        <th className="p-4 text-left text-gray-700">Update</th>
-                        <th className="p-4 text-left text-gray-700">Delete</th>
+                        <th className="p-4 text-left text-sm font-semibold tracking-wide">Function Code</th>
+                        <th className="p-4 text-left text-sm font-semibold tracking-wide">View</th>
+                        <th className="p-4 text-left text-sm font-semibold tracking-wide">Update</th>
+                        <th className="p-4 text-left text-sm font-semibold tracking-wide">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {functionCodes.map(code => (
-                        <tr key={code} className="border-t">
-                            <td className="p-4 text-gray-800">{code}</td>
+                    {functionCodes.map((code) => (
+                        <tr 
+                            key={code} 
+                            className="border-t hover:bg-gray-100 transition-all duration-200 ease-in-out"
+                        >
+                            <td className="p-4 text-gray-700 font-medium">{code}</td>
                             <td className="p-4">
                                 <label className="flex items-center gap-2">
                                     <input 
                                         type="checkbox" 
                                         checked={selectedFunctionCodes[code]?.view || false}
                                         onChange={(e) => onChange(code, 'view', e.target.checked)}
-                                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-400"
                                     />
                                 </label>
                             </td>
@@ -96,7 +99,7 @@ const FunctionCodeTable = ({ functionCodes, selectedFunctionCodes, onChange }) =
                                         type="checkbox" 
                                         checked={selectedFunctionCodes[code]?.update || false}
                                         onChange={(e) => onChange(code, 'update', e.target.checked)}
-                                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-400"
                                     />
                                 </label>
                             </td>
@@ -106,7 +109,7 @@ const FunctionCodeTable = ({ functionCodes, selectedFunctionCodes, onChange }) =
                                         type="checkbox" 
                                         checked={selectedFunctionCodes[code]?.delete || false}
                                         onChange={(e) => onChange(code, 'delete', e.target.checked)}
-                                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-400"
                                     />
                                 </label>
                             </td>
@@ -116,6 +119,7 @@ const FunctionCodeTable = ({ functionCodes, selectedFunctionCodes, onChange }) =
             </table>
         </div>
     );
+    
 };
 
 const AddNewModal = ({ isOpen, onClose, onAdd }) => {
