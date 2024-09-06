@@ -1,5 +1,6 @@
 // import request from '../utils/requst.js'
 import request from '@/utils/requst'
+import axios from 'axios';
 
 export function AddUser(data) {
     console.log(data);
@@ -42,11 +43,10 @@ export function CheckUser(data) {
         url: '/userSystem/checkusers',
         data: data,
         headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'application/json'
         }
     });
 }
-
 export function DeleteUser(ID) {
     return request({
         method: 'POST',

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { AddUser, GetUser, GetEmp } from '@/api/user.js';
 import { CheckUser, DeleteUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
+import Select from 'react-select'
 
 const User = () => {
   const INITIAL_FORM_DATA = { 
@@ -192,16 +193,20 @@ const User = () => {
     if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
     if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
 
+
     if (Object.keys(validationErrors).length > 0) {
         console.log('Validation errors:', validationErrors);
         setErrors(validationErrors);
         return;
     }
 
-    const updatedFormData = { ...formData, staffCode: selectedOption };
-    setFormData(updatedFormData);
+    const updatedFormData = { 
+      ...formData, 
+      staffCode: selectedOption // Ensure staffCode is correctly set as a string
+  };
+  setFormData(updatedFormData);
 
-    setIsLoading(true);
+  setIsLoading(true);
 
     try {
         // Check if the user already exists
@@ -234,8 +239,6 @@ const User = () => {
         setErrors({ general: 'Error during user check' });
     }
 };
-
-
 
   
   // const handleClick = () => {
@@ -341,16 +344,14 @@ const User = () => {
         });
     }
 };
-const handleChangeSelection = (optionOrEvent) => {
-    const selectedValue = typeof optionOrEvent === 'object' && optionOrEvent.target 
-        ? optionOrEvent.target.value 
-        : optionOrEvent;
-
+const handleChangeSelection = (selectedOption) => {
+    // Ensure selectedOption is the correct value
+    const selectedValue = selectedOption ? selectedOption.value : null;
     setSelectedOption(selectedValue);
-    
-    // Additional logic for when an option is selected
-    console.log('Selected option:', selectedValue);
+    console.log('Selected staff code:', selectedValue); // Should log the staff code
 };
+
+
 
 
   // Format options for react-select
@@ -496,7 +497,7 @@ const handleChangeSelection = (optionOrEvent) => {
               <div className="w-full space-y-6 md:w-3/4">
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                   {/* Input for Code */}
-                  {/* <div className="w-full md:w-1/2">
+                  <div className="w-full md:w-1/2">
                     <label htmlFor="userCode" className="block mb-2 text-sm font-semibold text-gray-700">User Code</label>
                     <input
                       type="text"
@@ -506,7 +507,7 @@ const handleChangeSelection = (optionOrEvent) => {
                       className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.userCode ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
                     />
                     {errors.userCode && <p className="mt-1 text-xs text-red-500">{errors.userCode}</p>}
-                  </div> */}
+                  </div>
                   {/* Input for Username */}
                   <div className="w-full md:w-1/2">
                     <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
@@ -562,21 +563,16 @@ const handleChangeSelection = (optionOrEvent) => {
                   </div>
                   <div className="w-full md:w-1/2">
                     <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
-                    <select
-                      value={selectedOption}
+                    <Select
+                      value={options.find(option => option.value === selectedOption)}
                       onChange={handleChangeSelection}
-                      className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    >
-                      <option value="">Select Employee ID</option>
-                      {
-                        employees.map((employee, index) => (
-                          <option key={`${employee.staffCode}-${index}`} value={employee.staffCode}>
-                            {employee.staffCode} - {employee.laTanName}
-                          </option>
-                        ))
-                      }
-                    </select>
-                    {error && <div className="text-red-600">{error}</div>}
+                      options={options}
+                      placeholder="Select or type to search"
+                      className="basic-single"
+                      classNamePrefix="select"
+                    />
+                    {errors.staffCode && <p className="mt-1 text-xs text-red-500">{errors.staffCode}</p>}
+
                   </div>
                 </div>
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
