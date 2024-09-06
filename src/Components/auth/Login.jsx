@@ -15,14 +15,33 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  //static login
   const handleSubmit = (e) => {
     e.preventDefault();
     if (username === 'Pheakdey' && password === '123') {
-      navigate('/main-dashboard'); // Redirect to dashboard on successful login
+      navigate('/main-dashboard'); 
     } else {
       setError('Invalid username or password');
     }
   };
+
+
+  //Dynamic login
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     await Login({ username, password });
+  //     navigate('/main-dashboard'); 
+  //   } catch (err) {
+  //     setError('Invalid username or password');
+  //   } 
+  //   finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const togglePassword = () => {
     const passwordField = document.getElementById("password");

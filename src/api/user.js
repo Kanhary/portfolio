@@ -40,13 +40,24 @@ export function CheckUser(data) {
     return request({
         method: 'POST',
         url: '/userSystem/checkusers',
-        data: data
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
     });
 }
 
-export function DeleteUser(userCode) {
+export function DeleteUser(ID) {
     return request({
         method: 'POST',
-        url: `/userSystem/delete/${userCode}`,
+        url: `/userSystem/delete/${ID}`,
     });
 }
+
+export function Login(){
+    return request({
+        method: 'POST',
+        url: 'userSystem/login'
+    })
+}
+
