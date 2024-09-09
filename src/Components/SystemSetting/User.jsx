@@ -180,10 +180,11 @@ const User = () => {
     }
 };
 
-  
-  const handleSave = async () => {
+
+const handleSave = async () => {
     const validationErrors = {};
 
+    // Validation for required fields
     if (!formData.userCode) validationErrors.userCode = 'User Code is required';
     if (!formData.userName) validationErrors.userName = 'User Name is required';
     if (!formData.firstName) validationErrors.firstName = 'First Name is required';
@@ -193,53 +194,80 @@ const User = () => {
     if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
     if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
 
-
+    // If validation errors exist, stop and display the errors
     if (Object.keys(validationErrors).length > 0) {
         console.log('Validation errors:', validationErrors);
         setErrors(validationErrors);
         return;
     }
 
-    const updatedFormData = { 
-      ...formData, 
-      staffCode: selectedOption // Ensure staffCode is correctly set as a string
-  };
-  setFormData(updatedFormData);
+    // Create a new FormData object to handle file uploads
+    const formDataToSend = new FormData();
+    formDataToSend.append('userCode', formData.userCode);
+    formDataToSend.append('userName', formData.userName);
+    formDataToSend.append('firstName', formData.firstName);
+    formDataToSend.append('lastName', formData.lastName);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('cardId', formData.cardId);
+    formDataToSend.append('staffCode', selectedOption);  // Ensure staffCode is correctly set
+    if (formData.picture) {
+        formDataToSend.append('picture', formData.picture); // Add the image file if available
+    }
 
-  setIsLoading(true);
+    setIsLoading(true);
 
     try {
-        // Check if the user already exists
-        const checkResponse = await CheckUser(updatedFormData);
+        // Call CheckUser to check for user existence and add the user if they don't exist
+        const checkResponse = await CheckUser(formDataToSend);
 
         console.log('CheckUser response:', checkResponse);
 
-        if (checkResponse.exists) {
+        if (checkResponse.data.exists) {
             console.log('User already exists');
-            setIsLoading(false);
             setErrors({ general: 'User already exists' });
 
             Swal.fire({
-              title: "Exist!",
-              text: "User Already Exists",
-              icon: "warning"
+                title: "User Exists!",
+                text: "User with this information already exists.",
+                icon: "warning"
             });
+
+            setIsLoading(false);
             return;
         }
+
+        // If the user was added successfully
+        console.log('User created successfully:', checkResponse);
+
         Swal.fire({
-          title: "Successful",
-          text: "User create successfully",
-          icon: "success"
+            title: "Success!",
+            text: "User created successfully.",
+            icon: "success"
         });
-        closeAddModal();
+
+        closeAddModal(); // Close the modal on success
 
     } catch (error) {
-        console.error('Error during user check:', error);
-        setIsLoading(false);
-        setErrors({ general: 'Error during user check' });
+        console.error('Error during user creation:', error);
+        setErrors({ general: 'Error during user creation' });
+
+        Swal.fire({
+            title: "Error!",
+            text: "There was an error creating the user. Please try again.",
+            icon: "error"
+        });
+
+    } finally {
+        setIsLoading(false);  // Set loading to false after the process
     }
 };
 
+
+
+  const handleSaveEdit = async () => {
+    closeEditModal = false;
+  }
   
   // const handleClick = () => {
   //   Swal.fire({
@@ -314,36 +342,47 @@ const User = () => {
 
         if (result.isConfirmed) {
             const response = await DeleteUser(ID);
+            console.log('Response:', response);  // Log the response to debug
 
-            if (response.data.code === '200') {
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "User has been deleted.",
-                    icon: "success",
-                    confirmButtonText: "Okay",
-                });
-
-                const updatedUsers = users.filter(user => user.userCode !== ID);
-                setUsers(updatedUsers);
-            } else {
-                Swal.fire({
-                    title: "Error!",
-                    text: "Failed to delete user.",
-                    icon: "error",
-                    confirmButtonText: "Okay",
-                });
-            }
+            if (response.status === 200) {  // Check HTTP status code directly
+              Swal.fire({
+                  title: "Deleted!",
+                  text: "User has been deleted.",
+                  icon: "success",
+                  confirmButtonText: "Okay",
+              });
+          
+              const updatedUsers = users.filter(user => user.id !== ID);
+              setUsers(updatedUsers);
+          } else {
+              Swal.fire({
+                  title: "Error!",
+                  text: "Failed to delete user.",
+                  icon: "error",
+                  confirmButtonText: "Okay",
+              });
+          }
+          
         }
     } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
+        
+        if (error.response) {
+            console.log('Error response:', error.response);  // Full error response
+        } else {
+            console.log('Error message:', error.message);  // Error message if no response
+        }
+
         Swal.fire({
             title: 'Error!',
-            text: 'Failed to connect to the server.',
+            text: error.response?.data?.message || 'Failed to connect to the server.',
             icon: 'error',
             confirmButtonText: 'Okay',
         });
     }
 };
+
+
 const handleChangeSelection = (selectedOption) => {
     // Ensure selectedOption is the correct value
     const selectedValue = selectedOption ? selectedOption.value : null;
@@ -432,9 +471,9 @@ const handleChangeSelection = (selectedOption) => {
                         <FaPen />
                       </button>
                       <button
-                        key={user.userCode}
+                        key={user.id}
                         className='text-red-600 hover:text-red-800'
-                        onClick={() => handleDelete(user.userCode)}
+                        onClick={() => handleDelete(user.id)}
                       >
                         <FaTrashAlt />
                       </button>
@@ -466,8 +505,16 @@ const handleChangeSelection = (selectedOption) => {
             </span>
 
             <ReactPaginate
-              previousLabel={<span className="pagination-arrow">{"<<"}</span>}
-              nextLabel={<span className="pagination-arrow">{">>"}</span>}
+              previousLabel={<span className="pagination-arrow text-slate-500">{
+                <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path fillRule="evenodd" d="M12.293 14.707a1 1 0 01-1.414 0L6.586 10.414a1 1 0 010-1.414l4.293-4.293a1 1 0 011.414 1.414L8.414 10l3.879 3.879a1 1 0 010 1.414z" clipRule="evenodd" />
+                    </svg>
+              }</span>}
+              nextLabel={<span className="pagination-arrow text-slate-500">{
+                <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path fillRule="evenodd" d="M7.707 14.707a1 1 0 010-1.414L11.586 10 7.707 6.121a1 1 0 111.414-1.414l4.293 4.293a1 1 0 010 1.414l-4.293 4.293a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    </svg>
+              }</span>}
               breakLabel={<span className="pagination-dots">...</span>}
               pageCount={totalPages}
               marginPagesDisplayed={2}
@@ -659,7 +706,7 @@ const handleChangeSelection = (selectedOption) => {
 
             <footer className="flex flex-col items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
                     
-              <button onClick={handleSave} className="w-full px-5 py-2 mb-3 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0">
+              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0">
                 Save
               </button>
               <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
@@ -852,12 +899,10 @@ const handleChangeSelection = (selectedOption) => {
 
             <footer className="flex flex-col items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
                     
-              <button onClick={handleSave} className="w-full px-5 py-2 mb-3 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0">
+              <button onClick={handleSaveEdit} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0">
                 Save
               </button>
-              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
-                Save & New
-              </button>
+              
               <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
                 Cancel
               </button>

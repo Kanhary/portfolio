@@ -46,10 +46,10 @@ const EmployeeInformation = () => {
   //   }));
   // };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setSubmittedData(formData);
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedData(formData);
+  };
 
   const [formData, setFormData] = useState({
     id: '',
@@ -456,7 +456,7 @@ const EmployeeInformation = () => {
       </div>
       <div className="px-4">
         <TabMenu />
-        <div className="flex justify-center gap-5 p-6 mt-4">
+        {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
                   // onClick={updateClick}
@@ -471,7 +471,24 @@ const EmployeeInformation = () => {
                 >
                   <p className='text-base font-normal'>បោះបង់</p>
                 </button>
-          </div>
+          </div> */}
+      </div>
+      <div className="flex justify-center gap-5 p-6 mt-4">
+        <button
+          type="submit"
+          onClick={handleSaveEmployee}
+          // onClick={updateClick}
+          className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+        >
+        <p className='text-base font-normal'>រក្សាទុក</p>
+        </button>
+        <button
+        type="button"
+                  onClick={closeEmployeeModal}
+                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                >
+                  <p className='text-base font-normal'>ចាកចេញ</p>
+                </button>
       </div>
     </div>
   </div>
