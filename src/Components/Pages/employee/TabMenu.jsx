@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 const TabMenu = () => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const [formData, setFormData] = useState({
     id: '',
     code: '',
@@ -76,36 +79,40 @@ const TabMenu = () => {
           <form onSubmitCapture={handleSubmit}>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
                 
-                {[
-                  { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
-                  { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
-                  { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
-                  { id: 'height', label: 'កម្ពស់', type: 'text' },
-                  { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-                  { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                  { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
-                  { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                  { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
-                  { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                  { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-                ].map(({ id, label, type, required }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{required && !formData[id] && (
-                      <p className="text-sm text-red-600">* </p>
-                    )}{label}</label>
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      required={required}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                    {/* {required && !formData[id] && (
-                      <p className="text-sm text-red-600">This field is required</p>
-                    )} */}
-                  </div>
-                ))}
+              {[
+                { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
+                { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
+                { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
+                { id: 'height', label: 'កម្ពស់', type: 'text' },
+                { id: 'weight', label: 'ទម្ងន់', type: 'text' },
+                { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
+                { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
+                { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
+                { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
+                { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
+                { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
+              ].map(({ id, label, type, required }) => (
+                <div key={id} className="flex flex-col gap-2">
+                  <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                    {required && !formData[id] && (
+                      <p className="text-sm text-red-600">*</p>
+                    )}
+                    {label}
+                  </label>
+                  <input
+                    type={type}
+                    id={id}
+                    value={formData[id] || ''}
+                    onChange={handleChange}
+                    required={required}
+                    className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${
+                      errors[id] ? 'border-red-500' : ''
+                    }`}
+                  />
+                  {errors[id] && <p className="mt-1 text-xs text-red-500">{errors[id]}</p>}
+                </div>
+              ))}
+
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="gender" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.gender && <p className="text-sm text-red-600">*</p>}ភេទ</label>
@@ -251,7 +258,7 @@ const TabMenu = () => {
               </div>
               
 
-              <div className="flex justify-center gap-5 p-6 mt-4">
+              {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
                   // onClick={updateClick}
@@ -266,7 +273,7 @@ const TabMenu = () => {
                 >
                   <p className='text-base font-normal'>ចាកចេញ</p>
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>;
@@ -370,7 +377,7 @@ const TabMenu = () => {
               </div>
 
               {/* Form Actions */}
-              <div className="flex justify-center gap-5 p-6 mt-4">
+              {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
                   className="px-8 py-2 text-base font-normal text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
@@ -384,7 +391,7 @@ const TabMenu = () => {
                 >
                   បោះបង់
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
         );

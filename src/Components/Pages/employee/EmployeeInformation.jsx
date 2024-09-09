@@ -45,10 +45,10 @@ const EmployeeInformation = () => {
   //   }));
   // };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setSubmittedData(formData);
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedData(formData);
+  };
 
   const [formData, setFormData] = useState({
     id: '',
@@ -431,8 +431,8 @@ const EmployeeInformation = () => {
       {isAddModalOpen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
     <div className="relative w-full max-w-md sm:max-w-4xl md:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[550px]  modal-scrollbar mt-14 sm:ml-52 md:ml-0">
-      <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 z-50 py-4 border-b-2 border-dashed border-gray-300">
-        <h2 className="flex-1 ml-3 text-xl sm:text-2xl md:text-2xl font-medium text-blue-800 font-khmer leading-2">
+      <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
+        <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
           បញ្ចូលព័ត៌មានបុគ្គលិក
         </h2>
         <button
@@ -448,6 +448,23 @@ const EmployeeInformation = () => {
       <div className="px-4 ">
         <TabMenu />
       </div>
+      <div className="flex justify-center gap-5 p-6 mt-4">
+        <button
+          type="submit"
+          onClick={handleSaveEmployee}
+          // onClick={updateClick}
+          className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+        >
+        <p className='text-base font-normal'>រក្សាទុក</p>
+        </button>
+        <button
+        type="button"
+                  onClick={closeEmployeeModal}
+                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                >
+                  <p className='text-base font-normal'>ចាកចេញ</p>
+                </button>
+              </div>
     </div>
   </div>
 )}
