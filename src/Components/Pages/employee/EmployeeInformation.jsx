@@ -77,13 +77,13 @@ const EmployeeInformation = () => {
 
   
 
-  // const handleChange = (e) => {
-  //   const { id, value } = e.target;
-  //   setFormData(prevData => ({
-  //     ...prevData,
-  //     [id]: value,
-  //   }));
-  // };
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -119,11 +119,36 @@ const EmployeeInformation = () => {
 };
 
 
-  const handleSaveEmployee = () => {
-    // Handle save logic here
-    console.log('Saving employee data:', formData);
-    setIsAddModalOpen(false);
-  };
+const handleSaveEmployee = () => {
+  // const validationErrors = {};
+
+  // // Define required fields and their respective error messages
+  // if (!formData.code) validationErrors.code = 'Code is required';
+  // if (!formData.fullname) validationErrors.fullname = 'Full Name is required';
+  // if (!formData.lastname) validationErrors.lastname = 'Last Name is required';
+  // if (!formData.gender) validationErrors.gender = 'Gender is required';
+  // if (!formData.family) validationErrors.family = 'Family Status is required';
+  // if (!formData.region) validationErrors.region = 'Region is required';
+  // if (!formData.nation) validationErrors.nation = 'Nation is required';
+  // if (!formData.nationality) validationErrors.nationality = 'Nationality is required';
+  // if (!formData.department) validationErrors.department = 'Department is required';
+  // if (!formData.office) validationErrors.office = 'Office is required';
+  // if (!formData.company) validationErrors.company = 'Company is required';
+  // if (!formData.position) validationErrors.position = 'Position is required';
+
+  // // If validation errors exist, stop and display the errors
+  // if (Object.keys(validationErrors).length > 0) {
+  //   console.log('Validation errors:', validationErrors);
+  //   setErrors(validationErrors);
+  //   return;
+  // }
+
+  // Handle save logic here
+  console.log('Saving employee data:', formData);
+  setIsAddModalOpen(false);
+};
+
+
 
   const closeEmployeeModal = () => {
     setIsAddModalOpen(false);
@@ -446,9 +471,15 @@ const EmployeeInformation = () => {
         </button>
       </div>
       <div className="px-4 ">
-        <TabMenu />
+        <TabMenu
+          formData={formData}
+          errors={errors}
+          handleChange={handleChange}
+          handleSaveEmployee={handleSaveEmployee}
+          closeEmployeeModal={() => setIsAddModalOpen(false)}        
+        />
       </div>
-      <div className="flex justify-center gap-5 p-6 mt-4">
+      {/* <div className="flex justify-center gap-5 p-6 mt-4">
         <button
           type="submit"
           onClick={handleSaveEmployee}
@@ -459,12 +490,12 @@ const EmployeeInformation = () => {
         </button>
         <button
         type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>ចាកចេញ</p>
-                </button>
-              </div>
+          onClick={closeEmployeeModal}
+          className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+          >
+          <p className='text-base font-normal'>ចាកចេញ</p>
+        </button>
+      </div> */}
     </div>
   </div>
 )}
@@ -489,7 +520,13 @@ const EmployeeInformation = () => {
 
             </div>
             <div>
-              <TabMenu/>
+              <TabMenu
+                formData={formData}
+                errors={errors}
+                handleChange={handleChange}
+                handleSaveEmployee={handleSaveEmployee}
+                closeEmployeeModal={() => setIsAddModalOpen(false)}
+              />
             </div>
           </div>
         </div>

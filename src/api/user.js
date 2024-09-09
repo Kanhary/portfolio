@@ -43,7 +43,7 @@ export function CheckUser(data) {
         url: '/userSystem/checkusers',
         data: data,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'multipart/form-data'
         }
     });
 }

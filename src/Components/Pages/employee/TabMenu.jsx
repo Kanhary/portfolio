@@ -1,35 +1,41 @@
 import React, { useState } from 'react';
 
-const TabMenu = () => {
+const TabMenu = ({
+  formData,
+  // errors,
+  handleChange,
+  // handleSaveEmployee,
+  closeEmployeeModal
+}) => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const [formData, setFormData] = useState({
-    id: '',
-    code: '',
-    fullname: '',
-    lastname: '',
-    gender: '',
-    height: '',
-    weight: '',
-    birthdate: '',
-    nationality: '',
-    region: '',
-    birthaddress: '',
-    address: '',
-    phone: '',
-    email: '',
-    specialNumber: '',
-    maritalStatus: '',
-    company: '',
-    branch: '',
-    department: '',
-    office: '',
-    position: '',
-    photo: null,
-  });
+  // const [formData, setFormData] = useState({
+  //   id: '',
+  //   code: '',
+  //   fullname: '',
+  //   lastname: '',
+  //   gender: '',
+  //   height: '',
+  //   weight: '',
+  //   birthdate: '',
+  //   nationality: '',
+  //   region: '',
+  //   birthaddress: '',
+  //   address: '',
+  //   phone: '',
+  //   email: '',
+  //   specialNumber: '',
+  //   maritalStatus: '',
+  //   company: '',
+  //   branch: '',
+  //   department: '',
+  //   office: '',
+  //   position: '',
+  //   photo: null,
+  // });
 
   const [newCourse, setNewCourse] = useState({
     from: '',
@@ -44,9 +50,9 @@ const TabMenu = () => {
     setSubmittedData(formData);
   };
 
-  const closeEmployeeModal = () => {
-    setIsAddModalOpen(false);
-  };
+  // const closeEmployeeModal = () => {
+  //   setIsAddModalOpen(false);
+  // };
   
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
@@ -57,13 +63,13 @@ const TabMenu = () => {
     setIsDropdownOpen(false); // Close dropdown on tab change
   };
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: value
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { id, value } = e.target;
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     [id]: value
+  //   }));
+  // };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -71,49 +77,83 @@ const TabMenu = () => {
     console.log(newCourse);
   };
 
+  const handleSaveEmployee = () => {
+    const validationErrors = {};
+  
+    // Define required fields and their respective error messages
+    if (!formData.code) validationErrors.code = 'Code is required';
+    if (!formData.fullname) validationErrors.fullname = 'Full Name is required';
+    if (!formData.lastname) validationErrors.lastname = 'Last Name is required';
+    if (!formData.gender) validationErrors.gender = 'Gender is required';
+    if (!formData.family) validationErrors.family = 'Family Status is required';
+    if (!formData.region) validationErrors.region = 'Region is required';
+    if (!formData.nation) validationErrors.nation = 'Nation is required';
+    if (!formData.nationality) validationErrors.nationality = 'Nationality is required';
+    if (!formData.department) validationErrors.department = 'Department is required';
+    if (!formData.office) validationErrors.office = 'Office is required';
+    if (!formData.company) validationErrors.company = 'Company is required';
+    if (!formData.position) validationErrors.position = 'Position is required';
+  
+    // If validation errors exist, stop and display the errors
+    if (Object.keys(validationErrors).length > 0) {
+      console.log('Validation errors:', validationErrors);
+      setErrors(validationErrors);
+      return;
+    }
+  
+    // Handle save logic here
+    console.log('Saving employee data:', formData);
+    setIsAddModalOpen(false);
+  };
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
         return <div className="p-4 -mb-8">
           <div className='overflow-auto '>
-          <form onSubmitCapture={handleSubmit}>
+          <form>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
-                
               {[
-                { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
-                { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
-                { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
-                { id: 'height', label: 'កម្ពស់', type: 'text' },
-                { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-                { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
-                { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
-                { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-              ].map(({ id, label, type, required }) => (
-                <div key={id} className="flex flex-col gap-2">
-                  <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
-                    {required && !formData[id] && (
-                      <p className="text-sm text-red-600">*</p>
-                    )}
-                    {label}
-                  </label>
-                  <input
-                    type={type}
-                    id={id}
-                    value={formData[id] || ''}
-                    onChange={handleChange}
-                    required={required}
-                    className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${
-                      errors[id] ? 'border-red-500' : ''
-                    }`}
-                  />
-                  {errors[id] && <p className="mt-1 text-xs text-red-500">{errors[id]}</p>}
-                </div>
-              ))}
-
-
+                    { id: 'code', label: 'អត្ថលេខ', type: 'text', required: true },
+                    { id: 'fullname', label: 'គោត្តនាម/នាម', type: 'text', required: true },
+                    { id: 'lastname', label: 'អក្សរឡាតាំង', type: 'text', required: true },
+                    { id: 'height', label: 'កម្ពស់', type: 'text' },
+                    { id: 'weight', label: 'ទម្ងន់', type: 'text' },
+                    { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
+                    { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
+                    { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
+                    { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
+                    { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
+                    { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
+                  ].map(({ id, label, type, options }) => (
+                    <div key={id} className="flex flex-col gap-2">
+                      <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                        {errors[id] && <p className="text-sm text-red-600">*</p>}
+                        {label}
+                      </label>
+                      {type === 'select' ? (
+                        <select
+                          id={id}
+                          value={formData[id] || ''}
+                          onChange={handleChange}
+                          className={`block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
+                        >
+                          <option value="">Select {label}</option>
+                          {options.map(option => (
+                            <option key={option} value={option.toLowerCase()}>{option}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type={type}
+                          id={id}
+                          value={formData[id] || ''}
+                          onChange={handleChange}
+                          className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
+                        />
+                      )}
+                      {errors[id] && <p className="mt-1 text-xs text-red-500">{errors[id]}</p>}
+                    </div>
+                  ))}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="gender" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.gender && <p className="text-sm text-red-600">*</p>}ភេទ</label>
                   <select
@@ -261,7 +301,7 @@ const TabMenu = () => {
               {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
-                  // onClick={updateClick}
+                  onClick={handleSaveEmployee}
                   className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                 >
                   <p className='text-base font-normal'>រក្សាទុក</p>
@@ -488,6 +528,22 @@ const TabMenu = () => {
               {/* Content */}
               <div className="mt-4">
                 {renderContent()}
+              </div>
+              <div className="flex justify-center gap-5 p-6 mt-4">
+                <button
+                  type="submit"
+                  onClick={handleSaveEmployee}
+                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                >
+                  <p className='text-base font-normal'>រក្សាទុក</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={closeEmployeeModal}
+                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                >
+                  <p className='text-base font-normal'>ចាកចេញ</p>
+                </button>
               </div>
         </div>
   );
