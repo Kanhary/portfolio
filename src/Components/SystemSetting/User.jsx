@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { AddUser, GetUser, GetEmp } from '@/api/user.js';
 import { CheckUser, DeleteUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
+import Select from 'react-select'
 
 const User = () => {
   const INITIAL_FORM_DATA = { 
@@ -51,7 +52,7 @@ const User = () => {
   const currentPageUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
 
   const handlePageClick = (event) => {
-    console.log("Page clicked:", event.selected); // Debug
+    console.log("Page clicked:", event.selected); 
     setCurrentPage(event.selected);
   };
 
@@ -111,62 +112,6 @@ const User = () => {
     if (!formData.email) validationErrors.email = 'Email is required';
     if (!formData.password) validationErrors.password = 'Password is required';
     if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
-    if (!formData.staffCode) validationErrors.staffCode = 'Staff Code is required';
-
-    if (Object.keys(validationErrors).length > 0) {
-        setErrors(validationErrors);
-        return;
-    }
-
-    setIsLoading(true);
-    try {
-      const checkData = await CheckUser({
-          userName: formData.userName,
-          userCode: formData.userCode,
-      });
-  
-      if (checkData.data.exists) {
-          Swal.fire({
-              text: 'User already exists',
-              icon: 'warning',
-              confirmButtonText: 'Okay'
-          });
-          setIsLoading(false);
-          return;
-      }
-      
-      // Proceed with adding the user
-      const res = await AddUser(updatedFormData);
-      // Handle the response as you are currently doing
-  
-  } catch (error) {
-      // Error handling
-      console.error('Error:', error);
-      Swal.fire({
-          title: 'Error!',
-          text: error.message || 'Failed to connect to the server.',
-          icon: 'error',
-          confirmButtonText: 'Okay'
-      });
-  } finally {
-      setIsLoading(false);
-  }
-  
-  };
-
-  
-  const handleSave = async () => {
-    // Reset previous errors
-    const validationErrors = {};
-
-    // Check required fields
-    if (!formData.userCode) validationErrors.userCode = 'User Code is required';
-    if (!formData.userName) validationErrors.userName = 'User Name is required';
-    if (!formData.firstName) validationErrors.firstName = 'First Name is required';
-    if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
-    if (!formData.email) validationErrors.email = 'Email is required';
-    if (!formData.password) validationErrors.password = 'Password is required';
-    if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
     if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
 
     if (Object.keys(validationErrors).length > 0) {
@@ -182,81 +127,139 @@ const User = () => {
     setIsLoading(true);
 
     try {
-      const checkResponse = await CheckUser({
-        userName: formData.userName,
-        userCode: formData.userCode,
-    });
-    
-    console.log('CheckUser response:', checkResponse);
-    
-    // Ensure `checkResponse.data.exists` correctly reflects whether the user exists
-    if (checkResponse.data.exists) {
-        Swal.fire({
-            text: 'User already exists',
-            icon: 'warning',
-            confirmButtonText: 'Okay'
-        }).then(() => {
+        // Check if the user already exists
+        const checkResponse = await CheckUser({
+            userCode: updatedFormData.userCode,
+            userName: updatedFormData.userName
+        });
+
+        console.log('CheckUser response:', checkResponse);
+
+        if (checkResponse.exists) {
+            console.log('User already exists');
             setIsLoading(false);
+            setErrors({ general: 'User already exists' });
+
+            Swal.fire({
+                title: "Exist!",
+                text: "User Already Exists",
+                icon: "warning"
+            });
             return;
-        });
-    }
-     else {
-            // Adding new user
-            const addUserResponse = await AddUser(updatedFormData);
-
-            // Log the response to debug
-            console.log('AddUser response:', addUserResponse);
-
-            if (addUserResponse.data.code === '200') {
-                Swal.fire({
-                    text: 'User created successfully',
-                    icon: 'success',
-                    confirmButtonText: 'Okay'
-                }).then(() => {
-                    closeAddModal();
-                });
-            } else {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Failed to create user.',
-                    icon: 'error',
-                    confirmButtonText: 'Okay'
-                });
-            }
         }
-    } catch (error) {
-        console.error('Error:', error);
+
         Swal.fire({
-            title: 'Error!',
-            text: 'Failed to connect to the server.',
-            icon: 'error',
-            confirmButtonText: 'Okay'
+            title: "Successful",
+            text: "User created successfully",
+            icon: "success"
         });
-    } finally {
+
+        // Clear the input fields and reset the form state
+        setFormData({
+            userCode: '',
+            userName: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            cardId: ''
+        });
+        setSelectedOption(null);
+        setErrors({});
+
+    } catch (error) {
+        console.error('Error during user check or add:', error);
         setIsLoading(false);
+        setErrors({ general: 'Error during user check or add' });
+
+        Swal.fire({
+            title: "Error!",
+            text: "There was an error creating the user.",
+            icon: "error"
+        });
     }
 };
 
   
-  const handleClick = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#22c55e",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
+  const handleSave = async () => {
+    const validationErrors = {};
+
+    if (!formData.userCode) validationErrors.userCode = 'User Code is required';
+    if (!formData.userName) validationErrors.userName = 'User Name is required';
+    if (!formData.firstName) validationErrors.firstName = 'First Name is required';
+    if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
+    if (!formData.email) validationErrors.email = 'Email is required';
+    if (!formData.password) validationErrors.password = 'Password is required';
+    if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
+    if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
+
+
+    if (Object.keys(validationErrors).length > 0) {
+        console.log('Validation errors:', validationErrors);
+        setErrors(validationErrors);
+        return;
+    }
+
+    const updatedFormData = { 
+      ...formData, 
+      staffCode: selectedOption // Ensure staffCode is correctly set as a string
+  };
+  setFormData(updatedFormData);
+
+  setIsLoading(true);
+
+    try {
+        // Check if the user already exists
+        const checkResponse = await CheckUser(updatedFormData);
+
+        console.log('CheckUser response:', checkResponse);
+
+        if (checkResponse.exists) {
+            console.log('User already exists');
+            setIsLoading(false);
+            setErrors({ general: 'User already exists' });
+
+            Swal.fire({
+              title: "Exist!",
+              text: "User Already Exists",
+              icon: "warning"
+            });
+            return;
+        }
         Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
+          title: "Successful",
+          text: "User create successfully",
           icon: "success"
         });
-      }
-    });
-  };
+        closeAddModal();
+
+    } catch (error) {
+        console.error('Error during user check:', error);
+        setIsLoading(false);
+        setErrors({ general: 'Error during user check' });
+    }
+};
+
+  
+  // const handleClick = () => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#22c55e",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Yes, delete it!"
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire({
+  //         title: "Deleted!",
+  //         text: "Your file has been deleted.",
+  //         icon: "success"
+  //       });
+  //     }
+  //   });
+  // };
   
 
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -294,10 +297,10 @@ const User = () => {
     // setCurrentPage(0);
   }, []);
 
-  const handleChangeSelection = (e) => {
-    setSelectedOption(e.target.value);
-  };
-  const handleDelete = async (userCode) => {
+  // const handleChangeSelection = (e) => {
+  //   setSelectedOption(e.target.value);
+  // };
+  const handleDelete = async (ID) => {
     try {
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -310,7 +313,7 @@ const User = () => {
         });
 
         if (result.isConfirmed) {
-            const response = await DeleteUser(userCode);
+            const response = await DeleteUser(ID);
 
             if (response.data.code === '200') {
                 Swal.fire({
@@ -320,7 +323,7 @@ const User = () => {
                     confirmButtonText: "Okay",
                 });
 
-                const updatedUsers = users.filter(user => user.userCode !== userCode);
+                const updatedUsers = users.filter(user => user.userCode !== ID);
                 setUsers(updatedUsers);
             } else {
                 Swal.fire({
@@ -341,6 +344,21 @@ const User = () => {
         });
     }
 };
+const handleChangeSelection = (selectedOption) => {
+    // Ensure selectedOption is the correct value
+    const selectedValue = selectedOption ? selectedOption.value : null;
+    setSelectedOption(selectedValue);
+    console.log('Selected staff code:', selectedValue); // Should log the staff code
+};
+
+
+
+
+  // Format options for react-select
+  const options = employees.map(employee => ({
+    value: employee.staffCode,
+    label: `${employee.staffCode} - ${employee.laTanName}`
+  }));
   
   return (
     <section className='mt-10 font-khmer'>
@@ -397,7 +415,8 @@ const User = () => {
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Email</th>
                   {/* <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Password</th> */}
                   <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Card ID</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Employee ID</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Staff Code</th>
+                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px '}}>Picture</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
@@ -430,6 +449,7 @@ const User = () => {
                     {/* <td className='px-4 py-3'>{user.password}</td> */}
                     <td className='px-4 py-3'>{user.cardId}</td>
                     <td className='px-4 py-3'>{user.staffCode}</td>
+                    <td className='px-4 py-3'>{user.picture}</td>
                     <td className='px-4 py-3'>{user.lastBy}</td>
                     <td className='px-4 py-3'>{user.lastDate}</td>
                   </tr>
@@ -442,7 +462,7 @@ const User = () => {
           {/* Pagination */}
           <div className="flex flex-col items-center justify-between p-4 md:flex-row">
             <span className="mb-4 text-sm text-gray-600 md:mb-0">
-              Page {currentPage} of {totalPages}
+              Page {currentPage+1} of {totalPages}
             </span>
 
             <ReactPaginate
@@ -543,21 +563,16 @@ const User = () => {
                   </div>
                   <div className="w-full md:w-1/2">
                     <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
-                    <select
-                      value={selectedOption}
+                    <Select
+                      value={options.find(option => option.value === selectedOption)}
                       onChange={handleChangeSelection}
-                      className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    >
-                      <option value="">Select Employee ID</option>
-                      {
-                        employees.map((employee, index) => (
-                          <option key={`${employee.staffCode}-${index}`} value={employee.staffCode}>
-                            {employee.staffCode} - {employee.laTanName}
-                          </option>
-                        ))
-                      }
-                    </select>
-                    {error && <div className="text-red-600">{error}</div>}
+                      options={options}
+                      placeholder="Select or type to search"
+                      className="basic-single"
+                      classNamePrefix="select"
+                    />
+                    {errors.staffCode && <p className="mt-1 text-xs text-red-500">{errors.staffCode}</p>}
+
                   </div>
                 </div>
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
@@ -741,21 +756,15 @@ const User = () => {
                     />
                   </div>
                   <div className="w-full md:w-1/2">
-                    <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Employee ID</label>
-                    <select
+                    <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
+                    <Select
                       value={selectedOption}
-                      onChange={handleChangeSelection}
-                      className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    >
-                      <option value="">Select Employee ID</option>
-                      {
-                        employees.map((employee, index) => (
-                          <option key={`${employee.staffCode}-${index}`} value={employee.staffCode}>
-                            {employee.staffCode} - {employee.laTanName}
-                          </option>
-                        ))
-                      }
-                    </select>
+                      onChange={handleChange}
+                      options={options}
+                      placeholder="Select or type to search"
+                      className="basic-single"
+                      classNamePrefix="select"
+                    />
                     {error && <div className="text-red-600">{error}</div>}
                   </div>
                 </div>

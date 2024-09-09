@@ -71,7 +71,7 @@ const TabMenu = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <div className="p-4 -mb-8">
+        return <div className="-mb-8">
           <div className='overflow-auto '>
           <form onSubmitCapture={handleSubmit}>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
@@ -165,8 +165,8 @@ const TabMenu = () => {
                     onChange={handleChange}
                     className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   />
-                </div>
-
+                </div>  
+                
                 <div className="flex flex-col gap-2">
                   <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
                   <input
@@ -216,21 +216,38 @@ const TabMenu = () => {
                 </div>
 
                 {[
-                  { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-                  // { id: 'position', label: 'តួនាទី', type: 'text' }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.company && <p className="text-sm text-red-600">*</p>}{label}</label>
-                    
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
-                  </div>
-                ))}
+      {
+        id: 'company',
+        label: 'ក្រុមហ៊ុន',
+        type: 'select',
+        options: [
+          { value: '', label: 'ជ្រើសរើសក្រុមហ៊ុន' },
+          { value: 'company1', label: 'Phnom Penh Autonomous Port' },
+          { value: 'company2', label: 'Company 2' },
+          { value: 'company3', label: 'Company 3' }
+        ]
+      }
+      ].map(({ id, label, options }) => (
+        <div key={id} className="flex flex-col gap-2">
+          <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+            {!formData.company && <p className="text-sm text-red-600">*</p>}
+            {label}
+          </label>
+
+          <select
+            id={id}
+            value={formData[id] || ''}
+            onChange={handleChange}
+            className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+          >
+            {options.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
 
       {[
                   // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
@@ -251,7 +268,7 @@ const TabMenu = () => {
               </div>
               
 
-              <div className="flex justify-center gap-5 p-6 mt-4">
+              {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
                   // onClick={updateClick}
@@ -266,14 +283,14 @@ const TabMenu = () => {
                 >
                   <p className='text-base font-normal'>ចាកចេញ</p>
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>;
 
       case 'tab2':
         return (
-          <div className="p-4">
+          <div className="">
             <form onSubmit={handleFormSubmit} className="p-6 space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* From Date Input */}
@@ -302,31 +319,42 @@ const TabMenu = () => {
                   />
                 </div>
 
-                {/* Course Input */}
+                {/* Course Dropdown */}
                 <div>
                   <label htmlFor="course" className="block text-sm font-medium text-gray-800">វគ្គសិក្សា</label>
-                  <input
-                    type="text"
+                  <select
                     id="course"
                     className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.course}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, course: e.target.value }))}
                     required
-                  />
+                  >
+                    <option value="">-- សូមជ្រើសរើសវគ្គសិក្សា --</option>
+                    <option value="Course1">វគ្គសិក្សា 1</option>
+                    <option value="Course2">វគ្គសិក្សា 2</option>
+                    <option value="Course3">វគ្គសិក្សា 3</option>
+                    {/* Add more options as needed */}
+                  </select>
                 </div>
 
-                {/* Organize Input */}
-                <div>
-                  <label htmlFor="organize" className="block text-sm font-medium text-gray-800">ក្រុមហ៊ុន</label>
-                  <input
-                    type="text"
-                    id="organize"
-                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    value={newCourse.organize}
-                    onChange={(e) => setNewCourse((prev) => ({ ...prev, organize: e.target.value }))}
-                    required
-                  />
-                </div>
+                  {/* Organize Dropdown */}
+                  <div>
+                    <label htmlFor="organize" className="block text-sm font-medium text-gray-800">ក្រុមហ៊ុន</label>
+                    <select
+                      id="organize"
+                      className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      value={newCourse.organize}
+                      onChange={(e) => setNewCourse((prev) => ({ ...prev, organize: e.target.value }))}
+                      required
+                    >
+                      <option value="">-- សូមជ្រើសរើសក្រុមហ៊ុន --</option>
+                      <option value="Company1">ក្រុមហ៊ុន 1</option>
+                      <option value="Company2">ក្រុមហ៊ុន 2</option>
+                      <option value="Company3">ក្រុមហ៊ុន 3</option>
+                      {/* Add more options as needed */}
+                    </select>
+                  </div>
+
 
                 {/* Location Radio Buttons */}
                 <div className="md:col-span-2">
@@ -370,7 +398,7 @@ const TabMenu = () => {
               </div>
 
               {/* Form Actions */}
-              <div className="flex justify-center gap-5 p-6 mt-4">
+              {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
                   className="px-8 py-2 text-base font-normal text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
@@ -384,7 +412,7 @@ const TabMenu = () => {
                 >
                   បោះបង់
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
         );
@@ -442,7 +470,7 @@ const TabMenu = () => {
                 </div>
               </div>
 
-
+              
 
               {/* Tabs for Larger Screens */}
               <div className="hidden md:flex top-[180px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full">

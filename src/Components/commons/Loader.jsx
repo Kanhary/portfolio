@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <div className="relative w-32 h-32">
         {/* Gradient Ring */}
         <div className="absolute inset-0 flex items-center justify-center">
@@ -12,6 +12,11 @@ const Loader = () => {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 animate-pulse"></div>
         </div>
+      </div>
+
+      {/* Loading Text */}
+      <div className="mt-8 text-lg font-meduim text-gray-600 animate-bounce font-khmer">
+        <h2>សូមរង់ចាំបន្តិច!</h2>
       </div>
 
       <style>
@@ -51,6 +56,19 @@ const Loader = () => {
 
           .animate-pulse {
             animation: pulse 1.5s infinite;
+          }
+
+          .animate-bounce {
+            animation: bounce 2s infinite;
+          }
+
+          @keyframes bounce {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-5px);
+            }
           }
         `}
       </style>

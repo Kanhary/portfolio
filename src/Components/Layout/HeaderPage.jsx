@@ -77,32 +77,32 @@ const HeaderPage = ({ toggleSidebar }) => {
             </button>
 
             {isNotificationsOpen && (
-              <div className="absolute z-50 w-72 mt-2 right-16 top-full bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden font-khmer">
+              <div className="absolute z-50 mt-2 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-lg w-72 right-16 top-full font-khmer">
                 {/* Header */}
                 <div className="px-5 py-3 bg-gray-100 border-b border-gray-200">
                   <p className="flex items-center font-medium text-gray-900">
-                    <BiBell size={20} className="text-indigo-500 mr-2" />
+                    <BiBell size={20} className="mr-2 text-indigo-500" />
                     សារជូនដំណឹង
                   </p>
                 </div>
 
                 {/* Notifications List */}
                 <ul className="divide-y divide-gray-200">
-                  <li className="px-4 py-3 flex items-center hover:bg-gray-50 transition-colors">
+                  <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
                     <div className="flex-shrink-0 w-2.5 h-2.5 bg-indigo-500 rounded-full"></div>
                     <div className="ml-3 text-sm text-gray-700">
                       New employee added
                       <p className="text-xs text-gray-500 mt-0.5">Just now</p>
                     </div>
                   </li>
-                  <li className="px-4 py-3 flex items-center hover:bg-gray-50 transition-colors">
+                  <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
                     <div className="flex-shrink-0 w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
                     <div className="ml-3 text-sm text-gray-700">
                       System update available
                       <p className="text-xs text-gray-500 mt-0.5">5 minutes ago</p>
                     </div>
                   </li>
-                  <li className="px-4 py-3 flex items-center hover:bg-gray-50 transition-colors">
+                  <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
                     <div className="flex-shrink-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
                     <div className="ml-3 text-sm text-gray-700">
                       Server backup completed
@@ -121,7 +121,7 @@ const HeaderPage = ({ toggleSidebar }) => {
               ref={dropdownRef}
             >
               <span className='sr-only'>Open user menu</span>
-              <img src="/User.jpg" className='w-8 h-8 rounded-full' alt="User Photo" />
+              <img src="\blank-profile-picture.png" className='w-8 h-8 rounded-full' alt="User Photo" />
             </button>
             {isDropdownOpen && (
               <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
