@@ -37,25 +37,7 @@ const User = () => {
   const recordsPerPage = 8;
   const [itemsPerPage] = useState(8)
 
-  useEffect(() => {
-    setCurrentPage(0); // Reset to first page when users data changes
-  }, [users]);
-
-  const filteredUser = users.filter(user =>
-    (user.firstName && user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (user.userCode && user.userCode.includes(searchTerm))
-  );
-
-  const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
-  const indexOfLastRecord = (currentPage + 1) * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentPageUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
-
-  const handlePageClick = (event) => {
-    console.log("Page clicked:", event.selected); 
-    setCurrentPage(event.selected);
-  };
-
+ 
   // const getPaginationItems = () => {
   //   let pages = [];
   //   if (totalPages <= 7) {
@@ -324,6 +306,28 @@ const handleSave = async () => {
     fetchEmployees();
     // setCurrentPage(0);
   }, []);
+
+
+  useEffect(() => {
+    setCurrentPage(0); // Reset to first page when users data changes
+  }, [users]);
+
+  const filteredUser = users.filter(user =>
+    (user.firstName && user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.userName && user.userName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.userCode && user.userCode.includes(searchTerm))
+  );
+
+  const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
+  const indexOfLastRecord = (currentPage + 1) * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentPageUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
+
+  const handlePageClick = (event) => {
+    console.log("Page clicked:", event.selected); 
+    setCurrentPage(event.selected);
+  };
+
 
   // const handleChangeSelection = (e) => {
   //   setSelectedOption(e.target.value);
