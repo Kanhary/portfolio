@@ -5,7 +5,12 @@ const TabMenu = ({
   // errors,
   handleChange,
   // handleSaveEmployee,
+<<<<<<< HEAD
   closeEmployeeModal, setIsEditModalOpen, setIsAddModalOpen
+=======
+  closeEmployeeModal,
+  disabled
+>>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
 }) => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -123,11 +128,11 @@ const TabMenu = ({
                     { id: 'height', label: 'កម្ពស់', type: 'text' },
                     { id: 'weight', label: 'ទម្ងន់', type: 'text' },
                     { id: 'birthdate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                    { id: 'birthaddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
+                    { id: 'birthdate_address', label: 'ទីកន្លែងកំណើត', type: 'text' },
                     { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                    { id: 'phone', label: 'លេខទូរសព្ទ', type: 'text' },
+                    { id: 'phone_number', label: 'លេខទូរសព្ទ', type: 'text' },
                     { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                    { id: 'specialNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
+                    { id: 'special_number', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
                   ].map(({ id, label, type, options }) => (
                     <div key={id} className="flex flex-col gap-2">
                       <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
@@ -152,6 +157,7 @@ const TabMenu = ({
                           id={id}
                           value={formData[id] || ''}
                           onChange={handleChange}
+                          disabled={disabled ? true : undefined}
                           className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
                         />
                       )}
@@ -181,6 +187,7 @@ const TabMenu = ({
                     value={formData.family || ''}
                     onChange={handleChange}
                     required
+                    
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
@@ -212,8 +219,9 @@ const TabMenu = ({
                   <input
                     type="text"
                     id="nation"
-                    value={formData.nation || ''}
+                    value={formData.region || ''}
                     onChange={handleChange}
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   />
                 </div>  
@@ -225,6 +233,7 @@ const TabMenu = ({
                     id="nationality"
                     value={formData.nationality || ''}
                     onChange={handleChange}
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   />
                 </div>
@@ -266,6 +275,7 @@ const TabMenu = ({
                 </div>
 
                 {[
+<<<<<<< HEAD
       {
         id: 'company',
         label: 'ក្រុមហ៊ុន',
@@ -298,6 +308,24 @@ const TabMenu = ({
           </select>
         </div>
       ))}
+=======
+                  { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
+                  // { id: 'position', label: 'តួនាទី', type: 'text' }
+                ].map(({ id, label, type }) => (
+                  <div key={id} className="flex flex-col gap-2">
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.company && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    
+                    <input
+                      type={type}
+                      id={id}
+                      value={formData[id] || ''}
+                      onChange={handleChange}
+                      disabled={disabled ? true : undefined}
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    />
+                  </div>
+                ))}
+>>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
 
       {[
                   // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
@@ -311,6 +339,7 @@ const TabMenu = ({
                       id={id}
                       value={formData[id] || ''}
                       onChange={handleChange}
+                      disabled={disabled ? true : undefined}
                       className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                     />
                   </div>

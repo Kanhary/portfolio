@@ -18,6 +18,7 @@ const EmployeeInformation = () => {
   const [photoName, setPhotoName] = useState('');
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
 
   const nothingChange = (e) => {
@@ -89,11 +90,12 @@ const EmployeeInformation = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: value,
+    setFormData((prevState) => ({
+        ...prevState,
+        [id]: value,  // Dynamically update the formData based on the id
     }));
-  };
+};
+
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -160,9 +162,7 @@ const handleSaveEmployee = () => {
 
 
 
-  const closeEmployeeModal = () => {
-    setIsAddModalOpen(false);
-  };
+  
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -176,16 +176,29 @@ const handleSaveEmployee = () => {
   //open edit modal
   const openEditModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
     setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
-    setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, family: marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
     setIsEditModalOpen(true);
   };
+<<<<<<< HEAD
 
   const ViewEditModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
     setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
     setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
     seIsViewModalOpen(true);
   };
+=======
   
+  const openViewModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
+    setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    setIsViewModalOpen(true);
+  };
+  const isDisabled = openViewModal;
+>>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
+  
+  const closeEmployeeModal = () => {
+    setIsAddModalOpen(false);
+  };
   //close edit modal
   const closeEditModal = () => {
     setEditingEmployee(null);
@@ -194,6 +207,15 @@ const handleSaveEmployee = () => {
       phone_number: '',email: '', specialNumber: '', marital_status: '', company: '', branch: '', 
       department: '', office: '', position: '',last_modified_by: '', last_modified_date: '' });
     setIsEditModalOpen(false);
+  };
+
+  const closeViewModal = () => {
+    setEditingEmployee(null);
+    setFormData({ id: '', code: '', fullname: '', lastname: '',gender: '', height: '', weight: '',
+      birthdate: '', nation: '', nationality: '', region: '', birthdate_address: '', address: '',
+      phone_number: '',email: '', specialNumber: '', marital_status: '', company: '', branch: '', 
+      department: '', office: '', position: '',last_modified_by: '', last_modified_date: '' });
+    setIsViewModalOpen(false);
   };
   
   //Update and Save
@@ -381,7 +403,11 @@ const handleSaveEmployee = () => {
           />
             <FaEye
                 className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
+<<<<<<< HEAD
                 onClick={() => ViewEditModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
+=======
+                onClick={() => openViewModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
+>>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
                   employee.height, employee.weight, employee.birthdate, employee.nation, employee.nationality, employee.region,
                   employee.birthdate_address, employee.address, employee.phone_number, employee.email, employee.special_number,
                   employee.marital_status, employee.company, employee.branch, employee.department, employee.office, employee.position,
@@ -502,7 +528,7 @@ const handleSaveEmployee = () => {
           errors={errors}
           handleChange={handleChange}
           handleSaveEmployee={handleSaveEmployee}
-          closeEmployeeModal={() => setIsAddModalOpen(false)}        
+          closeEmployeeModal={closeEmployeeModal}       
         />
       </div>
       {/* <div className="flex justify-center gap-5 p-6 mt-4">
@@ -550,7 +576,7 @@ const handleSaveEmployee = () => {
                 errors={errors}
                 handleChange={handleChange}
                 handleSaveEmployee={handleSaveEmployee}
-                closeEmployeeModal={() => setIsAddModalOpen(false)}
+                closeEditModal={closeEditModal}
               />
             </div>
           </div>
@@ -558,6 +584,7 @@ const handleSaveEmployee = () => {
       )}
 
       {isViewModalOpen && (
+<<<<<<< HEAD
               <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
                   <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed z-50">
@@ -588,6 +615,40 @@ const handleSaveEmployee = () => {
             )}
 
       {/* <div>        
+=======
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
+            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+              <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
+                មើលព័ត៌មានបុគ្គលិក
+              </h2>
+              <button
+                type="button"
+                onClick={closeViewModal}
+                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <div>
+              <TabMenu
+                formData={formData}
+                errors={errors}
+                handleChange={handleChange}
+                handleSaveEmployee={handleSaveEmployee}
+                closeEditModal={closeEditModal}
+                disabled={isDisabled}  // Pass disabled prop to disable fields
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* <div>
+        
+>>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
         <LongCourse/>
       </div> */}
     </section> 
