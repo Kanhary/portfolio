@@ -11,6 +11,7 @@ const EmployeeInformation = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); // Manage the selected item to edit
   const [editingEmployee, setEditingEmployee] = useState(null);
+  const [isViewModalOpen, seIsViewModalOpen] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,14 +78,22 @@ const EmployeeInformation = () => {
   });
 
   
+  const viewDetails = (employeeId) => {
+    // Fetch or set employee data based on employeeId
+    const employeeData = { /* fetched or predefined employee data */ };
+  
+    setFormData(employeeData);
+    setIsReadOnly(true); // Set to read-only mode
+    setIsEditModalOpen(true);
+  };
 
-  // const handleChange = (e) => {
-  //   const { id, value } = e.target;
-  //   setFormData(prevData => ({
-  //     ...prevData,
-  //     [id]: value,
-  //   }));
-  // };
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -120,11 +129,36 @@ const EmployeeInformation = () => {
 };
 
 
-  const handleSaveEmployee = () => {
-    // Handle save logic here
-    console.log('Saving employee data:', formData);
-    setIsAddModalOpen(false);
-  };
+const handleSaveEmployee = () => {
+  // const validationErrors = {};
+
+  // // Define required fields and their respective error messages
+  // if (!formData.code) validationErrors.code = 'Code is required';
+  // if (!formData.fullname) validationErrors.fullname = 'Full Name is required';
+  // if (!formData.lastname) validationErrors.lastname = 'Last Name is required';
+  // if (!formData.gender) validationErrors.gender = 'Gender is required';
+  // if (!formData.family) validationErrors.family = 'Family Status is required';
+  // if (!formData.region) validationErrors.region = 'Region is required';
+  // if (!formData.nation) validationErrors.nation = 'Nation is required';
+  // if (!formData.nationality) validationErrors.nationality = 'Nationality is required';
+  // if (!formData.department) validationErrors.department = 'Department is required';
+  // if (!formData.office) validationErrors.office = 'Office is required';
+  // if (!formData.company) validationErrors.company = 'Company is required';
+  // if (!formData.position) validationErrors.position = 'Position is required';
+
+  // // If validation errors exist, stop and display the errors
+  // if (Object.keys(validationErrors).length > 0) {
+  //   console.log('Validation errors:', validationErrors);
+  //   setErrors(validationErrors);
+  //   return;
+  // }
+
+  // Handle save logic here
+  console.log('Saving employee data:', formData);
+  setIsAddModalOpen(false);
+};
+
+
 
   const closeEmployeeModal = () => {
     setIsAddModalOpen(false);
@@ -146,7 +180,11 @@ const EmployeeInformation = () => {
     setIsEditModalOpen(true);
   };
 
-  
+  const ViewEditModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
+    setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
+    seIsViewModalOpen(true);
+  };
   
   //close edit modal
   const closeEditModal = () => {
@@ -343,7 +381,11 @@ const EmployeeInformation = () => {
           />
             <FaEye
                 className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
-                onClick={() => viewDetails(employee.id)}
+                onClick={() => ViewEditModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
+                  employee.height, employee.weight, employee.birthdate, employee.nation, employee.nationality, employee.region,
+                  employee.birthdate_address, employee.address, employee.phone_number, employee.email, employee.special_number,
+                  employee.marital_status, employee.company, employee.branch, employee.department, employee.office, employee.position,
+                  employee.last_modified_by, employee.last_modified_date)}
             />
           <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => handleDelete(employee.id)}/>
       </td>
@@ -454,26 +496,16 @@ const EmployeeInformation = () => {
           </svg>
         </button>
       </div>
-      <div className="px-4">
-        <TabMenu />
-        {/* <div className="flex justify-center gap-5 p-6 mt-4">
-                <button
-                  type="submit"
-                  // onClick={updateClick}
-                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-                >
-                  <p className='text-base font-normal'>រក្សាទុក</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>បោះបង់</p>
-                </button>
-          </div> */}
+      <div className="px-4 ">
+        <TabMenu
+          formData={formData}
+          errors={errors}
+          handleChange={handleChange}
+          handleSaveEmployee={handleSaveEmployee}
+          closeEmployeeModal={() => setIsAddModalOpen(false)}        
+        />
       </div>
-      <div className="flex justify-center gap-5 p-6 mt-4">
+      {/* <div className="flex justify-center gap-5 p-6 mt-4">
         <button
           type="submit"
           onClick={handleSaveEmployee}
@@ -484,12 +516,12 @@ const EmployeeInformation = () => {
         </button>
         <button
         type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>ចាកចេញ</p>
-                </button>
-      </div>
+          onClick={closeEmployeeModal}
+          className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+          >
+          <p className='text-base font-normal'>ចាកចេញ</p>
+        </button>
+      </div> */}
     </div>
   </div>
 )}
@@ -513,27 +545,47 @@ const EmployeeInformation = () => {
               </button>
             </div>
             <div>
-              <TabMenu employeeData={employees} handleInputChange={handleInputChange}/>
-              <div className="flex justify-center gap-5 p-6 mt-4">
-                <button
-                  type="submit"
-                  // onClick={updateClick}
-                  className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-                >
-                  <p className='text-base font-normal'>រក្សាទុក</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={closeEmployeeModal}
-                  className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-                >
-                  <p className='text-base font-normal'>បោះបង់</p>
-                </button>
-              </div>
+              <TabMenu
+                formData={formData}
+                errors={errors}
+                handleChange={handleChange}
+                handleSaveEmployee={handleSaveEmployee}
+                closeEmployeeModal={() => setIsAddModalOpen(false)}
+              />
             </div>
           </div>
         </div>
       )}
+
+      {isViewModalOpen && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
+                  <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed z-50">
+                    <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
+                      កែប្រែព័ត៌មានបុគ្គលិក
+                    </h2>
+                    <button
+                      type="button"
+                      onClick={closeEditModal}
+                      className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <div>
+                    <TabMenu
+                      formData={formData}
+                      errors={errors}
+                      handleChange={handleChange}
+                      handleSaveEmployee={handleSaveEmployee}
+                      closeEmployeeModal={() => setIsAddModalOpen(false)}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
       {/* <div>        
         <LongCourse/>
