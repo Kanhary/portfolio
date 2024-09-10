@@ -11,7 +11,7 @@ const EmployeeInformation = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); // Manage the selected item to edit
   const [editingEmployee, setEditingEmployee] = useState(null);
-  const [isViewModalOpen, seIsViewModalOpen] = useState(false);
+  // const [isViewModalOpen, seIsViewModalOpen] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -179,14 +179,6 @@ const handleSaveEmployee = () => {
     setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, family: marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
     setIsEditModalOpen(true);
   };
-<<<<<<< HEAD
-
-  const ViewEditModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
-    setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
-    setFormData({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
-    seIsViewModalOpen(true);
-  };
-=======
   
   const openViewModal = (id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date) => {
     setEditingEmployee({ id, code, fullname, lastname, gender, height, weight, birthdate, nation, nationality, region, birthdate_address, address, phone_number, email, special_number, marital_status, company, branch, department, office, position, last_modified_by, last_modified_date });
@@ -194,7 +186,6 @@ const handleSaveEmployee = () => {
     setIsViewModalOpen(true);
   };
   const isDisabled = openViewModal;
->>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
   
   const closeEmployeeModal = () => {
     setIsAddModalOpen(false);
@@ -283,6 +274,7 @@ const handleSaveEmployee = () => {
     { id: '14', code: '014', fullname: 'សេក ប៉ូលី', lastname: 'Sek Polley', gender: 'Male', height: '172cm', weight: '68kg', birthdate: '1986-03-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', phone_number: '0939876543', email: 'sek.polley@example.com', special_number: '010 555 666', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS16', department: 'Operations', office: 'Operations Office', position: 'Operations Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
 
 ]);
+
   const filteredEmployees = employees.filter(employee =>
     employee.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -403,11 +395,7 @@ const handleSaveEmployee = () => {
           />
             <FaEye
                 className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
-<<<<<<< HEAD
-                onClick={() => ViewEditModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
-=======
                 onClick={() => openViewModal(employee.id, employee.code, employee.fullname, employee.lastname, employee.gender,
->>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
                   employee.height, employee.weight, employee.birthdate, employee.nation, employee.nationality, employee.region,
                   employee.birthdate_address, employee.address, employee.phone_number, employee.email, employee.special_number,
                   employee.marital_status, employee.company, employee.branch, employee.department, employee.office, employee.position,
@@ -584,38 +572,6 @@ const handleSaveEmployee = () => {
       )}
 
       {isViewModalOpen && (
-<<<<<<< HEAD
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-                  <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed z-50">
-                    <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
-                      កែប្រែព័ត៌មានបុគ្គលិក
-                    </h2>
-                    <button
-                      type="button"
-                      onClick={closeEditModal}
-                      className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                      </svg>
-                    </button>
-                  </div>
-                  <div>
-                    <TabMenu
-                      formData={formData}
-                      errors={errors}
-                      handleChange={handleChange}
-                      handleSaveEmployee={handleSaveEmployee}
-                      closeEmployeeModal={() => setIsAddModalOpen(false)}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-      {/* <div>        
-=======
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
             <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
@@ -648,7 +604,6 @@ const handleSaveEmployee = () => {
 
       {/* <div>
         
->>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
         <LongCourse/>
       </div> */}
     </section> 

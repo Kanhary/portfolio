@@ -5,12 +5,8 @@ const TabMenu = ({
   // errors,
   handleChange,
   // handleSaveEmployee,
-<<<<<<< HEAD
-  closeEmployeeModal, setIsEditModalOpen, setIsAddModalOpen
-=======
   closeEmployeeModal,
   disabled
->>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
 }) => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -42,7 +38,7 @@ const TabMenu = ({
   //   photo: null,
   // });
 
-  const isDisabled = !isAddModalOpen && !isEdi
+  // const isDisabled = !isAddModalOpen && !isEdi
 
   const [newCourse, setNewCourse] = useState({
     from: '',
@@ -275,40 +271,6 @@ const TabMenu = ({
                 </div>
 
                 {[
-<<<<<<< HEAD
-      {
-        id: 'company',
-        label: 'ក្រុមហ៊ុន',
-        type: 'select',
-        options: [
-          { value: '', label: 'ជ្រើសរើសក្រុមហ៊ុន' },
-          { value: 'company1', label: 'Phnom Penh Autonomous Port' },
-          { value: 'company2', label: 'Company 2' },
-          { value: 'company3', label: 'Company 3' }
-        ]
-      }
-      ].map(({ id, label, options }) => (
-        <div key={id} className="flex flex-col gap-2">
-          <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
-            {!formData.company && <p className="text-sm text-red-600">*</p>}
-            {label}
-          </label>
-
-          <select
-            id={id}
-            value={formData[id] || ''}
-            onChange={handleChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-          >
-            {options.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
-=======
                   { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
                   // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
@@ -325,7 +287,6 @@ const TabMenu = ({
                     />
                   </div>
                 ))}
->>>>>>> 4699666c05f6b66c1107d40a8ec8d585bf9962e8
 
       {[
                   // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
