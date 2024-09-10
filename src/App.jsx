@@ -9,10 +9,7 @@ function App() {
       <Routes>
         {/* Login route */}
         <Route path="/" element={<LoginForm/>} />
-        {/* Redirect root path to /main-dashboard */}
-        {/* <Route path="/" element={<Navigate to="/main-dashboard" />} /> */}
         
-        {/* Main Dashboard route */}
         <Route path="/main-dashboard/*" element={<MainDashboard />} />
         
         
