@@ -6,6 +6,9 @@ const TabMenu = ({
   handleChange,
   // handleSaveEmployee,
   closeEmployeeModal,
+  closeViewModal,
+  closeEditModal,
+  saveAllModal,
   disabled
 }) => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
@@ -57,6 +60,12 @@ const TabMenu = ({
   
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
+  };
+
+  const closeAllModals = () => {
+    closeEmployeeModal();
+    closeEditModal();
+    closeViewModal();
   };
 
   const handleTabChange = (tab) => {
@@ -539,14 +548,14 @@ const TabMenu = ({
               <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
                   type="submit"
-                  onClick={handleSaveEmployee}
+                  onClick={saveAllModal}
                   className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                 >
                   <p className='text-base font-normal'>រក្សាទុក</p>
                 </button>
                 <button
                   type="button"
-                  onClick={closeEmployeeModal}
+                  onClick={closeAllModals}
                   className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
                 >
                   <p className='text-base font-normal'>ចាកចេញ</p>

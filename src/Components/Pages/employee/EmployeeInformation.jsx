@@ -150,9 +150,19 @@ const handleSaveEmployee = () => {
   setIsAddModalOpen(false);
 };
 
+const handleSaveEdit = () =>{
+  setIsEditModalOpen(false);
+}
 
+const handleViewSave = () =>{
+  setIsViewModalOpen(false);
+}
 
-  
+const saveAllModal = () =>{
+  handleSaveEmployee();
+  handleSaveEdit();
+  handleViewSave();
+}  
   
 
   const recordsPerPage = 8;
@@ -190,6 +200,12 @@ const handleSaveEmployee = () => {
       phone_number: '',email: '', specialNumber: '', marital_status: '', company: '', branch: '', 
       department: '', office: '', position: '',last_modified_by: '', last_modified_date: '' });
     setIsViewModalOpen(false);
+  };
+
+  const closeAllModals = () => {
+    closeEmployeeModal();
+    closeEditModal();
+    closeViewModal();
   };
   
   //Update and Save
@@ -497,7 +513,11 @@ const handleSaveEmployee = () => {
           errors={errors}
           handleChange={handleChange}
           handleSaveEmployee={handleSaveEmployee}
-          closeEmployeeModal={closeEmployeeModal}       
+          closeEmployeeModal={closeEmployeeModal} 
+          closeEditModal={closeEditModal}
+          closeViewModal={closeViewModal}     
+          saveAllModal={saveAllModal}
+
         />
       </div>
       {/* <div className="flex justify-center gap-5 p-6 mt-4">
@@ -525,7 +545,7 @@ const handleSaveEmployee = () => {
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
               <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
                 កែប្រែព័ត៌មានបុគ្គលិក
               </h2>
@@ -546,7 +566,11 @@ const handleSaveEmployee = () => {
                 errors={errors}
                 handleChange={handleChange}
                 handleSaveEmployee={handleSaveEmployee}
-                closeEditModal={closeEditModal}
+                closeEmployeeModal={closeEmployeeModal} 
+                closeEditModal={closeAllModals}
+                closeViewModal={closeViewModal}
+                saveAllModal={saveAllModal}
+
               />
             </div>
           </div>
@@ -556,7 +580,7 @@ const handleSaveEmployee = () => {
       {isViewModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
               <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
                 មើលព័ត៌មានបុគ្គលិក
               </h2>
@@ -576,7 +600,10 @@ const handleSaveEmployee = () => {
                 errors={errors}
                 handleChange={handleChange}
                 handleSaveEmployee={handleSaveEmployee}
-                closeEditModal={closeEditModal}
+                closeEmployeeModal={closeEmployeeModal} 
+                closeEditModal={closeAllModals}
+                closeViewModal={closeViewModal}
+                saveAllModal={saveAllModal}
                 disabled={isDisabled}  // Pass disabled prop to disable fields
               />
             </div>
@@ -593,3 +620,4 @@ const handleSaveEmployee = () => {
 };
 
 export default EmployeeInformation;
+
