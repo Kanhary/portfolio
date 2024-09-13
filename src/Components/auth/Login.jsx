@@ -77,7 +77,9 @@ const LoginForm = () => {
           ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ
         </h2>
         {error && <p className='mb-4 text-red-500'>{error}</p>}
-        <form action="#" method="POST" onSubmit={handleSubmit}>
+        <form action="#" 
+        // method="POST" 
+        onSubmit={handleSubmit}>
           <div className="relative mb-6">
             <input
               type="text"

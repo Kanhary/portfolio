@@ -4,8 +4,6 @@ import Swal from 'sweetalert2';
 import TabMenu from './TabMenu';
 // import LongCourse from './LongCourse';
 
-
-
 const EmployeeInformation = () => {
   
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -64,12 +62,13 @@ const EmployeeInformation = () => {
     birthdate: '',
     nationality: '',
     region: '',
-    birthaddress: '',
+    birthdate_address: '',
     address: '',
-    phone: '',
+    phone_number: '',
+    nation: '',
     email: '',
-    specialNumber: '',
-    maritalStatus: '',
+    special_number: '',
+    marital_status: '',
     company: '',
     branch: '',
     department: '',
@@ -77,7 +76,25 @@ const EmployeeInformation = () => {
     position: '',
     photo: null,
   });
+  
+  const [employees, setEmployees] = useState([
 
+    { id: '1', code: '001', fullname: 'សែម ភក្តី', lastname: 'Sem Pheakdey', gender: 'ប្រុស', height: '185cm', weight: '75kg', birthdate: '1990-01-01', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្រះចក, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្រះចក, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0123456789', email: 'sem.pheakdey@example.com', special_number: '010 444 152', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS3', department: 'Administration', office: 'IT Department', position: 'Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '2', code: '002', fullname: 'សុជឿន ជ័យនេត', lastname: 'Sokhoeun Chhaynet', gender: 'Female', height: '160cm', weight: '55kg', birthdate: '1985-05-15', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ដេក, ខណ្ឌភ្នំពេញ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ដេក, ខណ្ឌភ្នំពេញ, រាជធានីភ្នំពេញ', phone_number: '0987654321', email: 'sokhoeun.chhaynet@example.com', special_number: '010 555 123', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS4', department: 'Finance', office: 'Engineering Office', position: 'Senior Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '3', code: '003', fullname: 'អ៊ុំ ម៉េង', lastname: 'Um Meng', gender: 'Male', height: '175cm', weight: '68kg', birthdate: '1988-07-22', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ទន្លេបត, ខណ្ឌសៀមរាប, រាជធានីសៀមរាប', address: 'សង្កាត់ទន្លេបត, ខណ្ឌសៀមរាប, រាជធានីសៀមរាប', phone_number: '0976543210', email: 'um.meng@example.com', special_number: '010 666 789', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS5', department: 'Technology', office: 'Research Department', position: 'IT Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '4', code: '004', fullname: 'ចន ឃឿន', lastname: 'Chan Khuon', gender: 'Female', height: '170cm', weight: '60kg', birthdate: '1992-03-10', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ផែន, ខណ្ឌព្រះសីហនុ, រាជធានីព្រះសីហនុ', address: 'សង្កាត់ផែន, ខណ្ឌព្រះសីហនុ, រាជធានីព្រះសីហនុ', phone_number: '0934567890', email: 'chan.khuon@example.com', special_number: '010 777 888', marital_status: 'Divorced', company: 'Phnom Penh Autonomous Port', branch: 'TS6', department: 'Human Resources', office: 'Administrative Office', position: 'HR Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '5', code: '005', fullname: 'ម៉ៅ សំរៀន', lastname: 'Mao Somrien', gender: 'Male', height: '180cm', weight: '70kg', birthdate: '1980-11-30', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងកេងកង, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងកេងកង, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', phone_number: '0923456789', email: 'mao.somrien@example.com', special_number: '010 888 999', marital_status: 'Widowed', company: 'Phnom Penh Autonomous Port', branch: 'TS7', department: 'Research', office: 'Data Office', position: 'Research Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '6', code: '006', fullname: 'សុខ សុជា', lastname: 'Sok Sochea', gender: 'Male', height: '170cm', weight: '65kg', birthdate: '1995-09-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ឬស្សីកែវ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ឬស្សីកែវ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0956789012', email: 'sok.sochea@example.com', special_number: '010 999 000', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS8', department: 'Logistics', office: 'Administrative Office', position: 'Logistics Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '7', code: '007', fullname: 'ម៉ាត់ សុខសម', lastname: 'Mat Soksam', gender: 'Female', height: '162cm', weight: '58kg', birthdate: '1993-12-12', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងត្របែក, ខណ្ឌកណ្តាល, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងត្របែក, ខណ្ឌកណ្តាល, រាជធានីភ្នំពេញ', phone_number: '0965432101', email: 'mat.soksam@example.com', special_number: '010 333 444', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS9', department: 'Customer Service', office: 'Support Office', position: 'Customer Service Representative', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '8', code: '008', fullname: 'ឃីម សុវណ្ណ', lastname: 'Kim Sovann', gender: 'Male', height: '178cm', weight: '72kg', birthdate: '1987-06-20', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងទំពូង, ខណ្ឌពោធិ៍សែនជ័យ, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងទំពូង, ខណ្ឌពោធិ៍សែនជ័យ, រាជធានីភ្នំពេញ', phone_number: '0978765432', email: 'kim.sovann@example.com', special_number: '010 222 333', marital_status: 'Separated', company: 'Phnom Penh Autonomous Port', branch: 'TS10', department: 'Marketing', office: 'Strategy Office', position: 'Marketing Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '9', code: '009', fullname: 'ទូច ស្រេង', lastname: 'Touch Sreang', gender: 'Female', height: '168cm', weight: '63kg', birthdate: '1991-08-14', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជ័យជូរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជ័យជូរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0938765432', email: 'touch.sreang@example.com', special_number: '010 444 555', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS11', department: 'Accounting', office: 'Finance Office', position: 'Accountant', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '10', code: '010', fullname: 'គង់ សេង', lastname: 'Kong Seng', gender: 'Male', height: '177cm', weight: '70kg', birthdate: '1982-04-05', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់កំពង់ឃុំ, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់កំពង់ឃុំ, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0945678901', email: 'kong.seng@example.com', special_number: '010 666 000', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS12', department: 'Legal', office: 'Legal Affairs Office', position: 'Legal Advisor', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
+    { id: '11', code: '011', fullname: 'អៀង សុផល', lastname: 'Ieang Sophal', gender: 'Female', height: '155cm', weight: '50kg', birthdate: '1990-11-22', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជ័យជោគ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជ័យជោគ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0955432101', email: 'ieang.sophal@example.com', special_number: '010 777 888', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS13', department: 'HR', office: 'Human Resources Office', position: 'HR Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
+    { id: '12', code: '012', fullname: 'យ៉ែត សំអាង', lastname: 'Yet Somang', gender: 'Male', height: '180cm', weight: '75kg', birthdate: '1984-01-19', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងកេងកង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងកេងកង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', phone_number: '0967891234', email: 'yet.somang@example.com', special_number: '010 999 000', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS14', department: 'IT', office: 'IT Support Office', position: 'IT Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
+    { id: '13', code: '013', fullname: 'ទេព សុភាព', lastname: 'Teap Sophap', gender: 'Female', height: '160cm', weight: '57kg', birthdate: '1992-07-09', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ឫស្សីកែវ, ខណ្ឌឫស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ឫស្សីកែវ, ខណ្ឌឫស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0976543210', email: 'teap.sophap@example.com', special_number: '010 888 999', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS15', department: 'R&D', office: 'Research Office', position: 'Research Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
+    { id: '14', code: '014', fullname: 'សេក ប៉ូលី', lastname: 'Sek Polley', gender: 'Male', height: '172cm', weight: '68kg', birthdate: '1986-03-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', phone_number: '0939876543', email: 'sek.polley@example.com', special_number: '010 555 666', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS16', department: 'Operations', office: 'Operations Office', position: 'Operations Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
+
+]);
   
   const viewDetails = (employeeId) => {
     // Fetch or set employee data based on employeeId
@@ -160,10 +177,21 @@ const handleSaveEmployee = () => {
   setIsAddModalOpen(false);
 };
 
+const handleSaveEdit = () =>{
+  setIsEditModalOpen(false);
+}
+
+const handleViewSave = () =>{
+  setIsViewModalOpen(false);
+}
+
+const saveAllModal = () =>{
+  handleSaveEmployee();
+  handleSaveEdit();
+  handleViewSave();
+}  
 
 
-  
-  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEmployeeData({
@@ -207,6 +235,12 @@ const handleSaveEmployee = () => {
       phone_number: '',email: '', specialNumber: '', marital_status: '', company: '', branch: '', 
       department: '', office: '', position: '',last_modified_by: '', last_modified_date: '' });
     setIsViewModalOpen(false);
+  };
+
+  const closeAllModals = () => {
+    closeEmployeeModal();
+    closeEditModal();
+    closeViewModal();
   };
   
   //Update and Save
@@ -256,25 +290,7 @@ const handleSaveEmployee = () => {
     console.log(filteredUsers);
   };
   
-  const [employees, setEmployees] = useState([
-
-    { id: '1', code: '001', fullname: 'សែម ភក្តី', lastname: 'Sem Pheakdey', gender: 'Male', height: '185cm', weight: '75kg', birthdate: '1990-01-01', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្រះចក, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្រះចក, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0123456789', email: 'sem.pheakdey@example.com', special_number: '010 444 152', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS3', department: 'Administration', office: 'IT Department', position: 'Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '2', code: '002', fullname: 'សុជឿន ជ័យនេត', lastname: 'Sokhoeun Chhaynet', gender: 'Female', height: '160cm', weight: '55kg', birthdate: '1985-05-15', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ដេក, ខណ្ឌភ្នំពេញ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ដេក, ខណ្ឌភ្នំពេញ, រាជធានីភ្នំពេញ', phone_number: '0987654321', email: 'sokhoeun.chhaynet@example.com', special_number: '010 555 123', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS4', department: 'Finance', office: 'Engineering Office', position: 'Senior Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '3', code: '003', fullname: 'អ៊ុំ ម៉េង', lastname: 'Um Meng', gender: 'Male', height: '175cm', weight: '68kg', birthdate: '1988-07-22', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ទន្លេបត, ខណ្ឌសៀមរាប, រាជធានីសៀមរាប', address: 'សង្កាត់ទន្លេបត, ខណ្ឌសៀមរាប, រាជធានីសៀមរាប', phone_number: '0976543210', email: 'um.meng@example.com', special_number: '010 666 789', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS5', department: 'Technology', office: 'Research Department', position: 'IT Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '4', code: '004', fullname: 'ចន ឃឿន', lastname: 'Chan Khuon', gender: 'Female', height: '170cm', weight: '60kg', birthdate: '1992-03-10', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ផែន, ខណ្ឌព្រះសីហនុ, រាជធានីព្រះសីហនុ', address: 'សង្កាត់ផែន, ខណ្ឌព្រះសីហនុ, រាជធានីព្រះសីហនុ', phone_number: '0934567890', email: 'chan.khuon@example.com', special_number: '010 777 888', marital_status: 'Divorced', company: 'Phnom Penh Autonomous Port', branch: 'TS6', department: 'Human Resources', office: 'Administrative Office', position: 'HR Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '5', code: '005', fullname: 'ម៉ៅ សំរៀន', lastname: 'Mao Somrien', gender: 'Male', height: '180cm', weight: '70kg', birthdate: '1980-11-30', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងកេងកង, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងកេងកង, ខណ្ឌចំការមន, រាជធានីភ្នំពេញ', phone_number: '0923456789', email: 'mao.somrien@example.com', special_number: '010 888 999', marital_status: 'Widowed', company: 'Phnom Penh Autonomous Port', branch: 'TS7', department: 'Research', office: 'Data Office', position: 'Research Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '6', code: '006', fullname: 'សុខ សុជា', lastname: 'Sok Sochea', gender: 'Male', height: '170cm', weight: '65kg', birthdate: '1995-09-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ឬស្សីកែវ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ឬស្សីកែវ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0956789012', email: 'sok.sochea@example.com', special_number: '010 999 000', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS8', department: 'Logistics', office: 'Administrative Office', position: 'Logistics Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '7', code: '007', fullname: 'ម៉ាត់ សុខសម', lastname: 'Mat Soksam', gender: 'Female', height: '162cm', weight: '58kg', birthdate: '1993-12-12', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងត្របែក, ខណ្ឌកណ្តាល, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងត្របែក, ខណ្ឌកណ្តាល, រាជធានីភ្នំពេញ', phone_number: '0965432101', email: 'mat.soksam@example.com', special_number: '010 333 444', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS9', department: 'Customer Service', office: 'Support Office', position: 'Customer Service Representative', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '8', code: '008', fullname: 'ឃីម សុវណ្ណ', lastname: 'Kim Sovann', gender: 'Male', height: '178cm', weight: '72kg', birthdate: '1987-06-20', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងទំពូង, ខណ្ឌពោធិ៍សែនជ័យ, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងទំពូង, ខណ្ឌពោធិ៍សែនជ័យ, រាជធានីភ្នំពេញ', phone_number: '0978765432', email: 'kim.sovann@example.com', special_number: '010 222 333', marital_status: 'Separated', company: 'Phnom Penh Autonomous Port', branch: 'TS10', department: 'Marketing', office: 'Strategy Office', position: 'Marketing Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '9', code: '009', fullname: 'ទូច ស្រេង', lastname: 'Touch Sreang', gender: 'Female', height: '168cm', weight: '63kg', birthdate: '1991-08-14', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជ័យជូរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជ័យជូរ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0938765432', email: 'touch.sreang@example.com', special_number: '010 444 555', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS11', department: 'Accounting', office: 'Finance Office', position: 'Accountant', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '10', code: '010', fullname: 'គង់ សេង', lastname: 'Kong Seng', gender: 'Male', height: '177cm', weight: '70kg', birthdate: '1982-04-05', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់កំពង់ឃុំ, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់កំពង់ឃុំ, ខណ្ឌឬស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0945678901', email: 'kong.seng@example.com', special_number: '010 666 000', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS12', department: 'Legal', office: 'Legal Affairs Office', position: 'Legal Advisor', last_modified_by: 'Admin', last_modified_date: '2024-08-21' },
-    { id: '11', code: '011', fullname: 'អៀង សុផល', lastname: 'Ieang Sophal', gender: 'Female', height: '155cm', weight: '50kg', birthdate: '1990-11-22', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ជ័យជោគ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ជ័យជោគ, ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ', phone_number: '0955432101', email: 'ieang.sophal@example.com', special_number: '010 777 888', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS13', department: 'HR', office: 'Human Resources Office', position: 'HR Coordinator', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '12', code: '012', fullname: 'យ៉ែត សំអាង', lastname: 'Yet Somang', gender: 'Male', height: '180cm', weight: '75kg', birthdate: '1984-01-19', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់បឹងកេងកង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', address: 'សង្កាត់បឹងកេងកង, ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ', phone_number: '0967891234', email: 'yet.somang@example.com', special_number: '010 999 000', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS14', department: 'IT', office: 'IT Support Office', position: 'IT Specialist', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '13', code: '013', fullname: 'ទេព សុភាព', lastname: 'Teap Sophap', gender: 'Female', height: '160cm', weight: '57kg', birthdate: '1992-07-09', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ឫស្សីកែវ, ខណ្ឌឫស្សីកែវ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ឫស្សីកែវ, ខណ្ឌឫស្សីកែវ, រាជធានីភ្នំពេញ', phone_number: '0976543210', email: 'teap.sophap@example.com', special_number: '010 888 999', marital_status: 'Single', company: 'Phnom Penh Autonomous Port', branch: 'TS15', department: 'R&D', office: 'Research Office', position: 'Research Analyst', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-    { id: '14', code: '014', fullname: 'សេក ប៉ូលី', lastname: 'Sek Polley', gender: 'Male', height: '172cm', weight: '68kg', birthdate: '1986-03-25', nationality: 'Khmer', region: 'Cambodia', birthdate_address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', address: 'សង្កាត់ស្វាយដល់, ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ', phone_number: '0939876543', email: 'sek.polley@example.com', special_number: '010 555 666', marital_status: 'Married', company: 'Phnom Penh Autonomous Port', branch: 'TS16', department: 'Operations', office: 'Operations Office', position: 'Operations Manager', last_modified_by: 'Admin', last_modified_date: '2024-08-22' },
-
-]);
-
+ 
   const filteredEmployees = employees.filter(employee =>
     employee.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -516,7 +532,11 @@ const handleSaveEmployee = () => {
           errors={errors}
           handleChange={handleChange}
           handleSaveEmployee={handleSaveEmployee}
-          closeEmployeeModal={closeEmployeeModal}       
+          closeEmployeeModal={closeEmployeeModal} 
+          closeEditModal={closeEditModal}
+          closeViewModal={closeViewModal}     
+          saveAllModal={saveAllModal}
+
         />
       </div>
       {/* <div className="flex justify-center gap-5 p-6 mt-4">
@@ -544,7 +564,7 @@ const handleSaveEmployee = () => {
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed z-50">
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
               <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
                 កែប្រែព័ត៌មានបុគ្គលិក
               </h2>
@@ -564,7 +584,11 @@ const handleSaveEmployee = () => {
                 errors={errors}
                 handleChange={handleChange}
                 handleSaveEmployee={handleSaveEmployee}
-                closeEditModal={closeEditModal}
+                closeEmployeeModal={closeEmployeeModal} 
+                closeEditModal={closeAllModals}
+                closeViewModal={closeViewModal}
+                saveAllModal={saveAllModal}
+
               />
             </div>
           </div>
@@ -574,7 +598,7 @@ const handleSaveEmployee = () => {
       {isViewModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-md sm:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] mt-14 sm:ml-52 h-[550px] modal-scrollbar">
-            <div className="sticky top-0 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
               <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
                 មើលព័ត៌មានបុគ្គលិក
               </h2>
@@ -594,16 +618,17 @@ const handleSaveEmployee = () => {
                 errors={errors}
                 handleChange={handleChange}
                 handleSaveEmployee={handleSaveEmployee}
-                closeEditModal={closeEditModal}
+                closeEmployeeModal={closeEmployeeModal} 
+                closeEditModal={closeAllModals}
+                closeViewModal={closeViewModal}
+                saveAllModal={saveAllModal}
                 disabled={isDisabled}  // Pass disabled prop to disable fields
               />
             </div>
           </div>
         </div>
       )}
-
-      {/* <div>
-        
+      {/* <div> 
         <LongCourse/>
       </div> */}
     </section> 
@@ -611,3 +636,4 @@ const handleSaveEmployee = () => {
 };
 
 export default EmployeeInformation;
+

@@ -42,9 +42,9 @@ export function CheckUser(data) {
         method: 'POST',
         url: '/userSystem/checkusers',
         data: data,
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
+        // headers: {
+        //     'Content-Type': 'multipart/form-data'
+        // }
     });
 }
 export function DeleteUser(ID) {
@@ -54,10 +54,10 @@ export function DeleteUser(ID) {
     });
 }
 
-export function Login(){
-    return request({
-        method: 'POST',
-        url: 'userSystem/login'
-    })
-}
+// export function Login(){
+//     return request({
+//         method: 'POST',
+//         url: 'userSystem/login'
+//     })
+// }
 
