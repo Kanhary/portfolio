@@ -29,10 +29,10 @@ export function GetEmp(params) {
     });
 }
 
-export function UpdateUser(id, data) {
-    return request({
+export function UpdateUser(ID, data) {
+    return axios({
         method: 'POST',
-        url: `/userSystem/updateUser/${id}`,
+        url: `/userSystem/updateUser/${ID}`,
         data: data
     });
 }
@@ -61,3 +61,27 @@ export function DeleteUser(ID) {
 //     })
 // }
 
+export function GetAllStaff(params){
+    console.log(params);
+    return request({
+        method: "GET",
+        url: '/staffs/getAllStaff',
+        params: params
+    });
+}
+
+export function AddStaff(data){
+    console.log(data);
+    return request({
+        method: "POST",
+        url: '/staffs/AddNew_Staff',
+        data: data
+    })
+}
+
+export function DelStaff(Id){
+    return request({
+        method: "POST",
+        url: `/staffs/staffDel/${Id}`
+    })
+}

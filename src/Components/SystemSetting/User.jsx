@@ -3,7 +3,7 @@ import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
 // import { AddUser, GetUser } from '../../api/user.js';
 import { AddUser, GetUser, GetEmp } from '@/api/user.js';
-import { CheckUser, DeleteUser } from '../../api/user';
+import { CheckUser, DeleteUser, UpdateUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
 import Select from 'react-select'
 
@@ -34,6 +34,7 @@ const User = () => {
   const [errors, setErrors] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedOption, setSelectedOption] = useState('');
+  const [pictureUrl, setPictureUrl] = useState(null);
   const recordsPerPage = 8;
   const [itemsPerPage] = useState(8)
 
@@ -109,15 +110,12 @@ const User = () => {
     setIsLoading(true);
 
     try {
-        // Check if the user already exists
-        const checkResponse = await CheckUser({
-            userCode: updatedFormData.userCode,
-            userName: updatedFormData.userName
-        });
+        // Post all the user data
+        const response = await CheckUser(updatedFormData);
 
-        console.log('CheckUser response:', checkResponse);
+        console.log('CheckUser response:', response);
 
-        if (checkResponse.exists) {
+        if (response.data.exists) {
             console.log('User already exists');
             setIsLoading(false);
             setErrors({ general: 'User already exists' });
@@ -127,27 +125,26 @@ const User = () => {
                 text: "User Already Exists",
                 icon: "warning"
             });
-            return;
+        } else {
+            Swal.fire({
+                title: "Successful",
+                text: "User created successfully",
+                icon: "success"
+            });
+
+            // Clear the input fields and reset the form state
+            setFormData({
+                userCode: '',
+                userName: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                cardId: ''
+            });
+            setSelectedOption(null);
+            setErrors({});
         }
-
-        Swal.fire({
-            title: "Successful",
-            text: "User created successfully",
-            icon: "success"
-        });
-
-        // Clear the input fields and reset the form state
-        setFormData({
-            userCode: '',
-            userName: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            cardId: ''
-        });
-        setSelectedOption(null);
-        setErrors({});
 
     } catch (error) {
         console.error('Error during user check or add:', error);
@@ -182,26 +179,15 @@ const handleSave = async () => {
         setErrors(validationErrors);
         return;
     }
-
+    const updatedFormData = { ...formData, staffCode: selectedOption };
+    setFormData(updatedFormData);
     // Create a new FormData object to handle file uploads
-    const formDataToSend = new FormData();
-    formDataToSend.append('userCode', formData.userCode);
-    formDataToSend.append('userName', formData.userName);
-    formDataToSend.append('firstName', formData.firstName);
-    formDataToSend.append('lastName', formData.lastName);
-    formDataToSend.append('email', formData.email);
-    formDataToSend.append('password', formData.password);
-    formDataToSend.append('cardId', formData.cardId);
-    formDataToSend.append('staffCode', selectedOption);  // Ensure staffCode is correctly set
-    if (formData.picture) {
-        formDataToSend.append('picture', formData.picture); // Add the image file if available
-    }
-
+    
     setIsLoading(true);
 
     try {
         // Call CheckUser to check for user existence and add the user if they don't exist
-        const checkResponse = await CheckUser(formDataToSend);
+        const checkResponse = await CheckUser(updatedFormData);
 
         console.log('CheckUser response:', checkResponse);
 
@@ -247,9 +233,8 @@ const handleSave = async () => {
 
 
 
-  const handleSaveEdit = async () => {
-    closeEditModal = false;
-  }
+
+
   
   // const handleClick = () => {
   //   Swal.fire({
@@ -274,14 +259,31 @@ const handleSave = async () => {
 
   const [uploadSuccess, setUploadSuccess] = useState(false);
   
+  useEffect(() => {
+    if (formData.picture) {
+      // Check if formData.picture is an instance of File or Blob
+      if (formData.picture instanceof File || formData.picture instanceof Blob) {
+        const url = URL.createObjectURL(formData.picture);
+        setPictureUrl(url);
+
+        // Clean up the URL object when the component unmounts or picture changes
+        return () => {
+          URL.revokeObjectURL(url);
+        };
+      } else {
+        console.error('Expected a File or Blob, but got:', formData.picture);
+      }
+    } else {
+      setPictureUrl(null); // Reset the picture URL if no picture is selected
+    }
+  }, [formData.picture]);
+
   const handlePictureChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setFormData({ ...formData, picture: file });
-      setUploadSuccess(true);  // Show success message
     }
   };
-
   // Fetch users and employees
   useEffect(() => {
     const fetchUsers = async () => {
@@ -356,8 +358,8 @@ const handleSave = async () => {
                   confirmButtonText: "Okay",
               });
           
-              const updatedUsers = users.filter(user => user.id !== ID);
-              setUsers(updatedUsers);
+              const deleteUSer = users.filter(user => user.id !== ID);
+              setUsers(deleteUSer);
           } else {
               Swal.fire({
                   title: "Error!",
@@ -385,6 +387,49 @@ const handleSave = async () => {
         });
     }
 };
+
+const handleSaveEdit = async () => {
+  try {
+    const updatedFormData = { ...formData, staffCode: selectedOption };
+    setFormData(updatedFormData);
+      setIsLoading(true); // Optional: To show a loading state
+
+      // Make sure you have the ID and data to update
+      if (!editingUser) {
+          console.error("No user selected for editing");
+          return;
+      }
+
+      const response = await UpdateUser(editingUser.id, updatedFormData);
+      console.log('Update response:', response);
+
+      if (response.status === 200) {
+          Swal.fire({
+              title: "Success!",
+              text: "User updated successfully.",
+              icon: "success",
+          });
+          // Optionally, update local state or close the modal
+          closeEditModal(); 
+      } else {
+          Swal.fire({
+              title: "Error!",
+              text: "Failed to update user.",
+              icon: "error",
+          });
+      }
+  } catch (error) {
+      console.error('Error updating user:', error);
+      Swal.fire({
+          title: "Error!",
+          text: error.response?.data?.message || 'An error occurred.',
+          icon: "error",
+      });
+  } finally {
+      setIsLoading(false); // Optional: Hide loading state
+  }
+};
+
 
 
 const handleChangeSelection = (selectedOption) => {
@@ -861,51 +906,55 @@ const handleChangeSelection = (selectedOption) => {
 
               {/* Right Side: Picture Upload */}
               <div className="flex items-center w-full space-y-4 justify-evenly lg:justify-center lg:flex-col md:w-1/4">
-                <div className="relative flex items-center justify-center w-32 h-32 overflow-hidden bg-gray-100 rounded-lg shadow-md">
-                  {formData.picture ? (
-                    <img
-                      src={URL.createObjectURL(formData.picture)}
-                      alt="Profile"
-                      className="object-cover w-full h-full"
-                    />
-                  ) : (
-                    <svg
-                    className="w-10 h-10 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                  )}
-                </div>
-                <input
-                  type="file"
-                  id="picture"
-                  accept="image/*"
-                  onChange={handlePictureChange}
-                  className="hidden"
-                />
-                <label
-                  htmlFor="picture"
-                  className="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 focus:outline-none"
-                >
-                {formData.picture ? "Change Picture" : "Upload Picture"}
-                </label>
-              </div>
+      <div className="relative flex items-center justify-center w-32 h-32 overflow-hidden bg-gray-100 rounded-lg shadow-md">
+        {pictureUrl ? (
+          <img
+            src={pictureUrl}
+            alt="Profile"
+            className="object-cover w-full h-full"
+          />
+        ) : (
+          <svg
+            className="w-10 h-10 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+        )}
+      </div>
+      <input
+        type="file"
+        id="picture"
+        accept="image/*"
+        onChange={handlePictureChange}
+        className="hidden"
+      />
+      <label
+        htmlFor="picture"
+        className="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 focus:outline-none"
+      >
+        {formData.picture ? "Change Picture" : "Upload Picture"}
+      </label>
+    </div>
             </form>
 
             <footer className="flex flex-col items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
                     
-              <button onClick={handleSaveEdit} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0">
-                Save
-              </button>
+            <button
+              onClick={handleSaveEdit}
+              className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto lg:mb-0"
+            >
+              Save
+            </button>
+
               
               <button onClick={closeAddModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
                 Cancel
