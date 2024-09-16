@@ -183,29 +183,30 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="familyStatus" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.familyStatus && <p className="text-sm text-red-600">*</p>}ស្ថានភាពគ្រួសារ</label>
+                  <label htmlFor="familyStatus" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {!formData.familyStatus && <p className="text-sm text-red-600">*</p>}
+                    ស្ថានភាពគ្រួសារ
+                  </label>
                   <select
                     id="familyStatus"
-                    value={formData.familyStatus || ''}
+                    value={formData.familyStatus !== undefined ? formData.familyStatus.toString() : ''}
                     onChange={handleChange}
                     required
-                    
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
-                    <option value="លីវ">លីវ</option>
-                    <option value="មានគូរស្វាមី">មានគូរស្វាមី</option>
+                    <option value="false">លីវ</option> {/* Single */}
+                    <option value="true">មានគូរស្វាមី</option> {/* Married */}
                   </select>
-                  {/* {!formData.family && <p className="text-sm text-red-600">This field is required</p>} */}
                 </div>
-
-                <div className="flex flex-col gap-2">
+               <div className="flex flex-col gap-2">
                   <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
                   <select
                     id="region"
                     value={formData.region || ''}
                     onChange={handleChange}
                     required
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
@@ -246,6 +247,7 @@ const TabMenu = ({
                     id="departmentCode"
                     value={formData.departmentCode || ''}
                     onChange={handleChange}
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
@@ -265,6 +267,7 @@ const TabMenu = ({
                     id="officeCode"
                     value={formData.officeCode || ''}
                     onChange={handleChange}
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសការិយាល័យ</option>

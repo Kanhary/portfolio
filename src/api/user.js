@@ -85,3 +85,11 @@ export function DelStaff(Id){
         url: `/staffs/staffDel/${Id}`
     })
 }
+
+export function UpdateStaff(id, data) {
+    return request({
+        method: "POST",
+        url: `/staffs/updateUser/${id}`,  // Use the Id to construct the URL
+        data: data  // Include the data in the request body
+    });
+}
