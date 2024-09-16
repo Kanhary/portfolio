@@ -30,7 +30,7 @@ export function GetEmp(params) {
 }
 
 export function UpdateUser(ID, data) {
-    return axios({
+    return request({
         method: 'POST',
         url: `/userSystem/updateUser/${ID}`,
         data: data
