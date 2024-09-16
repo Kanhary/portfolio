@@ -71,7 +71,7 @@ const EmployeeInformation = () => {
     birthdateAddress: '',
     address: '',
     phoneNumber1: '',
-    nation: '',
+    nationals: '',
     email: '',
     specailPhoneNumber: '',
     familyStatus: '',
@@ -124,29 +124,29 @@ const EmployeeInformation = () => {
 // ]);
   
 
-const handleChange = (e) => {
-  const { id, value } = e.target;
+  const handleChange = (e) => {
+    const { id, value } = e.target;
 
-  if (id === "birthDate") {
-    const formattedDate = new Date(value).toISOString().split('T')[0];
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: formattedDate
-    }));
-  } else if (id === "familyStatus") {
-    // Convert text to boolean
-    const booleanValue = value === "true"; // "true" for married, "false" for single
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: booleanValue
-    }));
-  } else {
-    setFormData(prevData => ({
-      ...prevData,
-      [id]: value
-    }));
-  }
-};
+    if (id === "birthDate") {
+      const formattedDate = new Date(value).toISOString().split('T')[0];
+      setFormData(prevData => ({
+        ...prevData,
+        [id]: formattedDate
+      }));
+    } else if (id === "familyStatus") {
+      // Convert text to boolean
+      const booleanValue = value === "true"; // "true" for married, "false" for single
+      setFormData(prevData => ({
+        ...prevData,
+        [id]: booleanValue
+      }));
+    } else {
+      setFormData(prevData => ({
+        ...prevData,
+        [id]: value
+      }));
+    }
+  };
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -208,97 +208,115 @@ const handleChange = (e) => {
             confirmButtonText: 'Okay',
         });
     }
-};
+  };
 
 
 
-const handleSaveEmployee = async () => {
+  const handleSaveEmployee = async () => {
 
 
-  try {
-    console.log('Saving employee data:', formData);
-    const response = await AddStaff(formData);
+    try {
+      console.log('Saving employee data:', formData);
+      const response = await AddStaff(formData);
 
-    if (response.status === 200) {
-      console.log('Employee saved successfully:', response);
-      setIsAddModalOpen(false);
-    } else {
-      // Check for specific error messages from the API
-      const errorMessage = response.data.message || 'An unexpected error occurred.';
-      if (response.status === 409) { // Example: Handle conflict status
-        alert('Staff already exists: ' + errorMessage);
+      if (response.status === 200) {
+        console.log('Employee saved successfully:', response);
+        Swal.fire({
+          title: "Successful",
+          text: "Employee created successfully",
+          icon: "success"
+      });
+        setIsAddModalOpen(false);
       } else {
-        alert('Error: ' + errorMessage);
+        // Check for specific error messages from the API
+        const errorMessage = response.data.message || 'An unexpected error occurred.';
+        if (response.status === 409) { // Example: Handle conflict status
+          alert('Staff already exists: ' + errorMessage);
+        } else {
+          alert('Error: ' + errorMessage);
+        }
+      }
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        console.error('Error response headers:', error.response.headers);
+        alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error request:', error.request);
+        alert('No response received from the server.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error message:', error.message);
+        alert('An error occurred while setting up the request.');
       }
     }
-  } catch (error) {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error('Error response data:', error.response.data);
-      console.error('Error response status:', error.response.status);
-      console.error('Error response headers:', error.response.headers);
-      alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('Error request:', error.request);
-      alert('No response received from the server.');
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Error message:', error.message);
-      alert('An error occurred while setting up the request.');
+    
+  };
+
+
+  const handleSaveEdit = async () => {
+    try {
+      console.log('Saving employee data:', formData);
+      const id = formData.id;  // Ensure this is valid
+      if (!id) {
+        Swal.fire({
+          title: "Error",
+          text: "ID are missing",
+          icon: "warning"
+      });
+        return;
+      }
+      const response = await UpdateStaff(id, formData);
+
+      if (response.status === 200) {
+        console.log('Employee updated successfully:', response.data);
+        Swal.fire({
+          title: "Successful",
+          text: "Employee update successfully",
+          icon: "success"
+      });
+        setIsEditModalOpen(false);  // Close the edit modal
+      } else {
+        const errorMessage = response.data.message || 'An unexpected error occurred.';
+        // alert('Error: ' + errorMessage);
+        Swal.fire({
+          title: "Successful",
+          text: "Error :" + errorMessage,
+          icon: "warning"
+      });
+      }
+    } 
+    catch (error) {
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        console.error('Error response data:', error.response.data);
+        alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error('Error request:', error.request);
+        alert('No response received from the server.');
+      } else {
+        // Error setting up the request
+        console.error('Error message:', error.message);
+        alert('An error occurred while setting up the request.');
+      }
     }
+  };
+
+  const handleViewSave = () =>{
+    setIsViewModalOpen(false);
   }
+
+  const saveAllModal = () =>{
+    handleSaveEmployee();
+    handleSaveEdit();
+    handleViewSave();
+  }  
   
-};
-
-
-const handleSaveEdit = async () => {
-  try {
-    console.log('Saving employee data:', formData);
-    const id = formData.id;  // Ensure this is valid
-    if (!id) {
-      alert('Error: Employee ID is missing.');
-      return;
-    }
-    const response = await UpdateStaff(id, formData);
-
-    if (response.status === 200) {
-      console.log('Employee updated successfully:', response.data);
-      setIsEditModalOpen(false);  // Close the edit modal
-    } else {
-      const errorMessage = response.data.message || 'An unexpected error occurred.';
-      alert('Error: ' + errorMessage);
-    }
-  } catch (error) {
-    if (error.response) {
-      // Server responded with a status other than 2xx
-      console.error('Error response data:', error.response.data);
-      alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
-    } else if (error.request) {
-      // Request was made but no response received
-      console.error('Error request:', error.request);
-      alert('No response received from the server.');
-    } else {
-      // Error setting up the request
-      console.error('Error message:', error.message);
-      alert('An error occurred while setting up the request.');
-    }
-  }
-};
-
-
-const handleViewSave = () =>{
-  setIsViewModalOpen(false);
-}
-
-const saveAllModal = () =>{
-  // handleSaveEmployee();
-  handleSaveEdit();
-  // handleViewSave();
-}  
-  
-
   const recordsPerPage = 8;
   //open edit modal
   const openEditModal = (

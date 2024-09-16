@@ -173,6 +173,7 @@ const TabMenu = ({
                     value={formData.genderCode || ''}
                     onChange={handleChange}
                     required
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
@@ -192,6 +193,7 @@ const TabMenu = ({
                     value={formData.familyStatus !== undefined ? formData.familyStatus.toString() : ''}
                     onChange={handleChange}
                     required
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
@@ -210,9 +212,9 @@ const TabMenu = ({
                     className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
-                    <option value="cambodia">កម្ពុជា</option>
-                    <option value="thailand">ថៃ</option>
-                    <option value="vietnam">វៀតណាម</option>
+                    <option value="កម្ពុជា">កម្ពុជា</option>
+                    <option value="ថៃ">ថៃ</option>
+                    <option value="វៀតណាម">វៀតណាម</option>
                     {/* Add more regions as needed */}
                   </select>
                 </div>

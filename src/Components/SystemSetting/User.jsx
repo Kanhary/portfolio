@@ -38,28 +38,6 @@ const User = () => {
   const recordsPerPage = 8;
   const [itemsPerPage] = useState(8)
 
- 
-  // const getPaginationItems = () => {
-  //   let pages = [];
-  //   if (totalPages <= 7) {
-  //     pages = [...Array(totalPages)].map((_, index) => index + 1);
-  //   } else {
-  //     if (currentPage < 4) {
-  //       pages = [1, 2, 3, '...', totalPages];
-  //     } else if (currentPage > totalPages - 3) {
-  //       pages = [1, '...', totalPages - 3, totalPages - 2, totalPages];
-  //     } else {
-  //       pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
-  //     }
-  //   }
-  //   console.log('Pagination items:', pages); // Debugging line
-  //   return pages;
-  // };
-  
-  // const handlePageClick = (e) =>{
-  //   console.log(e);
-  // }
-
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => {
     setFormData(INITIAL_FORM_DATA);
@@ -71,7 +49,6 @@ const User = () => {
     setFormData(user);
     setIsEditModalOpen(true);
   };
-  
 
   const closeEditModal = () => {
     setEditingUser(null);
@@ -229,13 +206,8 @@ const handleSave = async () => {
     } finally {
         setIsLoading(false);  // Set loading to false after the process
     }
-};
+  };
 
-
-
-
-
-  
   // const handleClick = () => {
   //   Swal.fire({
   //     title: "Are you sure?",
@@ -329,8 +301,6 @@ const handleSave = async () => {
     console.log("Page clicked:", event.selected); 
     setCurrentPage(event.selected);
   };
-
-
   // const handleChangeSelection = (e) => {
   //   setSelectedOption(e.target.value);
   // };
@@ -386,67 +356,63 @@ const handleSave = async () => {
             confirmButtonText: 'Okay',
         });
     }
-};
+  };
 
-const handleSaveEdit = async () => {
-  try {
-    const updatedFormData = { ...formData, staffCode: selectedOption };
-    setFormData(updatedFormData);
-      setIsLoading(true); // Optional: To show a loading state
+  const handleSaveEdit = async () => {
+    try {
+      const updatedFormData = { ...formData, staffCode: selectedOption };
+      setFormData(updatedFormData);
+        setIsLoading(true); // Optional: To show a loading state
 
-      // Make sure you have the ID and data to update
-      if (!editingUser) {
-          console.error("No user selected for editing");
-          return;
-      }
+        // Make sure you have the ID and data to update
+        if (!editingUser) {
+            console.error("No user selected for editing");
+            return;
+        }
 
-      const response = await UpdateUser(editingUser.id, updatedFormData);
-      console.log('Update response:', response);
+        const response = await UpdateUser(editingUser.id, updatedFormData);
+        console.log('Update response:', response);
 
-      if (response.status === 200) {
-          Swal.fire({
-              title: "Success!",
-              text: "User updated successfully.",
-              icon: "success",
-          });
-          // Optionally, update local state or close the modal
-          closeEditModal(); 
-      } else {
-          Swal.fire({
-              title: "Error!",
-              text: "Failed to update user.",
-              icon: "error",
-          });
-      }
-  } catch (error) {
-      console.error('Error updating user:', error);
-      Swal.fire({
-          title: "Error!",
-          text: error.response?.data?.message || 'An error occurred.',
-          icon: "error",
-      });
-  } finally {
-      setIsLoading(false); // Optional: Hide loading state
-  }
-};
+        if (response.status === 200) {
+            Swal.fire({
+                title: "Success!",
+                text: "User updated successfully.",
+                icon: "success",
+            });
+            // Optionally, update local state or close the modal
+            closeEditModal(); 
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to update user.",
+                icon: "error",
+            });
+        }
+    } catch (error) {
+        console.error('Error updating user:', error);
+        Swal.fire({
+            title: "Error!",
+            text: error.response?.data?.message || 'An error occurred.',
+            icon: "error",
+        });
+    } finally {
+        setIsLoading(false); // Optional: Hide loading state
+    }
+  };
 
-
-
-const handleChangeSelection = (selectedOption) => {
-    // Ensure selectedOption is the correct value
-    const selectedValue = selectedOption ? selectedOption.value : null;
-    setSelectedOption(selectedValue);
-    console.log('Selected staff code:', selectedValue); // Should log the staff code
-};
-
-
-
+  const handleChangeSelection = (selectedOption) => {
+      // Ensure selectedOption is the correct value
+      const selectedValue = selectedOption ? selectedOption.value : null;
+      setSelectedOption(selectedValue);
+      console.log('Selected staff code:', selectedValue); // Should log the staff code
+  };
 
   // Format options for react-select
   const options = employees.map(employee => ({
     value: employee.staffCode,
     label: `${employee.staffCode} - ${employee.laTanName}`
   }));
+  
   
   return (
     <section className='mt-10 font-khmer'>
@@ -769,8 +735,6 @@ const handleChangeSelection = (selectedOption) => {
         </div>
       )}
 
-
-
       {/* Edit User Modal */}
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
@@ -906,44 +870,44 @@ const handleChangeSelection = (selectedOption) => {
 
               {/* Right Side: Picture Upload */}
               <div className="flex items-center w-full space-y-4 justify-evenly lg:justify-center lg:flex-col md:w-1/4">
-      <div className="relative flex items-center justify-center w-32 h-32 overflow-hidden bg-gray-100 rounded-lg shadow-md">
-        {pictureUrl ? (
-          <img
-            src={pictureUrl}
-            alt="Profile"
-            className="object-cover w-full h-full"
-          />
-        ) : (
-          <svg
-            className="w-10 h-10 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-        )}
-      </div>
-      <input
-        type="file"
-        id="picture"
-        accept="image/*"
-        onChange={handlePictureChange}
-        className="hidden"
-      />
-      <label
-        htmlFor="picture"
-        className="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 focus:outline-none"
-      >
-        {formData.picture ? "Change Picture" : "Upload Picture"}
-      </label>
-    </div>
+                <div className="relative flex items-center justify-center w-32 h-32 overflow-hidden bg-gray-100 rounded-lg shadow-md">
+                  {pictureUrl ? (
+                    <img
+                      src={pictureUrl}
+                      alt="Profile"
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <svg
+                      className="w-10 h-10 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 4v16m8-8H4"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  id="picture"
+                  accept="image/*"
+                  onChange={handlePictureChange}
+                  className="hidden"
+                />
+                <label
+                  htmlFor="picture"
+                  className="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 focus:outline-none"
+                >
+                  {formData.picture ? "Change Picture" : "Upload Picture"}
+                </label>
+              </div>
             </form>
 
             <footer className="flex flex-col items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
