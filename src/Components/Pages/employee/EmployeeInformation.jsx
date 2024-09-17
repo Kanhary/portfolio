@@ -402,17 +402,13 @@ const EmployeeInformation = () => {
 
   const closeAllModals = () => {
     if (isAddModalOpen) {
-      handleSaveEmployee();
+      closeEmployeeModal();
     } else if (isEditModalOpen) {
-      handleSaveEdit();
+      closeEditModal();
     } else if (isViewModalOpen) {
-      handleViewSave();
+      closeViewModal();
     }
     
-    // Now close all modals regardless of which one was saved
-    closeEmployeeModal();
-    closeEditModal();
-    closeViewModal();
   };
   
   //Update and Save
