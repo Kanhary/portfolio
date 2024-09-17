@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaCloudUploadAlt } from 'react-icons/fa';
 
 const TabMenu = ({
   formData,
@@ -16,7 +17,8 @@ const TabMenu = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState('');
   // const [formData, setFormData] = useState({
   //   id: '',
   //   code: '',
@@ -70,6 +72,16 @@ const TabMenu = ({
     closeEmployeeModal();
     closeEditModal();
     closeViewModal();
+  };
+  
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setImageName(file.name);
+    }else {
+      alert("Image size more than 20MB");
+    }
   };
 
   const handleTabChange = (tab) => {
@@ -175,6 +187,7 @@ const TabMenu = ({
                     value={formData.genderCode || ''}
                     onChange={handleChange}
                     required
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
@@ -185,35 +198,37 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="familyStatus" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.familyStatus && <p className="text-sm text-red-600">*</p>}ស្ថានភាពគ្រួសារ</label>
+                  <label htmlFor="familyStatus" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {!formData.familyStatus && <p className="text-sm text-red-600">*</p>}
+                    ស្ថានភាពគ្រួសារ
+                  </label>
                   <select
                     id="familyStatus"
-                    value={formData.familyStatus || ''}
+                    value={formData.familyStatus !== undefined ? formData.familyStatus.toString() : ''}
                     onChange={handleChange}
                     required
-                    
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
-                    <option value="លីវ">លីវ</option>
-                    <option value="មានគូរស្វាមី">មានគូរស្វាមី</option>
+                    <option value="false">លីវ</option> {/* Single */}
+                    <option value="true">មានគូរស្វាមី</option> {/* Married */}
                   </select>
-                  {/* {!formData.family && <p className="text-sm text-red-600">This field is required</p>} */}
                 </div>
-
-                <div className="flex flex-col gap-2">
+               <div className="flex flex-col gap-2">
                   <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
                   <select
                     id="region"
                     value={formData.region || ''}
                     onChange={handleChange}
                     required
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
-                    <option value="cambodia">កម្ពុជា</option>
-                    <option value="thailand">ថៃ</option>
-                    <option value="vietnam">វៀតណាម</option>
+                    <option value="កម្ពុជា">កម្ពុជា</option>
+                    <option value="ថៃ">ថៃ</option>
+                    <option value="វៀតណាម">វៀតណាម</option>
                     {/* Add more regions as needed */}
                   </select>
                 </div>
@@ -248,6 +263,7 @@ const TabMenu = ({
                     id="departmentCode"
                     value={formData.departmentCode || ''}
                     onChange={handleChange}
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
@@ -266,6 +282,7 @@ const TabMenu = ({
                     id="officeCode"
                     value={formData.officeCode || ''}
                     onChange={handleChange}
+                    disabled={disabled ? true : undefined}
                     className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសការិយាល័យ</option>
@@ -296,6 +313,24 @@ const TabMenu = ({
                   </div>
                 ))}
 
+                 {[
+                  { id: 'companyBranchCode', label: 'សាខា', type: 'text' },
+                  // { id: 'position', label: 'តួនាទី', type: 'text' }
+                ].map(({ id, label, type }) => (
+                  <div key={id} className="flex flex-col gap-2">
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.companyBranchCode && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    
+                    <input
+                      type={type}
+                      id={id}
+                      value={formData[id] || ''}
+                      onChange={handleChange}
+                      disabled={disabled ? true : undefined}
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    />
+                  </div>
+                ))}
+
                 {[
                   // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
                   { id: 'positionCode', label: 'តួនាទី', type: 'text' }
@@ -313,8 +348,26 @@ const TabMenu = ({
                     />
                   </div>
                 ))}
-              </div>
+
+              <div className="max-w-md w-full bg-white p-8 rounded-3xl">
+                  <div className={`relative w-80 h-40 bg-gray-100 rounded-xl overflow-hidden flex justify-center items-center border-dashed border-2 border-gray-400 flex-col ${image ? 'active' : ''}`}>
+                    {image && <img src={image} alt={imageName} className="absolute inset-0 w-full h-full object-cover object-center z-10" />}
+                    <div className={`absolute inset-0  bg-opacity-50 text-black flex flex-col justify-center items-center transition-opacity duration-300 ease-in-out ${image ? 'opacity-0' : 'opacity-100'}`}>
+                      <FaCloudUploadAlt className="text-6xl" />
+                      <h3 className="text-xl font-medium mb-2 ">Upload Image</h3>
+                      <p className="text-gray-400">Image size must be less than <span className="font-semibold">20MB</span></p>
+                    </div>
+                    <input type="file" id="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+                  </div>
+                  <button 
+                    onClick={() => document.getElementById('file').click()} 
+                    className="w-full py-2 mt-4 rounded-lg bg-blue-500 text-white font-normal text- transition-colors duration-300 ease-in-out hover:bg-blue-700">
+                    ជ្រើសរើសរូបភាព
+                  </button>
+            </div>
+            </div>
               
+
 
               {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button

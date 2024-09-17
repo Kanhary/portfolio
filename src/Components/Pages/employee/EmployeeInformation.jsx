@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import TabMenu from './TabMenu';
 // import LongCourse from './LongCourse';
 import { DelStaff, GetAllStaff } from '../../../api/user';
-import { AddStaff } from '../../../api/user';
+import { AddStaff , UpdateStaff} from '../../../api/user';
 
 const EmployeeInformation = () => {
   
@@ -70,7 +70,7 @@ const EmployeeInformation = () => {
     birthdateAddress: '',
     address: '',
     phoneNumber1: '',
-    nation: '',
+    nationals: '',
     email: '',
     specailPhoneNumber: '',
     familyStatus: '',
@@ -133,12 +133,27 @@ const EmployeeInformation = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevState) => ({
-        ...prevState,
-        [id]: value,  // Dynamically update the formData based on the id
-    }));
-};
 
+    if (id === "birthDate") {
+      const formattedDate = new Date(value).toISOString().split('T')[0];
+      setFormData(prevData => ({
+        ...prevData,
+        [id]: formattedDate
+      }));
+    } else if (id === "familyStatus") {
+      // Convert text to boolean
+      const booleanValue = value === "true"; // "true" for married, "false" for single
+      setFormData(prevData => ({
+        ...prevData,
+        [id]: booleanValue
+      }));
+    } else {
+      setFormData(prevData => ({
+        ...prevData,
+        [id]: value
+      }));
+    }
+  };
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -200,123 +215,173 @@ const EmployeeInformation = () => {
             confirmButtonText: 'Okay',
         });
     }
-};
-
-
-
-const handleSaveEmployee = async () => {
-  // Uncomment validation logic if needed
-  // const validationErrors = {};
-
-  // // Define required fields and their respective error messages
-  // if (!formData.code) validationErrors.code = 'Code is required';
-  // if (!formData.fullname) validationErrors.fullname = 'Full Name is required';
-  // if (!formData.lastname) validationErrors.lastname = 'Last Name is required';
-  // if (!formData.gender) validationErrors.gender = 'Gender is required';
-  // if (!formData.family) validationErrors.family = 'Family Status is required';
-  // if (!formData.region) validationErrors.region = 'Region is required';
-  // if (!formData.nation) validationErrors.nation = 'Nation is required';
-  // if (!formData.nationality) validationErrors.nationality = 'Nationality is required';
-  // if (!formData.department) validationErrors.department = 'Department is required';
-  // if (!formData.office) validationErrors.office = 'Office is required';
-  // if (!formData.company) validationErrors.company = 'Company is required';
-  // if (!formData.position) validationErrors.position = 'Position is required';
-
-  // // If validation errors exist, stop and display the errors
-  // if (Object.keys(validationErrors).length > 0) {
-  //   console.log('Validation errors:', validationErrors);
-  //   setErrors(validationErrors);
-  //   return;
-  // }
-
-  try {
-    console.log('Saving employee data:', formData);
-    const response = await AddStaff(formData);
-
-    if (response.status === 200) {
-      console.log('Employee saved successfully:', response);
-      setIsAddModalOpen(false);
-    } else {
-      // Check for specific error messages from the API
-      const errorMessage = response.data.message || 'An unexpected error occurred.';
-      if (response.status === 409) { // Example: Handle conflict status
-        alert('Staff already exists: ' + errorMessage);
-      } else {
-        alert('Error: ' + errorMessage);
-      }
-    }
-  } catch (error) {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error('Error response data:', error.response.data);
-      console.error('Error response status:', error.response.status);
-      console.error('Error response headers:', error.response.headers);
-      alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('Error request:', error.request);
-      alert('No response received from the server.');
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Error message:', error.message);
-      alert('An error occurred while setting up the request.');
-    }
-  }
-  
-};
-
-
-const handleSaveEdit = () =>{
-  setIsEditModalOpen(false);
-}
-
-const handleViewSave = () =>{
-  setIsViewModalOpen(false);
-}
-
-const saveAllModal = () =>{
-  handleSaveEmployee();
-  // handleSaveEdit();
-  // handleViewSave();
-}  
-
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEmployeeData({
-      ...employeeData,
-      [name]: value,
-    });
   };
 
+
+
+  const handleSaveEmployee = async () => {
+
+
+    try {
+      console.log('Saving employee data:', formData);
+      const response = await AddStaff(formData);
+
+      if (response.status === 200) {
+        console.log('Employee saved successfully:', response);
+        Swal.fire({
+          title: "Successful",
+          text: "Employee created successfully",
+          icon: "success"
+        });
+        setIsAddModalOpen(false);
+      } else {
+        // Check for specific error messages from the API
+        const errorMessage = response.data.message || 'An unexpected error occurred.';
+        if (response.status === 409) { // Example: Handle conflict status
+          //alert('Staff already exists: ' + errorMessage);
+          Swal.fire({
+            title: "Error",
+            text: "Staff already exists :" + errorMessage,
+            icon: "warning"
+          });
+        } else {
+          //alert('Error: ' + errorMessage);
+          Swal.fire({
+            title: "Error",
+            text: "Error: " + errorMessage,
+            icon: "warning"
+          });
+        }
+      }
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        console.error('Error response headers:', error.response.headers);
+       // alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
+        Swal.fire({
+          title: "Error",
+          text: `Error: ${error.response.data.message || 'An unexpected error occurred.'}`,
+          icon: "warning"
+        });
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error request:', error.request);
+        //alert('No response received from the server.');
+        Swal.fire({
+          title: "Error",
+          text: "No response recieved from the server.",
+          icon: "warning"
+        });
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error message:', error.message);
+        //alert('An error occurred while setting up the request.');
+        Swal.fire({
+          title: "Error",
+          text: "An error occured while setting up the request.",
+          icon: "success"
+        });
+      }
+    }
+    
+  };
+
+
+  const handleSaveEdit = async () => {
+    try {
+      console.log('Saving employee data:', formData);
+      const id = formData.id;  // Ensure this is valid
+      if (!id) {
+        Swal.fire({
+          title: "Error",
+          text: "ID are missing",
+          icon: "warning"
+      });
+        return;
+      }
+      const response = await UpdateStaff(id, formData);
+
+      if (response.status === 200) {
+        console.log('Employee updated successfully:', response.data);
+        Swal.fire({
+          title: "Successful",
+          text: "Employee update successfully",
+          icon: "success"
+      });
+        setIsEditModalOpen(false);  // Close the edit modal
+      } else {
+        const errorMessage = response.data.message || 'An unexpected error occurred.';
+        // alert('Error: ' + errorMessage);
+        Swal.fire({
+          title: "Successful",
+          text: "Error :" + errorMessage,
+          icon: "warning"
+      });
+      }
+    } 
+    catch (error) {
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        console.error('Error response data:', error.response.data);
+        alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error('Error request:', error.request);
+        alert('No response received from the server.');
+      } else {
+        // Error setting up the request
+        console.error('Error message:', error.message);
+        alert('An error occurred while setting up the request.');
+      }
+    }
+  };
+
+  const handleViewSave = () =>{
+    setIsViewModalOpen(false);
+  }
+
+  const saveAllModal = async () => {
+    if (isAddModalOpen) {
+      await handleSaveEmployee();
+    } else if (isEditModalOpen) {
+      await handleSaveEdit();
+    } else if (isViewModalOpen) {
+      await handleViewSave();
+    }
+  };
+  
+  
+  
   const recordsPerPage = 8;
   //open edit modal
   const openEditModal = (
-    staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, 
+    id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, 
     birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, 
     companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date
   ) => {
-    console.log({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality });
+    console.log({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality });
     
-    setEditingEmployees({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setEditingEmployees({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     
-    setFormData({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setFormData({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     
     setIsEditModalOpen(true);
   };
   
   
   const openViewModal= (
-    staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, 
+    staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, 
     birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, 
     companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date
   ) => {
-    console.log({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality });
+    console.log({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality });
     
-    setEditingEmployees({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setEditingEmployees({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     
-    setFormData({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setFormData({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     setIsViewModalOpen(true);
   };
   const isDisabled = openViewModal;
@@ -344,9 +409,14 @@ const saveAllModal = () =>{
   };
 
   const closeAllModals = () => {
-    closeEmployeeModal();
-    closeEditModal();
-    closeViewModal();
+    if (isAddModalOpen) {
+      closeEmployeeModal();
+    } else if (isEditModalOpen) {
+      closeEditModal();
+    } else if (isViewModalOpen) {
+      closeViewModal();
+    }
+    
   };
   
   //Update and Save
@@ -480,7 +550,7 @@ const saveAllModal = () =>{
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-50">Action</th>
                   <th scope="col" className="px-4 py-3">NO</th>
-                  <th scope="col" className="px-4 py-3">Code</th>
+                  <th scope="col" className="px-4 py-3" style={{ minWidth: '120px' }}>Code</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '180px' }}>Latan name</th>
                   <th scope="col" className="px-4 py-3">Gender</th>
@@ -506,13 +576,14 @@ const saveAllModal = () =>{
                 </tr>
               </thead>
               <tbody>
-  {currentEmployees.map(employee => (
-      <tr key={employee.staffCode} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200'>
-<td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
+                {currentEmployees.map(employee => (
+                    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200'>
+                      <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
                       <input type="checkbox" className="mr-3 action-checkbox" />
                       <FaPen
                         className="text-blue-500 cursor-pointer hover:text-blue-700"
                         onClick={() => openEditModal(
+                          employee.id,  // Pass the ID here
                           employee.staffCode,
                           employee.fullName,
                           employee.latanName,
@@ -526,8 +597,6 @@ const saveAllModal = () =>{
                           employee.birthdateAddress,
                           employee.address,
                           employee.phoneNumber1,
-                          // employee.phoneNumber2,
-                          // employee.phoneNumber3,
                           employee.email,
                           employee.specailPhoneNumber,
                           employee.familyStatus,
@@ -540,13 +609,14 @@ const saveAllModal = () =>{
                           employee.lastDate
                         )}
                       />
+
                       <FaEye
                         className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
                         onClick={() => openViewModal(
                           employee.staffCode,
                           employee.fullName,
                           employee.latanName,
-                          employee.gender,
+                          employee.genderCode,
                           employee.height,
                           employee.weight,
                           employee.birthDate,
@@ -580,7 +650,7 @@ const saveAllModal = () =>{
                     <td className='px-4 py-3'>{employee.staffCode}</td>
                     <td className='px-4 py-3'>{employee.fullName}</td>
                     <td className='px-4 py-3'>{employee.latanName}</td>
-                    <td className='px-4 py-3'>{employee.gender}</td>
+                    <td className='px-4 py-3'>{employee.genderCode}</td>
                     <td className='px-4 py-3'>{employee.height}</td>
                     <td className='px-4 py-3'>{employee.weight}</td>
                     <td className='px-4 py-3'>{employee.birthDate}</td>
@@ -602,11 +672,9 @@ const saveAllModal = () =>{
                     <td className='px-4 py-3'>{employee.positionCode}</td>
                     <td className='px-4 py-3'>{employee.lastBy}</td>
                     <td className='px-4 py-3'>{employee.lastDate}</td>
-      </tr>
-    ))
-  
-  }
-</tbody>
+                  </tr>
+                ))}
+              </tbody>
 
             </table>
           </div>
