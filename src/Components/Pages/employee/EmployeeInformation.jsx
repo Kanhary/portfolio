@@ -748,7 +748,6 @@ const saveAllModal = () =>{
                 closeEditModal={closeAllModals}
                 closeViewModal={closeViewModal}
                 saveAllModal={saveAllModal}
-
               />
             </div>
           </div>

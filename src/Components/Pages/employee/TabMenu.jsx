@@ -87,7 +87,6 @@ const TabMenu = ({
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic
     console.log(newCourse);
   };
 
@@ -176,7 +175,7 @@ const TabMenu = ({
                     value={formData.genderCode || ''}
                     onChange={handleChange}
                     required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="ប្រុស">ប្រុស</option>
@@ -193,7 +192,7 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="លីវ">លីវ</option>
@@ -209,7 +208,7 @@ const TabMenu = ({
                     value={formData.region || ''}
                     onChange={handleChange}
                     required
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="cambodia">កម្ពុជា</option>
@@ -249,7 +248,7 @@ const TabMenu = ({
                     id="departmentCode"
                     value={formData.departmentCode || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
                     <option value="នាយកដ្ខានរដ្ឋបាល">នាយកដ្ខានរដ្ឋបាល</option>
@@ -267,7 +266,7 @@ const TabMenu = ({
                     id="officeCode"
                     value={formData.officeCode || ''}
                     onChange={handleChange}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសការិយាល័យ</option>
                     <option value="ការិយាល័យរដ្ឋបាល">ការិយាល័យរដ្ឋបាល</option>
