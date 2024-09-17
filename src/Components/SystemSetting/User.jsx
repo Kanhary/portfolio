@@ -57,9 +57,18 @@ const User = () => {
   };
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
+    if (e && e.target) {
+      // This is for standard HTML inputs
+      const { id, value } = e.target;
+      setFormData(prev => ({ ...prev, [id]: value }));
+    } else {
+      // This is for react-select (or other similar libraries)
+      // Assume `e` is the value from react-select
+      const selectedValue = e; // e might be an object, use e.value if needed
+      setFormData(prev => ({ ...prev, selectedOption: selectedValue }));
+    }
   };
+  
 
   const handleSaveNew = async () => {
     const validationErrors = {};
@@ -232,30 +241,28 @@ const handleSave = async () => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   
   useEffect(() => {
-    if (formData.picture) {
-      // Check if formData.picture is an instance of File or Blob
-      if (formData.picture instanceof File || formData.picture instanceof Blob) {
-        const url = URL.createObjectURL(formData.picture);
-        setPictureUrl(url);
-
-        // Clean up the URL object when the component unmounts or picture changes
-        return () => {
-          URL.revokeObjectURL(url);
-        };
-      } else {
-        console.error('Expected a File or Blob, but got:', formData.picture);
-      }
+    if (formData.picture && (formData.picture instanceof File || formData.picture instanceof Blob)) {
+      const url = URL.createObjectURL(formData.picture);
+      setPictureUrl(url);
+  
+      // Cleanup URL object
+      return () => {
+        URL.revokeObjectURL(url);
+      };
     } else {
-      setPictureUrl(null); // Reset the picture URL if no picture is selected
+      setPictureUrl(null); // Reset the picture URL if no valid picture is present
     }
   }, [formData.picture]);
-
+  
+  
   const handlePictureChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setFormData({ ...formData, picture: file });
     }
   };
+  
+  
   // Fetch users and employees
   useEffect(() => {
     const fetchUsers = async () => {
@@ -407,6 +414,7 @@ const handleSave = async () => {
       console.log('Selected staff code:', selectedValue); // Should log the staff code
   };
 
+  
   // Format options for react-select
   const options = employees.map(employee => ({
     value: employee.staffCode,
