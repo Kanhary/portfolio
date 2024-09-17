@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaCloudUploadAlt } from 'react-icons/fa';
 
 const TabMenu = ({
   formData,
@@ -16,7 +17,8 @@ const TabMenu = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState('');
   // const [formData, setFormData] = useState({
   //   id: '',
   //   code: '',
@@ -42,6 +44,8 @@ const TabMenu = ({
   //   photo: null,
   // });
 
+  // const isDisabled = !isAddModalOpen && !isEdi
+
   const [newCourse, setNewCourse] = useState({
     from: '',
     to: '',
@@ -50,6 +54,7 @@ const TabMenu = ({
     inCountry: true,
     lastBy: ''
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmittedData(formData);
@@ -68,6 +73,16 @@ const TabMenu = ({
     closeEditModal();
     closeViewModal();
   };
+  
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setImageName(file.name);
+    }else {
+      alert("Image size more than 20MB");
+    }
+  };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -84,7 +99,6 @@ const TabMenu = ({
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic
     console.log(newCourse);
   };
 
@@ -119,7 +133,7 @@ const TabMenu = ({
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <div className="p-4 -mb-8">
+        return <div className="-mb-8">
           <div className='overflow-auto '>
           <form>
               <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
@@ -174,7 +188,7 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="ប្រុស">ប្រុស</option>
@@ -194,7 +208,7 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="false">លីវ</option> {/* Single */}
@@ -209,7 +223,7 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើស</option>
                     <option value="កម្ពុជា">កម្ពុជា</option>
@@ -229,8 +243,8 @@ const TabMenu = ({
                     disabled={disabled ? true : undefined}
                     className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   />
-                </div>
-
+                </div>  
+                
                 <div className="flex flex-col gap-2">
                   <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
                   <input
@@ -250,7 +264,7 @@ const TabMenu = ({
                     value={formData.departmentCode || ''}
                     onChange={handleChange}
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
                     <option value="នាយកដ្ខានរដ្ឋបាល">នាយកដ្ខានរដ្ឋបាល</option>
@@ -260,7 +274,6 @@ const TabMenu = ({
                     {/* Add more departments as needed */}
                   </select>
                   {/* {!formData.department && <p className="text-sm text-red-600">This field is required</p>} */}
-
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -270,7 +283,7 @@ const TabMenu = ({
                     value={formData.officeCode || ''}
                     onChange={handleChange}
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">ជ្រើសរើសការិយាល័យ</option>
                     <option value="ការិយាល័យរដ្ឋបាល">ការិយាល័យរដ្ឋបាល</option>
@@ -300,6 +313,24 @@ const TabMenu = ({
                   </div>
                 ))}
 
+                 {[
+                  { id: 'companyBranchCode', label: 'សាខា', type: 'text' },
+                  // { id: 'position', label: 'តួនាទី', type: 'text' }
+                ].map(({ id, label, type }) => (
+                  <div key={id} className="flex flex-col gap-2">
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.companyBranchCode && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    
+                    <input
+                      type={type}
+                      id={id}
+                      value={formData[id] || ''}
+                      onChange={handleChange}
+                      disabled={disabled ? true : undefined}
+                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    />
+                  </div>
+                ))}
+
                 {[
                   // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
                   { id: 'positionCode', label: 'តួនាទី', type: 'text' }
@@ -317,8 +348,26 @@ const TabMenu = ({
                     />
                   </div>
                 ))}
-              </div>
+
+              <div className="max-w-md w-full bg-white p-8 rounded-3xl">
+                  <div className={`relative w-80 h-40 bg-gray-100 rounded-xl overflow-hidden flex justify-center items-center border-dashed border-2 border-gray-400 flex-col ${image ? 'active' : ''}`}>
+                    {image && <img src={image} alt={imageName} className="absolute inset-0 w-full h-full object-cover object-center z-10" />}
+                    <div className={`absolute inset-0  bg-opacity-50 text-black flex flex-col justify-center items-center transition-opacity duration-300 ease-in-out ${image ? 'opacity-0' : 'opacity-100'}`}>
+                      <FaCloudUploadAlt className="text-6xl" />
+                      <h3 className="text-xl font-medium mb-2 ">Upload Image</h3>
+                      <p className="text-gray-400">Image size must be less than <span className="font-semibold">20MB</span></p>
+                    </div>
+                    <input type="file" id="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+                  </div>
+                  <button 
+                    onClick={() => document.getElementById('file').click()} 
+                    className="w-full py-2 mt-4 rounded-lg bg-blue-500 text-white font-normal text- transition-colors duration-300 ease-in-out hover:bg-blue-700">
+                    ជ្រើសរើសរូបភាព
+                  </button>
+            </div>
+            </div>
               
+
 
               {/* <div className="flex justify-center gap-5 p-6 mt-4">
                 <button
@@ -342,7 +391,7 @@ const TabMenu = ({
 
       case 'tab2':
         return (
-          <div className="p-4">
+          <div className="">
             <form onSubmit={handleFormSubmit} className="p-6 space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* From Date Input */}
@@ -371,31 +420,42 @@ const TabMenu = ({
                   />
                 </div>
 
-                {/* Course Input */}
+                {/* Course Dropdown */}
                 <div>
                   <label htmlFor="course" className="block text-sm font-medium text-gray-800">វគ្គសិក្សា</label>
-                  <input
-                    type="text"
+                  <select
                     id="course"
                     className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     value={newCourse.course}
                     onChange={(e) => setNewCourse((prev) => ({ ...prev, course: e.target.value }))}
                     required
-                  />
+                  >
+                    <option value="">-- សូមជ្រើសរើសវគ្គសិក្សា --</option>
+                    <option value="Course1">វគ្គសិក្សា 1</option>
+                    <option value="Course2">វគ្គសិក្សា 2</option>
+                    <option value="Course3">វគ្គសិក្សា 3</option>
+                    {/* Add more options as needed */}
+                  </select>
                 </div>
 
-                {/* Organize Input */}
-                <div>
-                  <label htmlFor="organize" className="block text-sm font-medium text-gray-800">ក្រុមហ៊ុន</label>
-                  <input
-                    type="text"
-                    id="organize"
-                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    value={newCourse.organize}
-                    onChange={(e) => setNewCourse((prev) => ({ ...prev, organize: e.target.value }))}
-                    required
-                  />
-                </div>
+                  {/* Organize Dropdown */}
+                  <div>
+                    <label htmlFor="organize" className="block text-sm font-medium text-gray-800">ក្រុមហ៊ុន</label>
+                    <select
+                      id="organize"
+                      className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      value={newCourse.organize}
+                      onChange={(e) => setNewCourse((prev) => ({ ...prev, organize: e.target.value }))}
+                      required
+                    >
+                      <option value="">-- សូមជ្រើសរើសក្រុមហ៊ុន --</option>
+                      <option value="Company1">ក្រុមហ៊ុន 1</option>
+                      <option value="Company2">ក្រុមហ៊ុន 2</option>
+                      <option value="Company3">ក្រុមហ៊ុន 3</option>
+                      {/* Add more options as needed */}
+                    </select>
+                  </div>
+
 
                 {/* Location Radio Buttons */}
                 <div className="md:col-span-2">
@@ -511,7 +571,7 @@ const TabMenu = ({
                 </div>
               </div>
 
-
+              
 
               {/* Tabs for Larger Screens */}
               <div className="hidden md:flex top-[180px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full">
