@@ -225,15 +225,25 @@ const EmployeeInformation = () => {
           title: "Successful",
           text: "Employee created successfully",
           icon: "success"
-      });
+        });
         setIsAddModalOpen(false);
       } else {
         // Check for specific error messages from the API
         const errorMessage = response.data.message || 'An unexpected error occurred.';
         if (response.status === 409) { // Example: Handle conflict status
-          alert('Staff already exists: ' + errorMessage);
+          //alert('Staff already exists: ' + errorMessage);
+          Swal.fire({
+            title: "Error",
+            text: "Staff already exists :" + errorMessage,
+            icon: "warning"
+          });
         } else {
-          alert('Error: ' + errorMessage);
+          //alert('Error: ' + errorMessage);
+          Swal.fire({
+            title: "Error",
+            text: "Error: " + errorMessage,
+            icon: "warning"
+          });
         }
       }
     } catch (error) {
@@ -243,15 +253,30 @@ const EmployeeInformation = () => {
         console.error('Error response data:', error.response.data);
         console.error('Error response status:', error.response.status);
         console.error('Error response headers:', error.response.headers);
-        alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
+       // alert(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
+        Swal.fire({
+          title: "Error",
+          text: `Error: ${error.response.data.message || 'An unexpected error occurred.'}`,
+          icon: "warning"
+        });
       } else if (error.request) {
         // The request was made but no response was received
         console.error('Error request:', error.request);
-        alert('No response received from the server.');
+        //alert('No response received from the server.');
+        Swal.fire({
+          title: "Error",
+          text: "No response recieved from the server.",
+          icon: "warning"
+        });
       } else {
         // Something happened in setting up the request that triggered an Error
         console.error('Error message:', error.message);
-        alert('An error occurred while setting up the request.');
+        //alert('An error occurred while setting up the request.');
+        Swal.fire({
+          title: "Error",
+          text: "An error occured while setting up the request.",
+          icon: "success"
+        });
       }
     }
     
@@ -310,12 +335,17 @@ const EmployeeInformation = () => {
   const handleViewSave = () =>{
     setIsViewModalOpen(false);
   }
-
-  const saveAllModal = () =>{
-    handleSaveEmployee();
-    handleSaveEdit();
-    handleViewSave();
-  }  
+  const saveAllModal = async () => {
+    if (isAddModalOpen) {
+      await handleSaveEmployee();
+    } else if (isEditModalOpen) {
+      await handleSaveEdit();
+    } else if (isViewModalOpen) {
+      await handleViewSave();
+    }
+  };
+  
+  
   
   const recordsPerPage = 8;
   //open edit modal
@@ -371,6 +401,15 @@ const EmployeeInformation = () => {
   };
 
   const closeAllModals = () => {
+    if (isAddModalOpen) {
+      handleSaveEmployee();
+    } else if (isEditModalOpen) {
+      handleSaveEdit();
+    } else if (isViewModalOpen) {
+      handleViewSave();
+    }
+    
+    // Now close all modals regardless of which one was saved
     closeEmployeeModal();
     closeEditModal();
     closeViewModal();
@@ -629,11 +668,9 @@ const EmployeeInformation = () => {
                     <td className='px-4 py-3'>{employee.positionCode}</td>
                     <td className='px-4 py-3'>{employee.lastBy}</td>
                     <td className='px-4 py-3'>{employee.lastDate}</td>
-      </tr>
-    ))
-  
-  }
-</tbody>
+                  </tr>
+                ))}
+              </tbody>
 
             </table>
           </div>
