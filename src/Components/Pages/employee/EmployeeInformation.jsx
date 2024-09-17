@@ -350,30 +350,30 @@ const EmployeeInformation = () => {
   const recordsPerPage = 8;
   //open edit modal
   const openEditModal = (
-    id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, 
+    id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, 
     birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, 
     companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date
   ) => {
-    console.log({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality });
+    console.log({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality });
     
-    setEditingEmployees({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setEditingEmployees({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     
-    setFormData({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setFormData({ id, staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     
     setIsEditModalOpen(true);
   };
   
   
   const openViewModal= (
-    staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, 
+    staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, 
     birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, 
     companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date
   ) => {
-    console.log({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality });
+    console.log({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality });
     
-    setEditingEmployees({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setEditingEmployees({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     
-    setFormData({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nation, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
+    setFormData({ staffCode, fullName, latanName, genderCode, height, weight, birthDate, nationals, nationality, region, birthdateAddress, address, phoneNumber1, email, specailPhoneNumber, familyStatus, companyCode, companyBranchCode, departmentCode, officeCode, positionCode, last_modified_by, last_modified_date });
     setIsViewModalOpen(true);
   };
   const isDisabled = openViewModal;
