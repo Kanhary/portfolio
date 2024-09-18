@@ -37,7 +37,7 @@ const Help = () => {
         </p>
 
         <section className="mb-16">
-          <h2 className="mb-6 text-3xl font-semibold text-gray-800">Frequently Asked Questions</h2>
+          <h2 className="mb-6 text-3xl font-semibold text-gray-800">សំណួរដែលសួរញឹកញាប់</h2>
           <div className="space-y-8">
             <div className="p-3 transition-shadow duration-300 bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg">
               <div className="flex items-center mb-3 text-indigo-600">
@@ -47,7 +47,7 @@ const Help = () => {
                 <h3 className="text-xl font-semibold">How do I reset my password?</h3>
               </div>
               <p className="text-gray-600">
-                To reset your password, please contact directly to <a href="https://t.me/Kagnary_Uk/" className='font-medium text-blue-800'>ICT Team</a> and follow the instructions to reset your password.
+                To reset your password, please contact directly to <a href="https://t.me/Kagnary_Uk/" className='font-medium text-blue-800'>ICT Team</a>.
               </p>
             </div>
 
@@ -101,7 +101,7 @@ const Help = () => {
               </div>
               <div>
               <form action="#" 
-                className='p-5 bg-gray-50 lg:p-11 lg:rounded-r-2xl rounded-2xl​' 
+                className='p-5 lg:p-11 lg:rounded-r-2xl rounded-2xl​' 
                 onSubmit={handleSubmit}>
                    <h2 className='text-4xl font-semibold leading-10 text-indigo-900 font-manrope mb-11'>Send Us A Messange If You Need Help</h2>
                   <div className="relative mb-6">
@@ -140,17 +140,18 @@ const Help = () => {
                       អ៊ីម៉ែលរបស់អ្នក
                     </label>
                   </div>
-                  <div className='relative mb-6'>
-                  <textarea
+                  <div className="relative mb-6">
+                    <textarea
+                      // type="email"
                       id="message"
+                      rows={4}
+                      // value={password}
+                      //onChange={(e) => setEmail(e.target.value)}
                       name="message"
-                      rows="4"
-                      className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm"
-                      // placeholder="Enter your message here"
                       required
-                      //onChange={(e) => setMessage(e.target.value)}
-
-                    ></textarea>
+                      className="peer w-full px-3 py-4 pr-10 text-[16px] md:text-[18px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      placeholder=" "
+                    />
                     <label
                       htmlFor="message"
                       className="absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 left-3 mt-2 peer-focus:text-blue-500"
