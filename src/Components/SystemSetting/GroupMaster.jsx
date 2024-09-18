@@ -10,16 +10,16 @@ const GroupMaster = () => {
   const [editingGroupMaster,setEditingGroupMaster] = useState(null);
   
   const groupMaster = [
-    {code: '001', groupCode: 'Admin', groupName: 'super-admin'},
-    {code: '002', groupCode: 'User', groupName: 'user'},
-    {code: '003', groupCode: 'Editor', groupName: 'Editor'}
+    {Code: '001', GroupCode: 'Admin', GroupName: 'super-admin'},
+    {Code: '002', GroupCode: 'User', GroupName: 'user'},
+    {Code: '003', GroupCode: 'Editor', GroupName: 'Editor'}
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
   const filterGroupMaster = groupMaster.filter(groupmaster =>
-    groupmaster.groupCode.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-    groupmaster.code.includes(searchTerm)
+    groupmaster.GroupCode.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+    groupmaster.Code.includes(searchTerm)
   );
   const totalPages = Math.ceil(filterGroupMaster.length / recordsPerPage);
   const handlePageChange = (pageNumber) => {
@@ -51,9 +51,9 @@ const GroupMaster = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  const openEditModal = (code, groupCode, groupName) => {
-    setEditingGroupMaster({ code, groupCode, groupName });
-    setFormData({ code, groupCode, groupName });
+  const openEditModal = (Code, GroupCode, GroupName) => {
+    setEditingGroupMaster({ Code, GroupCode, GroupName });
+    setFormData({ Code, GroupCode, GroupName });
     setIsEditModalOpen(true);
   };
 
@@ -163,14 +163,14 @@ const GroupMaster = () => {
                       <td className='sticky left-0 flex px-6 py-4 bg-white'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
                         <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" 
-                        onClick={() => openEditModal(groupmaster.code, groupmaster.groupCode, groupmaster.groupName)}
+                        onClick={() => openEditModal(groupmaster.Code, groupmaster.GroupCode, groupmaster.GroupName)}
                         />
                         <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" 
-                        onClick={() => deleteGender(groupmaster.code)} 
+                        onClick={() => deleteGender(groupmaster.Code)} 
                         />
                     </td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{groupmaster.groupCode}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '500px' }}>{groupmaster.groupName}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{groupmaster.GroupCode}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '500px' }}>{groupmaster.GroupName}</td>
                     <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
                     <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
                     </tr>
@@ -250,22 +250,22 @@ const GroupMaster = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <label htmlFor="Code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
-                    id="code"
-                    value={formData.code}
+                    id="Code"
+                    value={formData.Code}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="groupCode" className="block mb-2 text-sm font-semibold text-gray-700">Group Code</label>
+                  <label htmlFor="GroupCode" className="block mb-2 text-sm font-semibold text-gray-700">Group Code</label>
                   <input
                     type="text"
-                    id="groupCode"
-                    value={formData.groupCode}
+                    id="GroupCode"
+                    value={formData.GroupCode}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
@@ -311,11 +311,11 @@ const GroupMaster = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <label htmlFor="Code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
                   <input
                     type="text"
-                    id="code"
-                    value={formData.code}
+                    id="Code"
+                    value={formData.Code}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                     disabled
@@ -323,21 +323,21 @@ const GroupMaster = () => {
                 </div>
                 {/* Input for Position */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="groupCode" className="block mb-2 text-sm font-semibold text-gray-700">Group Code</label>
+                  <label htmlFor="GroupCode" className="block mb-2 text-sm font-semibold text-gray-700">Group Code</label>
                   <input
                     type="text"
-                    id="groupCode"
-                    value={formData.groupCode}
+                    id="GroupCode"
+                    value={formData.GroupCode}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               <div>
-                <label htmlFor="groupName" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Group Name</label>
+                <label htmlFor="GroupName" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Group Name</label>
                 <textarea
-                  id="groupName"
-                  value={formData.groupName}
+                  id="GroupName"
+                  value={formData.GroupName}
                   onChange={handleChange}
                   className="block w-full h-10 px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500"
                 />

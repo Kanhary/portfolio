@@ -160,7 +160,7 @@ const Help = () => {
                     </label>
                   </div>
                   <div className="flex items-center justify-center">
-                  <button className="w-full h-12 mt-2 text-base font-semibold leading-6 text-white transition-all duration-700 bg-indigo-900 rounded-full shadow-sm hover:bg-indigo-800">Send</button>
+                  <button className="w-full h-12 mt-2 text-base font-semibold leading-6 text-white transition-all duration-700 bg-indigo-900 rounded-full shadow-sm hover:bg-indigo-800">ផ្ញើ</button>
                   </div>
                 </form>
               </div>
