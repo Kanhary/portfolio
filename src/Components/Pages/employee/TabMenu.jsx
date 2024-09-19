@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
+import Select from 'react-select';
 
 const TabMenu = ({
   formData,
@@ -19,6 +20,10 @@ const TabMenu = ({
   const [errors, setErrors] = useState({});
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [fileName, setFileName] = useState('');
+
+
   // const [formData, setFormData] = useState({
   //   id: '',
   //   code: '',
@@ -54,11 +59,27 @@ const TabMenu = ({
     inCountry: true,
     lastBy: ''
   });
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmittedData(formData);
   };
+  const options = [
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+  ];
 
   // const closeEmployeeModal = () => {
   //   setIsAddModalOpen(false);
@@ -74,13 +95,19 @@ const TabMenu = ({
     closeViewModal();
   };
   
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
+ 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
-      setImageName(file.name);
-    }else {
-      alert("Image size more than 20MB");
+        setFileName(file.name);
+    } else {
+        setFileName('');
+    }
+};
+
+  const handleShowImage = () => {
+    if (imageUrl) {
+      window.open(imageUrl, '_blank');
     }
   };
 
@@ -100,6 +127,26 @@ const TabMenu = ({
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(newCourse);
+  };
+  const customStyles = {
+    menu: (provided) => ({
+      ...provided,
+      maxHeight: '100px', // Adjust height as needed
+      overflowY: 'auto',
+      zIndex: 9999, // Ensures the dropdown is on top of other elements
+    }),
+    menuPortal: (provided) => ({
+      ...provided,
+      zIndex: 9999, // Ensures the portal is on top of other elements
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      background: '#fff',
+      borderColor: '#9e9e9e',
+      minHeight: '30px',
+      height: '45px',
+      boxShadow: state.isFocused ? null : null,
+    }),
   };
 
   // const handleSaveEmployee = () => {
@@ -136,7 +183,7 @@ const TabMenu = ({
         return <div className="-mb-8">
           <div className='overflow-auto '>
           <form>
-              <div className="grid grid-cols-1 gap-6 px-8 py-6 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 px-8 py-2 sm:grid-cols-2 mt-4">
               {[
                     { id: 'staffCode', label: 'អត្ថលេខ', type: 'text', required: true },
                     { id: 'fullName', label: 'គោត្តនាម/នាម', type: 'text', required: true },
@@ -160,7 +207,7 @@ const TabMenu = ({
                           id={id}
                           value={formData[id] || ''}
                           onChange={handleChange}
-                          className={`block w-full p-2 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
+                          className={`block w-full p-3 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
                         >
                           <option value="">Select {label}</option>
                           {options.map(option => (
@@ -188,9 +235,9 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
-                    <option value="">ជ្រើសរើស</option>
+                    <option value="" disabled hidden>Select the Gender</option>
                     <option value="ប្រុស">ប្រុស</option>
                     <option value="ស្រី">ស្រី</option>
                   </select>
@@ -208,9 +255,9 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
-                    <option value="">ជ្រើសរើស</option>
+                    <option value="" disabled hidden>Select the status</option>
                     <option value="false">លីវ</option> {/* Single */}
                     <option value="true">មានគូរស្វាមី</option> {/* Married */}
                   </select>
@@ -223,9 +270,9 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm  text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
-                    <option value="">ជ្រើសរើស</option>
+                    <option value="">Select the region</option>
                     <option value="កម្ពុជា">កម្ពុជា</option>
                     <option value="ថៃ">ថៃ</option>
                     <option value="វៀតណាម">វៀតណាម</option>
@@ -264,9 +311,9 @@ const TabMenu = ({
                     value={formData.departmentCode || ''}
                     onChange={handleChange}
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
-                    <option value="">ជ្រើសរើសនាយកដ្ឋាន</option>
+                    <option value="" disabled hidden>Select the department</option>
                     <option value="នាយកដ្ខានរដ្ឋបាល">នាយកដ្ខានរដ្ឋបាល</option>
                     <option value="នាយកដ្ឋាននាវាចរណ៍">នាយកដ្ឋាននាវាចរណ៍</option>
                     <option value="នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
@@ -277,23 +324,26 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="officeCode" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.officeCode && <p className="text-sm text-red-600">*</p>}ការិយាល័យ</label>
+                  <label htmlFor="officeCode" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {!formData.officeCode && <p className="text-sm text-red-600">*</p>}ការិយាល័យ
+                  </label>
                   <select
                     id="officeCode"
                     value={formData.officeCode || ''}
                     onChange={handleChange}
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-2 text-black border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-gray-500 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
-                    <option value="">ជ្រើសរើសការិយាល័យ</option>
+                    <option value="" disabled hidden>
+                      Select the office
+                    </option>
                     <option value="ការិយាល័យរដ្ឋបាល">ការិយាល័យរដ្ឋបាល</option>
                     <option value="ការិយាល័យព័ត៌មានវិទ្យា">ការិយាល័យព័ត៌មានវិទ្យា</option>
                     <option value="ការិយាល័យគណនេយ្យ">ការិយាល័យគណនេយ្យ</option>
                     {/* Add more offices as needed */}
                   </select>
-                  {/* {!formData.office && <p className="text-sm text-red-600">This field is required</p>} */}
-
                 </div>
+
 
                 {[
                   { id: 'companyCode', label: 'ក្រុមហ៊ុន', type: 'text' },
@@ -331,40 +381,63 @@ const TabMenu = ({
                   </div>
                 ))}
 
-                {[
-                  // { id: 'company', label: 'ក្រុមហ៊ុន', type: 'text' },
-                  { id: 'positionCode', label: 'តួនាទី', type: 'text' }
+
+              {
+                [
+                  { id: 'positionCode', label: 'តួនាទី', type: 'select', options }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.positionCode && <p className="text-sm text-red-600">*</p>}{label}</label>
-                    
-                    <input
-                      type={type}
-                      id={id}
-                      value={formData[id] || ''}
-                      onChange={handleChange}
-                      disabled={disabled ? true : undefined}
-                      className="block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                    />
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                      {!formData.positionCode && <p className="text-sm text-red-600">*</p>}
+                      {label}
+                    </label>
+                    {type === 'select' ? (
+                      <Select
+                        id={id}
+                        options={options}
+                        value={options.find(option => option.value === formData[id])}
+                        onChange={(selectedOption) => handleChange({ target: { id, value: selectedOption.value } })}
+                        isDisabled={disabled}
+                        styles={customStyles}
+                        menuPortalTarget={document.body} // Renders dropdown menu at the body level
+                        menuPosition="fixed" 
+                        className="block w-full text-sm"
+                        placeholder="Search or select a position"
+                      />
+                    ) : (
+                      <input
+                        type={type}
+                        id={id}
+                        value={formData[id] || ''}
+                        onChange={handleChange}
+                        disabled={disabled ? true : undefined}
+                        className="block w-full p-2 border border-gray-300 rounded-xl shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 "
+                      />
+                    )}
                   </div>
-                ))}
+                ))
+}
 
-              <div className="max-w-md w-full bg-white p-8 rounded-3xl">
-                  <div className={`relative w-80 h-40 bg-gray-100 rounded-xl overflow-hidden flex justify-center items-center border-dashed border-2 border-gray-400 flex-col ${image ? 'active' : ''}`}>
-                    {image && <img src={image} alt={imageName} className="absolute inset-0 w-full h-full object-cover object-center z-10" />}
-                    <div className={`absolute inset-0  bg-opacity-50 text-black flex flex-col justify-center items-center transition-opacity duration-300 ease-in-out ${image ? 'opacity-0' : 'opacity-100'}`}>
-                      <FaCloudUploadAlt className="text-6xl" />
-                      <h3 className="text-xl font-medium mb-2 ">Upload Image</h3>
-                      <p className="text-gray-400">Image size must be less than <span className="font-semibold">20MB</span></p>
-                    </div>
-                    <input type="file" id="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
-                  </div>
-                  <button 
-                    onClick={() => document.getElementById('file').click()} 
-                    className="w-full py-2 mt-4 rounded-lg bg-blue-500 text-white font-normal text- transition-colors duration-300 ease-in-out hover:bg-blue-700">
-                    ជ្រើសរើសរូបភាព
-                  </button>
-            </div>
+<div className="flex flex-col gap-2">
+  <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
+    ជ្រើសរើសរូបភាព
+  </label>
+  <input
+    type="file"
+    id="fileUpload"
+    onChange={handleChange}
+    disabled={disabled ? true : undefined}
+    className="block w-full border border-gray-300 shadow-sm rounded-lg text-sm 
+          focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 
+          disabled:opacity-50 disabled:pointer-events-none 
+          dark:bg-white  dark:text-neutral-400
+          file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4
+          dark:file:bg-blue-600 dark:file:text-white"
+  />
+  {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
+
+  
+</div>
             </div>
               
 
@@ -422,67 +495,93 @@ const TabMenu = ({
 
                 {/* Course Dropdown */}
                 <div>
-                  <label htmlFor="course" className="block text-sm font-medium text-gray-800">វគ្គសិក្សា</label>
-                  <select
-                    id="course"
-                    className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    value={newCourse.course}
-                    onChange={(e) => setNewCourse((prev) => ({ ...prev, course: e.target.value }))}
-                    required
-                  >
-                    <option value="">-- សូមជ្រើសរើសវគ្គសិក្សា --</option>
-                    <option value="Course1">វគ្គសិក្សា 1</option>
-                    <option value="Course2">វគ្គសិក្សា 2</option>
-                    <option value="Course3">វគ្គសិក្សា 3</option>
-                    {/* Add more options as needed */}
-                  </select>
+                    <label htmlFor="course" className="block text-sm font-medium text-gray-800">
+                      វគ្គសិក្សា
+                    </label>
+                    <input
+                      type="text"  // Specify the type of the input field
+                      id="course"
+                      className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      value={newCourse.course}
+                      onChange={(e) => setNewCourse((prev) => ({ ...prev, course: e.target.value }))}
+                      required
+                    />
                 </div>
+
 
                   {/* Organize Dropdown */}
                   <div>
                     <label htmlFor="organize" className="block text-sm font-medium text-gray-800">ក្រុមហ៊ុន</label>
-                    <select
+                    <input
+                      type="text"
                       id="organize"
                       className="block w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                       value={newCourse.organize}
                       onChange={(e) => setNewCourse((prev) => ({ ...prev, organize: e.target.value }))}
                       required
-                    >
-                      <option value="">-- សូមជ្រើសរើសក្រុមហ៊ុន --</option>
-                      <option value="Company1">ក្រុមហ៊ុន 1</option>
-                      <option value="Company2">ក្រុមហ៊ុន 2</option>
-                      <option value="Company3">ក្រុមហ៊ុន 3</option>
-                      {/* Add more options as needed */}
-                    </select>
+                    />
                   </div>
 
 
-                {/* Location Radio Buttons */}
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-800">Location</label>
-                  <div className="flex items-center mt-2 space-x-6">
-                    <label className="flex items-center">
-                      <input
-                        type="radio"
-                        name="location"
-                        checked={newCourse.inCountry}
-                        onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: true }))}
-                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                      />
-                      <span className="ml-2 text-sm font-normal text-gray-800">In Country</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="radio"
-                        name="location"
-                        checked={!newCourse.inCountry}
-                        onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: false }))}
-                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                      />
-                      <span className="ml-2 text-sm text-gray-800">Out of Country</span>
-                    </label>
-                  </div>
-                </div>
+{/* Location and Course Type Radio Buttons Row */}
+<div className="md:col-span-2 flex flex-col md:flex-row gap-8">
+  {/* Location Radio Buttons */}
+  <div className="w-full md:w-1/2">
+    <label className="block text-sm font-medium text-gray-800">ទីតាំង</label>
+    <div className="flex items-center mt-2 space-x-6">
+      <label className="flex items-center">
+        <input
+          type="radio"
+          name="location"
+          checked={newCourse.inCountry}
+          onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: true }))}
+          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+        />
+        <span className="ml-2 text-sm font-normal text-gray-800">ក្នុងប្រទេស</span>
+      </label>
+      <label className="flex items-center">
+        <input
+          type="radio"
+          name="location"
+          checked={!newCourse.outCountry}
+          onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: false }))}
+          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+        />
+        <span className="ml-2 text-sm text-gray-800">ក្រៅប្រទេស</span>
+      </label>
+    </div>
+  </div>
+
+      {/* Course Type Radio Buttons */}
+      <div className="w-full md:w-1/2">
+        <label className="block text-sm font-medium text-gray-800">ប្រភេទវគ្គសិក្សា</label>
+        <div className="flex items-center mt-2 space-x-6">
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="courseType"
+              checked={newCourse.longCourse}
+              onChange={() => setNewCourse((prev) => ({ ...prev, longCourse: true }))}
+              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+            />
+            <span className="ml-2 text-sm font-normal text-gray-800">វគ្គសិក្សារយៈពេលវែង</span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="courseType"
+              checked={!newCourse.longCourse}
+              onChange={() => setNewCourse((prev) => ({ ...prev, longCourse: false }))}
+              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+            />
+            <span className="ml-2 text-sm text-gray-800">វគ្គសិក្សារយៈពេលខ្លី</span>
+          </label>
+        </div>
+      </div>
+</div>
+
+
+
 
                 {/* Last Modified By Input */}
                 {/* <div className="md:col-span-2">
@@ -574,7 +673,7 @@ const TabMenu = ({
               
 
               {/* Tabs for Larger Screens */}
-              <div className="hidden md:flex top-[180px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full">
+              <div className="hidden md:flex top-[180px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full scroll-smooth">
                 <button
                   className={`px-4 py-2 font-medium text-sm sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab1' ? 'text-blue-800' : 'text-black'}`}
                   onClick={() => handleTabChange('tab1')}
@@ -608,10 +707,10 @@ const TabMenu = ({
               </div>
 
               {/* Content */}
-              <div className="mt-4">
+              <div className="mb-4 ">
                 {renderContent()}
               </div>
-              <div className="flex justify-center gap-5 p-6 mt-4">
+              <div className="flex justify-center gap-5 p-6 mt-12">
                 <button
                   type="submit"
                   onClick={saveAllModal}
