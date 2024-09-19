@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
 
@@ -23,29 +23,11 @@ const HeaderPage = ({ toggleSidebar }) => {
     navigate('/'); // Redirect to login page
   };
 
-  // // Close dropdowns when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       dropdownRef.current && !dropdownRef.current.contains(event.target) &&
-  //       notificationsRef.current && !notificationsRef.current.contains(event.target)
-  //     ) {
-  //       setIsDropdownOpen(false);
-  //       setIsNotificationsOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
   return (
     <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
       <div className='px-3 py-3 lg:px-5 lg:pl-3'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-start justify-normal rtl:justify-end'>
+          <div className='flex items-start justify-normal rtl:justify-end w-80'>
             <button 
               data-drawer-target="logo-sidebar" 
               data-drawer-toggle="logo-sidebar" 
@@ -64,6 +46,14 @@ const HeaderPage = ({ toggleSidebar }) => {
               <span className="self-center text-base font-medium sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
             </a>
           </div>
+
+          {/* Highlighted Special Message with Subtle Pulse/Fade Animation */}
+          <div className="items-center justify-center hidden overflow-hidden md:flex grow">
+            <div className="px-6 py-2 font-medium rounded-md whitespace-nowrap animate-marquee">
+              <span className="text-sm text-blue-800 md:text-xl font-khmer">សូមស្វាគមន៍មកកាន់គេហទំព័ររបស់យើង! យើងរីករាយដែលមានអ្នកនៅទីនេះ</span>
+            </div>
+          </div>
+
           <div className='relative flex items-center ms-3'>
             <button 
               className="relative mr-5 text-gray-600 hover:text-gray-800" 

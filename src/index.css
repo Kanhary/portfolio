@@ -99,3 +99,22 @@ input[type="checkbox"] {
 .animate-ship {
   animation: shipMove 8s ease-in-out infinite;
 }
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 15s linear infinite;
+}
+
+
+/* .select__menu {
+  max-height: 100px; 
+  overflow-y: auto; 
+} */

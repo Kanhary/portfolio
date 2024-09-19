@@ -154,8 +154,8 @@ const EmployeePositionList = () => {
             <table className='w-full text-[15px] left text-gray-500 text- '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 text-start">Action</th>
-                  <th scope="col" className="px-4 py-3 text-start">Code</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 text-start" style={{minWidth: '50px'}}>Action</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '50px'}}>ID</th>
                   <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Position</th>
                   {/* <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Description</th> */}
                   <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last By</th>
@@ -165,7 +165,7 @@ const EmployeePositionList = () => {
               <tbody>
                 {currentEmployees.map(employee => (
                   <tr key={employee.ID} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-4 bg-white'>
+                    <td className='sticky left-0 flex px-6 py-4 bg-white' style={{minWidth: '50px'}}>
                       <input type="checkbox" className="mr-3 action-checkbox" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.ID, employee.Position)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.ID)} />
@@ -256,12 +256,13 @@ const EmployeePositionList = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="ID" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <label htmlFor="ID" className="block mb-2 text-sm font-semibold text-gray-700">ID</label>
                   <input
                     type="text"
                     id="ID"
                     value={formData.ID}
                     onChange={handleChange}
+                    disabled
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
@@ -314,7 +315,7 @@ const EmployeePositionList = () => {
             <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
               {/* Input for Code */}
               <div className="w-full md:w-1/2">
-                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 ">Code</label>
+                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 ">ID</label>
                 <input
                   type="text"
                   id="ID"

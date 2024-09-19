@@ -440,6 +440,34 @@ const handleSave = async () => {
     console.log('Selected staff code:', selectedValue); // Should log the staff code
 };
 
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    background: '#fff',
+    borderColor: '#9e9e9e',
+    minHeight: '30px',
+    height: '37px',
+    boxShadow: state.isFocused ? null : null,
+  }),
+
+  valueContainer: (provided, state) => ({
+    ...provided,
+    height: '30px',
+    padding: '0 6px'
+  }),
+
+  input: (provided, state) => ({
+    ...provided,
+    margin: '0px',
+  }),
+  indicatorSeparator: state => ({
+    display: 'none',
+  }),
+  indicatorsContainer: (provided, state) => ({
+    ...provided,
+    height: '30px',
+  }),
+};
 // Format options for react-select
 const options = employees.map(employee => ({
   value: employee.staffCode,
@@ -447,7 +475,7 @@ const options = employees.map(employee => ({
 }));
   
   return (
-    <section className='mt-10 font-khmer'>
+    <section className='mt-16 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>
       <div className='mt-3 border'></div>
       <div className='w-full mt-4'>
@@ -697,6 +725,7 @@ const options = employees.map(employee => ({
                       placeholder="Select or type to search"
                       className="basic-single"
                       classNamePrefix="select"
+                      styles={customStyles}
                     />
                     {errors.staffCode && <p className="mt-1 text-xs text-red-500">{errors.staffCode}</p>}
                   </div>
@@ -730,44 +759,44 @@ const options = employees.map(employee => ({
 
               {/* Right Side: Picture Upload */}
               <div className="flex items-center w-full space-y-4 justify-evenly lg:justify-center lg:flex-col md:w-1/4">
-                <div className="relative flex items-center justify-center w-32 h-32 overflow-hidden bg-gray-100 rounded-lg shadow-md">
-                  {formData.picture ? (
-                    <img
-                      src={URL.createObjectURL(formData.picture)}
-                      alt="Profile"
-                      className="object-cover w-full h-full"
-                    />
-                  ) : (
-                    <svg
-                      className="w-10 h-10 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                  )}
-                </div>
-                <input
-                  type="file"
-                  id="picture"
-                  accept="image/*"
-                  onChange={handlePictureChange}
-                  className="hidden"
+          <div className="relative flex items-center justify-center w-40 h-40 overflow-hidden bg-gray-100 rounded-lg shadow-lg">
+            {formData.picture ? (
+              <img
+                src={URL.createObjectURL(formData.picture)}
+                alt="Profile"
+                className="object-cover w-full h-full"
+              />
+            ) : (
+              <svg
+                className="w-12 h-12 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 4v16m8-8H4"
                 />
-                <label
-                  htmlFor="picture"
-                  className="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 focus:outline-none"
-                >
-                  {formData.picture ? "Change Picture" : "Upload Picture"}
-                </label>
-              </div>
+              </svg>
+            )}
+          </div>
+          <input
+            type="file"
+            id="picture"
+            accept="image/*"
+            onChange={handlePictureChange}
+            className="hidden"
+          />
+          <label
+            htmlFor="picture"
+            className="flex items-center px-4 py-2 text-sm font-semibold text-center text-white transition-colors duration-200 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600"
+          >
+            {formData.picture ? "Change Picture" : "Upload Picture"}
+          </label>
+        </div>
             </form>
 
             {/* Footer */}
