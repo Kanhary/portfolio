@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 
+
 const EmployeePositionList = () => {
   const INITAIL_FORM_DATA = {code: '', position: ''}
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,54 +13,31 @@ const EmployeePositionList = () => {
   
 
   const employees = [
-    { code: '1', position: 'អង្គនាយក',description: '...' },
-    { code: '2', position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
-    { code: '3', position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
-    { code: '4', position: 'អង្គនាយករង កិច្ចការផែ',description: '...' },
-    { code: '5', position: 'អង្គនាយករង​​ អាជីវកម្ម/ប្រតិបត្តិការផែ',description: '...' },
-    { code: '6', position: 'ប្រធាននាយកដ្ឋាន រដ្ឋបាល' },
-    { code: '7', position: 'ប្រធាននាយកដ្ឋាន​ បុគ្គលិក/ធនធានមនុស្ស',description: '...' },
-    { code: '8', position: 'នាយក',description: '...' },
-    { code: '9', position: 'នាយករង',description: '...' },
-    { code: '10', position: 'អ្នកគ្រប់គ្រង',description: '...' },
-    { code: '11', position: 'អង្គនាយក',description: '...' },
-    { code: '12', position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
-    { code: '13', position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
-    { code: '14', position: 'អង្គនាយករង កិច្ចការផែ',description: '...' },
-    { code: '15', position: 'អង្គនាយករង​​ អាជីវកម្ម/ប្រតិបត្តិការផែ',description: '...' },
-    { code: '16', position: 'ប្រធាននាយកដ្ឋាន រដ្ឋបាល',description: '...' },
-    { code: '17', position: 'ប្រធាននាយកដ្ឋាន​ បុគ្គលិក/ធនធានមនុស្ស',description: '...' },
-    { code: '18', position: 'នាយក',description: '...' },
-    { code: '19', position: 'នាយករង',description: '...' },
-    { code: '20', position: 'អ្នកគ្រប់គ្រង',description: '...' },
-    { code: '21', position: 'អង្គនាយក',description: '...' },
-    { code: '22', position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
-    { code: '23', position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
-    { code: '24', position: 'អង្គនាយករង កិច្ចការផែ',description: '...' },
-    { code: '25', position: 'អង្គនាយករង​​ អាជីវកម្ម/ប្រតិបត្តិការផែ',description: '...' },
-    { code: '26', position: 'ប្រធាននាយកដ្ឋាន រដ្ឋបាល',description: '...' },
-    { code: '27', position: 'ប្រធាននាយកដ្ឋាន​ បុគ្គលិក/ធនធានមនុស្ស',description: '...' },
-    { code: '28', position: 'អង្គនាយក',description: '...' },
-    { code: '29', position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
-    { code: '30', position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
-    { code: '31', position: 'អង្គនាយករង កិច្ចការផែ',description: '...' },
-    { code: '32', position: 'អង្គនាយករង​​ អាជីវកម្ម/ប្រតិបត្តិការផែ',description: '...' },
-    { code: '33', position: 'ប្រធាននាយកដ្ឋាន រដ្ឋបាល' },
-    { code: '34', position: 'ប្រធាននាយកដ្ឋាន​ បុគ្គលិក/ធនធានមនុស្ស',description: '...' },
-    { code: '35', position: 'នាយក',description: '...' },
-    { code: '36', position: 'នាយករង',description: '...' },
-    { code: '37', position: 'អ្នកគ្រប់គ្រង',description: '...' },
-    { code: '38', position: 'អង្គនាយក',description: '...' },
-    { code: '39', position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
-    { code: '40', position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
+    { ID: '1', Position: 'អង្គនាយក',description: '...' },
+    { ID: '2', Position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
+    { ID: '3', Position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
+    { ID: '4', Position: 'អង្គនាយករង កិច្ចការផែ',description: '...' },
+    { ID: '5', Position: 'អង្គនាយករង​​ អាជីវកម្ម/ប្រតិបត្តិការផែ',description: '...' },
+    { ID: '6', Position: 'ប្រធាននាយកដ្ឋាន រដ្ឋបាល' },
+    { ID: '7', Position: 'ប្រធាននាយកដ្ឋាន​ បុគ្គលិក/ធនធានមនុស្ស',description: '...' },
+    { ID: '8', Position: 'នាយក',description: '...' },
+    { ID: '9', Position: 'នាយករង',description: '...' },
+    { ID: '10', Position: 'អ្នកគ្រប់គ្រង',description: '...' },
+    { ID: '11', Position: 'អង្គនាយក',description: '...' },
+    { ID: '12', Position: 'អង្គនាយករង​ រដ្ឋបាល/ហិរញ្ញវត្ថុ',description: '...' },
+    { ID: '13', Position: 'អង្គនាយករង បច្ចេកទេស',description: '...' },
+    { ID: '14', Position: 'អង្គនាយករង កិច្ចការផែ',description: '...' },
+    { ID: '15', Position: 'អង្គនាយករង​​ អាជីវកម្ម/ប្រតិបត្តិការផែ',description: '...' },
+    { ID: '16', Position: 'ប្រធាននាយកដ្ឋាន រដ្ឋបាល',description: '...' },
+    { ID: '17', Position: 'ប្រធាននាយកដ្ឋាន​ បុគ្គលិក/ធនធានមនុស្ស',description: '...' },
     
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
   const filteredEmployees = employees.filter(employee =>
-    employee.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.code.includes(searchTerm)
+    employee.Position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    employee.ID.includes(searchTerm)
   );
   const totalPages = Math.ceil(filteredEmployees.length / recordsPerPage);
 
@@ -92,9 +70,9 @@ const EmployeePositionList = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  const openEditModal = (code, position, description) => {
-    setEditingEmployee({ code, position, description });
-    setFormData({ code, position, description });
+  const openEditModal = (ID, Position) => {
+    setEditingEmployee({ ID, Position });
+    setFormData({ ID, Position });
     setIsEditModalOpen(true);
   };
 
@@ -124,9 +102,9 @@ const EmployeePositionList = () => {
     closeEditModal();
   };
 
-  const deleteEmployee = (code) => {
+  const deleteEmployee = (ID) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
-      // Your delete logic here...
+      
     }
   };
 
@@ -176,25 +154,25 @@ const EmployeePositionList = () => {
             <table className='w-full text-[15px] left text-gray-500 text- '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 text-start">Action</th>
-                  <th scope="col" className="px-4 py-3 text-start">Code</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 text-start" style={{minWidth: '50px'}}>Action</th>
+                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '50px'}}>ID</th>
                   <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Position</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Description</th>
+                  {/* <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Description</th> */}
                   <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last By</th>
                   <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentEmployees.map(employee => (
-                  <tr key={employee.code} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-4 bg-white'>
+                  <tr key={employee.ID} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
+                    <td className='sticky left-0 flex px-6 py-4 bg-white' style={{minWidth: '50px'}}>
                       <input type="checkbox" className="mr-3 action-checkbox" />
-                      <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.code, employee.position)} />
-                      <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.code)} />
+                      <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.ID, employee.Position)} />
+                      <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.ID)} />
                     </td>
-                    <td className='px-4 py-3'>{employee.code}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '250px' }}>{employee.position}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '250px' }}>{employee.description}</td>
+                    <td className='px-4 py-3'>{employee.ID}</td>
+                    <td className='px-4 py-3' style={{ minWidth: '250px' }}>{employee.Position}</td>
+                    {/* <td className='px-4 py-3' style={{ minWidth: '250px' }}>{employee.description}</td> */}
                     <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
                     <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
                   </tr>
@@ -266,7 +244,10 @@ const EmployeePositionList = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
             <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមមុខតំណែងថ្មី</h2>
+              <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
+                <img src="/LOGO PPAP.png" alt="" className="w-10 h-10 p-1 bg-white rounded-full"/>
+                <span>បន្ថែមមុខតំណែងថ្មី</span>
+              </h2>
               <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
                 &times;
               </button>
@@ -275,12 +256,13 @@ const EmployeePositionList = () => {
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 {/* Input for Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700">Code</label>
+                  <label htmlFor="ID" className="block mb-2 text-sm font-semibold text-gray-700">ID</label>
                   <input
                     type="text"
-                    id="code"
-                    value={formData.code}
+                    id="ID"
+                    value={formData.ID}
                     onChange={handleChange}
+                    disabled
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
@@ -289,23 +271,15 @@ const EmployeePositionList = () => {
                   <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700">Position</label>
                   <input
                     type="text"
-                    id="position"
-                    value={formData.position}
+                    id="Position"
+                    value={formData.Position}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   />
                 </div>
               </div>
               {/* Input for Description */}
-              <div>
-                <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Description</label>
-                <textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 "
-                />
-              </div>
+              
             </div>
             <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
               
@@ -328,7 +302,10 @@ const EmployeePositionList = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
         <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
           <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-            <h2 className="text-xl font-bold text-white md:text-2xl">កែមុខតំណែងថ្មី</h2>
+            <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
+              <img src="/ship.png" alt="" className="w-32 h-32 animate-ship md:w-10 md:h-10"/>
+              <span>កែរប្រែមុខតំណែង</span>
+            </h2>
             <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
               &times;
             </button>
@@ -337,11 +314,11 @@ const EmployeePositionList = () => {
             <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
               {/* Input for Code */}
               <div className="w-full md:w-1/2">
-                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 ">Code</label>
+                <label htmlFor="code" className="block mb-2 text-sm font-semibold text-gray-700 ">ID</label>
                 <input
                   type="text"
-                  id="code"
-                  value={formData.code}
+                  id="ID"
+                  value={formData.ID}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                   disabled
@@ -352,23 +329,14 @@ const EmployeePositionList = () => {
                 <label htmlFor="position" className="block mb-2 text-sm font-semibold text-gray-700">Position</label>
                 <input
                   type="text"
-                  id="position"
-                  value={formData.position}
+                  id="Position"
+                  value={formData.Position}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                 />
               </div>
             </div>
-            {/* Input for Description */}
-            <div>
-              <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-70">Description</label>
-              <textarea
-                id="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none bg-gray-50 h-28 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500"
-              />
-            </div>
+            
           </div>
           <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
             

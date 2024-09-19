@@ -147,32 +147,47 @@ const LoginForm = () => {
       </div>
 
       <div className="relative flex flex-col items-center justify-center w-full rounded-b-lg md:w-1/2 bg-gradient-to-br md:rounded-r-lg md:rounded-bl-none">
-  <img
-    src="/login_bg.jpg"
-    alt=""
-    className="object-cover w-full h-full rounded-r-2xl"
-  />
-  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-white/20 opacity-80 rounded-r-2xl"></div> 
-  <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-white">
-    <h1 className="text-3xl font-semibold">សូមស្វាគមន៍មកកាន់ប្រព័ន្ធកុំព្យូទ័រ</h1><br />
-    <p className="text-sm font-light text-center">យើងមានសេចក្ដីរីករាយដែលបានឃើញអ្នកនៅទីនេះ។ ប្រព័ន្ធរបស់យើងត្រូវបានរចនាឡើងដើម្បីធ្វើឱ្យបទពិសោធន៍របស់អ្នកមានភាពរលូន និងមានប្រសិទ្ធភាព។ មិនថាអ្នកមកដើម្បីគ្រប់គ្រងភារកិច្ចរបស់អ្នក, រុករកមុខងារថ្មីៗ, ឬត្រឹមតែស្វែងរកវិធីប្រកបដោយប្រសិទ្ធិភាព, យើងរួសរាយដើម្បីជួយស្រួលដល់អ្នក។ បើអ្នកត្រូវការជំនួយ អាចទាក់ទងមកយើងបាន។ សូមរីករាយក្នុងការប្រើប្រាស់ប្រព័ន្ធរបស់យើង!</p>
-    <div className="flex items-center justify-center gap-4 py-6 mt-4 border-t border-white/50">
-    <a href="https://ppap.com.kh/" target="_blank" rel="noopener noreferrer">
-  <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-light hover:text-green-300 duration-300 bg-white/20">
-    <img src="/chrome.png" alt="" className="w-4 h-4" />
-    គេហទំព័រ Website
-  </button>
-    </a>
+      {/* Background Video */}
+      <video
+        className="absolute inset-0 object-cover w-full h-full"
+        autoPlay
+        muted
+        loop
+      >
+        <source src="bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-    <a href="https://www.facebook.com/ppap.mpwt.7?mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer">
-      <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-light hover:text-blue-700 duration-300 bg-white/20">
-        <img src="/Facebook_Logo.png" alt="Facebook" className="w-4 h-4" />
-        គេហទំព័រ Facebook
-      </button>
-    </a>
+      {/* Background Image */}
+      <img
+        src="/login_bg.jpg"
+        alt=""
+        className="object-cover w-full h-full rounded-r-2xl"
+      />
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-white/20 opacity-80 rounded-r-2xl"></div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center px-6 text-white">
+        <h1 className="text-3xl font-semibold">សូមស្វាគមន៍មកកាន់ប្រព័ន្ធកុំព្យូទ័រ</h1><br />
+        <p className="text-sm font-light text-center">យើងមានសេចក្ដីរីករាយដែលបានឃើញអ្នកនៅទីនេះ។ ប្រព័ន្ធរបស់យើងត្រូវបានរចនាឡើងដើម្បីធ្វើឱ្យបទពិសោធន៍របស់អ្នកមានភាពរលូន និងមានប្រសិទ្ធភាព។ មិនថាអ្នកមកដើម្បីគ្រប់គ្រងភារកិច្ចរបស់អ្នក, រុករកមុខងារថ្មីៗ, ឬត្រឹមតែស្វែងរកវិធីប្រកបដោយប្រសិទ្ធិភាព, យើងរួសរាយដើម្បីជួយស្រួលដល់អ្នក។ បើអ្នកត្រូវការជំនួយ អាចទាក់ទងមកយើងបាន។ សូមរីករាយក្នុងការប្រើប្រាស់ប្រព័ន្ធរបស់យើង!</p>
+        <div className="flex items-center justify-center gap-4 py-6 mt-4 border-t border-white/50">
+          <a href="https://ppap.com.kh/" target="_blank" rel="noopener noreferrer">
+            <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-light hover:text-green-300 duration-300 bg-white/20">
+              <img src="/chrome.png" alt="" className="w-4 h-4" />
+              គេហទំព័រ Website
+            </button>
+          </a>
+          <a href="https://www.facebook.com/ppap.mpwt.7?mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer">
+            <button className="py-3 px-3 border border-white flex gap-3 text-[13px] text-white rounded-lg font-light hover:text-blue-700 duration-300 bg-white/20">
+              <img src="/Facebook_Logo.png" alt="Facebook" className="w-4 h-4" />
+              គេហទំព័រ Facebook
+            </button>
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 
 
