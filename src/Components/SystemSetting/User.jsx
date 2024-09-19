@@ -5,7 +5,8 @@ import Swal from 'sweetalert2';
 import { AddUser, GetUser, GetEmp } from '@/api/user.js';
 import { CheckUser, DeleteUser, UpdateUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
-import Select from 'react-select'
+import Select from 'react-select';
+import { GiShipBow } from "react-icons/gi";
 
 const User = () => {
   const INITIAL_FORM_DATA = { 
@@ -36,7 +37,7 @@ const User = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [pictureUrl, setPictureUrl] = useState(null);
   const recordsPerPage = 8;
-  const [itemsPerPage] = useState(8)
+
 
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => {
@@ -298,11 +299,31 @@ const handleSave = async () => {
     (user.userName && user.userName.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (user.userCode && user.userCode.includes(searchTerm))
   );
-
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
   const totalPages = Math.ceil(filteredUser.length / recordsPerPage);
   const indexOfLastRecord = (currentPage + 1) * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentPageUsers = filteredUser.slice(indexOfFirstRecord, indexOfLastRecord);
+  
+  const getPaginationItems = () => {
+    let pages = [];
+    if (totalPages <= 7) {
+      pages = [...Array(totalPages)].map((_, index) => index + 1);
+    } else {
+      if (currentPage < 4) {
+        pages = [1, 2, 3, '...', totalPages];
+      } else if (currentPage > totalPages - 3) {
+        pages = [1, '...', totalPages - 3, totalPages - 2, totalPages];
+      } else {
+        pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+      }
+    }
+    return pages;
+  };
 
   const handlePageClick = (event) => {
     console.log("Page clicked:", event.selected); 
@@ -524,43 +545,73 @@ const options = employees.map(employee => ({
             </table>
           </div>
 
-          {/* Pagination */}
           <div className="flex flex-col items-center justify-between p-4 md:flex-row">
             <span className="mb-4 text-sm text-gray-600 md:mb-0">
-              Page {currentPage+1} of {totalPages}
+              Page {currentPage} of {totalPages}
             </span>
 
-            <ReactPaginate
-              previousLabel={<span className="pagination-arrow text-slate-500">{
-                <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <nav className="flex items-center p-4 space-x-2 md:space-x-3">
+              <ul className="inline-flex items-center p-2 space-x-2 overflow-x-auto">
+                {/* Previous Page Button */}
+                <li>
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={`flex items-center justify-center py-2 px-3 text-gray-500 bg-gradient-to-r from-gray-200 to-gray-300 border rounded-lg shadow-md hover:bg-gradient-to-r hover:from-gray-300 hover:to-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-200 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path fillRule="evenodd" d="M12.293 14.707a1 1 0 01-1.414 0L6.586 10.414a1 1 0 010-1.414l4.293-4.293a1 1 0 011.414 1.414L8.414 10l3.879 3.879a1 1 0 010 1.414z" clipRule="evenodd" />
                     </svg>
-              }</span>}
-              nextLabel={<span className="pagination-arrow text-slate-500">{
-                <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path fillRule="evenodd" d="M7.707 14.707a1 1 0 010-1.414L11.586 10 7.707 6.121a1 1 0 111.414-1.414l4.293 4.293a1 1 0 010 1.414l-4.293 4.293a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </button>
+                </li>
+
+                {/* Page Number Buttons */}
+                {getPaginationItems().map((page, index) =>
+                  page === "..." ? (
+                    <li key={index}>
+                      <span className="flex items-center justify-center px-3 py-2 text-gray-500 border rounded-lg shadow-md bg-gradient-to-r from-gray-200 to-gray-300">
+                        ...
+                      </span>
+                    </li>
+                  ) : (
+                    <li key={index}>
+                      <button
+                        onClick={() => handlePageChange(page)}
+                        className={`flex items-center justify-center py-2 px-3 border rounded-lg shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-200 ${currentPage === page ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white border-blue-600 shadow-lg' : 'text-gray-500 bg-gradient-to-r from-gray-200 to-gray-300 hover:from-gray-300 hover:to-gray-400'}`}
+                      >
+                        {page}
+                      </button>
+                    </li>
+                  )
+                )}
+
+                {/* Next Page Button */}
+                <li>
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className={`flex items-center justify-center py-2 px-3 text-gray-500 bg-gradient-to-r from-gray-200 to-gray-300 border rounded-lg shadow-md hover:bg-gradient-to-r hover:from-gray-300 hover:to-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-200 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path fillRule="evenodd" d="M7.707 14.707a1 1 0 010-1.414L11.586 10 7.707 6.121a1 1 0 111.414-1.414l4.293 4.293a1 1 010 1.414l-4.293 4.293a1 1 01-1.414 0z" clipRule="evenodd" />
                     </svg>
-              }</span>}
-              breakLabel={<span className="pagination-dots">...</span>}
-              pageCount={totalPages}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={3}
-              onPageChange={handlePageClick}
-              containerClassName="pagination-container"
-              activeClassName="pagination-active"
-              pageClassName="pagination-page"
-              previousClassName="pagination-previous"
-              nextClassName="pagination-next"
-              breakClassName="pagination-break"
-            />
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
+
         </div>
       </div>
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="relative flex flex-col w-full mx-auto overflow-auto transition-all transform bg-white shadow-2xl lg:w-2/3 rounded-xl h-5/6">
             <header className="sticky top-0 flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
+          
+            <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
+              <GiShipBow className="text-3xl animate-ship" />
+              <span>បន្ថែមអ្នកប្រើប្រាស់ថ្មី</span>
+            </h2>
               <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
                 &times;
               </button>
@@ -741,7 +792,10 @@ const options = employees.map(employee => ({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
         <div className="relative flex flex-col w-full mx-auto overflow-auto transition-all transform bg-white shadow-2xl lg:w-2/3 rounded-xl h-5/6">
           <header className="sticky top-0 flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-            <h2 className="text-xl font-bold text-white md:text-2xl">កែរប្រែព័ត៌មានអ្នកប្រើប្រាស់</h2>
+          <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
+            <GiShipBow className="text-3xl animate-ship" />
+            <span>កែរប្រែព័ត៌មានអ្នកប្រើប្រាស់</span>
+          </h2>
             <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
               &times;
             </button>

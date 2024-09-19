@@ -15,20 +15,21 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
   border-radius: 5px;
+  background: rgb(249 250 251 / var(--tw-bg-opacity));
+
 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(249 250 251 / var(--tw-bg-opacity));
+  background: #f1f1f1;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(249 250 251 / var(--tw-bg-opacity));
+  background: #f2f2f2;
 }
 
 /* Custom checkbox styles */
@@ -82,4 +83,19 @@ input[type="checkbox"] {
 .pagination-break:hover {
   background-color: #f3f4f6; /* Tailwind Gray-100 */
   border-color: #d1d5db; /* Tailwind Gray-300 */
+}
+@keyframes shipMove {
+  0% {
+    transform: translateX(-20%);
+  }
+  50% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(-20%);
+  }
+}
+
+.animate-ship {
+  animation: shipMove 8s ease-in-out infinite;
 }
