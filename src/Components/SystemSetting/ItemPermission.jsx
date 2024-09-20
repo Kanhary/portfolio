@@ -173,7 +173,7 @@ const ItemPermission = () => {
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                       <td className='sticky left-0 flex px-6 py-4 bg-white'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
-                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" 
+                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700 ml-2" 
                         onClick={() => openEditModal(item.code, item.functionCode, item.functionName)} 
                         />
                         <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" 

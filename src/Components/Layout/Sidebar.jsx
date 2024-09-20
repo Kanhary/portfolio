@@ -123,13 +123,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 isActive={activeItem === 'Group-Master'} 
               />
               <SubmenuItem 
-                text="Item Permission" 
+                text="ការអនុញ្ញាតអ្នកប្រើប្រាស់" 
                 to="/main-dashboard/system-setting/item-permission" 
                 onClick={() => handleLinkClick('Item-Permission')} 
                 isActive={activeItem === 'Item-Permission'} 
               />
               <SubmenuItem 
-                text="Group Details" 
+                text="ព័ត៌មានលម្អិតនៅក្នុងក្រុម" 
                 to="/main-dashboard/system-setting/group-details" 
                 onClick={() => handleLinkClick('Group-Details')} 
                 isActive={activeItem === 'Group-Details'} 

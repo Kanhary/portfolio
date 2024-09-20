@@ -556,23 +556,23 @@ const EmployeeInformation = () => {
                   <th scope="col" className="px-4 py-3">Gender</th>
                   <th scope="col" className="px-4 py-3">Height</th>
                   <th scope="col" className="px-4 py-3">Weight</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '120px' }}>Birthdate</th>
+                  <th scope="col" className="px-4 py-3" style={{ minWidth: '250px' }}>Birthdate</th>
                   <th scope="col" className="px-4 py-3">Nation</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Nationality</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Region</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Birthdate Address</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Address</th>
                   <th scope="col" className="px-4 py-3" style={{ minWidth: '150px'}}>Phone Number</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '200px' }}>Email</th>
+                  <th scope="col" className="px-4 py-3" style={{ minWidth: '220px' }}>Email</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Special Number</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '140px' }}>Marital Status</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Company</th>
+                  <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Company</th>
                   <th scope="col" className="px-4 py-3">Branch</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Department</th>
                   <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Office</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '300px' }}>Position</th>
+                  <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Position</th>
                   <th scope="col" className="px-4 py-30"style={{ minWidth: '200px' }}>Last Modified By</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Last Modified Date</th>
+                  <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Last Modified Date</th>
                 </tr>
               </thead>
               <tbody>
