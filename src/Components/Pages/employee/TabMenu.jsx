@@ -183,7 +183,7 @@ const TabMenu = ({
         return <div className="-mb-8">
           <div className='overflow-auto '>
           <form>
-              <div className="grid grid-cols-1 gap-6 px-8 py-2 sm:grid-cols-2 mt-4">
+              <div className="grid grid-cols-1 gap-6 px-8 py-2 mt-4 sm:grid-cols-2">
               {[
                     { id: 'staffCode', label: 'អត្ថលេខ', type: 'text', required: true },
                     { id: 'fullName', label: 'គោត្តនាម/នាម', type: 'text', required: true },
@@ -270,7 +270,7 @@ const TabMenu = ({
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-3 text-sm  text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="">Select the region</option>
                     <option value="កម្ពុជា">កម្ពុជា</option>
@@ -332,7 +332,7 @@ const TabMenu = ({
                     value={formData.officeCode || ''}
                     onChange={handleChange}
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-3 text-gray-500 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="" disabled hidden>
                       Select the office
@@ -411,33 +411,28 @@ const TabMenu = ({
                         value={formData[id] || ''}
                         onChange={handleChange}
                         disabled={disabled ? true : undefined}
-                        className="block w-full p-2 border border-gray-300 rounded-xl shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 "
+                        className="block w-full p-2 border border-gray-300 shadow-sm outline-none rounded-xl focus:ring-primary-500 focus:border-primary-500 "
                       />
                     )}
                   </div>
                 ))
-}
+              }
 
-<div className="flex flex-col gap-2">
-  <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
-    ជ្រើសរើសរូបភាព
-  </label>
-  <input
-    type="file"
-    id="fileUpload"
-    onChange={handleChange}
-    disabled={disabled ? true : undefined}
-    className="block w-full border border-gray-300 shadow-sm rounded-lg text-sm 
-          focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 
-          disabled:opacity-50 disabled:pointer-events-none 
-          dark:bg-white  dark:text-neutral-400
-          file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4
-          dark:file:bg-blue-600 dark:file:text-white"
-  />
-  {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
+                  ជ្រើសរើសរូបភាព
+                </label>
+                <input
+                  type="file"
+                  id="fileUpload"
+                  onChange={handleChange}
+                  disabled={disabled ? true : undefined}
+                  className="block w-full text-sm border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 disabled:opacity-50 disabled:pointer-events-none dark:bg-white dark:text-neutral-400 file:border-0 file:me-4 file:py-3 file:px-4 file:bg-blue-600 file:text-white"
+                />
+                {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
 
-  
-</div>
+                
+              </div>
             </div>
               
 
@@ -524,7 +519,7 @@ const TabMenu = ({
 
 
 {/* Location and Course Type Radio Buttons Row */}
-<div className="md:col-span-2 flex flex-col md:flex-row gap-8">
+<div className="flex flex-col gap-8 md:col-span-2 md:flex-row">
   {/* Location Radio Buttons */}
   <div className="w-full md:w-1/2">
     <label className="block text-sm font-medium text-gray-800">ទីតាំង</label>

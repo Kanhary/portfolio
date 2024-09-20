@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
 
@@ -10,6 +10,23 @@ const HeaderPage = ({ toggleSidebar }) => {
   const dropdownRef = useRef(null);
   const notificationsRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+        setIsNotificationsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef, notificationsRef]);
+
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -19,9 +36,10 @@ const HeaderPage = ({ toggleSidebar }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken'); // Example, adjust based on your auth setup
-    navigate('/'); // Redirect to login page
+    localStorage.removeItem('authToken');
+    navigate('/');
   };
+
 
   return (
     <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
@@ -47,10 +65,13 @@ const HeaderPage = ({ toggleSidebar }) => {
             </a>
           </div>
 
-          {/* Highlighted Special Message with Subtle Pulse/Fade Animation */}
-          <div className="items-center justify-center hidden overflow-hidden md:flex grow">
+          {/* Adjust for Tablets */}
+          <div className="items-center justify-center hidden overflow-hidden lg:flex grow">
             <div className="px-6 py-2 font-medium rounded-md whitespace-nowrap animate-marquee">
-              <span className="text-sm text-blue-800 md:text-xl font-khmer">សូមស្វាគមន៍មកកាន់គេហទំព័ររបស់យើង! យើងរីករាយដែលមានអ្នកនៅទីនេះ</span>
+              
+              <span className="text-sm text-blue-800 md:text-lg xl:text-xl font-khmer">
+                សូមស្វាគមន៍មកកាន់គេហទំព័ររបស់យើង! យើងរីករាយដែលមានអ្នកនៅទីនេះ
+                </span>
             </div>
           </div>
 
