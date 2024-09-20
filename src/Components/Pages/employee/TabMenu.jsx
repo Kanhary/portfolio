@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import Select from 'react-select';
+import { motion, useScroll } from "framer-motion";
+
 
 const TabMenu = ({
   formData,
@@ -20,8 +22,9 @@ const TabMenu = ({
   const [errors, setErrors] = useState({});
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [fileName, setFileName] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [fileName, setFileName] = useState('');
+  const { scrollYProgress } = useScroll();
 
 
   // const [formData, setFormData] = useState({
@@ -65,6 +68,14 @@ const TabMenu = ({
     setSubmittedData(formData);
   };
   const options = [
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'designer', label: 'Designer' },
+    { value: 'manager', label: 'Manager' },
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'designer', label: 'Designer' },
+    { value: 'manager', label: 'Manager' },
     { value: 'manager', label: 'Manager' },
     { value: 'developer', label: 'Developer' },
     { value: 'designer', label: 'Designer' },
@@ -122,12 +133,14 @@ const TabMenu = ({
   const customStyles = {
     menu: (provided) => ({
       ...provided,
-      maxHeight: '100px', // Adjust height as needed
-      overflowY: 'auto',
-      fontSize: '14px',
-      fontFamily: 'noto',
-      zIndex: 9999, // Ensures the dropdown is on top of other elements
+      maxHeight: '150px', // Limits the dropdown height to 150px
+      overflowY: 'auto', // Allows scrolling when content exceeds height
+      fontFamily: 'Noto Serif Khmer', // Custom font
+      fontSize: '14px', // Adjust the font size as needed
+      zIndex: 9999, // Ensures the dropdown appears above other elements
+      WebkitOverflowScrolling: 'touch', // Smooth scrolling for touch devices
     }),
+    // menuPortal: (base) => ({ ...base, zIndex: 9999 }), // Ensures 
     menuPortal: (provided) => ({
       ...provided,
       zIndex: 9999, // Ensures the portal is on top of other elements
@@ -171,9 +184,12 @@ const TabMenu = ({
   //   setIsAddModalOpen(false);
   // };
   const renderContent = () => {
+    
     switch (activeTab) {
+      
       case 'tab1':
         return <div className="-mb-8">
+
           <div className='overflow-auto '>
           <form>
               <div className="grid grid-cols-1 gap-6 px-8 py-2 mt-4 sm:grid-cols-2">
@@ -221,7 +237,9 @@ const TabMenu = ({
                     </div>
                   ))}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="genderCode" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.genderCode && <p className="text-sm text-red-600">*</p>}ភេទ</label>
+                  <label htmlFor="genderCode" className="flex gap-1 text-sm font-medium text-gray-70">
+                    {/* {!formData.genderCode && <p className="text-sm text-red-600">*</p>} */}
+                    ភេទ</label>
                   <select
                     id="genderCode"
                     value={formData.genderCode || ''}
@@ -239,7 +257,7 @@ const TabMenu = ({
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="familyStatus" className="flex gap-1 text-sm font-medium text-gray-700">
-                    {!formData.familyStatus && <p className="text-sm text-red-600">*</p>}
+                    {/* {!formData.familyStatus && <p className="text-sm text-red-600">*</p>} */}
                     ស្ថានភាពគ្រួសារ
                   </label>
                   <select
@@ -256,7 +274,9 @@ const TabMenu = ({
                   </select>
                 </div>
                <div className="flex flex-col gap-2">
-                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
+                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.region && <p className="text-sm text-red-600">*</p>} */}
+                    ប្រទេស</label>
                   <select
                     id="region"
                     value={formData.region || ''}
@@ -274,7 +294,9 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="nationals" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationals && <p className="text-sm text-red-600">*</p>}ជនជាតិ</label>
+                  <label htmlFor="nationals" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.nationals && <p className="text-sm text-red-600">*</p>} */}
+                    ជនជាតិ</label>
                   <input
                     type="text"
                     id="nationals"
@@ -286,7 +308,9 @@ const TabMenu = ({
                 </div>  
                 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
+                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.nationality && <p className="text-sm text-red-600">*</p>} */}
+                    សញ្ជាតិ</label>
                   <input
                     type="text"
                     id="nationality"
@@ -298,7 +322,9 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="departmentCode" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.departmentCode && <p className="text-sm text-red-600 ">*</p>}នាយកដ្ឋាន</label>
+                  <label htmlFor="departmentCode" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.departmentCode && <p className="text-sm text-red-600 ">*</p>} */}
+                    នាយកដ្ឋាន</label>
                   <select
                     id="departmentCode"
                     value={formData.departmentCode || ''}
@@ -318,7 +344,8 @@ const TabMenu = ({
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="officeCode" className="flex gap-1 text-sm font-medium text-gray-700">
-                    {!formData.officeCode && <p className="text-sm text-red-600">*</p>}ការិយាល័យ
+                    {/* {!formData.officeCode && <p className="text-sm text-red-600">*</p>} */}
+                    ការិយាល័យ
                   </label>
                   <select
                     id="officeCode"
@@ -343,7 +370,9 @@ const TabMenu = ({
                   // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.companyCode && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                      {/* {!formData.companyCode && <p className="text-sm text-red-600">*</p>} */}
+                      {label}</label>
                     
                     <input
                       type={type}
@@ -361,7 +390,10 @@ const TabMenu = ({
                   // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.companyBranchCode && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                      {/* {!formData.companyBranchCode && <p className="text-sm text-red-600">*</p>} */}
+                    
+                    {label}</label>
                     
                     <input
                       type={type}
@@ -374,55 +406,62 @@ const TabMenu = ({
                   </div>
                 ))}
 
+{
+  [
+    { id: 'positionCode', label: 'តួនាទី', type: 'select', options }
+  ].map(({ id, label, type }) => (
+    <div key={id} className="flex flex-col gap-2">
+      {/* Label with red asterisk if positionCode is not selected */}
+      <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+        {/* {!formData.positionCode && <p className="text-sm text-red-600">*</p>} */}
+        {label}
+      </label>
 
-              {
-                [
-                  { id: 'positionCode', label: 'តួនាទី', type: 'select', options }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
-                      {!formData.positionCode && <p className="text-sm text-red-600">*</p>}
-                      {label}
-                    </label>
-                    {type === 'select' ? (
-                      <Select
-                        id={id}
-                        options={options}
-                        value={options.find(option => option.value === formData[id])}
-                        onChange={(selectedOption) => handleChange({ target: { id, value: selectedOption.value } })}
-                        isDisabled={disabled}
-                        styles={customStyles}
-                        menuPortalTarget={document.body} // Renders dropdown menu at the body level
-                        menuPosition="fixed" 
-                        className="block w-full text-sm"
-                        placeholder="Search or select a position"
-                      />
-                    ) : (
-                      <input
-                        type={type}
-                        id={id}
-                        value={formData[id] || ''}
-                        onChange={handleChange}
-                        disabled={disabled ? true : undefined}
-                        className="block w-full p-2 border border-gray-300 shadow-sm outline-none rounded-xl focus:ring-primary-500 focus:border-primary-500 "
-                      />
-                    )}
-                  </div>
-                ))
-              }
+      {/* Conditionally rendering select or input based on type */}
+      {type === 'select' ? (
+        <Select
+          id={id}
+          options={options}
+          value={options.find(option => option.value === formData[id])}
+          onChange={(selectedOption) =>
+            handleChange({ target: { id, value: selectedOption.value } })
+          }
+          isDisabled={disabled}
+          styles={customStyles} // Custom styles applied to Select
+          menuPortalTarget={document.body} // Renders dropdown at body level to avoid positioning issues
+          menuPosition="fixed" // Fixed position to prevent clipping inside other elements
+          className="block w-full text-sm"
+          placeholder="Search or select a position"
+          maxMenuHeight={150} // Limits dropdown height to 150px and allows scrolling
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          value={formData[id] || ''}
+          onChange={handleChange}
+          disabled={disabled ? true : undefined}
+          className="block w-full p-2 border border-gray-300 shadow-sm outline-none rounded-xl focus:ring-primary-500 focus:border-primary-500"
+        />
+      )}
+    </div>
+  ))
+}
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
-                  ជ្រើសរើសរូបភាព
-                </label>
-                <input
-                  type="file"
-                  id="fileUpload"
-                  onChange={handleChange}
-                  disabled={disabled ? true : undefined}
-                  className="block w-full text-sm border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 disabled:opacity-50 disabled:pointer-events-none dark:bg-white dark:text-neutral-400 file:border-0 file:me-4 file:py-3 file:px-4 file:bg-blue-600 file:text-white"
-                />
-                {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
+
+
+<div className="flex flex-col gap-2">
+  <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
+    ជ្រើសរើសរូបភាព
+  </label>
+  <input
+    type="file"
+    id="fileUpload"
+    onChange={handleChange}
+    disabled={disabled ? true : undefined}
+    className="block w-full text-sm border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 disabled:opacity-50 disabled:pointer-events-none text-neutral-400 file:border-0 file:me-4 file:py-3 file:px-4 file:bg-blue-600 file:text-white"
+  />
+  {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
 
                 
               </div>
