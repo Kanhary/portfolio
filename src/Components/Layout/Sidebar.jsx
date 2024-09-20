@@ -47,7 +47,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0 md:w-64`}
     >
-      <nav className="flex flex-col h-full overflow-y-auto">
+      <nav className="flex flex-col h-full overflow-y-auto ">
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
           <NavItem 
             icon={<AiFillHome />} 
@@ -190,7 +190,7 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
 const SubmenuItem = ({ text, to, onClick, isActive }) => {
   return (
     <li className={`flex items-center px-6 py-2 transition-colors duration-200 rounded-md cursor-pointer ${isActive ? 'text-sky-300' : ''}`}>
-      <Link to={to} className="w-full text-sm" onClick={onClick}>
+      <Link to={to} className="w-full text-[13px]" onClick={onClick}>
         {text}
       </Link>
     </li>

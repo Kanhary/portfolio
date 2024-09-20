@@ -14,9 +14,9 @@ module.exports = {
         'pulse-delay-400': 'pulse 1s infinite 0.4s',
       },
     },
-    fontFamily: {
-      khmer: ["Kantumruy Pro", 'sans-serif']
-    }
+      fontFamily: {
+        khmer: ["Noto Serif Khmer","sans-serif"]
+      }
   },
   plugins: [
     require('@tailwindcss/typography')

@@ -65,20 +65,11 @@ const TabMenu = ({
     setSubmittedData(formData);
   };
   const options = [
-    // { value: 'manager', label: 'Manager' },
-    // { value: 'developer', label: 'Developer' },
-    // { value: 'designer', label: 'Designer' },
-    // { value: 'manager', label: 'Manager' },
-    // { value: 'developer', label: 'Developer' },
-    // { value: 'designer', label: 'Designer' },
-    // { value: 'manager', label: 'Manager' },
-    // { value: 'developer', label: 'Developer' },
-    // { value: 'designer', label: 'Designer' },
-    // { value: 'developer', label: 'Developer' },
-    // { value: 'designer', label: 'Designer' },
-    // { value: 'manager', label: 'Manager' },
-    // { value: 'developer', label: 'Developer' },
-    // { value: 'designer', label: 'Designer' },
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'designer', label: 'Designer' },
+    { value: 'manager', label: 'Manager' },
+  
   ];
 
   // const closeEmployeeModal = () => {
@@ -133,6 +124,8 @@ const TabMenu = ({
       ...provided,
       maxHeight: '100px', // Adjust height as needed
       overflowY: 'auto',
+      fontSize: '14px',
+      fontFamily: 'noto',
       zIndex: 9999, // Ensures the dropdown is on top of other elements
     }),
     menuPortal: (provided) => ({
@@ -272,7 +265,7 @@ const TabMenu = ({
                     disabled={disabled ? true : undefined}
                     className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
-                    <option value="">Select the region</option>
+                    <option value="" disabled hidden>Select the region</option>
                     <option value="កម្ពុជា">កម្ពុជា</option>
                     <option value="ថៃ">ថៃ</option>
                     <option value="វៀតណាម">វៀតណាម</option>
@@ -652,7 +645,7 @@ const TabMenu = ({
                         className={`block px-3 py-1 text-sm font-medium text-left ${activeTab === 'tab2' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
                         onClick={() => handleTabChange('tab2')}
                       >
-                        បញ្ចូលវគ្គសិក្សារយៈពេលវែង
+                        បញ្ចូលវគ្គសិក្សា
                       </button>
                       {/* <button
                         className={`block px-3 py-1 text-sm font-medium text-left ${activeTab === 'tab3' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
@@ -683,7 +676,7 @@ const TabMenu = ({
                   className={`px-4 py-2 font-medium text-xs sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab2' ? 'text-blue-800' : 'text-black'}`}
                   onClick={() => handleTabChange('tab2')}
                 >
-                  បញ្ចូលវគ្គសិក្សារយៈពេលវែង
+                  បញ្ចូលវគ្គសិក្សា
                   <span
                     className={`block h-[2px] mt-2 transition-all duration-300 ${activeTab === 'tab2' ? 'w-full bg-gradient-to-r from-blue-800 to-blue-600' : 'w-0 bg-transparent'}`}
                     style={{ borderRadius: '9999px' }}
