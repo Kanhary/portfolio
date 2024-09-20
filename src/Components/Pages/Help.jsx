@@ -18,7 +18,7 @@ const Help = () => {
     `;
 
     // Create a mailto link with the email address and body
-    const mailtoLink = `mailto:ukkanhary04@gmail.com?subject=Contact Form Submission&body=${encodeURIComponent(emailBody)}`;
+    const mailtoLink = `mailto:sempheakdey417@gmail.com?subject=Contact Form Submission&body=${encodeURIComponent(emailBody)}`;
 
     // Open the mail client with the pre-filled email
     window.location.href = mailtoLink;

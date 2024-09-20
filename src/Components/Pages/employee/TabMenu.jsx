@@ -69,6 +69,14 @@ const TabMenu = ({
     { value: 'developer', label: 'Developer' },
     { value: 'designer', label: 'Designer' },
     { value: 'manager', label: 'Manager' },
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'designer', label: 'Designer' },
+    { value: 'manager', label: 'Manager' },
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'designer', label: 'Designer' },
+    { value: 'manager', label: 'Manager' },
   
   ];
 
@@ -122,10 +130,14 @@ const TabMenu = ({
   const customStyles = {
     menu: (provided) => ({
       ...provided,
-      maxHeight: '100px', // Adjust height as needed
-      overflowY: 'auto',
-      zIndex: 9999, // Ensures the dropdown is on top of other elements
+      maxHeight: '150px', // Limits the dropdown height to 150px
+      overflowY: 'auto', // Allows scrolling when content exceeds height
+      fontFamily: 'Noto Serif Khmer', // Custom font
+      fontSize: '14px', // Adjust the font size as needed
+      zIndex: 9999, // Ensures the dropdown appears above other elements
+      WebkitOverflowScrolling: 'touch', // Smooth scrolling for touch devices
     }),
+    // menuPortal: (base) => ({ ...base, zIndex: 9999 }), // Ensures 
     menuPortal: (provided) => ({
       ...provided,
       zIndex: 9999, // Ensures the portal is on top of other elements
@@ -372,42 +384,49 @@ const TabMenu = ({
                   </div>
                 ))}
 
+{
+  [
+    { id: 'positionCode', label: 'តួនាទី', type: 'select', options }
+  ].map(({ id, label, type }) => (
+    <div key={id} className="flex flex-col gap-2">
+      {/* Label with red asterisk if positionCode is not selected */}
+      <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+        {!formData.positionCode && <p className="text-sm text-red-600">*</p>}
+        {label}
+      </label>
 
-              {
-                [
-                  { id: 'positionCode', label: 'តួនាទី', type: 'select', options }
-                ].map(({ id, label, type }) => (
-                  <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
-                      {!formData.positionCode && <p className="text-sm text-red-600">*</p>}
-                      {label}
-                    </label>
-                    {type === 'select' ? (
-                      <Select
-                        id={id}
-                        options={options}
-                        value={options.find(option => option.value === formData[id])}
-                        onChange={(selectedOption) => handleChange({ target: { id, value: selectedOption.value } })}
-                        isDisabled={disabled}
-                        styles={customStyles}
-                        menuPortalTarget={document.body} // Renders dropdown menu at the body level
-                        menuPosition="fixed" 
-                        className="block w-full text-sm"
-                        placeholder="Search or select a position"
-                      />
-                    ) : (
-                      <input
-                        type={type}
-                        id={id}
-                        value={formData[id] || ''}
-                        onChange={handleChange}
-                        disabled={disabled ? true : undefined}
-                        className="block w-full p-2 border border-gray-300 rounded-xl shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 "
-                      />
-                    )}
-                  </div>
-                ))
+      {/* Conditionally rendering select or input based on type */}
+      {type === 'select' ? (
+        <Select
+          id={id}
+          options={options}
+          value={options.find(option => option.value === formData[id])}
+          onChange={(selectedOption) =>
+            handleChange({ target: { id, value: selectedOption.value } })
+          }
+          isDisabled={disabled}
+          styles={customStyles} // Custom styles applied to Select
+          menuPortalTarget={document.body} // Renders dropdown at body level to avoid positioning issues
+          menuPosition="fixed" // Fixed position to prevent clipping inside other elements
+          className="block w-full text-sm"
+          placeholder="Search or select a position"
+          maxMenuHeight={150} // Limits dropdown height to 150px and allows scrolling
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          value={formData[id] || ''}
+          onChange={handleChange}
+          disabled={disabled ? true : undefined}
+          className="block w-full p-2 border border-gray-300 rounded-xl shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500"
+        />
+      )}
+    </div>
+  ))
 }
+
+
 
 <div className="flex flex-col gap-2">
   <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
