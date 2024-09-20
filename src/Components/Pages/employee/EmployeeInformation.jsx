@@ -282,7 +282,7 @@ const EmployeeInformation = () => {
         Swal.fire({
           title: "Error",
           text: "An error occured while setting up the request.",
-          icon: "success"
+          icon: "warning"
         });
       }
     }
