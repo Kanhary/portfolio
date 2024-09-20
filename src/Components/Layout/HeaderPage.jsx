@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
 
@@ -9,6 +9,23 @@ const HeaderPage = ({ toggleSidebar }) => {
 
   const dropdownRef = useRef(null);
   const notificationsRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+        setIsNotificationsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef, notificationsRef]);
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
@@ -25,8 +42,8 @@ const HeaderPage = ({ toggleSidebar }) => {
 
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken'); // Example, adjust based on your auth setup
-    navigate('/'); // Redirect to login page
+    localStorage.removeItem('authToken');
+    navigate('/');
   };
 
     return (
@@ -54,12 +71,12 @@ const HeaderPage = ({ toggleSidebar }) => {
             </div>
               {/* Highlighted Special Message with Subtle Pulse/Fade Animation */}
               <div className="items-center justify-center hidden overflow-hidden lg:flex grow">
-                  <marquee behavior="" direction="left" className="text-sm text-blue-800 md:text-base font-khmer font-normal">
+                  <marquee behavior="" direction="left" className="text-sm font-normal text-blue-800 md:text-base font-khmer">
                     <span className="">
-                      <img src="/Cambodia-m.gif" alt="logo" className="inline h-6 w-6 mx-2" />
+                      <img src="/Cambodia-m.gif" alt="logo" className="inline w-6 h-6 mx-2" />
                     </span>
                     <span className='ml-2 text-sm'>សូមស្វាគមន៍មកកាន់គេហទំព័រគ្រប់គ្រងទិន្នន័យរបស់​ ក.ស.ភ. យើងរីករាយវត្តមានរបស់អ្នកនៅទីនេះ</span>
-                    <span className=' text-sm ml-12'> <img src="/anchor.gif" alt="" className='inline h-8 w-8 mx-2'/>" Welcome to the Data Management website of PPAP. We are delighted to have your presence here."</span>
+                    {/* <span className='ml-12 text-sm '> <img src="/anchor.gif" alt="" className='inline w-8 h-8 mx-2'/>" Welcome to the Data Management website of PPAP. We are delighted to have your presence here."</span> */}
                   </marquee>
               </div>
 
@@ -120,7 +137,7 @@ const HeaderPage = ({ toggleSidebar }) => {
               ref={dropdownRef}
             >
               <span className='sr-only'>Open user menu</span>
-              <img src="\blank-profile-picture.png" className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-12 lg:h-8" alt="User Photo" />
+              <img src="\blank-profile-picture.png" className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
               </button>
             {isDropdownOpen && (
               <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>

@@ -13,6 +13,7 @@ module.exports = {
         'pulse-delay-200': 'pulse 1s infinite 0.2s',
         'pulse-delay-400': 'pulse 1s infinite 0.4s',
       },
+      
     },
       fontFamily: {
         khmer: ["Noto Serif Khmer","sans-serif"]

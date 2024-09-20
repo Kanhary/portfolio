@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import Select from 'react-select';
+import { motion, useScroll } from "framer-motion";
+
 
 const TabMenu = ({
   formData,
@@ -20,8 +22,9 @@ const TabMenu = ({
   const [errors, setErrors] = useState({});
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [fileName, setFileName] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [fileName, setFileName] = useState('');
+  const { scrollYProgress } = useScroll();
 
 
   // const [formData, setFormData] = useState({
@@ -181,12 +184,15 @@ const TabMenu = ({
   //   setIsAddModalOpen(false);
   // };
   const renderContent = () => {
+    
     switch (activeTab) {
+      
       case 'tab1':
         return <div className="-mb-8">
+
           <div className='overflow-auto '>
           <form>
-              <div className="grid grid-cols-1 gap-6 px-8 py-2 sm:grid-cols-2 mt-4">
+              <div className="grid grid-cols-1 gap-6 px-8 py-2 mt-4 sm:grid-cols-2">
               {[
                     { id: 'staffCode', label: 'អត្ថលេខ', type: 'text', required: true },
                     { id: 'fullName', label: 'គោត្តនាម/នាម', type: 'text', required: true },
@@ -231,7 +237,9 @@ const TabMenu = ({
                     </div>
                   ))}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="genderCode" className="flex gap-1 text-sm font-medium text-gray-70">{!formData.genderCode && <p className="text-sm text-red-600">*</p>}ភេទ</label>
+                  <label htmlFor="genderCode" className="flex gap-1 text-sm font-medium text-gray-70">
+                    {/* {!formData.genderCode && <p className="text-sm text-red-600">*</p>} */}
+                    ភេទ</label>
                   <select
                     id="genderCode"
                     value={formData.genderCode || ''}
@@ -249,7 +257,7 @@ const TabMenu = ({
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="familyStatus" className="flex gap-1 text-sm font-medium text-gray-700">
-                    {!formData.familyStatus && <p className="text-sm text-red-600">*</p>}
+                    {/* {!formData.familyStatus && <p className="text-sm text-red-600">*</p>} */}
                     ស្ថានភាពគ្រួសារ
                   </label>
                   <select
@@ -266,14 +274,16 @@ const TabMenu = ({
                   </select>
                 </div>
                <div className="flex flex-col gap-2">
-                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.region && <p className="text-sm text-red-600">*</p>}ប្រទេស</label>
+                  <label htmlFor="region" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.region && <p className="text-sm text-red-600">*</p>} */}
+                    ប្រទេស</label>
                   <select
                     id="region"
                     value={formData.region || ''}
                     onChange={handleChange}
                     required
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-3 text-sm  text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="" disabled hidden>Select the region</option>
                     <option value="កម្ពុជា">កម្ពុជា</option>
@@ -284,7 +294,9 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="nationals" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationals && <p className="text-sm text-red-600">*</p>}ជនជាតិ</label>
+                  <label htmlFor="nationals" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.nationals && <p className="text-sm text-red-600">*</p>} */}
+                    ជនជាតិ</label>
                   <input
                     type="text"
                     id="nationals"
@@ -296,7 +308,9 @@ const TabMenu = ({
                 </div>  
                 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.nationality && <p className="text-sm text-red-600">*</p>}សញ្ជាតិ</label>
+                  <label htmlFor="nationality" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.nationality && <p className="text-sm text-red-600">*</p>} */}
+                    សញ្ជាតិ</label>
                   <input
                     type="text"
                     id="nationality"
@@ -308,7 +322,9 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="departmentCode" className="flex gap-1 text-sm font-medium text-gray-700">{!formData.departmentCode && <p className="text-sm text-red-600 ">*</p>}នាយកដ្ឋាន</label>
+                  <label htmlFor="departmentCode" className="flex gap-1 text-sm font-medium text-gray-700">
+                    {/* {!formData.departmentCode && <p className="text-sm text-red-600 ">*</p>} */}
+                    នាយកដ្ឋាន</label>
                   <select
                     id="departmentCode"
                     value={formData.departmentCode || ''}
@@ -328,14 +344,15 @@ const TabMenu = ({
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="officeCode" className="flex gap-1 text-sm font-medium text-gray-700">
-                    {!formData.officeCode && <p className="text-sm text-red-600">*</p>}ការិយាល័យ
+                    {/* {!formData.officeCode && <p className="text-sm text-red-600">*</p>} */}
+                    ការិយាល័យ
                   </label>
                   <select
                     id="officeCode"
                     value={formData.officeCode || ''}
                     onChange={handleChange}
                     disabled={disabled ? true : undefined}
-                    className="block w-full p-3 text-gray-500 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
+                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
                   >
                     <option value="" disabled hidden>
                       Select the office
@@ -353,7 +370,9 @@ const TabMenu = ({
                   // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.companyCode && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                      {/* {!formData.companyCode && <p className="text-sm text-red-600">*</p>} */}
+                      {label}</label>
                     
                     <input
                       type={type}
@@ -371,7 +390,10 @@ const TabMenu = ({
                   // { id: 'position', label: 'តួនាទី', type: 'text' }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="flex flex-col gap-2">
-                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">{!formData.companyBranchCode && <p className="text-sm text-red-600">*</p>}{label}</label>
+                    <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+                      {/* {!formData.companyBranchCode && <p className="text-sm text-red-600">*</p>} */}
+                    
+                    {label}</label>
                     
                     <input
                       type={type}
@@ -391,7 +413,7 @@ const TabMenu = ({
     <div key={id} className="flex flex-col gap-2">
       {/* Label with red asterisk if positionCode is not selected */}
       <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
-        {!formData.positionCode && <p className="text-sm text-red-600">*</p>}
+        {/* {!formData.positionCode && <p className="text-sm text-red-600">*</p>} */}
         {label}
       </label>
 
@@ -419,7 +441,7 @@ const TabMenu = ({
           value={formData[id] || ''}
           onChange={handleChange}
           disabled={disabled ? true : undefined}
-          className="block w-full p-2 border border-gray-300 rounded-xl shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500"
+          className="block w-full p-2 border border-gray-300 shadow-sm outline-none rounded-xl focus:ring-primary-500 focus:border-primary-500"
         />
       )}
     </div>
@@ -437,17 +459,12 @@ const TabMenu = ({
     id="fileUpload"
     onChange={handleChange}
     disabled={disabled ? true : undefined}
-    className="block w-full border border-gray-300 shadow-sm rounded-lg text-sm 
-          focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 
-          disabled:opacity-50 disabled:pointer-events-none 
-          dark:bg-white  dark:text-neutral-400
-          file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4
-          dark:file:bg-blue-600 dark:file:text-white"
+    className="block w-full text-sm border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 disabled:opacity-50 disabled:pointer-events-none text-neutral-400 file:border-0 file:me-4 file:py-3 file:px-4 file:bg-blue-600 file:text-white"
   />
   {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
 
-  
-</div>
+                
+              </div>
             </div>
               
 
@@ -534,7 +551,7 @@ const TabMenu = ({
 
 
 {/* Location and Course Type Radio Buttons Row */}
-<div className="md:col-span-2 flex flex-col md:flex-row gap-8">
+<div className="flex flex-col gap-8 md:col-span-2 md:flex-row">
   {/* Location Radio Buttons */}
   <div className="w-full md:w-1/2">
     <label className="block text-sm font-medium text-gray-800">ទីតាំង</label>

@@ -37,7 +37,16 @@ input[type="checkbox"] {
   accent-color: #3b82f6; /* Tailwind's blue-600 */
 }
 
-
+@keyframes modalScroll {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* TailwindCSS or custom styles */
 
 .pagination-container {
@@ -110,7 +119,7 @@ input[type="checkbox"] {
 
 .animate-marquee {
   display: inline-block;
-  animation: marquee 15s linear infinite;
+  animation: marquee 20s linear infinite;
 }
 
 

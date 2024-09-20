@@ -55,32 +55,6 @@ const Dashboard = () => {
     ],
   };
 
-  const employeeData = {
-    labels: ['Active', 'On Leave', 'New Hires'],
-    datasets: [
-      {
-        label: 'Employees',
-        data: [70, 5, 10],
-        backgroundColor: [
-          'rgba(16, 185, 129, 0.7)',
-          'rgba(251, 146, 60, 0.7)',
-          'rgba(139, 92, 246, 0.7)',
-        ],
-        borderColor: [
-          'rgba(16, 185, 129, 1)',
-          'rgba(251, 146, 60, 1)',
-          'rgba(139, 92, 246, 1)',
-        ],
-        borderWidth: 2,
-        hoverBackgroundColor: [
-          'rgba(16, 185, 129, 0.9)',
-          'rgba(251, 146, 60, 0.9)',
-          'rgba(139, 92, 246, 0.9)',
-        ],
-      },
-    ],
-  };
-
   const computerTrendData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
     datasets: [
@@ -90,20 +64,6 @@ const Dashboard = () => {
         fill: false,
         backgroundColor: 'rgba(99, 102, 241, 1)',
         borderColor: 'rgba(99, 102, 241, 1)',
-        tension: 0.4,
-      },
-    ],
-  };
-
-  const employeeTrendData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        label: 'Active Employees',
-        data: [65, 66, 68, 70, 72, 75],
-        fill: false,
-        backgroundColor: 'rgba(16, 185, 129, 1)',
-        borderColor: 'rgba(16, 185, 129, 1)',
         tension: 0.4,
       },
     ],
@@ -201,7 +161,7 @@ const Dashboard = () => {
         {/* Total Computers Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-indigo-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, rotateX: 8, rotateY: 8, perspective: 800 }}
         >
           <div className="flex flex-col">
             <p className="text-sm text-white">Total Computers</p>
@@ -216,7 +176,7 @@ const Dashboard = () => {
         {/* Active Computers Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-green-500 to-teal-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, rotateX: 8, rotateY: -8, perspective: 800 }}
         >
           <div className="flex flex-col">
             <p className="text-sm text-white">Active Computers</p>
@@ -231,7 +191,7 @@ const Dashboard = () => {
         {/* Total Employees Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, rotateX: -8, rotateY: 8, perspective: 800 }}
         >
           <div className="flex flex-col">
             <p className="text-sm text-white">Total Employees</p>
@@ -246,7 +206,7 @@ const Dashboard = () => {
         {/* Active Employees Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-teal-500 to-blue-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, rotateX: -8, rotateY: -8, perspective: 800 }}
         >
           <div className="flex flex-col">
             <p className="text-sm text-white">Active Employees</p>
@@ -269,28 +229,9 @@ const Dashboard = () => {
         {/* Employee Trends Chart */}
         <div className="p-6 bg-white rounded-lg shadow-lg">
           <h3 className="mb-4 text-lg font-semibold text-gray-800">Employee Trends</h3>
-          <Line data={employeeTrendData} options={chartOptions} />
+          <Line data={computerTrendData} options={chartOptions} />
         </div>
       </div>
-
-      <div className="p-6 bg-gradient-to-r from-white to-gray-50 rounded-lg shadow-lg">
-  <h3 className="mb-4 text-lg font-semibold text-gray-800">Recent Activities</h3>
-  {recentActivities.map((activity) => (
-    <div
-      key={activity.id}
-      className="flex items-center px-6 py-4 transition-transform border-b border-gray-200 last:border-none hover:bg-indigo-50 transform hover:scale-105 rounded-md"
-    >
-      <div className="p-3 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full shadow-sm">
-        {activity.icon}
-      </div>
-      <div className="ml-4">
-        <p className="text-sm font-medium text-gray-700">{activity.activity}</p>
-        <p className="text-xs text-gray-500">{activity.time}</p>
-      </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 };

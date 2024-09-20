@@ -10,22 +10,23 @@ const Help = () => {
     const email = e.target.elements.email.value;
     const message = e.target.elements.message.value;
 
+    // Debugging
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Message:", message);
+
     // Create the email body
-    const emailBody = `
-      Name: ${name}
-      Email: ${email}
-      Message: ${message}
-    `;
+    const emailBody = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
 
     // Create a mailto link with the email address and body
     const mailtoLink = `mailto:sempheakdey417@gmail.com?subject=Contact Form Submission&body=${encodeURIComponent(emailBody)}`;
 
-    // Open the mail client with the pre-filled email
+    // Open the mail client
     window.location.href = mailtoLink;
 
     // Clear the form inputs
     e.target.reset();
-  };
+};
 
   return (
     <div className="min-h-screen mt-10 font-khmer">
@@ -81,7 +82,7 @@ const Help = () => {
                           </svg>
                           <h5 className='ml-5 text-base font-normal leading-6 text-black'>0123456789</h5>
                         </a>
-                        <a href="mailto:ukkanhary04@gmail.com" className='flex items-center mb-6'>
+                        <a href="mailto:pheakdey.ict@ppap.com.kh" className='flex items-center mb-6'>
                           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.81501 8.75L10.1985 13.6191C12.8358 15.2015 14.1544 15.9927 15.6032 15.9582C17.0519 15.9237 18.3315 15.0707 20.8905 13.3647L27.185 8.75M12.5 25H17.5C22.214 25 24.5711 25 26.0355 23.5355C27.5 22.0711 27.5 19.714 27.5 15C27.5 10.286 27.5 7.92893 26.0355 6.46447C24.5711 5 22.214 5 17.5 5H12.5C7.78595 5 5.42893 5 3.96447 6.46447C2.5 7.92893 2.5 10.286 2.5 15C2.5 19.714 2.5 22.0711 3.96447 23.5355C5.42893 25 7.78595 25 12.5 25Z" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round"/>
                           </svg>
