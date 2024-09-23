@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+
 
 const GroupMaster = () => {
   const INITAIL_FORM_DATA = {code: '', groupCode: '',groupName: ''};
@@ -105,10 +109,10 @@ const GroupMaster = () => {
   }
     
   return (
-    <section className='mt-10 font-khmer'>
+    <section className='mt-16 font-khmer'>
     <h1 className='text-xl font-medium text-blue-800'>Group Master</h1>
       <div className='mt-3 border'></div>
-      <div className='w-full mt-4'>
+      <div className='w-full mt-4' data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
             <div className='w-full md:w-1/2'>
@@ -146,7 +150,7 @@ const GroupMaster = () => {
             </div>
           </div>
           
-          <div className='w-full overflow-x-auto'>
+          <div className='w-full overflow-x-auto' data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500 '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
@@ -241,7 +245,7 @@ const GroupMaster = () => {
       
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
+          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
             <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
               <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
               <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">

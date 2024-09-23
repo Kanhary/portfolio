@@ -68,18 +68,18 @@ const TabMenu = ({
     setSubmittedData(formData);
   };
   const options = [
-    { value: 'manager', label: 'Manager' },
-    { value: 'developer', label: 'Developer' },
-    { value: 'designer', label: 'Designer' },
-    { value: 'manager', label: 'Manager' },
-    { value: 'manager', label: 'Manager' },
-    { value: 'developer', label: 'Developer' },
-    { value: 'designer', label: 'Designer' },
-    { value: 'manager', label: 'Manager' },
-    { value: 'manager', label: 'Manager' },
-    { value: 'developer', label: 'Developer' },
-    { value: 'designer', label: 'Designer' },
-    { value: 'manager', label: 'Manager' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'manager', label: 'Manager' },
+    // { value: 'developer', label: 'Developer' },
+    // { value: 'designer', label: 'Designer' },
+    // { value: 'manager', label: 'Manager' },
   
   ];
 
@@ -192,7 +192,8 @@ const TabMenu = ({
 
           <div className='overflow-auto '>
           <form>
-              <div className="grid grid-cols-1 gap-6 px-8 py-2 mt-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 px-8 py-2 mt-4 sm:grid-cols-2"
+              data-aos='zoom-in'>
               {[
                     { id: 'staffCode', label: 'អត្ថលេខ', type: 'text', required: true },
                     { id: 'fullName', label: 'គោត្តនាម/នាម', type: 'text', required: true },
@@ -270,7 +271,7 @@ const TabMenu = ({
                   >
                     <option value="" disabled hidden>Select the status</option>
                     <option value="false">លីវ</option> {/* Single */}
-                    <option value="true">មានគូរស្វាមី</option> {/* Married */}
+                    <option value="true">មានគូរ</option> {/* Married */}
                   </select>
                 </div>
                <div className="flex flex-col gap-2">
@@ -450,20 +451,18 @@ const TabMenu = ({
 
 
 
-<div className="flex flex-col gap-2">
-  <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
-    ជ្រើសរើសរូបភាព
-  </label>
-  <input
-    type="file"
-    id="fileUpload"
-    onChange={handleChange}
-    disabled={disabled ? true : undefined}
-    className="block w-full text-sm border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 disabled:opacity-50 disabled:pointer-events-none text-neutral-400 file:border-0 file:me-4 file:py-3 file:px-4 file:bg-blue-600 file:text-white"
-  />
-  {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
-
-                
+              <div className="flex flex-col gap-2">
+                  <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
+                    ជ្រើសរើសរូបភាព
+                  </label>
+                  <input
+                    type="file"
+                    id="fileUpload"
+                    onChange={handleChange}
+                    disabled={disabled ? true : undefined}
+                    className="block w-full text-sm border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:ring-1 disabled:opacity-50 disabled:pointer-events-none text-neutral-400 file:border-0 file:me-4 file:py-3 file:px-4 file:bg-blue-600 file:text-white"
+                  />
+                  {errors.fileUpload && <p className="mt-1 text-xs text-red-500">{errors.fileUpload}</p>}
               </div>
             </div>
               
@@ -492,7 +491,7 @@ const TabMenu = ({
       case 'tab2':
         return (
           <div className="">
-            <form onSubmit={handleFormSubmit} className="p-6 space-y-6">
+            <form onSubmit={handleFormSubmit} className="p-6 space-y-6" data-aos='zoom-in'>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* From Date Input */}
                 <div>
@@ -550,65 +549,62 @@ const TabMenu = ({
                   </div>
 
 
-{/* Location and Course Type Radio Buttons Row */}
-<div className="flex flex-col gap-8 md:col-span-2 md:flex-row">
-  {/* Location Radio Buttons */}
-  <div className="w-full md:w-1/2">
-    <label className="block text-sm font-medium text-gray-800">ទីតាំង</label>
-    <div className="flex items-center mt-2 space-x-6">
-      <label className="flex items-center">
-        <input
-          type="radio"
-          name="location"
-          checked={newCourse.inCountry}
-          onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: true }))}
-          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-        />
-        <span className="ml-2 text-sm font-normal text-gray-800">ក្នុងប្រទេស</span>
-      </label>
-      <label className="flex items-center">
-        <input
-          type="radio"
-          name="location"
-          checked={!newCourse.outCountry}
-          onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: false }))}
-          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-        />
-        <span className="ml-2 text-sm text-gray-800">ក្រៅប្រទេស</span>
-      </label>
-    </div>
-  </div>
+                {/* Location and Course Type Radio Buttons Row */}
+                <div className="flex flex-col gap-8 md:col-span-2 md:flex-row">
+                  {/* Location Radio Buttons */}
+                  <div className="w-full md:w-1/2">
+                    <label className="block text-sm font-medium text-gray-800">ទីតាំង</label>
+                    <div className="flex items-center mt-2 space-x-6">
+                      <label className="flex items-center">
+                        <input
+                          type="radio"
+                          name="location"
+                          checked={newCourse.inCountry}
+                          onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: true }))}
+                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-sm font-normal text-gray-800">ក្នុងប្រទេស</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input
+                          type="radio"
+                          name="location"
+                          checked={!newCourse.outCountry}
+                          onChange={() => setNewCourse((prev) => ({ ...prev, inCountry: false }))}
+                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-sm text-gray-800">ក្រៅប្រទេស</span>
+                      </label>
+                    </div>
+                  </div>
 
-      {/* Course Type Radio Buttons */}
-      <div className="w-full md:w-1/2">
-        <label className="block text-sm font-medium text-gray-800">ប្រភេទវគ្គសិក្សា</label>
-        <div className="flex items-center mt-2 space-x-6">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="courseType"
-              checked={newCourse.longCourse}
-              onChange={() => setNewCourse((prev) => ({ ...prev, longCourse: true }))}
-              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-            />
-            <span className="ml-2 text-sm font-normal text-gray-800">វគ្គសិក្សារយៈពេលវែង</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="courseType"
-              checked={!newCourse.longCourse}
-              onChange={() => setNewCourse((prev) => ({ ...prev, longCourse: false }))}
-              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-            />
-            <span className="ml-2 text-sm text-gray-800">វគ្គសិក្សារយៈពេលខ្លី</span>
-          </label>
-        </div>
-      </div>
-</div>
-
-
-
+                      {/* Course Type Radio Buttons */}
+                      <div className="w-full md:w-1/2">
+                        <label className="block text-sm font-medium text-gray-800">ប្រភេទវគ្គសិក្សា</label>
+                        <div className="flex items-center mt-2 space-x-6">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="courseType"
+                              checked={newCourse.longCourse}
+                              onChange={() => setNewCourse((prev) => ({ ...prev, longCourse: true }))}
+                              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                            />
+                            <span className="ml-2 text-sm font-normal text-gray-800">វគ្គសិក្សារយៈពេលវែង</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="courseType"
+                              checked={!newCourse.longCourse}
+                              onChange={() => setNewCourse((prev) => ({ ...prev, longCourse: false }))}
+                              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                            />
+                            <span className="ml-2 text-sm text-gray-800">វគ្គសិក្សារយៈពេលខ្លី</span>
+                          </label>
+                        </div>
+                      </div>
+                </div>
 
                 {/* Last Modified By Input */}
                 {/* <div className="md:col-span-2">
@@ -651,16 +647,17 @@ const TabMenu = ({
   };
 
   return (
-        <div className="relative">
+        <div className="relative"
+        data-aos='zoom-in-up duration-1000'>
               {/* Dropdown Menu for Small Screens */}
-              <div className="md:hidden sticky top-[75px]">
+              <div className="md:hidden sticky top-[75px] z-50">
                 <button
                   onClick={handleDropdownToggle}
                   className="flex items-center justify-between px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 ml-3 border border-gray-300 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
                   <span>
                     {activeTab === 'tab1' && 'បញ្ចូលព័ត៌មានបុគ្គលិក'}
-                    {activeTab === 'tab2' && 'បញ្ចូលវគ្គសិក្សារយៈពេលវែង'}
+                    {activeTab === 'tab2' && 'បញ្ចូលវគ្គសិក្សា'}
                     {activeTab === 'tab3' && 'បញ្ចូលវគ្គសិក្សារយៈពេលខ្លី'}
                   </span>
                   <svg className="w-4 h-4 ml-2 text-blue-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -672,7 +669,7 @@ const TabMenu = ({
                     isDropdownOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <div className="flex justify-center w-48 mt-1 ml-3 bg-white border border-gray-300 rounded-lg">
+                  <div className="flex justify-center w-48 mt-1 ml-3 bg-white border border-gray-300 rounded-lg ">
                     <div className="px-2 py-2 font-normal">
                       <button
                         className={`block px-3 py-1 text-sm font-medium  text-left ${activeTab === 'tab1' ? 'bg-blue-100 text-blue-600 rounded-lg' : 'text-gray-700 hover:bg-blue-100 rounded-lg'}`}
@@ -697,10 +694,8 @@ const TabMenu = ({
                 </div>
               </div>
 
-              
-
               {/* Tabs for Larger Screens */}
-              <div className="hidden md:flex top-[180px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full scroll-smooth">
+              <div className="hidden md:flex top-[70px] z-50 transition-all ease-in-out overflow-x-auto mt-3 w-full scroll-smooth bg-white sticky py-4">
                 <button
                   className={`px-4 py-2 font-medium text-sm sm:text-sm md:text-sm flex-grow sm:flex-grow-0 sm:px-6 ${activeTab === 'tab1' ? 'text-blue-800' : 'text-black'}`}
                   onClick={() => handleTabChange('tab1')}

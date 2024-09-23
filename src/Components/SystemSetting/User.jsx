@@ -478,7 +478,7 @@ const options = employees.map(employee => ({
     <section className='mt-16 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>
       <div className='mt-3 border'></div>
-      <div className='w-full mt-4'>
+      <div className='w-full mt-4' data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
             <div className='w-full md:w-1/2'>
@@ -516,7 +516,7 @@ const options = employees.map(employee => ({
             </div>
           </div>
           
-          <div className='w-full overflow-x-auto'>
+          <div className='w-full overflow-x-auto' data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
@@ -632,8 +632,8 @@ const options = employees.map(employee => ({
         </div>
       </div>
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-          <div className="relative flex flex-col w-full mx-auto overflow-auto transition-all transform bg-white shadow-2xl lg:w-2/3 rounded-xl h-5/6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm ">
+          <div className="relative flex flex-col w-full mx-auto overflow-auto transition-all transform bg-white shadow-2xl lg:w-2/3 rounded-xl h-5/6" data-aos='zoom-in'>
             <header className="sticky top-0 flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
           
             <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
@@ -644,7 +644,7 @@ const options = employees.map(employee => ({
                 &times;
               </button>
             </header>
-            <form className="flex flex-col flex-grow px-6 py-6 space-y-6 md:flex-row md:space-x-6">
+            <form className="flex flex-col flex-grow px-6 py-6 space-y-6 md:flex-row md:space-x-6" data-aos='zoom-in'>
               {/* Left Side: Form Inputs */}
               <div className="w-full space-y-6 md:w-3/4">
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
