@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import TabMenu from './TabMenu';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 // import LongCourse from './LongCourse';
 import { DelStaff, GetAllStaff } from '../../../api/user';
 import { AddStaff , UpdateStaff} from '../../../api/user';
@@ -506,13 +508,13 @@ const EmployeeInformation = () => {
     return pages;
   };
 
-  
 
   return (
     <section className='mt-14 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>តារាងបង្ហាញព័ត៌មានបុគ្គលិក</h1>
       <div className='mt-3 border' ></div>
-      <div className='w-full mt-4'>
+      <div className='w-full mt-4'
+      data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
             <div className='w-full md:w-1/2'>
@@ -546,140 +548,144 @@ const EmployeeInformation = () => {
             </div>
           </div>
           
-          <div className='w-full overflow-x-auto'>
-            <table className='w-full text-sm text-left text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
-                <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-50">Action</th>
-                  <th scope="col" className="px-4 py-3">NO</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '120px' }}>Code</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '180px' }}>Latan name</th>
-                  <th scope="col" className="px-4 py-3">Gender</th>
-                  <th scope="col" className="px-4 py-3">Height</th>
-                  <th scope="col" className="px-4 py-3">Weight</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '250px' }}>Birthdate</th>
-                  <th scope="col" className="px-4 py-3">Nation</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Nationality</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Region</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Birthdate Address</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Address</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px'}}>Phone Number</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '220px' }}>Email</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Special Number</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '140px' }}>Marital Status</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Company</th>
-                  <th scope="col" className="px-4 py-3">Branch</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Department</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Office</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Position</th>
-                  <th scope="col" className="px-4 py-30"style={{ minWidth: '200px' }}>Last Modified By</th>
-                  <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Last Modified Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentEmployees.map(employee => (
-                    <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200'>
-                      <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
-                      <input type="checkbox" className="mr-3 action-checkbox" />
-                      <FaPen
-                        className="text-blue-500 cursor-pointer hover:text-blue-700"
-                        onClick={() => openEditModal(
-                          employee.id,  // Pass the ID here
-                          employee.staffCode,
-                          employee.fullName,
-                          employee.latanName,
-                          employee.genderCode,
-                          employee.height,
-                          employee.weight,
-                          employee.birthDate,
-                          employee.nationals,
-                          employee.nationality,
-                          employee.region,
-                          employee.birthdateAddress,
-                          employee.address,
-                          employee.phoneNumber1,
-                          employee.email,
-                          employee.specailPhoneNumber,
-                          employee.familyStatus,
-                          employee.companyCode,
-                          employee.companyBranchCode,
-                          employee.departmentCode,
-                          employee.officeCode,
-                          employee.positionCode,
-                          employee.lastBy,
-                          employee.lastDate
-                        )}
-                      />
-
-                      <FaEye
-                        className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
-                        onClick={() => openViewModal(
-                          employee.staffCode,
-                          employee.fullName,
-                          employee.latanName,
-                          employee.genderCode,
-                          employee.height,
-                          employee.weight,
-                          employee.birthDate,
-                          employee.nationals,
-                          employee.nationality,
-                          employee.region,
-                          employee.birthdateAddress,
-                          employee.address,
-                          employee.phoneNumber1,
-                          // employee.phoneNumber2,
-                          // employee.phoneNumber3,
-                          employee.email,
-                          employee.specailPhoneNumber,
-                          employee.familyStatus,
-                          employee.companyCode,
-                          employee.companyBranchCode,
-                          employee.departmentCode,
-                          employee.officeCode,
-                          employee.positionCode,
-                          employee.lastBy,
-                          employee.lastDate
-                        )}
-                      />
-                      <FaTrashAlt
-                        className="ml-3 text-red-500 cursor-pointer hover:text-red-700"
-                        onClick={() => handleDelete(employee.id)}
-
-                      />
-                    </td>
-                    <td className='px-4 py-3'>{employee.id}</td>
-                    <td className='px-4 py-3'>{employee.staffCode}</td>
-                    <td className='px-4 py-3'>{employee.fullName}</td>
-                    <td className='px-4 py-3'>{employee.latanName}</td>
-                    <td className='px-4 py-3'>{employee.genderCode}</td>
-                    <td className='px-4 py-3'>{employee.height}</td>
-                    <td className='px-4 py-3'>{employee.weight}</td>
-                    <td className='px-4 py-3'>{employee.birthDate}</td>
-                    <td className='px-4 py-3'>{employee.nationals}</td>
-                    <td className='px-4 py-3'>{employee.nationality}</td>
-                    <td className='px-4 py-3'>{employee.region}</td>
-                    <td className='px-4 py-3'>{employee.birthdateAddress}</td>
-                    <td className='px-4 py-3'>{employee.address}</td>
-                    <td className='px-4 py-3'>{employee.phoneNumber1}</td>
-                    {/* <td className='px-4 py-3'>{employee.phoneNumber2}</td>
-                    <td className='px-4 py-3'>{employee.phoneNumber3}</td> */}
-                    <td className='px-4 py-3'>{employee.email}</td>
-                    <td className='px-4 py-3'>{employee.specailPhoneNumber}</td>
-                    <td className='px-4 py-3'>{employee.familyStatus ? 'Married' : 'Single'}</td>
-                    <td className='px-4 py-3'>{employee.companyCode}</td>
-                    <td className='px-4 py-3'>{employee.companyBranchCode}</td>
-                    <td className='px-4 py-3'>{employee.departmentCode}</td>
-                    <td className='px-4 py-3'>{employee.officeCode}</td>
-                    <td className='px-4 py-3'>{employee.positionCode}</td>
-                    <td className='px-4 py-3'>{employee.lastBy}</td>
-                    <td className='px-4 py-3'>{employee.lastDate}</td>
+            <div className='w-full overflow-x-auto'
+            data-aos='fade-right'>
+              <table className='w-full text-sm text-left text-gray-500'>
+                <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+                  <tr>
+                    <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-50">Action</th>
+                    <th scope="col" className="px-4 py-3">NO</th>
+                    <th scope="col" className="px-4 py-3" style={{ minWidth: '120px' }}>Code</th>
+                    <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
+                    <th scope="col" className="px-4 py-3" style={{ minWidth: '180px' }}>Latan name</th>
+                    <th scope="col" className="px-4 py-3">Gender</th>
+                    <th scope="col" className="px-4 py-3">Height</th>
+                    <th scope="col" className="px-4 py-3">Weight</th>
+                    <th scope="col" className="px-4 py-3" style={{ minWidth: '250px' }}>Birthdate</th>
+                    <th scope="col" className="px-4 py-3">Nation</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Nationality</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Region</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Birthdate Address</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Address</th>
+                    <th scope="col" className="px-4 py-3" style={{ minWidth: '150px'}}>Phone Number</th>
+                    <th scope="col" className="px-4 py-3" style={{ minWidth: '220px' }}>Email</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Special Number</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '140px' }}>Marital Status</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Company</th>
+                    <th scope="col" className="px-4 py-3">Branch</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Department</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Office</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Position</th>
+                    <th scope="col" className="px-4 py-30"style={{ minWidth: '200px' }}>Last Modified By</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Last Modified Date</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Photo</th>
                   </tr>
-                ))}
-              </tbody>
+                </thead>
+                <tbody>
+                  {currentEmployees.map(employee => (
+                      <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200'>
+                        <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
+                        <input type="checkbox" className="mr-3 action-checkbox" />
+                        <FaPen
+                          className="text-blue-500 cursor-pointer hover:text-blue-700"
+                          onClick={() => openEditModal(
+                            employee.id,  // Pass the ID here
+                            employee.staffCode,
+                            employee.fullName,
+                            employee.latanName,
+                            employee.genderCode,
+                            employee.height,
+                            employee.weight,
+                            employee.birthDate,
+                            employee.nationals,
+                            employee.nationality,
+                            employee.region,
+                            employee.birthdateAddress,
+                            employee.address,
+                            employee.phoneNumber1,
+                            employee.email,
+                            employee.specailPhoneNumber,
+                            employee.familyStatus,
+                            employee.companyCode,
+                            employee.companyBranchCode,
+                            employee.departmentCode,
+                            employee.officeCode,
+                            employee.positionCode,
+                            employee.lastBy,
+                            employee.lastDate,
+                            employee.photo
+                          )}
+                        />
 
-            </table>
-          </div>
+                        <FaEye
+                          className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
+                          onClick={() => openViewModal(
+                            employee.staffCode,
+                            employee.fullName,
+                            employee.latanName,
+                            employee.genderCode,
+                            employee.height,
+                            employee.weight,
+                            employee.birthDate,
+                            employee.nationals,
+                            employee.nationality,
+                            employee.region,
+                            employee.birthdateAddress,
+                            employee.address,
+                            employee.phoneNumber1,
+                            // employee.phoneNumber2,
+                            // employee.phoneNumber3,
+                            employee.email,
+                            employee.specailPhoneNumber,
+                            employee.familyStatus,
+                            employee.companyCode,
+                            employee.companyBranchCode,
+                            employee.departmentCode,
+                            employee.officeCode,
+                            employee.positionCode,
+                            employee.lastBy,
+                            employee.lastDate,
+                            employee.photo
+                          )}
+                        />
+                        <FaTrashAlt
+                          className="ml-3 text-red-500 cursor-pointer hover:text-red-700"
+                          onClick={() => handleDelete(employee.id)}
+
+                        />
+                      </td>
+                      <td className='px-4 py-3'>{employee.id}</td>
+                      <td className='px-4 py-3'>{employee.staffCode}</td>
+                      <td className='px-4 py-3'>{employee.fullName}</td>
+                      <td className='px-4 py-3'>{employee.latanName}</td>
+                      <td className='px-4 py-3'>{employee.genderCode}</td>
+                      <td className='px-4 py-3'>{employee.height}</td>
+                      <td className='px-4 py-3'>{employee.weight}</td>
+                      <td className='px-4 py-3'>{employee.birthDate}</td>
+                      <td className='px-4 py-3'>{employee.nationals}</td>
+                      <td className='px-4 py-3'>{employee.nationality}</td>
+                      <td className='px-4 py-3'>{employee.region}</td>
+                      <td className='px-4 py-3'>{employee.birthdateAddress}</td>
+                      <td className='px-4 py-3'>{employee.address}</td>
+                      <td className='px-4 py-3'>{employee.phoneNumber1}</td>
+                      {/* <td className='px-4 py-3'>{employee.phoneNumber2}</td>
+                      <td className='px-4 py-3'>{employee.phoneNumber3}</td> */}
+                      <td className='px-4 py-3'>{employee.email}</td>
+                      <td className='px-4 py-3'>{employee.specailPhoneNumber}</td>
+                      <td className='px-4 py-3'>{employee.familyStatus ? 'Married' : 'Single'}</td>
+                      <td className='px-4 py-3'>{employee.companyCode}</td>
+                      <td className='px-4 py-3'>{employee.companyBranchCode}</td>
+                      <td className='px-4 py-3'>{employee.departmentCode}</td>
+                      <td className='px-4 py-3'>{employee.officeCode}</td>
+                      <td className='px-4 py-3'>{employee.positionCode}</td>
+                      <td className='px-4 py-3'>{employee.lastBy}</td>
+                      <td className='px-4 py-3'>{employee.photo}</td>
+                    </tr>
+                  ))}
+                </tbody>
+
+              </table>
+            </div>
 
           {/* Pagination */}
           <div className="flex flex-col items-center justify-between p-4 md:flex-row">
@@ -740,9 +746,8 @@ const EmployeeInformation = () => {
 
 
       {isAddModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-
-    <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[550px] modal-scrollbar mt-14 sm:ml-52 md:ml-0">
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm " >
+    <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[550px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
       <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
         <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
           បញ្ចូលព័ត៌មានបុគ្គលិក
@@ -759,7 +764,7 @@ const EmployeeInformation = () => {
  
       </div>
      
-      <div className="px-4 ">
+      <div className="px-4">
       
         <TabMenu
           formData={formData}

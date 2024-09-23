@@ -112,7 +112,8 @@ const EmployeePositionList = () => {
     <section className='mt-10 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>តារាងបញ្ជីមុខតំណែង</h1>
       <div className='mt-3 border'></div>
-      <div className='w-full mt-4'>
+      <div className='w-full mt-4' 
+      data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
             <div className='w-full md:w-1/2'>
@@ -150,7 +151,8 @@ const EmployeePositionList = () => {
             </div>
           </div>
           {/* table */}
-          <div className='w-full overflow-x-auto'>
+          <div className='w-full overflow-x-auto' 
+          data-aos='fade-right'>
             <table className='w-full text-[15px] left text-gray-500 text- '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
@@ -242,7 +244,7 @@ const EmployeePositionList = () => {
     
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl">
+          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
             <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
               <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
                 <img src="/LOGO PPAP.png" alt="" className="w-10 h-10 p-1 bg-white rounded-full"/>

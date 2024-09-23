@@ -96,7 +96,8 @@ const Computer = () => {
     <section className='mt-10 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>តារាងបង្ហាញព័ត៌មានកំុព្យូទ័រ</h1>
       <div className='mt-3 border'></div>
-      <div className='w-full mt-4'>
+      <div className='w-full mt-4'
+      data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
             <div className='w-full md:w-1/2'>
@@ -138,7 +139,8 @@ const Computer = () => {
             </div>
           </div>
           {/* Table */}
-          <div className='w-full overflow-x-auto'>
+          <div className='w-full overflow-x-auto' 
+          data-aos='fade-right'>
             <table className='w-full text-[15px] text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>

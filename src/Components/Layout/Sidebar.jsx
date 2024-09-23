@@ -43,12 +43,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-40 ${
-        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      // data-aos='fade-in'
+      className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-lg transition-transform z-40 ${
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full' 
       } md:translate-x-0 md:w-64`}
     >
-      <nav className="flex flex-col h-full overflow-y-auto ">
-        <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer">
+      <nav className="flex flex-col h-full overflow-y-auto" data-aos='fade-right' data-aos-delay='200'>
+        <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer ">
           <NavItem 
             icon={<AiFillHome />} 
             text="តារាងបង្ហាញទិន្នន័យ" 
@@ -172,12 +173,12 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
       }`}
       onClick={onClick ? onClick : null}
     >
-      <Link to={to} className="flex items-center w-full">
+      <Link to={to} className="flex items-center w-full" >
         <span className="text-xl">{icon}</span>
         <span 
           className="ml-3 text-base font-normal" 
-          data-aos="fade-right" 
-          data-aos-delay="200"
+          // data-aos="fade-right" 
+          // data-aos-delay="200"
         >
           {text}
         </span>
@@ -190,7 +191,7 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
 const SubmenuItem = ({ text, to, onClick, isActive }) => {
   return (
     <li className={`flex items-center px-6 py-2 transition-colors duration-200 rounded-md cursor-pointer ${isActive ? 'text-sky-300' : ''}`}>
-      <Link to={to} className="w-full text-[13px]" onClick={onClick}>
+      <Link to={to} className="w-full text-[13px]"  onClick={onClick}>
         {text}
       </Link>
     </li>

@@ -153,7 +153,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
     ];
 
     return isOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
             <div className=" overflow-auto bg-white rounded-lg shadow-lg h-[550px] max-h-[90vh] w-full lg:w-3/4">
                 <div className="sticky top-0 flex items-center justify-between w-full p-2 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
                     <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
@@ -327,7 +327,6 @@ const PermissionsPage = () => {
     return (
         <div className="min-h-screen p-6 mt-10 space-y-6 bg-gray-50 font-khmer">
             <h1 className="mb-6 text-4xl font-bold text-gray-900">Permissions Management</h1>
-            
             <div className="w-full lg:flex lg:items-center lg:justify-between">
                 {/* Role Selection */}
                 <div className="w-full mb-6 lg:w-1/3">
