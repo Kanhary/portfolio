@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import Select from 'react-select';
 import { motion, useScroll } from "framer-motion";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 const TabMenu = ({
@@ -154,6 +156,12 @@ const TabMenu = ({
       boxShadow: state.isFocused ? null : null,
     }),
   };
+  const [birthDate, setBirthDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setBirthDate(date);
+    handleChange({ target: { id: 'birthDate', value: date } });
+  };
 
   // const handleSaveEmployee = () => {
   //   const validationErrors = {};
@@ -194,48 +202,59 @@ const TabMenu = ({
           <form>
               <div className="grid grid-cols-1 gap-6 px-8 py-2 mt-4 sm:grid-cols-2">
               {[
-                    { id: 'staffCode', label: 'អត្ថលេខ', type: 'text', required: true },
-                    { id: 'fullName', label: 'គោត្តនាម/នាម', type: 'text', required: true },
-                    { id: 'latanName', label: 'អក្សរឡាតាំង', type: 'text', required: true },
-                    { id: 'height', label: 'កម្ពស់', type: 'text' },
-                    { id: 'weight', label: 'ទម្ងន់', type: 'text' },
-                    { id: 'birthDate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
-                    { id: 'birthdateAddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
-                    { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
-                    { id: 'phoneNumber1', label: 'លេខទូរសព្ទ', type: 'text' },
-                    { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
-                    { id: 'specailPhoneNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
-                  ].map(({ id, label, type, options }) => (
-                    <div key={id} className="flex flex-col gap-2">
-                      <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
-                        {errors[id] && <p className="text-sm text-red-600">*</p>}
-                        {label}
-                      </label>
-                      {type === 'select' ? (
-                        <select
-                          id={id}
-                          value={formData[id] || ''}
-                          onChange={handleChange}
-                          className={`block w-full p-3 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
-                        >
-                          <option value="">Select {label}</option>
-                          {options.map(option => (
-                            <option key={option} value={option.toLowerCase()}>{option}</option>
-                          ))}
-                        </select>
-                      ) : (
-                        <input
-                          type={type}
-                          id={id}
-                          value={formData[id] || ''}
-                          onChange={handleChange}
-                          disabled={disabled ? true : undefined}
-                          className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
-                        />
-                      )}
-                      {errors[id] && <p className="mt-1 text-xs text-red-500">{errors[id]}</p>}
-                    </div>
-                  ))}
+        { id: 'staffCode', label: 'អត្ថលេខ', type: 'text', required: true },
+        { id: 'fullName', label: 'គោត្តនាម/នាម', type: 'text', required: true },
+        { id: 'latanName', label: 'អក្សរឡាតាំង', type: 'text', required: true },
+        { id: 'height', label: 'កម្ពស់', type: 'text' },
+        { id: 'weight', label: 'ទម្ងន់', type: 'text' },
+        { id: 'birthDate', label: 'ថ្ងៃខែឆ្នាំកំណើត', type: 'date' },
+        { id: 'birthdateAddress', label: 'ទីកន្លែងកំណើត', type: 'text' },
+        { id: 'address', label: 'អាស័យដ្ឋានបច្ចុប្បន្ន', type: 'text' },
+        { id: 'phoneNumber1', label: 'លេខទូរសព្ទ', type: 'text' },
+        { id: 'email', label: 'អ៊ីម៉ែល', type: 'email' },
+        { id: 'specailPhoneNumber', label: 'លេខទូរសព្ទក្រុមហ៊ុន', type: 'text' }
+      ].map(({ id, label, type, options }) => (
+        <div key={id} className="flex flex-col gap-2">
+          <label htmlFor={id} className="flex gap-1 text-sm font-medium text-gray-700">
+            {errors[id] && <p className="text-sm text-red-600">*</p>}
+            {label}
+          </label>
+          {type === 'date' ? (
+            <DatePicker
+              id={id}
+              selected={birthDate}
+              onChange={handleDateChange}
+              className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Select date"
+              disabled={disabled}
+            />
+          ) : type === 'select' ? (
+            <select
+              id={id}
+              value={formData[id] || ''}
+              onChange={handleChange}
+              className={`block w-full p-3 text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
+            >
+              <option value="">Select {label}</option>
+              {options.map(option => (
+                <option key={option} value={option.toLowerCase()}>{option}</option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type={type}
+              id={id}
+              value={formData[id] || ''}
+              onChange={handleChange}
+              disabled={disabled}
+              className={`block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 ${errors[id] ? 'border-red-500' : ''}`}
+            />
+          )}
+          {errors[id] && <p className="mt-1 text-xs text-red-500">{errors[id]}</p>}
+        </div>
+      ))}
+                  
                 <div className="flex flex-col gap-2">
                   <label htmlFor="genderCode" className="flex gap-1 text-sm font-medium text-gray-70">
                     {/* {!formData.genderCode && <p className="text-sm text-red-600">*</p>} */}

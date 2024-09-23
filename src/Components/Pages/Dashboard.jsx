@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Line } from 'react-chartjs-2';
+import { Bar, Pie, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   BarElement,
@@ -13,7 +13,11 @@ import {
   LineElement,
   TimeScale,
 } from 'chart.js';
-import { FiMonitor, FiUsers, FiActivity } from 'react-icons/fi';
+import {
+  FiMonitor,
+  FiUsers,
+  FiActivity,
+} from 'react-icons/fi';
 
 ChartJS.register(
   BarElement,
@@ -55,6 +59,32 @@ const Dashboard = () => {
     ],
   };
 
+  const employeeData = {
+    labels: ['Active', 'On Leave', 'New Hires'],
+    datasets: [
+      {
+        label: 'Employees',
+        data: [70, 5, 10],
+        backgroundColor: [
+          'rgba(16, 185, 129, 0.7)',
+          'rgba(251, 146, 60, 0.7)',
+          'rgba(139, 92, 246, 0.7)',
+        ],
+        borderColor: [
+          'rgba(16, 185, 129, 1)',
+          'rgba(251, 146, 60, 1)',
+          'rgba(139, 92, 246, 1)',
+        ],
+        borderWidth: 2,
+        hoverBackgroundColor: [
+          'rgba(16, 185, 129, 0.9)',
+          'rgba(251, 146, 60, 0.9)',
+          'rgba(139, 92, 246, 0.9)',
+        ],
+      },
+    ],
+  };
+
   const computerTrendData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
     datasets: [
@@ -64,6 +94,20 @@ const Dashboard = () => {
         fill: false,
         backgroundColor: 'rgba(99, 102, 241, 1)',
         borderColor: 'rgba(99, 102, 241, 1)',
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const employeeTrendData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        label: 'Active Employees',
+        data: [65, 66, 68, 70, 72, 75],
+        fill: false,
+        backgroundColor: 'rgba(16, 185, 129, 1)',
+        borderColor: 'rgba(16, 185, 129, 1)',
         tension: 0.4,
       },
     ],
@@ -154,83 +198,101 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen py-6 mt-5 font-sans bg-gray-100 font-khmer">
-      <h1 className="mb-4 text-2xl font-bold text-gray-800">Dashboard Overview</h1>
-      
-      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
+    <div className="flex flex-col min-h-screen p-6 mt-5 bg-gray-50">
+      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Total Computers Card */}
         <motion.div
-          className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-indigo-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02, rotateX: 8, rotateY: 8, perspective: 800 }}
+          className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
+          whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col">
-            <p className="text-sm text-white">Total Computers</p>
-            <p className="text-3xl font-semibold text-white">125</p>
-            <div className="text-sm text-white">+10 this month</div>
+            <p className="text-sm text-gray-500">Total Computers</p>
+            <p className="text-3xl font-semibold text-gray-800">125</p>
+            <div className="text-sm text-gray-500">+10 this month</div>
           </div>
-          <div className="flex items-center justify-center w-16 h-16 bg-blue-200 rounded-full">
-            <FiMonitor className="text-blue-700" size={30} />
+          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-blue-100 rounded-full hover:scale-105">
+            <FiMonitor className="text-blue-500" size={30} />
           </div>
         </motion.div>
 
         {/* Active Computers Card */}
         <motion.div
-          className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-green-500 to-teal-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02, rotateX: 8, rotateY: -8, perspective: 800 }}
+          className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
+          whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col">
-            <p className="text-sm text-white">Active Computers</p>
-            <p className="text-3xl font-semibold text-white">110</p>
-            <div className="text-sm text-white">+5 this month</div>
+            <p className="text-sm text-gray-500">Active Computers</p>
+            <p className="text-3xl font-semibold text-gray-800">110</p>
+            <div className="text-sm text-gray-500">+5 this month</div>
           </div>
-          <div className="flex items-center justify-center w-16 h-16 bg-green-200 rounded-full">
-            <FiMonitor className="text-green-700" size={30} />
+          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-green-100 rounded-full hover:scale-105">
+            <FiMonitor className="text-green-500" size={30} />
           </div>
         </motion.div>
 
         {/* Total Employees Card */}
         <motion.div
-          className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02, rotateX: -8, rotateY: 8, perspective: 800 }}
+          className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
+          whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col">
-            <p className="text-sm text-white">Total Employees</p>
-            <p className="text-3xl font-semibold text-white">80</p>
-            <div className="text-sm text-white">+4 this month</div>
+            <p className="text-sm text-gray-500">Total Employees</p>
+            <p className="text-3xl font-semibold text-gray-800">80</p>
+            <div className="text-sm text-gray-500">+4 this month</div>
           </div>
-          <div className="flex items-center justify-center w-16 h-16 bg-purple-200 rounded-full">
-            <FiUsers className="text-purple-700" size={30} />
+          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-purple-100 rounded-full hover:scale-105">
+            <FiUsers className="text-purple-500" size={30} />
           </div>
         </motion.div>
 
         {/* Active Employees Card */}
         <motion.div
-          className="flex items-center justify-between p-6 transition-transform rounded-lg shadow-lg bg-gradient-to-r from-teal-500 to-blue-500 hover:shadow-xl"
-          whileHover={{ scale: 1.02, rotateX: -8, rotateY: -8, perspective: 800 }}
+          className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
+          whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col">
-            <p className="text-sm text-white">Active Employees</p>
-            <p className="text-3xl font-semibold text-white">70</p>
-            <div className="text-sm text-white">+8 this month</div>
+            <p className="text-sm text-gray-500">Active Employees</p>
+            <p className="text-3xl font-semibold text-gray-800">70</p>
+            <div className="text-sm text-gray-500">+2 this month</div>
           </div>
-          <div className="flex items-center justify-center w-16 h-16 bg-teal-200 rounded-full">
-            <FiUsers className="text-teal-700" size={30} />
+          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-blue-100 rounded-full hover:scale-105">
+            <FiUsers className="text-blue-500" size={30} />
           </div>
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-2">
-        {/* Computer Trends Chart */}
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
+        {/* Computers Trend */}
         <div className="p-6 bg-white rounded-lg shadow-lg">
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">Computer Trends</h3>
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">Active Computers Trend</h3>
           <Line data={computerTrendData} options={chartOptions} />
         </div>
 
-        {/* Employee Trends Chart */}
+        {/* Employees Trend */}
         <div className="p-6 bg-white rounded-lg shadow-lg">
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">Employee Trends</h3>
-          <Line data={computerTrendData} options={chartOptions} />
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">Active Employees Trend</h3>
+          <Line data={employeeTrendData} options={chartOptions} />
         </div>
+      </div>
+
+      {/* Recent Activities Section */}
+      <div className="p-6 bg-white rounded-lg shadow-lg">
+        <h3 className="mb-4 text-lg font-semibold text-gray-800">Recent Activities</h3>
+        {recentActivities.map((activity) => (
+          <div
+            key={activity.id}
+            className="flex items-center px-6 py-4 transition duration-200 border-b border-gray-200 rounded-lg last:border-none hover:bg-gray-100"
+          >
+            <div className="p-3 bg-gray-200 rounded-full shadow-md">
+              {activity.icon}
+            </div>
+            <div className="ml-4">
+              <p className="text-sm text-gray-700">{activity.activity}</p>
+              <p className="text-xs text-gray-500">{activity.time}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
