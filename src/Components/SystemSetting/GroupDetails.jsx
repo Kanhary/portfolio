@@ -68,21 +68,21 @@ const FunctionCodeTable = ({ functionCodes, selectedFunctionCodes, onChange }) =
     return (
         <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                <thead className="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+                <thead className="text-white bg-gradient-to-r from-blue-600 to-blue-500">
                     <tr>
-                        <th className="p-4 text-left text-sm font-semibold tracking-wide">Function Code</th>
-                        <th className="p-4 text-left text-sm font-semibold tracking-wide">View</th>
-                        <th className="p-4 text-left text-sm font-semibold tracking-wide">Update</th>
-                        <th className="p-4 text-left text-sm font-semibold tracking-wide">Delete</th>
+                        <th className="p-4 text-sm font-semibold tracking-wide text-left">Function Code</th>
+                        <th className="p-4 text-sm font-semibold tracking-wide text-left">View</th>
+                        <th className="p-4 text-sm font-semibold tracking-wide text-left">Update</th>
+                        <th className="p-4 text-sm font-semibold tracking-wide text-left">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {functionCodes.map((code) => (
                         <tr 
                             key={code} 
-                            className="border-t hover:bg-gray-100 transition-all duration-200 ease-in-out"
+                            className="transition-all duration-200 ease-in-out border-t hover:bg-gray-100"
                         >
-                            <td className="p-4 text-gray-700 font-medium">{code}</td>
+                            <td className="p-4 font-medium text-gray-700">{code}</td>
                             <td className="p-4">
                                 <label className="flex items-center gap-2">
                                     <input 
@@ -153,8 +153,8 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
     ];
 
     return isOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-            <div className=" overflow-auto bg-white rounded-lg shadow-lg h-[550px] max-h-[90vh] w-full lg:w-3/4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+            <div className="overflow-auto bg-white rounded-lg shadow-lg h-[550px] max-h-[90vh] w-full lg:w-3/4">
                 <div className="sticky top-0 flex items-center justify-between w-full p-2 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
                     <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
                         Add New
@@ -182,7 +182,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
                         <option value="User">User</option>
                     </select>
                 </div>
-
+    
                 <div className="px-6 mb-4">
                     <h3 className="mb-2 text-lg font-medium">Select Function Codes</h3>
                     <FunctionCodeTable
@@ -191,7 +191,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
                         onChange={handleFunctionCodeChange}
                     />
                 </div>
-
+    
                 <div className="flex justify-end gap-4 px-6 pb-4">
                     <button
                         onClick={handleSubmit}
@@ -209,6 +209,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
             </div>
         </div>
     ) : null;
+    
 };
 
 // PermissionsPage Component
@@ -375,7 +376,7 @@ const PermissionsPage = () => {
 
             {/* Save/Cancel Buttons */}
             {isEditing && (
-                <div className="flex gap-4 mt-6">
+                <div className="flex gap-4">
                     <button
                         onClick={handleSave}
                         className="flex items-center gap-3 px-6 py-3 text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700"

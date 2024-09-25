@@ -7,25 +7,25 @@ const HeaderPage = ({ toggleSidebar }) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const dropdownRef = useRef(null);
+  // const dropdownRef = useRef(null);
   const notificationsRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-        setIsNotificationsOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setIsDropdownOpen(false);
+  //     }
+  //     if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+  //       setIsNotificationsOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
+  //   document.addEventListener("mousedown", handleClickOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [dropdownRef, notificationsRef]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
@@ -35,110 +35,109 @@ const HeaderPage = ({ toggleSidebar }) => {
     setIsNotificationsOpen(prev => !prev);
   };
 
-  const handleEditProfile = () => {
-    alert("Edit profile clicked!"); 
-    // You can replace this with your actual navigation or logic for editing profile
+  const handleEditProfile = (e) => {
+    e.stopPropagation(); // Prevents dropdown from closing
+    alert("Edit profile clicked!"); // Replace this with actual logic
   };
 
-
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    navigate('/');
+  const handleLogout = (e) => {
+    e.stopPropagation(); // Prevents dropdown from closing
+    localStorage.removeItem("userToken"); // Clear user token or perform logout action
+    navigate("/"); // Redirect to login or home page
   };
 
-    return (
-      <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
-        <div className='px-3 py-3 lg:px-5 lg:pl-3'>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-start justify-normal rtl:justify-end w-80'>
-              <button 
-                data-drawer-target="logo-sidebar" 
-                data-drawer-toggle="logo-sidebar" 
-                aria-controls="logo-sidebar" 
-                type="button" 
-                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                onClick={toggleSidebar}
-              >
-                <span className="sr-only">Open sidebar</span>
-                <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-                </svg>
-              </button>
-              <a href="#" className="flex ms-2 md:me-24">
-                <img src='/LOGO PPAP.png' className="h-8 me-3" alt="PPAP Logo" />
-                <span className="self-center text-base font-medium sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
-              </a>
-            </div>
-              {/* Highlighted Special Message with Subtle Pulse/Fade Animation */}
-              <div className="items-center justify-center hidden overflow-hidden lg:flex grow">
-                  <marquee behavior="" direction="left" className="text-sm font-normal text-blue-800 md:text-base font-khmer">
-                    <span className="">
-                      <img src="/Cambodia-m.gif" alt="logo" className="inline w-6 h-6 mx-2" />
-                    </span>
-                    <span className='ml-2 text-sm'>សូមស្វាគមន៍មកកាន់គេហទំព័រគ្រប់គ្រងទិន្នន័យរបស់​ ក.ស.ភ. យើងរីករាយវត្តមានរបស់អ្នកនៅទីនេះ</span>
-                    {/* <span className='ml-12 text-sm '> <img src="/anchor.gif" alt="" className='inline w-8 h-8 mx-2'/>" Welcome to the Data Management website of PPAP. We are delighted to have your presence here."</span> */}
-                  </marquee>
-              </div>
+  return (
+    <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
+      <div className='px-3 py-3 lg:px-5 lg:pl-3'>
+        <div className='flex items-center justify-between'>
+          <div className='flex items-start justify-normal rtl:justify-end w-80'>
+            <button 
+              data-drawer-target="logo-sidebar" 
+              data-drawer-toggle="logo-sidebar" 
+              aria-controls="logo-sidebar" 
+              type="button" 
+              className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              onClick={toggleSidebar}
+            >
+              <span className="sr-only">Open sidebar</span>
+              <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+              </svg>
+            </button>
+            <a href="#" className="flex ms-2 md:me-24">
+              <img src='/LOGO PPAP.png' className="h-8 me-3" alt="PPAP Logo" />
+              <span className="self-center text-base font-medium sm:text-xl whitespace-nowrap font-khmer">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ</span>
+            </a>
+          </div>
 
-            <div className='relative flex items-center ms-3'>
-              <button 
-                className="relative mr-5 text-gray-600 hover:text-gray-800" 
-                onClick={handleNotificationsToggle}
-                ref={notificationsRef}
-              >
-                <BiBell size={24} />
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs text-white bg-red-500 rounded-full">
-                  3
-                </span>
-              </button>
+          <div className="items-center justify-center hidden overflow-hidden lg:flex grow">
+            <marquee behavior="" direction="left" className="text-sm font-normal text-blue-800 md:text-base font-khmer">
+              <span className="">
+                <img src="/Cambodia-m.gif" alt="logo" className="inline w-6 h-6 mx-2" />
+              </span>
+              <span className='ml-2 text-sm'>សូមស្វាគមន៍មកកាន់គេហទំព័រគ្រប់គ្រងទិន្នន័យរបស់​ ក.ស.ភ. យើងរីករាយវត្តមានរបស់អ្នកនៅទីនេះ</span>
+            </marquee>
+          </div>
 
-              {isNotificationsOpen && (
-                <div className="absolute z-50 mt-2 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-lg w-72 right-16 top-full font-khmer">
-                  {/* Header */}
-                  <div className="px-5 py-3 bg-gray-100 border-b border-gray-200">
-                    <p className="flex items-center font-medium text-gray-900">
-                      <BiBell size={20} className="mr-2 text-indigo-500" />
-                      សារជូនដំណឹង
-                    </p>
-                  </div>
+          <div className='relative flex items-center ms-3'>
+            <button 
+              className="relative mr-5 text-gray-600 hover:text-gray-800" 
+              onClick={handleNotificationsToggle}
+              ref={notificationsRef}
+            >
+              <BiBell size={24} />
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs text-white bg-red-500 rounded-full">
+                3
+              </span>
+            </button>
 
-                  {/* Notifications List */}
-                  <ul className="divide-y divide-gray-200">
-                    <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
-                      <div className="flex-shrink-0 w-2.5 h-2.5 bg-indigo-500 rounded-full"></div>
-                      <div className="ml-3 text-sm text-gray-700">
-                        New employee added
-                        <p className="text-xs text-gray-500 mt-0.5">Just now</p>
-                      </div>
-                    </li>
-                    <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
-                      <div className="flex-shrink-0 w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
-                      <div className="ml-3 text-sm text-gray-700">
-                        System update available
-                        <p className="text-xs text-gray-500 mt-0.5">5 minutes ago</p>
-                      </div>
-                    </li>
-                    <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
-                      <div className="flex-shrink-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
-                      <div className="ml-3 text-sm text-gray-700">
-                        Server backup completed
-                        <p className="text-xs text-gray-500 mt-0.5">1 hour ago</p>
-                      </div>
-                    </li>
-                  </ul>
+            {isNotificationsOpen && (
+              <div className="absolute z-50 mt-2 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-lg w-72 right-16 top-full font-khmer">
+                <div className="px-5 py-3 bg-gray-100 border-b border-gray-200">
+                  <p className="flex items-center font-medium text-gray-900">
+                    <BiBell size={20} className="mr-2 text-indigo-500" />
+                    សារជូនដំណឹង
+                  </p>
                 </div>
-              )}
+
+                <ul className="divide-y divide-gray-200">
+                  <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
+                    <div className="flex-shrink-0 w-2.5 h-2.5 bg-indigo-500 rounded-full"></div>
+                    <div className="ml-3 text-sm text-gray-700">
+                      New employee added
+                      <p className="text-xs text-gray-500 mt-0.5">Just now</p>
+                    </div>
+                  </li>
+                  <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
+                    <div className="flex-shrink-0 w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+                    <div className="ml-3 text-sm text-gray-700">
+                      System update available
+                      <p className="text-xs text-gray-500 mt-0.5">5 minutes ago</p>
+                    </div>
+                  </li>
+                  <li className="flex items-center px-4 py-3 transition-colors hover:bg-gray-50">
+                    <div className="flex-shrink-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+                    <div className="ml-3 text-sm text-gray-700">
+                      Server backup completed
+                      <p className="text-xs text-gray-500 mt-0.5">1 hour ago</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            )}
 
             <button 
               type='button' 
               className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 ' 
               aria-expanded={isDropdownOpen ? "true" : "false"} 
               onClick={handleDropdownToggle}
-              ref={dropdownRef}
+              // ref={dropdownRef}
             >
               <span className='sr-only'>Open user menu</span>
               <img src="\blank-profile-picture.png" className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
-              </button>
+            </button>
+
+
             {isDropdownOpen && (
               <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
                 <div className='px-4 py-3'>
@@ -147,21 +146,23 @@ const HeaderPage = ({ toggleSidebar }) => {
                 </div>
                 <ul className="py-1">
                   <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 " onClick={handleLogout}>Sign out</a>
+                    <button className="block w-full px-4 py-2 text-sm text-blue-600 hover:bg-gray-100" onClick={handleEditProfile}>
+                      Edit Profile
+                    </button>
+                  </li>
+                  <li>
+                    <button className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100" onClick={handleLogout}>
+                      Sign out
+                    </button>
                   </li>
                 </ul>
               </div>
             )}
-
-            </div>
-            
           </div>
         </div>
-        
-      </nav>
-      
-    );
+      </div>
+    </nav>
+  );
 };
 
 export default HeaderPage;
-  

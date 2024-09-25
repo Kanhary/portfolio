@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Header_page from './HeaderPage';
+// import Header_page from './HeaderPage';
 import Sidebar from './Sidebar';
 import Computer from '../Pages/Computer';
 import EmployeePositionList from '../Pages/employee/EmployeePositionList';
@@ -18,6 +18,7 @@ import NotFound from '../Pages/NotFound';
 import GroupMaster from '../SystemSetting/GroupMaster';
 import ItemPermission from '../SystemSetting/ItemPermission';
 import GroupDetails from '../SystemSetting/GroupDetails';
+import HeaderPage from './HeaderPage';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -38,7 +39,7 @@ function MainDashboard() {
 
   return (
     <div className='flex h-screen overflow-hidden'>
-      <Header_page toggleSidebar={toggleSidebar} />
+      <HeaderPage toggleSidebar={toggleSidebar} />
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <main
         className={`flex-1 p-6 overflow-y-auto bg-gray-100 transition-all duration-300 ${
