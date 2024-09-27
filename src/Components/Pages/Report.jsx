@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { FaSearch, FaEye, FaTrash, FaPlus, FaEdit } from 'react-icons/fa';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { HiChartBar } from "react-icons/hi2";
 import 'aos/dist/aos.css';
 const ReportPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    // const [endDate, setEndDate] = useState('');
     const [reportType, setReportType] = useState('');
-    const [tags, setTags] = useState('');
+    // const [tags, setTags] = useState('');
     const [reports, setReports] = useState([
         { id: 1, title: 'Monthly Staff Report', date: '2024-09-01', type: 'Staff', content: 'Details about the monthly staff report...', comments: [] },
         { id: 2, title: 'Hardware Maintenance Schedule', date: '2024-07-15', type: 'Computer', content: 'Details about the hardware Maintenance Schedule...', comments: [] },
@@ -67,9 +68,12 @@ const ReportPage = () => {
     };
 
     return (
-        <div className="min-h-screen p-4 sm:p-8 font-khmer">
-            <h1 className='text-xl font-medium text-blue-800'>របាយការណ៍</h1>
-            <div className='mt-3 border'></div>
+        <div className="min-h-screen p-4 mt-5 sm:p-8 font-khmer">
+            <h1 className="flex items-center space-x-3 text-xl font-medium text-blue-800">
+                <HiChartBar className="text-blue-600" />
+                <span>របាយកាណ៍</span>
+            </h1>
+            <div className="mt-2 border-b border-gray-300"></div>
             {notification && <div className="mb-4 text-green-600">{notification}</div>}
 
             {/* Search and Filters */}
