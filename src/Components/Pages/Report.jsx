@@ -199,20 +199,35 @@ const ReportPage = () => {
                                     className="w-full p-3 border border-gray-300 rounded-md"
                                 />
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex justify-end space-x-3">
                                 <button
-                                    type="submit"
-                                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-                                    Add Report
+                                type="submit"
+                                className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600"
+                                >
+                                    Save
                                 </button>
+                                <button
+                                type="button"
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 text-gray-700 transition-colors bg-gray-300 rounded-md hover:bg-gray-400"
+                                >
+                                Cancel
+                                </button>
+                                
+                            </div>
+                            {/* <div className="flex justify-end">
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
                                     className="px-4 py-2 mr-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">
                                     Cancel
                                 </button>
-                                
-                            </div>
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+                                    Add Report
+                                </button>
+                            </div> */}
                         </form>
                     </div>
                 </div>

@@ -187,7 +187,7 @@ const Maintenance = () => {
                 />
               </div>
               <div className="flex justify-end space-x-3">
-              <button
+                <button
                   type="submit"
                   className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600"
                 >
