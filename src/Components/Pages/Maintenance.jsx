@@ -22,8 +22,32 @@ const Maintenance = () => {
       status: 'Pending',
       priority: 'Medium',
     },
+    {
+      id: 3,
+      title: 'Database Backup',
+      description: 'Backup all database files to secure storage.',
+      date: new Date('2024-09-15'),
+      status: 'Pending',
+      priority: 'Low',
+    },
+    {
+      id: 4,
+      title: 'System Checkup',
+      description: 'Check system health and performance.',
+      date: new Date('2024-09-18'),
+      status: 'Pending',
+      priority: 'Medium',
+    },
+    // Add more tasks if needed
   ]);
+ 
+  const [showAllTasks, setShowAllTasks] = useState(false); // New state to track visibility of all tasks
 
+  // ... (other existing functions)
+
+  const toggleShowAllTasks = () => {
+    setShowAllTasks(!showAllTasks);
+  };
   const [showModal, setShowModal] = useState(false);
   const [currentTask, setCurrentTask] = useState({
     id: null,
@@ -115,7 +139,7 @@ const Maintenance = () => {
 
       {/* Task Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-aos='fade-right'>
-        {tasks.map((task) => (
+        {tasks.slice(0, showAllTasks ? tasks.length : 3).map((task) => (
           <div
             key={task.id}
             className={`p-5 bg-white rounded-lg shadow-lg border-l-4 transition-all hover:shadow-xl`}
@@ -148,6 +172,18 @@ const Maintenance = () => {
           </div>
         ))}
       </div>
+
+      {/* See All Tasks Button */}
+      {tasks.length > 3 && (
+        <div className="mt-4">
+          <button
+            onClick={toggleShowAllTasks}
+            className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600"
+          >
+            {showAllTasks ? 'See Less Tasks' : 'See All Tasks'}
+          </button>
+        </div>
+      )}
 
       {/* Add/Edit Task Modal */}
       {showModal && (

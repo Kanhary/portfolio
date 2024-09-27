@@ -150,7 +150,7 @@ const ReportPage = () => {
 
             {/* Modal for Adding New Report */}
             {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="w-11/12 p-6 bg-white rounded-lg shadow-lg sm:w-1/3">
                         <h2 className="mb-4 text-2xl font-semibold">Add New Report</h2>
                         <form onSubmit={handleSubmit}>
@@ -235,7 +235,7 @@ const ReportPage = () => {
 
             {/* Modal for Viewing Report */}
             {showViewModal && viewReport && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-70">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="relative w-full max-w-2xl p-8 overflow-hidden bg-white rounded-lg shadow-lg">
                         {/* Close Button */}
                         <button
@@ -293,7 +293,7 @@ const ReportPage = () => {
             {/* Modal for Editing Report */}
             {/* Modal for Editing Report */}
             {showEditModal && editReport && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="w-11/12 p-6 bg-white rounded-lg shadow-lg sm:w-1/3">
                         <h2 className="mb-4 text-2xl font-semibold">Edit Report</h2>
                         <form onSubmit={handleEditSubmit}>
@@ -351,7 +351,13 @@ const ReportPage = () => {
                                     className="w-full p-3 border border-gray-300 rounded-md"
                                 />
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex justify-end space-x-3">
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+                                >
+                                    Save Changes
+                                </button>
                                 <button
                                     type="button"
                                     onClick={() => setShowEditModal(false)}
@@ -359,12 +365,7 @@ const ReportPage = () => {
                                 >
                                     Cancel
                                 </button>
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-                                >
-                                    Save Changes
-                                </button>
+                                
                             </div>
                         </form>
                     </div>

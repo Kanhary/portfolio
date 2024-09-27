@@ -153,7 +153,7 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
     ];
 
     return isOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="overflow-auto bg-white rounded-lg shadow-lg h-[550px] max-h-[90vh] w-full lg:w-3/4">
                 <div className="sticky top-0 flex items-center justify-between w-full p-2 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
                     <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
