@@ -38,7 +38,7 @@ function MainDashboard() {
   };
 
   return (
-    <div className='flex h-screen overflow-hidden'>
+    <div className='flex h-screen overflow-hidden font-khmer'>
       <HeaderPage toggleSidebar={toggleSidebar} />
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <main

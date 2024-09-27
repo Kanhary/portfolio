@@ -67,7 +67,7 @@ const ReportPage = () => {
     };
 
     return (
-        <div className="min-h-screen p-4 sm:p-8 bg-gradient-to-r from-blue-50 to-blue-100 font-khmer">
+        <div className="min-h-screen p-4 sm:p-8 font-khmer">
             <h1 className='text-xl font-medium text-blue-800'>របាយការណ៍</h1>
             <div className='mt-3 border'></div>
             {notification && <div className="mb-4 text-green-600">{notification}</div>}
@@ -139,9 +139,11 @@ const ReportPage = () => {
                     </div>
                 )}
                 <button
+                    className="fixed flex items-center px-5 py-5 space-x-2 text-white transition-colors bg-blue-500 rounded-full shadow-md bottom-10 right-10 hover:bg-blue-600"
                     onClick={() => setShowModal(true)}
-                    className="flex items-center justify-center w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-                    <FaPlus /> Add New Report
+                >
+                    <FaPlus />
+        
                 </button>
             </div>
 
@@ -199,16 +201,17 @@ const ReportPage = () => {
                             </div>
                             <div className="flex justify-end">
                                 <button
+                                    type="submit"
+                                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+                                    Add Report
+                                </button>
+                                <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
                                     className="px-4 py-2 mr-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">
                                     Cancel
                                 </button>
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-                                    Add Report
-                                </button>
+                                
                             </div>
                         </form>
                     </div>
@@ -217,59 +220,59 @@ const ReportPage = () => {
 
             {/* Modal for Viewing Report */}
             {showViewModal && viewReport && (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-70">
-        <div className="relative w-full max-w-2xl p-8 overflow-hidden bg-white rounded-lg shadow-lg">
-            {/* Close Button */}
-            <button
-                onClick={() => setShowViewModal(false)}
-                className="absolute text-gray-400 top-4 right-4 hover:text-gray-600 focus:outline-none"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-70">
+                    <div className="relative w-full max-w-2xl p-8 overflow-hidden bg-white rounded-lg shadow-lg">
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setShowViewModal(false)}
+                            className="absolute text-gray-400 top-4 right-4 hover:text-gray-600 focus:outline-none"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
 
-            {/* Modal Header */}
-            <h2 className="mb-6 text-2xl font-semibold text-gray-900">View Report</h2>
+                        {/* Modal Header */}
+                        <h2 className="mb-6 text-2xl font-semibold text-gray-900">View Report</h2>
 
-            {/* Report Title */}
-            <h3 className="mb-4 text-xl font-bold text-indigo-600">
-                {viewReport.title}
-            </h3>
+                        {/* Report Title */}
+                        <h3 className="mb-4 text-xl font-bold text-indigo-600">
+                            {viewReport.title}
+                        </h3>
 
-            {/* Content Section */}
-            <div className="mb-6 text-gray-800">
-                <p className="mb-4 text-base leading-relaxed">
-                    {viewReport.content}
-                </p>
+                        {/* Content Section */}
+                        <div className="mb-6 text-gray-800">
+                            <p className="mb-4 text-base leading-relaxed">
+                                {viewReport.content}
+                            </p>
 
-                {/* Additional Information */}
-                <h4 className="mb-2 text-lg font-semibold text-gray-700">Additional Information:</h4>
-                <ul className="pl-5 mb-4 list-disc">
-                    <li className="mb-1">Additional information 1</li>
-                    <li className="mb-1">Additional information 2</li>
-                    <li className="mb-1">Additional information 3</li>
-                </ul>
-                
-                {/* Placeholder for Visual Data */}
-                <div className="pt-4 mt-4 border-t border-gray-300">
-                    <h4 className="text-lg font-semibold text-gray-700">Visual Data:</h4>
-                    <p className="text-gray-600">Charts or graphs can be integrated here for a visual representation of the data.</p>
+                            {/* Additional Information */}
+                            {/* <h4 className="mb-2 text-lg font-semibold text-gray-700">Additional Information:</h4>
+                            <ul className="pl-5 mb-4 list-disc">
+                                <li className="mb-1">Additional information 1</li>
+                                <li className="mb-1">Additional information 2</li>
+                                <li className="mb-1">Additional information 3</li>
+                            </ul> */}
+                            
+                            {/* Placeholder for Visual Data */}
+                            <div className="pt-4 mt-4 border-t border-gray-300">
+                                <h4 className="text-lg font-semibold text-gray-700">Visual Data:</h4>
+                                <p className="text-gray-600">Charts or graphs can be integrated here for a visual representation of the data.</p>
+                            </div>
+                        </div>
+
+                        {/* Action Button */}
+                        <div className="flex justify-end mt-6">
+                            <button
+                                onClick={() => setShowViewModal(false)}
+                                className="px-5 py-2 font-medium text-white transition duration-200 bg-indigo-600 rounded-md shadow hover:bg-indigo-500 focus:outline-none"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            {/* Action Button */}
-            <div className="flex justify-end mt-6">
-                <button
-                    onClick={() => setShowViewModal(false)}
-                    className="px-5 py-2 font-medium text-white transition duration-200 bg-indigo-600 rounded-md shadow hover:bg-indigo-500 focus:outline-none"
-                >
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-)}
+            )}
 
 
             {/* Modal for Editing Report */}
@@ -358,3 +361,4 @@ const ReportPage = () => {
 };
 
 export default ReportPage;
+
