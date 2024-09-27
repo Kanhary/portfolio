@@ -305,52 +305,56 @@ const Maintenance = () => {
 
       {/* Modal for Adding/Editing Tasks */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="z-10 p-5 bg-white rounded-lg shadow-lg">
-            <h2 className="text-lg font-bold">{currentTask.id ? 'Edit Task' : 'Add Task'}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-11/12 p-6 bg-white rounded-lg shadow-lg sm:w-1/3">
+            <h2 className="mb-4 text-2xl font-semibold">{currentTask.id ? 'Edit Task' : 'Add New Task'}</h2>
             <form onSubmit={handleSaveTask}>
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700">Title</label>
+              <div className="mb-4">
+                <label className="block font-medium text-gray-700">Title:</label>
                 <input
                   type="text"
                   name="title"
                   value={currentTask.title}
                   onChange={handleInputChange}
-                  className="block w-full mt-1 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-500"
                   required
                 />
               </div>
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700">Description</label>
+              <div className="mb-4">
+                <label className="block font-medium text-gray-700">Description:</label>
                 <textarea
                   name="description"
                   value={currentTask.description}
                   onChange={handleInputChange}
-                  className="block w-full mt-1 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-500"
+                  rows="3"
                   required
                 />
               </div>
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700">Date</label>
+              <div className="mb-4">
+                <label className="block font-medium text-gray-700">Date:</label>
                 <DatePicker
                   selected={currentTask.date}
                   onChange={handleDateChange}
-                  className="block w-full mt-1 border border-gray-300 rounded-md"
-                  required
+                  dateFormat="MM/dd/yyyy"
+                  className="w-full p-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-500"
                 />
               </div>
-              <div className="mt-4">
-                <button type="submit" className="px-4 py-2 text-white bg-blue-600 rounded">
-                  Save
+              <div className="flex justify-end space-x-3">
+                <button
+                  type="submit"
+                  className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600"
+                >
+                  {currentTask.id ? 'Update' : 'Save'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 ml-2 text-gray-700 bg-gray-300 rounded"
+                  className="px-4 py-2 text-gray-700 transition-colors bg-gray-300 rounded-md hover:bg-gray-400"
                 >
                   Cancel
                 </button>
+                
               </div>
             </form>
           </div>
