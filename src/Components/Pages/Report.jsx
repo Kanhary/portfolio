@@ -142,14 +142,15 @@ const ReportPage = () => {
                         </table>
                     </div>
                 )}
-                <button
+                
+            </div>
+            <button
                     className="fixed flex items-center px-5 py-5 space-x-2 text-white transition-colors bg-blue-500 rounded-full shadow-md bottom-10 right-10 hover:bg-blue-600"
                     onClick={() => setShowModal(true)}
                 >
                     <FaPlus />
         
                 </button>
-            </div>
 
 
             {/* Modal for Adding New Report */}
