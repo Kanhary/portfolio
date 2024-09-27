@@ -247,7 +247,7 @@ const Maintenance = () => {
       </button>
 
       {/* Completed Tasks Table */}
-      <div className="mt-10">
+      <div className="mt-10" data-aos='fade-right'>
         <h2 className="text-xl font-bold">Completed Tasks</h2>
         <table className="w-full mt-4 text-left border border-gray-300">
           <thead>
@@ -294,6 +294,14 @@ const Maintenance = () => {
           </button>
         </div>
       </div>
+
+      <button
+                    className="fixed flex items-center px-5 py-5 space-x-2 text-white transition-colors bg-blue-500 rounded-full shadow-md bottom-10 right-10 hover:bg-blue-600"
+                    onClick={() => setShowModal(true)}
+                >
+                    <FaPlus />
+        
+                </button>
 
       {/* Modal for Adding/Editing Tasks */}
       {showModal && (

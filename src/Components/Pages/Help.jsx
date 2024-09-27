@@ -29,7 +29,7 @@ const Help = () => {
 };
 
   return (
-    <div className="min-h-screen mt-10 font-khmer">
+    <div className="min-h-screen mt-10 font-khmer" data-aos='fade-right'>
       <h1 className='text-xl font-medium text-blue-800 font-khmer'>ជំនួយ</h1>
       <div className='mt-3 mb-3 border'></div>
       <div className="p-8 mx-auto bg-white shadow-xl rounded-2xl">

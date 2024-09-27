@@ -77,7 +77,7 @@ const ReportPage = () => {
             {notification && <div className="mb-4 text-green-600">{notification}</div>}
 
             {/* Search and Filters */}
-            <div className="flex flex-col mt-4 mb-6 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 data-aos='fade-up">
+            <div className="flex flex-col mt-4 mb-6 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4" data-aos='fade-up'>
                 <input
                     type="text"
                     placeholder="Search reports..."
@@ -105,7 +105,7 @@ const ReportPage = () => {
             </div>
 
             {/* Report Overview */}
-            <div className="p-6 bg-white rounded-lg shadow-lg data-aos='fade-up">
+            <div className="p-6 bg-white rounded-lg shadow-lg" data-aos='fade-right'>
                 <h2 className="mb-4 text-2xl font-semibold text-gray-800 sm:text-3xl">Generated Reports</h2>
                 {filteredReports.length === 0 ? (
                     <p className="mt-2 text-gray-600">No reports found. Please adjust your search.</p>
