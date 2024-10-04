@@ -4,8 +4,11 @@ import { FaScrewdriverWrench } from "react-icons/fa6";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'tailwindcss/tailwind.css'; // Make sure Tailwind CSS is configured
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Maintenance = () => {
+  AOS.init();
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -186,7 +189,7 @@ const Maintenance = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-screen p-8 mt-5 bg-gray-100">
+    <div className="min-h-screen mt-10 bg-gray-100">
       <h1 className="flex items-center space-x-3 text-xl font-medium text-blue-800">
         <FaScrewdriverWrench className="text-blue-600" />
         <span>ការថែទាំ</span>
@@ -246,54 +249,65 @@ const Maintenance = () => {
         {showAllTasks ? 'Show Less' : 'Show All Tasks'}
       </button>
 
-      {/* Completed Tasks Table */}
-      <div className="mt-10" data-aos='fade-right'>
-        <h2 className="text-xl font-bold">Completed Tasks</h2>
-        <table className="w-full mt-4 text-left border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="p-2">Title</th>
-              <th className="p-2">Description</th>
-              <th className="p-2">Date</th>
-              <th className="p-2">Action</th>
+{/* Completed Tasks Table */}
+<div className="p-6 mt-10 bg-white rounded-lg shadow-lg">
+  <h2 className="mb-4 text-2xl font-semibold text-gray-800 sm:text-3xl">Completed Tasks</h2>
+  {currentTasks.length === 0 ? (
+    <p className="mt-2 text-gray-600">No tasks completed yet.</p>
+  ) : (
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="text-white bg-blue-600">
+          <tr>
+            <th className="px-2 py-3 text-sm text-left sm:text-base">Title</th>
+            <th className="hidden px-2 py-3 text-sm text-left sm:text-base md:table-cell">Description</th>
+            <th className="hidden px-2 py-3 text-sm text-left sm:text-base md:table-cell">Date</th>
+            <th className="px-2 py-3 text-sm text-left sm:text-base">Action</th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {currentTasks.map((task) => (
+            <tr key={task.id} className="transition duration-150 hover:bg-gray-100">
+              <td className="px-2 py-3 text-sm sm:text-base">{task.title}</td>
+              <td className="hidden px-2 py-3 text-sm sm:text-base md:table-cell">{task.description}</td>
+              <td className="hidden px-2 py-3 text-sm sm:text-base md:table-cell">{task.date.toLocaleDateString()}</td>
+              <td className="flex px-2 py-3 space-x-2">
+                <button 
+                  onClick={() => handleDeleteTask(task.id)} 
+                  className="text-red-600 hover:underline"
+                >
+                  <FaTrashAlt />
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {currentTasks.map((task) => (
-              <tr key={task.id} className="border-b">
-                <td className="p-2">{task.title}</td>
-                <td className="p-2">{task.description}</td>
-                <td className="p-2">{task.date.toLocaleDateString()}</td>
-                <td className="p-2">
-                  <button onClick={() => handleDeleteTask(task.id)} className="text-red-600 hover:underline">
-                    <FaTrashAlt />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {/* Pagination Controls */}
-        <div className="flex justify-between mt-4">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => paginate(currentPage - 1)}
-            className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="self-center">
-            Page {currentPage} of {Math.ceil(completedTasks.length / tasksPerPage)}
-          </span>
-          <button
-            disabled={currentPage === Math.ceil(completedTasks.length / tasksPerPage)}
-            onClick={() => paginate(currentPage + 1)}
-            className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
+  {/* Pagination Controls */}
+  <div className="flex justify-between mt-4">
+    <button
+      disabled={currentPage === 1}
+      onClick={() => paginate(currentPage - 1)}
+      className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50"
+    >
+      Previous
+    </button>
+    <span className="self-center">
+      Page {currentPage} of {Math.ceil(completedTasks.length / tasksPerPage)}
+    </span>
+    <button
+      disabled={currentPage === Math.ceil(completedTasks.length / tasksPerPage)}
+      onClick={() => paginate(currentPage + 1)}
+      className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
 
       <button
                     className="fixed flex items-center px-5 py-5 space-x-2 text-white transition-colors bg-blue-500 rounded-full shadow-md bottom-10 right-10 hover:bg-blue-600"
