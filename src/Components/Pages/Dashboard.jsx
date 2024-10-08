@@ -198,7 +198,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen p-6 mt-5 bg-gray-50">
+    <div className="flex flex-col min-h-screen mt-10">
+      <h1 className='text-xl font-medium text-blue-800 font-khmer'>តារាងបង្ហាញទិន្នន័យ</h1>
+      <div className='mt-3 mb-3 border'></div>
       <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Total Computers Card */}
         <motion.div

@@ -8,29 +8,37 @@
     src: url("./assets/Font/KantumrutPro-Regular.ttf") format('truetype');
 }
 /* Global custom scrollbar styles */
+/* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 7px; 
+  height: 7px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: rgb(249 250 251 / var(--tw-bg-opacity));
-
-
+  background-color: #f0f0f0; 
+  border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #f1f1f1;
-  border-radius: 5px;
+  background-color: #9ea1a5; 
+  border-radius: 10px;
+  border: 2px solid transparent; /* Makes the handle easier to grab without feeling too small */
+  transition: background-color 0.3s ease;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #f2f2f2;
+  background-color: #7d8085; /* Darker gray on hover for better visibility and usability */
+  border: 1px solid #f0f0f0; /* Adds a bit of spacing around the handle */
 }
+
+/* Optional: Smooth Scroll */
+html {
+  scroll-behavior: smooth; /* Smooth scrolling for desktop */
+}
+
 
 /* Custom checkbox styles */
 input[type="checkbox"] {

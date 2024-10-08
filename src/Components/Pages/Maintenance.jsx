@@ -1,381 +1,286 @@
-import React, { useState } from 'react';
-import { FaPlus, FaEdit, FaTrashAlt, FaCheckCircle, FaCalendarAlt } from 'react-icons/fa';
-import { FaScrewdriverWrench } from "react-icons/fa6";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'tailwindcss/tailwind.css'; // Make sure Tailwind CSS is configured
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// MaintenancePage.jsx
+import React, { useState, useEffect } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { FaLaptop, FaHdd, FaUser, FaClock } from "react-icons/fa";
+// import { FaHardDrive, FaUser, FaClock } from 'react-icons/fa'; 
 
-const Maintenance = () => {
-  AOS.init();
-  const [tasks, setTasks] = useState([
+const MaintenancePage = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedComputer, setSelectedComputer] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [startDate, setStartDate] = useState('');
+  const computersPerPage = 5;
+
+  const maintenanceData = [
     {
       id: 1,
-      title: 'Server Maintenance',
-      description: 'Routine server checks and updates.',
-      date: new Date('2024-09-10'),
+      computerName: 'PC-01',
       status: 'Completed',
-      priority: 'High',
+      notes: 'General system check completed.',
+      lastMaintenance: '2024-09-20',
+      technician: 'Alice Johnson',
+      hardwareHistory: [
+        { type: 'CPU', model: 'Intel Core i7', date: '2024-06-15', notes: 'Upgraded from i5' },
+        { type: 'RAM', capacity: '16GB DDR4', date: '2024-08-01', notes: 'Increased for multitasking' },
+        { type: 'Storage', typeOfStorage: '512GB SSD', date: '2024-05-10', notes: 'Upgraded from 256GB SSD' },
+      ],
+      hardDisk: '1TB HDD',
+      startDate: '2023-01-10',
+      activeUser: { name: 'John Doe', role: 'Administrator', lastLogin: '2024-10-05', status: 'Active' },
     },
     {
       id: 2,
-      title: 'Software Update',
-      description: 'Update the accounting software to the latest version.',
-      date: new Date('2024-09-20'),
+      computerName: 'PC-02',
       status: 'Pending',
-      priority: 'Medium',
+      notes: 'Awaiting hardware replacement.',
+      lastMaintenance: '2024-09-25',
+      technician: 'Bob Smith',
+      hardwareHistory: [
+        { type: 'CPU', model: 'AMD Ryzen 5', date: '2024-03-10', notes: 'Standard installation' },
+        { type: 'RAM', capacity: '8GB DDR4', date: '2024-04-12', notes: 'Installed for regular usage' },
+      ],
+      hardDisk: '512GB SSD',
+      startDate: '2023-05-15',
+      activeUser: { name: 'Jane Doe', role: 'User', lastLogin: '2024-10-06', status: 'Inactive' },
     },
-    {
-      id: 3,
-      title: 'Database Backup',
-      description: 'Backup all database files to secure storage.',
-      date: new Date('2024-09-15'),
-      status: 'Pending',
-      priority: 'Low',
-    },
-    {
-      id: 4,
-      title: 'System Checkup',
-      description: 'Check system health and performance.',
-      date: new Date('2024-09-18'),
-      status: 'Pending',
-      priority: 'Medium',
-    },
-    {
-      id: 5,
-      title: 'Network Security Review',
-      description: 'Assess network security protocols and systems.',
-      date: new Date('2024-09-25'),
-      status: 'Completed',
-      priority: 'High',
-    },
-    {
-      id: 6,
-      title: 'Software License Renewal',
-      description: 'Renew licenses for all software applications.',
-      date: new Date('2024-09-30'),
-      status: 'Completed',
-      priority: 'Medium',
-    },
-    {
-      id: 7,
-      title: 'Hardware Upgrade',
-      description: 'Upgrade RAM and storage in all systems.',
-      date: new Date('2024-10-05'),
-      status: 'Completed',
-      priority: 'High',
-    },
-    {
-      id: 8,
-      title: 'Firewall Configuration',
-      description: 'Configure and update firewall settings.',
-      date: new Date('2024-10-10'),
-      status: 'Completed',
-      priority: 'Low',
-    },
-    {
-      id: 9,
-      title: 'Performance Review',
-      description: 'Evaluate system performance metrics.',
-      date: new Date('2024-10-15'),
-      status: 'Completed',
-      priority: 'Medium',
-    },
-    {
-      id: 10,
-      title: 'Compliance Audit',
-      description: 'Conduct a compliance audit for all systems.',
-      date: new Date('2024-10-20'),
-      status: 'Completed',
-      priority: 'High',
-    },
-    {
-      id: 11,
-      title: 'User Feedback Collection',
-      description: 'Collect feedback from users regarding system performance.',
-      date: new Date('2024-10-25'),
-      status: 'Completed',
-      priority: 'Low',
-    },
-    // Add more tasks if needed
-  ]);
+    // Additional computer data...
+  ];
+  
 
-  const [showAllTasks, setShowAllTasks] = useState(false); // New state to track visibility of all tasks
-  const [showModal, setShowModal] = useState(false);
-  const [currentTask, setCurrentTask] = useState({
-    id: null,
-    title: '',
-    description: '',
-    date: new Date(),
-    status: 'Pending',
-    priority: 'Low',
-  });
+  const filteredData = maintenanceData.filter(computer =>
+    (computer.computerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+     computer.activeUser.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
+    (statusFilter === 'All' || computer.status === statusFilter)
+  );
 
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
-  const tasksPerPage = 10; // Number of tasks to display per page
+  const indexOfLastComputer = currentPage * computersPerPage;
+  const indexOfFirstComputer = indexOfLastComputer - computersPerPage;
+  const currentComputers = filteredData.slice(indexOfFirstComputer, indexOfLastComputer);
+  const totalPages = Math.ceil(filteredData.length / computersPerPage);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentTask((prev) => ({ ...prev, [name]: value }));
+  const closeModal = () => {
+    setSelectedComputer(null);
   };
-
-  const handleDateChange = (date) => {
-    setCurrentTask((prev) => ({ ...prev, date }));
-  };
-
-  const handleSaveTask = (e) => {
-    e.preventDefault();
-    if (currentTask.id) {
-      setTasks((prev) =>
-        prev.map((task) => (task.id === currentTask.id ? currentTask : task))
-      );
-    } else {
-      setTasks((prev) => [...prev, { ...currentTask, id: tasks.length + 1 }]);
-    }
-    setShowModal(false);
-    resetCurrentTask();
-  };
-
-  const resetCurrentTask = () => {
-    setCurrentTask({
-      id: null,
-      title: '',
-      description: '',
-      date: new Date(),
-      status: 'Pending',
-      priority: 'Low',
-    });
-  };
-
-  const handleEditTask = (task) => {
-    setCurrentTask(task);
-    setShowModal(true);
-  };
-
-  const handleDeleteTask = (id) => {
-    if (window.confirm('Are you sure you want to delete this task?')) {
-      setTasks((prev) => prev.filter((task) => task.id !== id));
-    }
-  };
-
-  const handleCompleteTask = (task) => {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === task.id ? { ...t, status: 'Completed' } : t))
-    );
-  };
-
-  const handleToggleStatus = (task) => {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === task.id
-          ? { ...t, status: t.status === 'Completed' ? 'Pending' : 'Completed' }
-          : t
-      )
-    );
-  };
-
-  const toggleShowAllTasks = () => {
-    setShowAllTasks(!showAllTasks);
-  };
-
-  // Calculate the tasks for the current page
-  const completedTasks = tasks.filter((task) => task.status === 'Completed');
-  const indexOfLastTask = currentPage * tasksPerPage;
-  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
-  const currentTasks = completedTasks.slice(indexOfFirstTask, indexOfLastTask);
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-screen mt-10 bg-gray-100">
-      <h1 className="flex items-center space-x-3 text-xl font-medium text-blue-800">
-        <FaScrewdriverWrench className="text-blue-600" />
-        <span>ការថែទាំ</span>
-      </h1>
-      <div className="mt-2 border-b border-gray-300"></div>
-
-      {/* Dashboard Overview */}
-      <div className="grid grid-cols-1 gap-6 mt-5 mb-8 sm:grid-cols-2 lg:grid-cols-4" data-aos='fade-up'>
-        {[ 
-          { title: 'Pending', count: tasks.filter((t) => t.status === 'Pending').length, color: 'bg-blue-500' },
-          { title: 'Completed', count: tasks.filter((t) => t.status === 'Completed').length, color: 'bg-green-500' },
-          { title: 'Upcoming', count: tasks.filter((t) => t.status === 'Pending' && new Date(t.date) > new Date()).length, color: 'bg-yellow-500' },
-        ].map((item, index) => (
-          <div key={index} className={`flex items-center p-5 rounded-lg shadow-lg ${item.color} text-white`}>
-            <div>
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-2xl font-bold">{item.count}</p>
-            </div>
-            <FaCalendarAlt className="ml-auto text-4xl" />
+    <div className="min-h-screen mt-10">
+      <h1 className='text-xl font-medium text-blue-800'>ការថែទាំ</h1>
+      <div className='mt-3 border'></div>
+      {/* <div className="pb-2 mt-5 mb-5 border-b border-gray-300">
+        <div className="flex items-center mb-6">
+          
+          <div className="relative w-1/3">
+            <FaSearch className="absolute text-gray-400 transition duration-200 ease-in-out transform -translate-y-1/2 left-3 top-1/2" />
+            <input
+              type="text"
+              placeholder="Search by computer name or user name..."
+              className="w-full py-2 pl-10 pr-4 transition duration-300 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
-        ))}
-      </div>
 
-      {/* Task Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-aos='fade-right'>
-        {tasks.slice(0, showAllTasks ? tasks.length : 3).map((task) => (
-          <div
-            key={task.id}
-            className={`p-5 bg-white rounded-lg shadow-lg border-l-4 transition-all hover:shadow-xl`}
+          <select
+            className="p-2 ml-3 transition duration-300 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xl font-semibold text-gray-800">{task.title}</h3>
-              <button
-                onClick={() => handleToggleStatus(task)}
-                className={`px-3 py-1 text-xs rounded-full font-bold ${
-                  task.status === 'Completed' ? 'bg-green-200 text-green-700' : 'bg-yellow-200 text-yellow-700'
-                }`}
-              >
-                {task.status}
-              </button>
+            <option value="All">All Statuses</option>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+      </div> */}
+
+      <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
+        <div className='w-full md:w-1/2'>
+          <form className='flex items-center'>
+            <label htmlFor="simple-search" className='sr-only'>Search</label>
+            <div className='relative w-full'>
+              <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none' >
+                <svg aria-hidden="true" className="w-5 h-5 text-gray-500 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                className='block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-300 focus:border-primary-300 focus:ring-3 focus:outline-none'
+                placeholder='Search'
+              />
             </div>
-            <p className="text-gray-600">{task.description}</p>
-            <p className="mt-2 text-sm text-gray-500">Due: {task.date.toLocaleDateString()}</p>
-            <div className="flex justify-between mt-4">
-              <button onClick={() => handleEditTask(task)} className="text-blue-600 hover:underline">
-                <FaEdit />
-              </button>
-              <button onClick={() => handleDeleteTask(task.id)} className="text-red-600 hover:underline">
-                <FaTrashAlt />
-              </button>
-            </div>
-          </div>
-        ))}
+          </form>
+        </div>
+        <div>
+          <label htmlFor="">Start Date : </label>
+          <input 
+            type="date" 
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+            className='p-2 border border-gray-300 rounded-lg'
+          />
+        </div>
       </div>
-      
-      <button onClick={toggleShowAllTasks} className="mt-5 text-blue-600 hover:underline">
-        {showAllTasks ? 'Show Less' : 'Show All Tasks'}
-      </button>
 
-{/* Completed Tasks Table */}
-<div className="p-6 mt-10 bg-white rounded-lg shadow-lg">
-  <h2 className="mb-4 text-2xl font-semibold text-gray-800 sm:text-3xl">Completed Tasks</h2>
-  {currentTasks.length === 0 ? (
-    <p className="mt-2 text-gray-600">No tasks completed yet.</p>
-  ) : (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="text-white bg-blue-600">
-          <tr>
-            <th className="px-2 py-3 text-sm text-left sm:text-base">Title</th>
-            <th className="hidden px-2 py-3 text-sm text-left sm:text-base md:table-cell">Description</th>
-            <th className="hidden px-2 py-3 text-sm text-left sm:text-base md:table-cell">Date</th>
-            <th className="px-2 py-3 text-sm text-left sm:text-base">Action</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {currentTasks.map((task) => (
-            <tr key={task.id} className="transition duration-150 hover:bg-gray-100">
-              <td className="px-2 py-3 text-sm sm:text-base">{task.title}</td>
-              <td className="hidden px-2 py-3 text-sm sm:text-base md:table-cell">{task.description}</td>
-              <td className="hidden px-2 py-3 text-sm sm:text-base md:table-cell">{task.date.toLocaleDateString()}</td>
-              <td className="flex px-2 py-3 space-x-2">
-                <button 
-                  onClick={() => handleDeleteTask(task.id)} 
-                  className="text-red-600 hover:underline"
-                >
-                  <FaTrashAlt />
-                </button>
-              </td>
+      <div className="overflow-hidden border border-gray-300 rounded-lg shadow-lg">
+        <table className="min-w-full bg-white">
+          <thead>
+            <tr className="bg-gray-200 border-b">
+              <th className="p-4 text-left text-gray-600">Computer Name</th>
+              <th className="p-4 text-left text-gray-600">Last Maintenance</th>
+              <th className="p-4 text-left text-gray-600">Technician</th>
+              <th className="p-4 text-left text-gray-600">Active User</th>
+              <th className="p-4 text-left text-gray-600">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )}
-
-  {/* Pagination Controls */}
-  <div className="flex justify-between mt-4">
-    <button
-      disabled={currentPage === 1}
-      onClick={() => paginate(currentPage - 1)}
-      className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50"
-    >
-      Previous
-    </button>
-    <span className="self-center">
-      Page {currentPage} of {Math.ceil(completedTasks.length / tasksPerPage)}
-    </span>
-    <button
-      disabled={currentPage === Math.ceil(completedTasks.length / tasksPerPage)}
-      onClick={() => paginate(currentPage + 1)}
-      className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50"
-    >
-      Next
-    </button>
-  </div>
-</div>
-
-
-      <button
-                    className="fixed flex items-center px-5 py-5 space-x-2 text-white transition-colors bg-blue-500 rounded-full shadow-md bottom-10 right-10 hover:bg-blue-600"
-                    onClick={() => setShowModal(true)}
-                >
-                    <FaPlus />
-        
-                </button>
-
-      {/* Modal for Adding/Editing Tasks */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-11/12 p-6 bg-white rounded-lg shadow-lg sm:w-1/3">
-            <h2 className="mb-4 text-2xl font-semibold">{currentTask.id ? 'Edit Task' : 'Add New Task'}</h2>
-            <form onSubmit={handleSaveTask}>
-              <div className="mb-4">
-                <label className="block font-medium text-gray-700">Title:</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={currentTask.title}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-500"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block font-medium text-gray-700">Description:</label>
-                <textarea
-                  name="description"
-                  value={currentTask.description}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-500"
-                  rows="3"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block font-medium text-gray-700">Date:</label>
-                <DatePicker
-                  selected={currentTask.date}
-                  onChange={handleDateChange}
-                  dateFormat="MM/dd/yyyy"
-                  className="w-full p-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-500"
-                />
-              </div>
-              <div className="flex justify-end space-x-3">
-                <button
-                  type="submit"
-                  className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600"
-                >
-                  {currentTask.id ? 'Update' : 'Save'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 text-gray-700 transition-colors bg-gray-300 rounded-md hover:bg-gray-400"
-                >
-                  Cancel
-                </button>
+          </thead>
+          <tbody>
+            {currentComputers.map((computer) => (
+              <tr key={computer.id} className="transition duration-200 border-b hover:bg-gray-100">
+                <td className="p-4 font-semibold">{computer.computerName}</td>
                 
+                <td className="p-4">{computer.lastMaintenance}</td>
+                <td className="p-4">{computer.technician}</td>
+                <td className="p-4">
+                  <span className="font-semibold">{computer.activeUser.name}</span>
+                </td>
+                <td className="p-4">
+                  <button
+                    className="px-3 py-1 text-blue-500 transition hover:text-blue-600"
+                    onClick={() => setSelectedComputer(computer)}
+                  >
+                    Details
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-between mt-6">
+        <button
+          className="px-4 py-2 text-white transition bg-blue-500 rounded-lg shadow hover:bg-blue-600"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          Previous
+        </button>
+        <span className="flex items-center text-gray-600">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="px-4 py-2 text-white transition bg-blue-500 rounded-lg shadow hover:bg-blue-600"
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </button>
+      </div>
+
+      {/* details modal */}
+      {selectedComputer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 backdrop-blur-sm">
+          <div className="w-11/12 p-8 transition-all transform scale-100 bg-white rounded-lg shadow-xl md:w-3/4 lg:w-1/2">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-4 mb-6 border-b-2 border-gray-200">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-blue-100 rounded-full">
+                  <FaLaptop className="text-blue-500" size={32} />
+                </div>
+                <h3 className="text-3xl font-extrabold text-gray-900">
+                  {selectedComputer.computerName}
+                </h3>
               </div>
-            </form>
+              <button
+                className="px-4 py-2 text-3xl font-semibold text-white transition-all duration-300 bg-red-500 rounded-lg shadow hover:bg-red-600 focus:outline-none"
+                onClick={closeModal}
+                aria-label="Close modal"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Computer Details */}
+            <div className="grid grid-cols-2 gap-6 mb-10">
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Status:</p>
+                <p
+                  className={`text-lg font-semibold ${
+                    selectedComputer.status === 'Completed'
+                      ? 'text-green-500'
+                      : 'text-red-500'
+                  }`}
+                >
+                  {selectedComputer.status}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Last Maintenance:</p>
+                <p className="text-lg text-gray-900">{selectedComputer.lastMaintenance}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Technician:</p>
+                <p className="text-lg text-gray-900">{selectedComputer.technician}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Hard Disk:</p>
+                <div className="flex items-center space-x-2">
+                  <FaHdd className="text-gray-500" />
+                  <p className="text-lg text-gray-900">{selectedComputer.hardDisk}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Start Date:</p>
+                <p className="text-lg text-gray-900">{selectedComputer.startDate}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Active User:</p>
+                <div className="flex items-center space-x-2">
+                  <FaUser className="text-gray-500" />
+                  <p className="text-lg text-gray-900">{selectedComputer.activeUser.name}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">User Role:</p>
+                <p className="text-lg text-gray-900">{selectedComputer.activeUser.role}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-500">Last Login:</p>
+                <div className="flex items-center space-x-2">
+                  <FaClock className="text-gray-500" />
+                  <p className="text-lg text-gray-900">{selectedComputer.activeUser.lastLogin}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Hardware History */}
+            <h4 className="mb-4 text-xl font-semibold text-gray-800">Hardware History</h4>
+            <ul className="mb-8 space-y-2 text-gray-700 list-disc list-inside">
+              {selectedComputer.hardwareHistory.map((item, index) => (
+                <li key={index} className="leading-relaxed transition-colors duration-200 hover:text-blue-500">
+                  <span className="font-medium">{item.type}:</span> {item.model || item.capacity}
+                  <span className="italic text-gray-600"> (Date: {item.date})</span> - {item.notes}
+                </li>
+              ))}
+            </ul>
+
+            {/* Footer */}
+            <div className="flex justify-end space-x-4">
+              <button
+                className="px-6 py-2 text-white transition-all duration-300 bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none"
+                onClick={closeModal}
+                aria-label="Close modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
+
     </div>
   );
 };
 
-export default Maintenance;
+export default MaintenancePage;
