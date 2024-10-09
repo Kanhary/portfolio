@@ -14,24 +14,24 @@
   height: 7px;
 }
 
-/* Track */
+
 ::-webkit-scrollbar-track {
   background-color: #f0f0f0; 
   border-radius: 10px;
 }
 
-/* Handle */
+
 ::-webkit-scrollbar-thumb {
   background-color: #9ea1a5; 
   border-radius: 10px;
-  border: 2px solid transparent; /* Makes the handle easier to grab without feeling too small */
+  border: 2px solid transparent; 
   transition: background-color 0.3s ease;
 }
 
-/* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #7d8085; /* Darker gray on hover for better visibility and usability */
-  border: 1px solid #f0f0f0; /* Adds a bit of spacing around the handle */
+  background-color: #7d8085;
+  border: 1px solid #f0f0f0; 
 }
 
 /* Optional: Smooth Scroll */
