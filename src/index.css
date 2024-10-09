@@ -35,7 +35,12 @@ html {
   border: 1px solid #f0f0f0; 
 }
 
-
+::-webkit-calendar-picker-indicator{
+  background-color: white;
+  padding: 5px;
+  border-radius: 2px;
+  
+}
 
 
 input[type="checkbox"] {

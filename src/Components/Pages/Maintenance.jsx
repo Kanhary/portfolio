@@ -151,11 +151,11 @@ const MaintenancePage = () => {
             type="date"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className='p-2 border border-gray-300 rounded-lg'
+            className='p-2 text-white bg-blue-600 border border-gray-300 rounded-lg'
           />
           <button
             type="button"
-            className="px-4 py-2 ml-2 text-sm text-white transition duration-200 bg-red-500 rounded-lg hover:bg-red-400"
+            className="px-4 py-3 ml-2 text-sm text-white transition duration-200 bg-red-500 rounded-lg hover:bg-red-400"
             onClick={() => setSearchQuery('')}
           >
             Clear

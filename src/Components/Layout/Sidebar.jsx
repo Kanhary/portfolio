@@ -78,7 +78,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           >
             <ul className="ml-8 space-y-1 list-disc">
               <SubmenuItem 
-                text="តារាងបញ្ជីបុគ្គលិក" 
+                text="តារាងបញ្ជីមុខតំណែង" 
                 to="/main-dashboard/employee/position-list" 
                 onClick={() => handleLinkClick('Employee Position List')} 
                 isActive={activeItem === 'Employee Position List'} 
