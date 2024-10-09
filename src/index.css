@@ -7,8 +7,9 @@
     font-family :"Regular";
     src: url("./assets/Font/KantumrutPro-Regular.ttf") format('truetype');
 }
-/* Global custom scrollbar styles */
-/* Custom Scrollbar Styles */
+html {
+  scroll-behavior: smooth; 
+}
 ::-webkit-scrollbar {
   width: 7px; 
   height: 7px;
@@ -22,7 +23,7 @@
 
 
 ::-webkit-scrollbar-thumb {
-  background-color: #9ea1a5; 
+  background-color: #cccccc; 
   border-radius: 10px;
   border: 2px solid transparent; 
   transition: background-color 0.3s ease;
@@ -30,19 +31,15 @@
 
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #7d8085;
+  background-color: #bbbbbb;
   border: 1px solid #f0f0f0; 
 }
 
-/* Optional: Smooth Scroll */
-html {
-  scroll-behavior: smooth; /* Smooth scrolling for desktop */
-}
 
 
-/* Custom checkbox styles */
+
 input[type="checkbox"] {
-  accent-color: #3b82f6; /* Tailwind's blue-600 */
+  accent-color: #3b82f6; 
 }
 
 @keyframes modalScroll {

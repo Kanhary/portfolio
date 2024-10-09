@@ -27,7 +27,9 @@ const MaintenancePage = () => {
       ],
       hardDisk: '1TB HDD',
       startDate: '2023-01-10',
-      activeUser: { name: 'John Doe', role: 'Administrator', lastLogin: '2024-10-05', status: 'Active' },
+      activeUser: { name: 'John Doe', 
+      // role: 'Administrator', lastLogin: '2024-10-05', status: 'Active' 
+    },
     },
     {
       id: 2,
@@ -40,7 +42,9 @@ const MaintenancePage = () => {
       ],
       hardDisk: '512GB SSD',
       startDate: '2023-05-15',
-      activeUser: { name: 'Jane Doe', role: 'User', lastLogin: '2024-10-06', status: 'Inactive' },
+      activeUser: { name: 'Jane Doe', 
+                    // role: 'User', lastLogin: '2024-10-06', status: 'Inactive' 
+                  },
     },
     {
       id: 3,
@@ -54,7 +58,9 @@ const MaintenancePage = () => {
       ],
       hardDisk: '1TB HDD',
       startDate: '2023-01-10',
-      activeUser: { name: 'John Doe', role: 'Administrator', lastLogin: '2024-10-05', status: 'Active' },
+      activeUser: { name: 'John Doe', 
+                    // role: 'Administrator', lastLogin: '2024-10-05', status: 'Active' 
+                  },
     },
   ];
   
@@ -118,7 +124,8 @@ const MaintenancePage = () => {
         </div>
       </div> */}
 
-      <div className='flex flex-col items-center justify-between py-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
+      <div className='mt-4 bg-white rounded-md shadow-md'>
+      <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
         <div className='w-full md:w-1/2'>
           <form className='flex items-center'>
             <label htmlFor="simple-search" className='sr-only'>Search</label>
@@ -139,16 +146,16 @@ const MaintenancePage = () => {
           </form>
         </div>
         <div>
-          <label htmlFor="">Start Date : </label>
+          <label htmlFor="">Filter by Start Date : </label>
           <input
             type="date"
-            value={searchQuery} // Add this
+            value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className='p-2 border border-gray-300 rounded-lg'
           />
           <button
             type="button"
-            className="px-4 py-2 ml-2 text-sm text-gray-500 bg-gray-200 rounded-lg hover:bg-gray-300"
+            className="px-4 py-2 ml-2 text-sm text-white transition duration-200 bg-red-500 rounded-lg hover:bg-red-400"
             onClick={() => setSearchQuery('')}
           >
             Clear
@@ -247,6 +254,7 @@ const MaintenancePage = () => {
               </ul>
             </nav>
           </div>
+      </div>
 
       {/* details modal */}
       {selectedComputer && (
