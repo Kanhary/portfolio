@@ -19,7 +19,8 @@ const User = () => {
     password: '', 
     cardId: '', 
     staffCode: '', 
-    picture: null 
+    picture: null,
+    path: '' 
   };
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -69,8 +70,21 @@ const User = () => {
       setFormData(prev => ({ ...prev, selectedOption: selectedValue }));
     }
   };
-  
-
+  const handlePictureChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const pictureUrl = URL.createObjectURL(file);
+      setFormData((prevData) => {
+        const updatedData = {
+          ...prevData,
+          picture: file,
+          path: pictureUrl, // Store the URL in the path
+        };
+        console.log("Updated formData:", updatedData); 
+        return updatedData;
+      });
+    }
+  };
   const handleSaveNew = async () => {
     const validationErrors = {};
 
@@ -255,13 +269,6 @@ const handleSave = async () => {
     }
   }, [formData.picture]);
   
-  
-  const handlePictureChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFormData({ ...formData, picture: file });
-    }
-  };
   
   
   // Fetch users and employees
@@ -469,10 +476,17 @@ const customStyles = {
   }),
 };
 // Format options for react-select
-const options = employees.map(employee => ({
+const optionsStaffCode = employees.map(employee => ({
   value: employee.staffCode,
   label: `${employee.staffCode} - ${employee.laTanName}`
 }));
+
+const optionsRole = [
+  {value: 'Admin', label: 'Admin'},
+  {value: 'Editor', label: 'Editor'},
+  {value: 'User', label: 'User'},
+  {value: 'Guest', label: 'Guest'}
+]
   
   return (
     <section className='mt-16 font-khmer'>
@@ -634,17 +648,17 @@ const options = employees.map(employee => ({
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm ">
           <div className="relative flex flex-col w-full mx-auto overflow-auto transition-all transform bg-white shadow-2xl lg:w-2/3 rounded-xl h-5/6" data-aos='zoom-in'>
-            <header className="sticky top-0 flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+            <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
           
             <h2 className="flex items-center space-x-2 text-xl font-bold text-white md:text-2xl">
-              <GiShipBow className="text-3xl animate-ship" />
+              {/* <GiShipBow className="text-3xl animate-ship" /> */}
               <span>បន្ថែមអ្នកប្រើប្រាស់ថ្មី</span>
             </h2>
               <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
                 &times;
               </button>
             </header>
-            <form className="flex flex-col flex-grow px-6 py-6 space-y-6 md:flex-row md:space-x-6" data-aos='zoom-in'>
+            <form className="z-10 flex flex-col flex-grow px-6 py-6 space-y-6 md:flex-row md:space-x-6" data-aos='zoom-in'>
               {/* Left Side: Form Inputs */}
               <div className="w-full space-y-6 md:w-3/4">
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
@@ -703,25 +717,26 @@ const options = employees.map(employee => ({
                   </div>
                 </div>
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                  {/* Input for Card ID */}
                   <div className="w-full md:w-1/2">
-                    <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
-                    <input
-                      type="text"
-                      id="cardId"
-                      value={formData.cardId}
-                      onChange={handleChange}
-                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.cardId ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                    <label htmlFor="role" className="block mb-2 text-sm font-semibold text-gray-700">Role</label>
+                    <Select
+                      value={optionsRole.find(option => option.value === selectedOption)}
+                      onChange={handleChangeSelection}
+                      options={optionsRole}
+                      placeholder="Select or type to search"
+                      className="basic-single"
+                      classNamePrefix="select"
+                      styles={customStyles}
                     />
-                    {errors.cardId && <p className="mt-1 text-xs text-red-500">{errors.cardId}</p>}
+                    {errors.staffCode && <p className="mt-1 text-xs text-red-500">{errors.staffCode}</p>}
                   </div>
                   {/* Select for Staff Code */}
                   <div className="w-full md:w-1/2">
                     <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
                     <Select
-                      value={options.find(option => option.value === selectedOption)}
+                      value={optionsStaffCode.find(option => option.value === selectedOption)}
                       onChange={handleChangeSelection}
-                      options={options}
+                      options={optionsStaffCode}
                       placeholder="Select or type to search"
                       className="basic-single"
                       classNamePrefix="select"
@@ -755,48 +770,59 @@ const options = employees.map(employee => ({
                     {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                   </div>
                 </div>
+                <div className="w-full">
+                    <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
+                    <input
+                      type="text"
+                      id="cardId"
+                      value={formData.cardId}
+                      onChange={handleChange}
+                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.cardId ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                    />
+                    {errors.cardId && <p className="mt-1 text-xs text-red-500">{errors.cardId}</p>}
+                </div>
               </div>
 
               {/* Right Side: Picture Upload */}
               <div className="flex items-center w-full space-y-4 justify-evenly lg:justify-center lg:flex-col md:w-1/4">
-          <div className="relative flex items-center justify-center w-40 h-40 overflow-hidden bg-gray-100 rounded-lg shadow-lg">
-            {formData.picture ? (
-              <img
-                src={URL.createObjectURL(formData.picture)}
-                alt="Profile"
-                className="object-cover w-full h-full"
-              />
-            ) : (
-              <svg
-                className="w-12 h-12 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-            )}
-          </div>
-          <input
-            type="file"
-            id="picture"
-            accept="image/*"
-            onChange={handlePictureChange}
-            className="hidden"
+      <div className="relative flex items-center justify-center w-40 h-40 overflow-hidden bg-gray-100 rounded-lg shadow-lg">
+        {formData.picture ? (
+          <img
+            src={formData.path} // Use the stored path
+            alt="Profile"
+            className="object-cover w-full h-full"
           />
-          <label
-            htmlFor="picture"
-            className="flex items-center px-4 py-2 text-sm font-semibold text-center text-white transition-colors duration-200 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600"
+        ) : (
+          <svg
+            className="w-12 h-12 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            {formData.picture ? "Change Picture" : "Upload Picture"}
-          </label>
-        </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+        )}
+      </div>
+      <input
+        type="file"
+        id="picture"
+        accept="image/*"
+        onChange={handlePictureChange}
+        className="hidden"
+      />
+      <label
+        htmlFor="picture"
+        className="flex items-center px-4 py-2 text-sm font-semibold text-center text-white transition-colors duration-200 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600"
+      >
+        {formData.picture ? "Change Picture" : "Upload Picture"}
+      </label>
+    </div>
             </form>
 
             {/* Footer */}
@@ -888,18 +914,20 @@ const options = employees.map(employee => ({
                 </div>
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Card ID */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
-                  <input
-                    type="text"
-                    id="cardId"
-                    value={formData.cardId}
-                    onChange={handleChange}
-                    className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.cardId ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
-                  />
-                  {errors.cardId && <p className="mt-1 text-xs text-red-500">{errors.cardId}</p>}
+                    <label htmlFor="role" className="block mb-2 text-sm font-semibold text-gray-700">Role</label>
+                    <Select
+                      value={optionsRole.find(option => option.value === selectedOption)}
+                      onChange={handleChangeSelection}
+                      options={optionsRole}
+                      placeholder="Select or type to search"
+                      className="basic-single"
+                      classNamePrefix="select"
+                      styles={customStyles}
+                    />
+                    {errors.staffCode && <p className="mt-1 text-xs text-red-500">{errors.staffCode}</p>}
                 </div>
+                
                 {/* Select for Staff Code */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
@@ -939,6 +967,17 @@ const options = employees.map(employee => ({
                   {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                 </div>
               </div>
+              <div className="w-full">
+                  <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
+                  <input
+                    type="text"
+                    id="cardId"
+                    value={formData.cardId}
+                    onChange={handleChange}
+                    className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.cardId ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                  />
+                  {errors.cardId && <p className="mt-1 text-xs text-red-500">{errors.cardId}</p>}
+                </div>
             </div>
 
             {/* Right Side: Picture Upload */}

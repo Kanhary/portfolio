@@ -35,12 +35,12 @@ const ReportPage = () => {
         (!startDate || new Date(report.date) >= new Date(startDate)) &&
         (!reportType || report.type === reportType)
     );
-    const reportsPerPage = 5; // Adjust this as needed
+    const reportsPerPage = 5; 
     const totalReports = filteredReports.length;
     const totalPages = Math.ceil(totalReports / reportsPerPage);
     
 
-    // Get current reports for the displayed page
+    
     const getCurrentReports = () => {
         const startIndex = (currentPage - 1) * reportsPerPage;
         return filteredReports.slice(startIndex, startIndex + reportsPerPage);
@@ -64,6 +64,7 @@ const ReportPage = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewReport({ ...newReport, [name]: value });
+        console.log(setNewReport);
     };
 
     const handleSubmit = (e) => {

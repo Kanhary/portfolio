@@ -138,6 +138,20 @@ const EmployeeInformation = () => {
   const handleChange = (e) => {
     const { id, value } = e.target;
 
+    const file = e.target.files[0];
+    if (file) {
+      const pictureUrl = URL.createObjectURL(file);
+      setFormData((prevData) => {
+        const updatedData = {
+          ...prevData,
+          photo: file,
+          path: pictureUrl, // Store the URL in the path
+        };
+        console.log("Updated formData:", updatedData); 
+        return updatedData;
+      });
+    }
+
     if (id === "birthDate") {
       const formattedDate = new Date(value).toISOString().split('T')[0];
       setFormData(prevData => ({
