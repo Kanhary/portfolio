@@ -110,13 +110,13 @@ const GroupMaster = () => {
     
   return (
     <section className='mt-16 font-khmer'>
-    <h1 className='text-xl font-medium text-blue-800'>Group Master</h1>
+      <h1 className='text-xl font-medium text-blue-800'>Group Master</h1>
       <div className='mt-3 border'></div>
       <div className='w-full mt-4' data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
             <div className='w-full md:w-1/2'>
-              <form className='flex items-center'>
+              <form   className='flex items-center'>
                 <label htmlFor="simple-search" className='sr-only'>Search</label>
                 <div className='relative w-full'>
                   <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>

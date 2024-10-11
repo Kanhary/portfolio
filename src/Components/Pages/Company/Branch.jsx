@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Department = () => {
+const Branch = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Department = () => {
   )
 }
 
-export default Department
+export default Branch

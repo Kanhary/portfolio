@@ -10,23 +10,6 @@ const HeaderPage = ({ toggleSidebar }) => {
   // const dropdownRef = useRef(null);
   const notificationsRef = useRef(null);
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //     if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-  //       setIsNotificationsOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
   };

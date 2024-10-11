@@ -17,14 +17,14 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   //static login
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (username === 'Pheakdey' && password === '123') {
-  //     navigate('/main-dashboard'); 
-  //   } else {
-  //     setError('Invalid username or password');
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username === 'Pheakdey' && password === '123') {
+      navigate('/main-dashboard'); 
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
 //   const Login = async ({ username, password }) => {
 //     const response = await fetch('http://192.168.126.1:8899/auth/login.do', {
@@ -45,23 +45,23 @@ const LoginForm = () => {
 // };
 
   //Dynamic login
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setError(null);
 
-    try {
-        const response = await Login({ username, password });
-        if (response.status === 200) {
-            navigate('/main-dashboard'); 
-            console.log('Login')
-        } else {
-            setError('Invalid username or password');
-        }
-    } catch (err) {
-        setError('Invalid username or password');
-    } 
-};
+//     try {
+//         const response = await Login({ username, password });
+//         if (response.status === 200) {
+//             navigate('/main-dashboard'); 
+//             console.log('Login')
+//         } else {
+//             setError('Invalid username or password');
+//         }
+//     } catch (err) {
+//         setError('Invalid username or password');
+//     } 
+// };
 
 
   const togglePassword = () => {
@@ -212,9 +212,6 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-
-
-
     </div>
   </div>
 </div>

@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 
 const GenderList = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({ code: '', position: '' });
   const [editingGender, setEditingGender] = useState(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
 
   const genderList = [
     { code: 'F', gender: 'ស្រី' },
