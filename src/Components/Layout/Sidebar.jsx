@@ -27,10 +27,16 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     // Adjust submenu heights based on their open/close state
     setSubmenuHeight(isEmployeeMenuOpen ? `${submenuRef.current.scrollHeight}px` : '0px');
     setSystemSubmenuHeight(isSystemSettingMenuOpen ? `${systemSubmenuRef.current.scrollHeight}px` : '0px');
-  }, [isEmployeeMenuOpen, isSystemSettingMenuOpen]);
+    setCompanySubmenuHeight(isCompanyMenuOpen ? `${companySubmenuRef.current.scrollHeight}px` : '0px');
+  }, [isEmployeeMenuOpen, isSystemSettingMenuOpen, isCompanyMenuOpen]);
+  
 
   const toggleEmployeeMenu = () => {
     setEmployeeMenuOpen(prevState => !prevState);
+  };
+  
+  const toggleCompanyMenu = () => {
+    setSystemSettingMenuOpen(prevState => !prevState);
   };
 
   const toggleSystemSettingMenu = () => {
@@ -64,6 +70,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             onClick={() => handleLinkClick('Computer')} 
             isActive={activeItem === 'Computer'} 
           />
+
+           <NavItem
+            icon={<FaUserFriends />}
+            text="តារាងក្រុមហ៊ុន"
+            onClick={() => {toggleCompanyMenu(); handleLinkClick('company');}}
+            isActive={activeItem === 'company'}
+            dropdownIcon={isCompanyMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
+          />
+
           <NavItem
             icon={<FaUserFriends />}
             text="តារាងបុគ្គលិក"

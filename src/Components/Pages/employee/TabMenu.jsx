@@ -377,9 +377,6 @@ const TabMenu = ({
                     <option value="" disabled hidden>
                       Select the office
                     </option>
-                    <option value="ការិយាល័យរដ្ឋបាល">ការិយាល័យរដ្ឋបាល</option>
-                    <option value="ការិយាល័យព័ត៌មានវិទ្យា">ការិយាល័យព័ត៌មានវិទ្យា</option>
-                    <option value="ការិយាល័យគណនេយ្យ">ការិយាល័យគណនេយ្យ</option>
                     {/* Add more offices as needed */}
                   </select>
                 </div>
@@ -472,7 +469,7 @@ const TabMenu = ({
 
               <div className="flex flex-col gap-2">
                   <label htmlFor="fileUpload" className="flex gap-1 text-sm font-medium text-gray-700">
-                    ជ្រើសរើសរូបភាព
+                    រូបភាព
                   </label>
                   <input
                     type="file"
@@ -770,5 +767,4 @@ const TabMenu = ({
         </div>
   );
 };
-
 export default TabMenu;
