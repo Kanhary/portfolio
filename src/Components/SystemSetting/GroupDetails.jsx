@@ -153,61 +153,64 @@ const AddNewModal = ({ isOpen, onClose, onAdd }) => {
     ];
 
     return isOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="overflow-auto bg-white rounded-lg shadow-lg h-[550px] max-h-[90vh] w-full lg:w-3/4">
-                <div className="sticky top-0 flex items-center justify-between w-full p-2 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
-                    <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
-                        Add New
-                    </h2>
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-                    >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+        <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-4xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[550px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos="zoom-in">
+            {/* Header */}
+            <div className="sticky top-0 flex items-center justify-between w-full p-2 mb-6 bg-gray-100 border-b border-gray-300 border-dashed">
+                <h2 className="flex-1 ml-3 text-2xl font-medium text-blue-800 font-khmer">
+                    Add New
+                </h2>
+                <button
+                    type="button"
+                    onClick={onClose}
+                    className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div className="px-6 mb-4">
-                    <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-700">Select Role</label>
-                    <select
-                        id="role"
-                        value={selectedRole}
-                        onChange={handleRoleChange}
-                        className="w-full p-3 border border-gray-300 rounded-lg shadow-sm"
-                    >
-                        <option value="Admin">Admin</option>
-                        <option value="Editor">Editor</option>
-                        <option value="User">User</option>
-                    </select>
-                </div>
-    
-                <div className="px-6 mb-4">
-                    <h3 className="mb-2 text-lg font-medium">Select Function Codes</h3>
-                    <FunctionCodeTable
-                        functionCodes={functionCodes}
-                        selectedFunctionCodes={selectedFunctionCodes}
-                        onChange={handleFunctionCodeChange}
-                    />
-                </div>
-    
-                <div className="flex justify-end gap-4 px-6 pb-4">
-                    <button
-                        onClick={handleSubmit}
-                        className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700"
-                    >
-                        <FaSave /> <span>Save</span>
-                    </button>
-                    <button
-                        onClick={onClose}
-                        className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 rounded-lg shadow-sm hover:bg-red-700"
-                    >
-                        <FaTimes /> <span>Cancel</span>
-                    </button>
-                </div>
+                    </svg>
+                </button>
+            </div>
+            {/* Role Selection */}
+            <div className="px-6 mb-4">
+                <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-700">Select Role</label>
+                <select
+                    id="role"
+                    value={selectedRole}
+                    onChange={handleRoleChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg shadow-sm"
+                >
+                    <option value="Admin">Admin</option>
+                    <option value="Editor">Editor</option>
+                    <option value="User">User</option>
+                </select>
+            </div>
+            {/* Function Codes Selection */}
+            <div className="px-6 mb-4">
+                <h3 className="mb-2 text-lg font-medium">Select Function Codes</h3>
+                <FunctionCodeTable
+                    functionCodes={functionCodes}
+                    selectedFunctionCodes={selectedFunctionCodes}
+                    onChange={handleFunctionCodeChange}
+                />
+            </div>
+            {/* Footer */}
+            <div className="flex justify-end gap-4 px-6 pb-4">
+                <button
+                    onClick={handleSubmit}
+                    className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700"
+                >
+                    <FaSave /> <span>Save</span>
+                </button>
+                <button
+                    onClick={onClose}
+                    className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 rounded-lg shadow-sm hover:bg-red-700"
+                >
+                    <FaTimes /> <span>Cancel</span>
+                </button>
             </div>
         </div>
+    </div>
+    
     ) : null;
     
 };
