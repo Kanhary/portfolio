@@ -54,16 +54,16 @@ export function DeleteUser(ID) {
     });
 }
 
-// export function Login({ username, password }) {
-//     return request({
-//         method: 'POST',
-//         url: '/auth/login.do',
-//         data: {
-//             username,
-//             password,
-//         }
-//     });
-// }
+export function Login({ username, password }) {
+    return request({
+        method: 'POST',
+        url: '/auth/login.do',
+        data: {
+            username,
+            password,
+        }
+    });
+}
 
 
 
