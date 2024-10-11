@@ -84,6 +84,7 @@ const EmployeeInformation = () => {
     officeCode: '',
     positionCode: '',
     photo: null,
+    path: ''
   });
 
   useEffect(() => {
