@@ -95,6 +95,18 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
               />
+              <SubmenuItem
+                text="នាយកដ្ឋាន"
+                to="/main-dashboard/employee/department"
+                onClick={() => handleLinkClick('Department')}
+                isActive={activeItem === 'Department'}
+              />
+              <SubmenuItem
+                text="ការិយាល័យ"
+                to="/main-dashboard/employee/office"
+                onClick={() => handleLinkClick('Office')}
+                isActive={activeItem === 'Office'}
+              />
             </ul>
           </div>
 

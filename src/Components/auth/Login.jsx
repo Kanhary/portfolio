@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "remixicon/fonts/remixicon.css";
-import { Login } from "../../api/user";
+// import { Login } from "../../api/user";
 
 const LoginForm = () => {
   useEffect(() => {
@@ -26,8 +26,25 @@ const LoginForm = () => {
     }
   };
 
+//   const Login = async ({ username, password }) => {
+//     const response = await fetch('http://192.168.126.1:8899/auth/login.do', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             // changeOrigin: true,
+//         },
+//         body: JSON.stringify({
+//             username,
+//             password,
+//         }),
+//         credentials: 'include',
+//     });
 
-  //Dynamic login
+//     // Return the entire response object so we can check the status
+//     return response;
+// };
+
+//   //Dynamic login
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setLoading(true);

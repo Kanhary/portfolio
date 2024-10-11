@@ -19,6 +19,8 @@ import GroupMaster from '../SystemSetting/GroupMaster';
 import ItemPermission from '../SystemSetting/ItemPermission';
 import GroupDetails from '../SystemSetting/GroupDetails';
 import HeaderPage from './HeaderPage';
+import Department from '../Pages/employee/Department';
+import Office from '../Pages/employee/Office';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -54,6 +56,8 @@ function MainDashboard() {
           <Route path='employee/position-list' element={<EmployeePositionList />} />
           <Route path='employee/gender-list' element={<GenderList />} />
           <Route path='employee/employee-information' element={<EmployeeInformation />} />
+          <Route path='employee/department' element={<Department/>} />
+          <Route path='employee/office' element={<Office/>} />
           <Route path='system-setting/user' element={<User/>} />
           <Route path='system-setting/group-master' element={<GroupMaster/>} />
           <Route path='system-setting/item-permission' element={<ItemPermission/>} />

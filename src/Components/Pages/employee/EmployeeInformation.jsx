@@ -140,16 +140,15 @@ const EmployeeInformation = () => {
 
     const file = e.target.files[0];
     if (file) {
-      const pictureUrl = URL.createObjectURL(file);
-      setFormData((prevData) => {
-        const updatedData = {
-          ...prevData,
-          photo: file,
-          path: pictureUrl, // Store the URL in the path
-        };
-        console.log("Updated formData:", updatedData); 
-        return updatedData;
-      });
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prevState => ({
+          ...prevState,
+          picture: true,
+          path: reader.result // this will be a base64 string
+        }));
+      };
+      reader.readAsDataURL(file);
     }
 
     if (id === "birthDate") {

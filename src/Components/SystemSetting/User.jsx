@@ -785,44 +785,44 @@ const optionsRole = [
 
               {/* Right Side: Picture Upload */}
               <div className="flex items-center w-full space-y-4 justify-evenly lg:justify-center lg:flex-col md:w-1/4">
-      <div className="relative flex items-center justify-center w-40 h-40 overflow-hidden bg-gray-100 rounded-lg shadow-lg">
-        {formData.picture ? (
-          <img
-            src={formData.path} // Use the stored path
-            alt="Profile"
-            className="object-cover w-full h-full"
-          />
-        ) : (
-          <svg
-            className="w-12 h-12 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-        )}
-      </div>
-      <input
-        type="file"
-        id="picture"
-        accept="image/*"
-        onChange={handlePictureChange}
-        className="hidden"
-      />
-      <label
-        htmlFor="picture"
-        className="flex items-center px-4 py-2 text-sm font-semibold text-center text-white transition-colors duration-200 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600"
-      >
-        {formData.picture ? "Change Picture" : "Upload Picture"}
-      </label>
-    </div>
+                <div className="relative flex items-center justify-center w-40 h-40 overflow-hidden bg-gray-100 rounded-lg shadow-lg">
+                  {formData.picture ? (
+                    <img
+                      src={formData.path} // Use the stored path
+                      alt="Profile"
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <svg
+                      className="w-12 h-12 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 4v16m8-8H4"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  id="picture"
+                  accept="image/*"
+                  onChange={handlePictureChange}
+                  className="hidden"
+                />
+                <label
+                  htmlFor="picture"
+                  className="flex items-center px-4 py-2 text-sm font-semibold text-center text-white transition-colors duration-200 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600"
+                >
+                  {formData.picture ? "Change Picture" : "Upload Picture"}
+                </label>
+              </div>
             </form>
 
             {/* Footer */}
