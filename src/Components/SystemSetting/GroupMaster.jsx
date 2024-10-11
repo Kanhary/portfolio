@@ -166,7 +166,7 @@ const GroupMaster = () => {
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                       <td className='sticky left-0 flex px-6 py-4 bg-white'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
-                        <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700 ml-2" 
+                        <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" 
                         onClick={() => openEditModal(groupmaster.Code, groupmaster.GroupCode, groupmaster.GroupName)}
                         />
                         <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" 
@@ -247,7 +247,7 @@ const GroupMaster = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
             <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-              <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមអ្នកប្រើប្រាស់</h2>
+              <h2 className="text-xl font-bold text-white md:text-2xl">New Group Master</h2>
               <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
                 &times;
               </button>

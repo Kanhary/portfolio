@@ -54,12 +54,17 @@ export function DeleteUser(ID) {
     });
 }
 
-// export function Login(){
-//     return request({
-//         method: 'POST',
-//         url: 'userSystem/login'
-//     })
-// }
+export function Login({ username, password }) {
+    return request({
+        method: 'POST',
+        url: '/auth/login.do',
+        data: {
+            username,
+            password,
+        }
+    });
+}
+
 
 export function GetAllStaff(params){
     console.log(params);

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "remixicon/fonts/remixicon.css";
+import { Login } from "../../api/user";
 
 const LoginForm = () => {
   useEffect(() => {
@@ -14,7 +15,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(true);
   //static login
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,21 +28,24 @@ const LoginForm = () => {
 
 
   //Dynamic login
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError(null);
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setError(null);
 
-  //   try {
-  //     await Login({ username, password });
-  //     navigate('/main-dashboard'); 
-  //   } catch (err) {
-  //     setError('Invalid username or password');
-  //   } 
-  //   finally {
-  //     setLoading(false);
-  //   }
-  // };
+//     try {
+//         const response = await Login({ username, password });
+//         if (response.status === 200) {
+//             navigate('/main-dashboard'); 
+//             console.log('Login')
+//         } else {
+//             setError('Invalid username or password');
+//         }
+//     } catch (err) {
+//         setError('Invalid username or password');
+//     } 
+// };
+
 
   const togglePassword = () => {
     const passwordField = document.getElementById("password");
@@ -79,7 +83,8 @@ const LoginForm = () => {
         {error && <p className='mb-4 text-red-500'>{error}</p>}
         <form action="#" 
         // method="POST" 
-        onSubmit={handleSubmit}>
+        // onSubmit={handleSubmit}
+        >
           <div className="relative mb-6">
             <input
               type="text"
@@ -133,6 +138,8 @@ const LoginForm = () => {
           </div>
           <div className="flex items-center justify-center">
             <button
+              type="submit"
+              onClick={handleSubmit}
               className="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden text-base text-white transition-all duration-300 ease-in-out bg-blue-500 border rounded-md font-meduim group/button backdrop-blur-lg hover:scale-110 hover:shadow-xl hover:shadow-blue-600/50 border-white/20 "
             >
               <span className="text-lg">បញ្ចូលគណនី</span>
