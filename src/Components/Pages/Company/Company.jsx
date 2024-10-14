@@ -5,6 +5,7 @@ const companies = [
     nameEn: 'Phnom Penh Autonomous Port',
     nameKh: 'កំពង់ផែស្វយ័តភ្នំពេញ',
     phone: '+855 123 456 789',
+    email: 'info@pp.com', // Added email field
     photo: '/LOGO PPAP.png',
   },
   // You can add more companies here
@@ -17,9 +18,6 @@ const Company = () => {
         <div className='my-3 border '></div>
         <div className="flex items-center justify-center" data-aos='fade-up'>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-md" data-aos='fade-right'>
-                {/* <h2 className="mb-8 text-2xl font-semibold text-center text-gray-900">
-                    Company
-                </h2> */}
                 <table className="w-full bg-white border-collapse table-auto">
                     <thead>
                     <tr className="bg-gray-100 border-b">
@@ -32,6 +30,9 @@ const Company = () => {
                         <th className="px-6 py-4 text-sm font-semibold tracking-wide text-left text-gray-600 uppercase">
                         Phone Number
                         </th>
+                        <th className="px-6 py-4 text-sm font-semibold tracking-wide text-left text-gray-600 uppercase">
+                        Email
+                        </th> {/* New email column */}
                         <th className="px-6 py-4 text-sm font-semibold tracking-wide text-left text-gray-600 uppercase">
                         Logo
                         </th>
@@ -53,6 +54,9 @@ const Company = () => {
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-800">
                             {company.phone}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-800">
+                            {company.email} {/* Displaying email */}
                         </td>
                         <td className="px-6 py-4">
                             <img
