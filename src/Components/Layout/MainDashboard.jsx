@@ -13,7 +13,6 @@ import Loader from '../commons/Loader';
 import EmployeeInformation from '../Pages/employee/EmployeeInformation';
 import Dashboard from '../Pages/Dashboard';
 import User from '../SystemSetting/User';
-
 import NotFound from '../Pages/NotFound';
 import GroupMaster from '../SystemSetting/GroupMaster';
 import ItemPermission from '../SystemSetting/ItemPermission';
@@ -23,6 +22,7 @@ import Department from '../Pages/Company/Department';
 import Office from '../Pages/Company/Office';
 import Branch from '../Pages/Company/Branch';
 import Company from '../Pages/Company/Company';
+
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -65,7 +65,7 @@ function MainDashboard() {
           <Route path='company/branch' element={<Branch/>} />
           <Route path='company/department' element={<Department/>} />
           <Route path='company/office' element={<Office/>}/>
-          <Route path='company/company' element={<Company/>} />
+          <Route path='company/company-list' element={<Company/>} />
           <Route path='maintenance' element={<Maintenance />} />
           <Route path='setting' element={<Setting />} />
           <Route path='report' element={<Report />} />

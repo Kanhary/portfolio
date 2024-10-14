@@ -15,9 +15,8 @@ const Company = () => {
     <section className='mt-10'>
         <h1 className='text-xl font-medium text-blue-800'>តារាងក្រុមហ៊ុន</h1>
         <div className='my-3 border '></div>
-        <div className="flex items-center justify-center">
-            <div className="w-full bg-white border border-gray-200 rounded-lg shadow-md">
-                <div className="">
+        <div className="flex items-center justify-center" data-aos='fade-up'>
+            <div className="w-full bg-white border border-gray-200 rounded-lg shadow-md" data-aos='fade-right'>
                 <h2 className="mb-8 text-2xl font-semibold text-center text-gray-900">
                     Company
                 </h2>
@@ -66,7 +65,6 @@ const Company = () => {
                     ))}
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
     </section>
