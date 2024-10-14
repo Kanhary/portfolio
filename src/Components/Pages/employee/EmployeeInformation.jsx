@@ -87,6 +87,19 @@ const EmployeeInformation = () => {
     path: ''
   });
 
+  const departments = [
+    { id: '1', name: 'HR' },
+    { id: '2', name: 'IT' },
+    { id: '3', name: 'Finance' },
+  ];
+  
+  const offices = {
+    '1': ['HR Office 1', 'HR Office 2'],   // Offices under HR
+    '2': ['IT Office 1', 'IT Office 2'],   // Offices under IT
+    '3': ['Finance Office 1', 'Finance Office 2'], // Offices under Finance
+  };
+  
+
   useEffect(() => {
     const fetchAllStaff = async () => {
       try {
@@ -789,7 +802,8 @@ const EmployeeInformation = () => {
           closeEditModal={closeEditModal}
           closeViewModal={closeViewModal}     
           saveAllModal={saveAllModal}
-
+          offices={offices}
+          departments={departments}
         />
       </div>
       {/* <div className="flex justify-center gap-5 p-6 mt-4">

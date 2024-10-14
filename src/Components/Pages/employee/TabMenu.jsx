@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 const TabMenu = ({
-  formData,
+  // formData,
   // errors,
   handleChange,
   // handleSaveEmployee,
@@ -16,6 +16,8 @@ const TabMenu = ({
   closeEditModal,
   saveAllModal,
   disabled,
+  offices,
+  departments
   
 }) => {
   const [activeTab, setActiveTab] = useState('tab1'); // Track the active tab
@@ -27,8 +29,12 @@ const TabMenu = ({
   const [imageUrl, setImageUrl] = useState('');
   const [fileName, setFileName] = useState('');
   const { scrollYProgress } = useScroll();
+  const [filteredOffices, setFilteredOffices] = useState([]);
 
-
+  const [formData, setFormData] = useState({
+    department: '',
+    office: '',
+  });
   // const [formData, setFormData] = useState({
   //   id: '',
   //   code: '',
@@ -68,6 +74,35 @@ const TabMenu = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmittedData(formData);
+  };
+
+  const handleDepartmentChange = (e) => {
+    const selectedDepartment = e.target.value;
+
+    // Update form data
+    setFormData(prev => ({
+      ...prev,
+      department: selectedDepartment,
+      office: '', // Reset office when department changes
+    }));
+
+    // Filter the offices based on selected department
+    if (offices[selectedDepartment]) {
+      setFilteredOffices(offices[selectedDepartment]);
+    } else {
+      setFilteredOffices([]); // Clear the office dropdown if no department selected
+    }
+  };
+
+  // Handle office change
+  const handleOfficeChange = (e) => {
+    const selectedOffice = e.target.value;
+
+    // Update form data
+    setFormData(prev => ({
+      ...prev,
+      office: selectedOffice,
+    }));
   };
   const options = [
     // { value: 'manager', label: 'Manager' },
@@ -342,45 +377,40 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="departmentCode" className="flex gap-1 text-sm font-medium text-gray-700">
-                    {/* {!formData.departmentCode && <p className="text-sm text-red-600 ">*</p>} */}
-                    នាយកដ្ឋាន</label>
-                  <select
-                    id="departmentCode"
-                    value={formData.departmentCode || ''}
-                    onChange={handleChange}
-                    disabled={disabled ? true : undefined}
-                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="" disabled hidden>Select the department</option>
-                    <option value="នាយកដ្ខានរដ្ឋបាល">នាយកដ្ខានរដ្ឋបាល</option>
-                    <option value="នាយកដ្ឋាននាវាចរណ៍">នាយកដ្ឋាននាវាចរណ៍</option>
-                    <option value="នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ">នាយកដ្ឋានប្រតិបត្តិការណ៍ផែ</option>
-                    <option value="នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ">នាយកដ្ឋានគណនេយ្យ/ហិរញ្ញវត្ថុ</option>
-                    {/* Add more departments as needed */}
-                  </select>
-                  {/* {!formData.department && <p className="text-sm text-red-600">This field is required</p>} */}
-                </div>
+        <label htmlFor="department" className="text-sm font-medium text-gray-700">
+          Department
+        </label>
+        <select
+          id="department"
+          value={formData.department}
+          onChange={handleDepartmentChange}
+          className="block w-full p-3 border border-gray-300 rounded-lg"
+        >
+          <option value="">Select Department</option>
+          {departments.map(dept => (
+            <option key={dept.id} value={dept.id}>{dept.name}</option>
+          ))}
+        </select>
+      </div>
 
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="officeCode" className="flex gap-1 text-sm font-medium text-gray-700">
-                    {/* {!formData.officeCode && <p className="text-sm text-red-600">*</p>} */}
-                    ការិយាល័យ
-                  </label>
-                  <select
-                    id="officeCode"
-                    value={formData.officeCode || ''}
-                    onChange={handleChange}
-                    disabled={disabled ? true : undefined}
-                    className="block w-full p-3 text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1"
-                  >
-                    <option value="" disabled hidden>
-                      Select the office
-                    </option>
-                    {/* Add more offices as needed */}
-                  </select>
-                </div>
-
+      {/* Office Dropdown */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="office" className="text-sm font-medium text-gray-700">
+          Office
+        </label>
+        <select
+          id="office"
+          value={formData.office}
+          onChange={handleOfficeChange}
+          className="block w-full p-3 border border-gray-300 rounded-lg"
+          disabled={!filteredOffices.length} // Disable if no offices available
+        >
+          <option value="">Select Office</option>
+          {filteredOffices.map((office, index) => (
+            <option key={index} value={office}>{office}</option>
+          ))}
+        </select>
+      </div>
 
                 {[
                   { id: 'companyCode', label: 'ក្រុមហ៊ុន', type: 'text' },

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AiFillHome } from "react-icons/ai";
+import { FaBuilding } from 'react-icons/fa';
 import { FaLaptop, FaUserFriends, FaCog } from "react-icons/fa";
 import { FaScrewdriverWrench } from "react-icons/fa6";
 import { HiChartBar } from "react-icons/hi2";
@@ -12,12 +13,14 @@ import 'aos/dist/aos.css';
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [isEmployeeMenuOpen, setEmployeeMenuOpen] = useState(false);
   const [isSystemSettingMenuOpen, setSystemSettingMenuOpen] = useState(false);
+  const [isCompanyMenuOpen, setCompanyMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('');
   const [submenuHeight, setSubmenuHeight] = useState('0px');
   const [systemSubmenuHeight, setSystemSubmenuHeight] = useState('0px');
-
+  const [companySubmenuHeight, setCompanySubmenuHeight] = useState('0px');
   const submenuRef = useRef(null);
   const systemSubmenuRef = useRef(null);
+  const CompanySubmenuRef = useRef(null);
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -27,22 +30,20 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     // Adjust submenu heights based on their open/close state
     setSubmenuHeight(isEmployeeMenuOpen ? `${submenuRef.current.scrollHeight}px` : '0px');
     setSystemSubmenuHeight(isSystemSettingMenuOpen ? `${systemSubmenuRef.current.scrollHeight}px` : '0px');
-    setCompanySubmenuHeight(isCompanyMenuOpen ? `${companySubmenuRef.current.scrollHeight}px` : '0px');
+    setCompanySubmenuHeight(isCompanyMenuOpen ? `${CompanySubmenuRef.current.scrollHeight}px` : '0px');
   }, [isEmployeeMenuOpen, isSystemSettingMenuOpen, isCompanyMenuOpen]);
-  
 
   const toggleEmployeeMenu = () => {
     setEmployeeMenuOpen(prevState => !prevState);
-  };
-  
-  const toggleCompanyMenu = () => {
-    setSystemSettingMenuOpen(prevState => !prevState);
   };
 
   const toggleSystemSettingMenu = () => {
     setSystemSettingMenuOpen(prevState => !prevState);
   };
 
+  const toggleCompanyMenu = () => {
+    setCompanyMenuOpen(prevState => !prevState);
+  };
   const handleLinkClick = (itemName) => {
     setActiveItem(itemName);
   };
@@ -70,15 +71,39 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             onClick={() => handleLinkClick('Computer')} 
             isActive={activeItem === 'Computer'} 
           />
-
-           <NavItem
-            icon={<FaUserFriends />}
+          <NavItem
+            icon={<FaBuilding />}  // Company icon representing a building
             text="តារាងក្រុមហ៊ុន"
-            onClick={() => {toggleCompanyMenu(); handleLinkClick('company');}}
-            isActive={activeItem === 'company'}
+            onClick={() => {toggleCompanyMenu(); handleLinkClick('Company');}}
+            isActive={activeItem === 'Company'}
             dropdownIcon={isCompanyMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
           />
-
+          <div
+            ref={CompanySubmenuRef}
+            style={{ height: companySubmenuHeight }}
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+          >
+            <ul className="ml-8 space-y-1 list-disc">
+              <SubmenuItem 
+                text="Branch" 
+                to="/main-dashboard/company/branch" 
+                onClick={() => handleLinkClick('Item-Permission')} 
+                isActive={activeItem === 'Item-Permission'} 
+              />
+              <SubmenuItem 
+                text="Department" 
+                to="/main-dashboard/company/department" 
+                onClick={() => handleLinkClick('User')} 
+                isActive={activeItem === 'User'} 
+              />
+              <SubmenuItem 
+                text="Office" 
+                to="/main-dashboard/company/office" 
+                onClick={() => handleLinkClick('Office')} 
+                isActive={activeItem === 'Office'} 
+              />
+            </ul>
+          </div>
           <NavItem
             icon={<FaUserFriends />}
             text="តារាងបុគ្គលិក"
@@ -101,7 +126,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               <SubmenuItem 
                 text="តារាងបញ្ញីភេទបុគ្គលិក" 
                 to="/main-dashboard/employee/gender-list" 
-                onClick={() => handleLinkClick('Gender List')} 
+                onClick={() => handleLinkClick('Gender List')}
+
                 isActive={activeItem === 'Gender List'} 
               />
               <SubmenuItem 
@@ -110,21 +136,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
               />
-              <SubmenuItem
-                text="នាយកដ្ឋាន"
-                to="/main-dashboard/employee/department"
-                onClick={() => handleLinkClick('Department')}
-                isActive={activeItem === 'Department'}
-              />
-              <SubmenuItem
-                text="ការិយាល័យ"
-                to="/main-dashboard/employee/office"
-                onClick={() => handleLinkClick('Office')}
-                isActive={activeItem === 'Office'}
-              />
             </ul>
           </div>
-
+          
           <NavItem
             icon={<FaCog />}
             text="ការកំណត់ប្រព័ន្ធ"
@@ -164,10 +178,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               />
             </ul>
           </div>
-
+          
           <NavItem 
             icon={<FaScrewdriverWrench />} 
-            text="ការថែទាំ" 
+            text="ការថែទាំ"
+
             to="/main-dashboard/maintenance" 
             onClick={() => handleLinkClick('Maintenance')} 
             isActive={activeItem === 'Maintenance'} 
