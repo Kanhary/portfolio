@@ -102,6 +102,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 onClick={() => handleLinkClick('Office')} 
                 isActive={activeItem === 'Office'} 
               />
+              <SubmenuItem 
+                text="Company" 
+                to="/main-dashboard/company/company-list" 
+                onClick={() => handleLinkClick('company-list')} 
+                isActive={activeItem === 'company-list'} 
+              />
             </ul>
           </div>
           <NavItem
