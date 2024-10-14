@@ -384,9 +384,9 @@ const TabMenu = ({
           id="department"
           value={formData.department}
           onChange={handleDepartmentChange}
-          className="block w-full p-3 border border-gray-300 rounded-lg"
+          className="block w-full p-3 border border-gray-300 rounded-lg text-sm text-gray-700"
         >
-          <option value="">Select Department</option>
+          <option value="" disable hidden>Select Department</option>
           {departments.map(dept => (
             <option key={dept.id} value={dept.id}>{dept.name}</option>
           ))}
@@ -402,10 +402,10 @@ const TabMenu = ({
           id="office"
           value={formData.office}
           onChange={handleOfficeChange}
-          className="block w-full p-3 border border-gray-300 rounded-lg"
+          className="block w-full p-3 border border-gray-300 rounded-lg text-sm text-gray-700"
           disabled={!filteredOffices.length} // Disable if no offices available
         >
-          <option value="">Select Office</option>
+          <option value="" disable hidden>Select Office</option>
           {filteredOffices.map((office, index) => (
             <option key={index} value={office}>{office}</option>
           ))}

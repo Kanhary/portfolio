@@ -85,25 +85,25 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           >
             <ul className="ml-8 space-y-1 list-disc">
               <SubmenuItem 
-                text="Branch" 
+                text="សាខា" 
                 to="/main-dashboard/company/branch" 
                 onClick={() => handleLinkClick('Item-Permission')} 
                 isActive={activeItem === 'Item-Permission'} 
               />
               <SubmenuItem 
-                text="Department" 
+                text="នាយកដ្ឋាន" 
                 to="/main-dashboard/company/department" 
                 onClick={() => handleLinkClick('User')} 
                 isActive={activeItem === 'User'} 
               />
               <SubmenuItem 
-                text="Office" 
+                text="ការិយាល័យ" 
                 to="/main-dashboard/company/office" 
                 onClick={() => handleLinkClick('Office')} 
                 isActive={activeItem === 'Office'} 
               />
               <SubmenuItem 
-                text="Company" 
+                text="ក្រុមហ៊ុន" 
                 to="/main-dashboard/company/company-list" 
                 onClick={() => handleLinkClick('company-list')} 
                 isActive={activeItem === 'company-list'} 

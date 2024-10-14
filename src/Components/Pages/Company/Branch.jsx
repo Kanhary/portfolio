@@ -47,6 +47,8 @@ const Branch = () => {
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentBranches = filteredBranches.slice(indexOfFirstRecord, indexOfLastRecord);
+  
+  
 
   const getPaginationItems = () => {
     let pages = [];
@@ -72,20 +74,59 @@ const Branch = () => {
     }));
   };
 
-  const handleSave = () => {
-    if (!formData.CompanyCode || !formData.BranchCode || !formData.Branch || !formData.LastBy || !formData.LastDate) {
-      alert('Please fill in all fields.');
-      return;
+  const handleSave = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+  
+    // Log the form data for debugging
+    console.log('Submitting form data:', formData);
+  
+    try {
+      // Call your save function, replace `AddStaff` with your actual API call
+      const response = await AddStaff(formData);
+  
+      if (response.status === 200) {
+        // Show success alert
+        Swal.fire({
+          title: "Successful",
+          text: "Employee created successfully",
+          icon: "success",
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'text-lg font-semibold text-blue-800',
+            content: 'text-sm text-gray-700',
+            confirmButton: 'px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700'
+          }
+        });
+        setIsAddModalOpen(false); // Close modal
+      } else {
+        // Handle potential error responses
+        const errorMessage = response.data.message || 'An unexpected error occurred.';
+        Swal.fire({
+          title: "Error",
+          text: errorMessage,
+          icon: "error",
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'text-lg font-semibold text-red-800',
+            content: 'text-sm text-gray-700',
+            confirmButton: 'px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700'
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error during save operation:', error);
+      Swal.fire({
+        title: "Error",
+        text: "An unexpected error occurred.",
+        icon: "error",
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'text-lg font-semibold text-red-800',
+          content: 'text-sm text-gray-700',
+          confirmButton: 'px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700'
+        }
+      });
     }
-
-    if (editingBranch) {
-      // Update existing branch logic
-    } else {
-      // Add new branch logic
-    }
-
-    setFormData(INITIAL_FORM_DATA);
-    setIsEditModalOpen(false);
   };
 
   const openAddModal = () => {
@@ -124,13 +165,14 @@ const Branch = () => {
 
   return (
     <section className='mt-16'>
-      <h1 className='text-xl font-medium text-blue-800'>សាខា</h1>
+      <h1 className='text-xl font-medium text-blue-800'>បញ្ចូលព័ត៌មានសាខា</h1>
       <div className='mt-3 border'></div>
-      <div className='w-full mt-4'>
+      <div className='w-full mt-4'data-aos='fade-up'>
+        
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
           <div className='flex flex-col items-center justify-between p-4 space-x-4 space-y-3 md:flex-row md:space-y-0'>
             <div className='w-full md:w-1/2'>
-              <form className='flex items-center'>
+              <form className='flex items-center '>
                 <label htmlFor="simple-search" className='sr-only'>Search</label>
                 <div className='relative w-full'>
                   <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
@@ -141,6 +183,7 @@ const Branch = () => {
                   <input 
                     type="text" 
                     id='simple-search'
+                    placeholder='Search Company Code'
                     className='block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -161,7 +204,7 @@ const Branch = () => {
               </button>
             </div>
           </div>
-          <div className='w-full overflow-x-auto'>
+          <div className='w-full overflow-x-auto'  data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
@@ -184,16 +227,16 @@ const Branch = () => {
           {/* Checkbox */}
           <input type="checkbox" className="mr-2" />
 
+          {/* View Button */}
+          <button onClick={() => openViewModal(branch.BranchCode)}>
+              <FaEye className='text-green-600 hover:text-green-800' />
+          </button>
 
           {/* Edit Button */}
           <button onClick={() => openEditModal(branch.BranchCode, branch.Branch)}>
             <FaPen className='text-blue-600 hover:text-blue-800' />
           </button>
 
-          {/* View Button */}
-          <button onClick={() => openViewModal(branch.BranchCode)}>
-              <FaEye className='text-green-600 hover:text-green-800' />
-          </button>
 
           {/* Delete Button */}
           <button onClick={() => deleteBranch(branch.BranchCode)}>
@@ -201,11 +244,11 @@ const Branch = () => {
           </button>
         </div>
       </td>
-      <td className="px-4 py-2">{branch.CompanyCode}</td>
-      <td className="px-4 py-2">{branch.BranchCode}</td>
-      <td className="px-4 py-2">{branch.Branch}</td>
-      <td className="px-4 py-2">{branch.LastBy}</td>
-      <td className="px-4 py-2">{branch.LastDate}</td>
+      <td className="px-4 py-4">{branch.CompanyCode}</td>
+      <td className="px-4 py-4">{branch.BranchCode}</td>
+      <td className="px-4 py-4">{branch.Branch}</td>
+      <td className="px-4 py-4">{branch.LastBy}</td>
+      <td className="px-4 py-4">{branch.LastDate}</td>
     </tr>
   ))}
 </tbody>
@@ -269,252 +312,260 @@ const Branch = () => {
         </div>
       </div>
 
-      {/* Modal for Adding and Editing Branch */}
       {isAddModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-    <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[450px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
-      <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
-        <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
-          បញ្ចូលព័ត៌មានសាខា
-        </h2>
-        <button
-          type="button"
-          onClick={() => setIsAddModalOpen(false)} // Close modal function
-          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[450px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
+              <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
+                បញ្ចូលព័ត៌មានសាខា
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsAddModalOpen(false)} // Close modal function
+                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
 
-      <div className="px-4">
-        <form className="space-y-4" onSubmit={handleSave}> {/* Add onSubmit to form */}
-          {/* Company Code Dropdown */}
-          <div className='mb-4'>
-            <label htmlFor="CompanyCode" className='block text-sm font-medium text-gray-700'>Company Code</label>
-            <select 
-              id='CompanyCode'
-              name="CompanyCode" // Added name attribute for form data
-              value={formData.CompanyCode} 
-              onChange={handleChange} 
-              className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-              required
-            >
-              <option value="" disabled>Select a Company Code</option>
-              <option value="PPAP">PPAP</option>
-              <option value="XYZ">XYZ</option>
-              <option value="ABC">ABC</option>
-              {/* Add more options as needed */}
-            </select>
+            <div className="px-4">
+              <form className="space-y-4" onSubmit={handleSave}> {/* Form submission handler */}
+                {/* Company Code Dropdown */}
+                <div className='mb-4'>
+                  <label htmlFor="CompanyCode" className='block text-sm font-medium text-gray-700'>Company Code</label>
+                  <select 
+                    id='CompanyCode'
+                    name="CompanyCode" // Added name attribute for form data
+                    value={formData.CompanyCode} 
+                    onChange={handleChange} 
+                    className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 text-gray-700'
+                    required
+                  >
+                    <option value="" disabled hidden>Select a Company Code</option>
+                    <option value="PPAP">PPAP</option>
+                    <option value="XYZ">XYZ</option>
+                    <option value="ABC">ABC</option>
+                    {/* Add more options as needed */}
+                  </select>
+
+                  {/* Display selected company code */}
+                  {formData.CompanyCode && (
+                    <p className="mt-2 text-sm text-gray-600">Selected Company Code: {formData.CompanyCode}</p>
+                  )}
+                </div>
+
+                {/* Branch Code Input */}
+                <div className='mb-4'>
+                  <label htmlFor="BranchCode" className='block text-sm font-medium text-gray-700'>Branch Code</label>
+                  <input 
+                    type="text" 
+                    id='BranchCode'
+                    name="BranchCode" // Added name attribute for form data
+                    value={formData.BranchCode} 
+                    onChange={handleChange} 
+                    className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                    required
+                  />
+                </div>
+
+                {/* Branch Name Input */}
+                <div className='mb-4'>
+                  <label htmlFor="Branch" className='block text-sm font-medium text-gray-700'>Branch Name</label>
+                  <input 
+                    type="text" 
+                    id='Branch'
+                    name="Branch" // Added name attribute for form data
+                    value={formData.Branch} 
+                    onChange={handleChange} 
+                    className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                    required
+                  />
+                </div>
+
+                <div className="flex justify-center gap-5 p-6 mt-4">
+                  <button
+                    type="submit" // Submit button
+                    className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                  >
+                    <p className='text-base font-normal'>រក្សាទុក</p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsAddModalOpen(false)} // Close modal function
+                    className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                  >
+                    <p className='text-base font-normal'>ចាកចេញ</p>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
+        </div>
+      )}
 
-          {/* Branch Code Input */}
-          <div className='mb-4'>
-            <label htmlFor="BranchCode" className='block text-sm font-medium text-gray-700'>Branch Code</label>
-            <input 
-              type="text" 
-              id='BranchCode'
-              name="BranchCode" // Added name attribute for form data
-              value={formData.BranchCode} 
-              onChange={handleChange} 
-              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-              required
-            />
+
+
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[450px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
+              <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
+                កែប្រែព័ត៌មានសាខា
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsEditModalOpen(false)} // Close modal function
+                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+
+            <div className="px-4">
+              <form className="space-y-4" onSubmit={handleSave}> {/* Add onSubmit to form */}
+                {/* Company Code Dropdown */}
+                <div className='mb-4'>
+                  <label htmlFor="CompanyCode" className='block text-sm font-medium text-gray-700'>Company Code</label>
+                  <select 
+                    id='CompanyCode'
+                    name='CompanyCode' // Added name attribute for handling form data
+                    value={formData.CompanyCode} 
+                    onChange={handleChange} 
+                    className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                    required
+                  >
+                    <option value="" disabled>Select a Company Code</option>
+                    <option value="PPAP">PPAP</option>
+                    <option value="XYZ">XYZ</option>
+                    <option value="ABC">ABC</option>
+                    {/* Add more options as needed */}
+                  </select>
+                </div>
+
+                {/* Branch Code Input */}
+                <div className='mb-4'>
+                  <label htmlFor="BranchCode" className='block text-sm font-medium text-gray-700'>Branch Code</label>
+                  <input 
+                    type="text" 
+                    id='BranchCode'
+                    name='BranchCode' // Added name attribute for handling form data
+                    value={formData.BranchCode} 
+                    onChange={handleChange} 
+                    className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                    required
+                  />
+                </div>
+
+                {/* Branch Name Input */}
+                <div className='mb-4'>
+                  <label htmlFor="Branch" className='block text-sm font-medium text-gray-700'>Branch Name</label>
+                  <input 
+                    type="text" 
+                    id='Branch'
+                    name='Branch' // Added name attribute for handling form data
+                    value={formData.Branch} 
+                    onChange={handleChange} 
+                    className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                    required
+                  />
+                </div>
+
+                <div className="flex justify-center gap-5 p-6 mt-4">
+                  <button
+                    type="submit" // Submit button to save data
+                    className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                  >
+                    <p className='text-base font-normal'>រក្សាទុក</p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditModalOpen(false)} // Close modal function
+                    className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                  >
+                    <p className='text-base font-normal'>ចាកចេញ</p>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
+        </div>
+      )}
 
-          {/* Branch Name Input */}
-          <div className='mb-4'>
-            <label htmlFor="Branch" className='block text-sm font-medium text-gray-700'>Branch Name</label>
-            <input 
-              type="text" 
-              id='Branch'
-              name="Branch" // Added name attribute for form data
-              value={formData.Branch} 
-              onChange={handleChange} 
-              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-              required
-            />
-          </div>
-
-          <div className="flex justify-center gap-5 p-6 mt-4">
-            <button
-              type="submit" // Keep onSubmit in form
-              className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-            >
-              <p className='text-base font-normal'>រក្សាទុក</p>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsAddModalOpen(false)} // Close modal function
-              className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-            >
-              <p className='text-base font-normal'>ចាកចេញ</p>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-)}
-
-{isEditModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-    <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[450px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
-      <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
-        <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
-          កែប្រែព័ត៌មានសាខា
-        </h2>
-        <button
-          type="button"
-          onClick={() => setIsEditModalOpen(false)} // Close modal function
-          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-
-      <div className="px-4">
-        <form className="space-y-4" onSubmit={handleSave}> {/* Add onSubmit to form */}
-          {/* Company Code Dropdown */}
-          <div className='mb-4'>
-            <label htmlFor="CompanyCode" className='block text-sm font-medium text-gray-700'>Company Code</label>
-            <select 
-              id='CompanyCode'
-              name='CompanyCode' // Added name attribute for handling form data
-              value={formData.CompanyCode} 
-              onChange={handleChange} 
-              className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-              required
-            >
-              <option value="" disabled>Select a Company Code</option>
-              <option value="PPAP">PPAP</option>
-              <option value="XYZ">XYZ</option>
-              <option value="ABC">ABC</option>
-              {/* Add more options as needed */}
-            </select>
-          </div>
-
-          {/* Branch Code Input */}
-          <div className='mb-4'>
-            <label htmlFor="BranchCode" className='block text-sm font-medium text-gray-700'>Branch Code</label>
-            <input 
-              type="text" 
-              id='BranchCode'
-              name='BranchCode' // Added name attribute for handling form data
-              value={formData.BranchCode} 
-              onChange={handleChange} 
-              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-              required
-            />
-          </div>
-
-          {/* Branch Name Input */}
-          <div className='mb-4'>
-            <label htmlFor="Branch" className='block text-sm font-medium text-gray-700'>Branch Name</label>
-            <input 
-              type="text" 
-              id='Branch'
-              name='Branch' // Added name attribute for handling form data
-              value={formData.Branch} 
-              onChange={handleChange} 
-              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-              required
-            />
-          </div>
-
-          <div className="flex justify-center gap-5 p-6 mt-4">
-            <button
-              type="submit" // Submit button to save data
-              className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
-            >
-              <p className='text-base font-normal'>រក្សាទុក</p>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsEditModalOpen(false)} // Close modal function
-              className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-            >
-              <p className='text-base font-normal'>ចាកចេញ</p>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-)}
+      
       {isViewModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-    <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[450px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
-      <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
-        <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
-          មើលព័ត៌មានសាខា
-        </h2>
-        <button
-          type="button"
-          onClick={() => setIsViewModalOpen(false)} // Close view modal
-          className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-full max-w-xl sm:max-w-5xl md:max-w-4xl lg:max-w-2xl bg-white rounded-md shadow-lg overflow-auto max-h-[90vh] h-[73vh] sm:h-[550px] md:h-[450px] modal-scrollbar mt-14 sm:ml-52 md:ml-0" data-aos='zoom-in'>
+            <div className="sticky top-0 z-50 flex items-center justify-between w-full p-4 py-4 mb-6 bg-gray-100 border-b-2 border-gray-300 border-dashed">
+              <h2 className="flex-1 ml-3 text-xl font-medium text-blue-800 sm:text-2xl md:text-2xl font-khmer leading-2">
+                មើលព័ត៌មានសាខា
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsViewModalOpen(false)} // Close view modal
+                className="px-2 py-2 mr-2 text-gray-500 bg-gray-100 rounded-md hover:text-gray-700 ring-1 ring-gray-400"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
 
-      <div className="px-4">
-        <form className="space-y-4"> 
-          {/* Company Code (Read-Only) */}
-          <div className='mb-4'>
-            <label htmlFor="CompanyCode" className='block text-sm font-medium text-gray-700'>Company Code</label>
-            <input 
-              type="text" 
-              id="CompanyCode" 
-              value={formData.CompanyCode} 
-              readOnly
-              className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-            />
-          </div>
+            <div className="px-4">
+              <form className="space-y-4"> 
+                {/* Company Code (Read-Only) */}
+                <div className='mb-4'>
+                  <label htmlFor="CompanyCode" className='block text-sm font-medium text-gray-700'>Company Code</label>
+                  <input 
+                    type="text" 
+                    id="CompanyCode" 
+                    value={formData.CompanyCode} 
+                    readOnly
+                    className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                  />
+                </div>
 
-          {/* Branch Code (Read-Only) */}
-          <div className='mb-4'>
-            <label htmlFor="BranchCode" className='block text-sm font-medium text-gray-700'>Branch Code</label>
-            <input 
-              type="text" 
-              id="BranchCode" 
-              value={formData.BranchCode} 
-              readOnly
-              className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-            />
-          </div>
+                {/* Branch Code (Read-Only) */}
+                <div className='mb-4'>
+                  <label htmlFor="BranchCode" className='block text-sm font-medium text-gray-700'>Branch Code</label>
+                  <input 
+                    type="text" 
+                    id="BranchCode" 
+                    value={formData.BranchCode} 
+                    readOnly
+                    className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                  />
+                </div>
 
-          {/* Branch Name (Read-Only) */}
-          <div className='mb-4'>
-            <label htmlFor="Branch" className='block text-sm font-medium text-gray-700'>Branch Name</label>
-            <input 
-              type="text" 
-              id="Branch" 
-              value={formData.Branch} 
-              readOnly
-              className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
-            />
-          </div>
+                {/* Branch Name (Read-Only) */}
+                <div className='mb-4'>
+                  <label htmlFor="Branch" className='block text-sm font-medium text-gray-700'>Branch Name</label>
+                  <input 
+                    type="text" 
+                    id="Branch" 
+                    value={formData.Branch} 
+                    readOnly
+                    className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+                  />
+                </div>
 
-          <div className="flex justify-center gap-5 p-6 mt-4">
-            <button
-              type="button"
-              onClick={() => setIsViewModalOpen(false)} // Close modal function
-              className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
-            >
-              <p className='text-base font-normal'>បិទ</p>
-            </button>
+                <div className="flex justify-center gap-5 p-6 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsViewModalOpen(false)} // Close modal function
+                    className="px-6 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 border-dashed rounded-lg shadow-sm hover:bg-gray-100"
+                  >
+                    <p className='text-base font-normal'>បិទ</p>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
 
     </section>
   );
