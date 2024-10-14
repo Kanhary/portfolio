@@ -13,7 +13,8 @@ const Department = () => {
   const [selectedOption, setSelectedOption] = useState('');
 
   const DepList = [
-    { CompanyCode: 'PPAP', DepartmentCode: 'O001', Department: 'Head Office',  BranchCode: 'B001' },
+    { CompanyCode: 'PPAP', DepartmentCode: 'Dep-admin', Department: 'នាយកដ្ឋាន រដ្ឋបាល',  BranchCode: 'TS3' },
+    { CompanyCode: 'PPAP', DepartmentCode: 'Dep-HR', Department: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស',  BranchCode: 'TS3' },
     
   ];
 
@@ -92,11 +93,11 @@ const Department = () => {
     }
   };
 
-  const handleChangeSelection = (selectedOption) => {
-    // Ensure selectedOption is the correct value
-    const selectedValue = selectedOption ? selectedOption.value : null;
-    setSelectedOption(selectedValue);
-    console.log('Selected staff code:', selectedValue); // Should log the staff code
+  const handleBranchChange = (selectedOption) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      BranchCode: selectedOption ? selectedOption.value : '',
+    }));
   };
   const customStyles = {
     control: (provided, state) => ({
@@ -127,10 +128,9 @@ const Department = () => {
     }),
   };
   const optionsBranch = [
-    {value: 'Admin', label: 'Admin'},
-    {value: 'Editor', label: 'Editor'},
-    {value: 'User', label: 'User'},
-    {value: 'Guest', label: 'Guest'}
+    {value: 'TS3', label: 'TS3'},
+    {value: 'LM17', label: 'LM17'},
+    
   ]
 
   return (
@@ -309,12 +309,13 @@ const Department = () => {
                 </div>
                 {/* Input for Branch Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
+                  <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Branch Code</label>
                   <Select
-                    value={optionsBranch.find(option => option.value === selectedOption)}
-                    onChange={handleChangeSelection}
                     options={optionsBranch}
-                    placeholder="Select or type to search"
+                    onChange={handleBranchChange}
+                    placeholder="Select Branch"
+                    value={optionsBranch.find(option => option.value === formData.BranchCode)}
+                    isClearable
                     className="basic-single"
                     classNamePrefix="select"
                     styles={customStyles}
@@ -386,12 +387,13 @@ const Department = () => {
                 </div>
                 {/* Input for Branch Code */}
                 <div className="w-full md:w-1/2">
-                  <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
+                  <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Branch Code</label>
                   <Select
-                    value={optionsBranch.find(option => option.value === selectedOption)}
-                    onChange={handleChangeSelection}
                     options={optionsBranch}
-                    placeholder="Select or type to search"
+                    onChange={handleBranchChange}
+                    placeholder="Select Branch"
+                    value={optionsBranch.find(option => option.value === formData.BranchCode)}
+                    isClearable
                     className="basic-single"
                     classNamePrefix="select"
                     styles={customStyles}

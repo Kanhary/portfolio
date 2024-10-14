@@ -13,8 +13,8 @@ const OfficeList = () => {
   const [selectedOption, setSelectedOption] = useState('');
 
   const officeList = [
-    { OfficeCode: 'O001', OfficeName: 'Head Office', Department: 'Administration', BranchCode: 'B001', CompanyCode: 'C001' },
-    { OfficeCode: 'O002', OfficeName: 'Branch Office', Department: 'Sales', BranchCode: 'B002', CompanyCode: 'C001' },
+    { OfficeCode: 'ICT', OfficeName: 'ការិយាល័យ បច្ចេកវិទ្យា/ព័ត៏មានវិទ្យា', Department: 'នាយកដ្ឋាន រដ្ឋបាល', BranchCode: 'TS3', CompanyCode: 'PPAP' },
+    { OfficeCode: 'CCTV', OfficeName: 'ការិយាល័យ សន្ដិសុខ/ប្រព័ន្ធ CCTV Camera', Department: 'នាយកដ្ឋាន រដ្ឋបាល', BranchCode: 'TS3', CompanyCode: 'PPAP' },
     // Add more offices as needed
   ];
 
@@ -55,11 +55,18 @@ const OfficeList = () => {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
-  const openEditModal = (office) => {
-    setEditingOffice(office);
-    setFormData(office);
-    setIsEditModalOpen(true);
-  };
+  // Assuming you have a function to open the edit modal
+const openEditModal = (officeData) => {
+  setFormData({
+    OfficeCode: officeData.OfficeCode,
+    OfficeName: officeData.OfficeName,
+    Department: officeData.Department,
+    BranchCode: officeData.BranchCode,
+    CompanyCode: officeData.CompanyCode,
+  });
+  setIsEditModalOpen(true);
+};
+
 
   const closeEditModal = () => {
     setEditingOffice(null);
@@ -93,15 +100,20 @@ const OfficeList = () => {
     }
   };
 
-  const handleBranchChange = (selectedOption) => {
-    const selectedValue = selectedOption ? selectedOption.value : '';
-    setFormData(prev => ({ ...prev, BranchCode: selectedValue }));
-  };
-
   const handleDepartmentChange = (selectedOption) => {
-    const selectedValue = selectedOption ? selectedOption.value : '';
-    setFormData(prev => ({ ...prev, Department: selectedValue }));
+    setFormData((prevData) => ({
+      ...prevData,
+      Department: selectedOption ? selectedOption.value : '',
+    }));
   };
+  
+  const handleBranchChange = (selectedOption) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      BranchCode: selectedOption ? selectedOption.value : '',
+    }));
+  };
+  
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -131,17 +143,15 @@ const OfficeList = () => {
     }),
   };
   const optionsBranch = [
-    {value: 'Admin', label: 'Admin'},
-    {value: 'Editor', label: 'Editor'},
-    {value: 'User', label: 'User'},
-    {value: 'Guest', label: 'Guest'}
+    {value: 'TS3', label: 'TS3'},
+    {value: 'LM17', label: 'LM17'},
+    
   ]
 
   const optionsDepartment = [
-    {value: 'Admin', label: 'Admin'},
-    {value: 'Editor', label: 'Editor'},
-    {value: 'User', label: 'User'},
-    {value: 'Guest', label: 'Guest'}
+    {value: 'នាយកដ្ឋាន រដ្ឋបាល', label: 'នាយកដ្ឋាន រដ្ឋបាល'},
+    {value: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស', label: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស'},
+    
   ]
 
 
@@ -409,16 +419,16 @@ const OfficeList = () => {
           <div className="w-full md:w-1/2">
             <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
             <Select
-                          options={optionsDepartment}
-                          onChange={handleDepartmentChange}
-                          placeholder="Select Department"
-                          value={optionsDepartment.find(option => option.value === formData.Department)}
-                          
-              
-              className="basic-single"
-              classNamePrefix="select"
-              styles={customStyles}
-            />
+  options={optionsDepartment}
+  onChange={handleDepartmentChange}
+  placeholder="Select Department"
+  value={optionsDepartment.find(option => option.value === formData.Department)} // Ensure this correctly matches
+  isClearable
+  className="basic-single"
+  classNamePrefix="select"
+  styles={customStyles}
+/>
+
                    
           </div>
           {/* Input for Branch Code */}
@@ -429,7 +439,7 @@ const OfficeList = () => {
                      onChange={handleBranchChange}
                      placeholder="Select Branch"
                      value={optionsBranch.find(option => option.value === formData.BranchCode)}
-                     
+                     isClearable
               className="basic-single"
               classNamePrefix="select"
               styles={customStyles}
