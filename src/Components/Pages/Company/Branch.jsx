@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPen, FaTrashAlt,FaEye} from 'react-icons/fa';
+import { FaPen, FaTrashAlt, FaEye } from 'react-icons/fa';
 
 const Branch = () => {
   const INITIAL_FORM_DATA = {
@@ -14,15 +14,12 @@ const Branch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // For View Modal
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [editingBranch, setEditingBranch] = useState(null);
 
-  const handleOpenAddModal = () => {
-    setFormData(defaultFormData); // Reset the form data
-    setIsAddModalOpen(true);      // Open the modal
-  };
   
+
   const branchList = [
     {
       CompanyCode: 'PPAP',
@@ -76,29 +73,39 @@ const Branch = () => {
   };
 
   const handleSave = () => {
-    // Basic validation
     if (!formData.CompanyCode || !formData.BranchCode || !formData.Branch || !formData.LastBy || !formData.LastDate) {
       alert('Please fill in all fields.');
       return;
     }
 
     if (editingBranch) {
-      // Update existing branch logic (not implemented)
+      // Update existing branch logic
     } else {
-      // Add new branch logic (not implemented)
+      // Add new branch logic
     }
 
-    // Reset form and close modal
     setFormData(INITIAL_FORM_DATA);
     setIsEditModalOpen(false);
   };
 
-  const openEditModal = (branchCode, branchName) => {
+  const openAddModal = () => {
+    setFormData(INITIAL_FORM_DATA);  // Reset the form data before opening the Add Modal
+    setIsAddModalOpen(true);
+  };
+  const openEditModal = (branchCode) => {
     const branchToEdit = branchList.find(branch => branch.BranchCode === branchCode);
     if (branchToEdit) {
-      setFormData(branchToEdit);
+      setFormData(branchToEdit);  // Set form data for editing
       setEditingBranch(branchCode);
       setIsEditModalOpen(true);
+    }
+  };
+
+  const openViewModal = (branchCode) => {
+    const branchToView = branchList.find(branch => branch.BranchCode === branchCode);
+    if (branchToView) {
+      setFormData(branchToView);
+      setIsViewModalOpen(true);
     }
   };
 
@@ -109,7 +116,10 @@ const Branch = () => {
   };
 
   const deleteBranch = (branchCode) => {
-    // Delete logic (not implemented)
+    const confirmed = window.confirm('Are you sure you want to delete this branch?');
+    if (confirmed) {
+      // Remove branch logic
+    }
   };
 
   return (
@@ -131,7 +141,7 @@ const Branch = () => {
                   <input 
                     type="text" 
                     id='simple-search'
-                    className='block w-full p-2 pl-10 text-sm text-gray-900 border rounded-lg border-gray-300 bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
+                    className='block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -142,7 +152,7 @@ const Branch = () => {
               <button
                 type='button'
                 className='flex items-center justify-center px-5 py-2 text-lg font-medium text-white transition-transform transform rounded-lg shadow-lg bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:scale-105 active:scale-95'
-                onClick={() => setIsAddModalOpen(true)}
+                onClick={openAddModal}
               >
                 <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
@@ -181,7 +191,7 @@ const Branch = () => {
           </button>
 
           {/* View Button */}
-          <button onClick={() => setIsViewModalOpen(true)}>
+          <button onClick={() => openViewModal(branch.BranchCode)}>
               <FaEye className='text-green-600 hover:text-green-800' />
           </button>
 
@@ -288,7 +298,7 @@ const Branch = () => {
               name="CompanyCode" // Added name attribute for form data
               value={formData.CompanyCode} 
               onChange={handleChange} 
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 text-sm'
+              className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
               required
             >
               <option value="" disabled>Select a Company Code</option>
@@ -308,7 +318,7 @@ const Branch = () => {
               name="BranchCode" // Added name attribute for form data
               value={formData.BranchCode} 
               onChange={handleChange} 
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
               required
             />
           </div>
@@ -322,7 +332,7 @@ const Branch = () => {
               name="Branch" // Added name attribute for form data
               value={formData.Branch} 
               onChange={handleChange} 
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
               required
             />
           </div>
@@ -376,7 +386,7 @@ const Branch = () => {
               name='CompanyCode' // Added name attribute for handling form data
               value={formData.CompanyCode} 
               onChange={handleChange} 
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 text-sm'
+              className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
               required
             >
               <option value="" disabled>Select a Company Code</option>
@@ -396,7 +406,7 @@ const Branch = () => {
               name='BranchCode' // Added name attribute for handling form data
               value={formData.BranchCode} 
               onChange={handleChange} 
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
               required
             />
           </div>
@@ -410,7 +420,7 @@ const Branch = () => {
               name='Branch' // Added name attribute for handling form data
               value={formData.Branch} 
               onChange={handleChange} 
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
+              className='block w-full p-2 mt-1 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
               required
             />
           </div>
@@ -463,7 +473,7 @@ const Branch = () => {
               id="CompanyCode" 
               value={formData.CompanyCode} 
               readOnly
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 bg-gray-100'
+              className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
             />
           </div>
 
@@ -475,7 +485,7 @@ const Branch = () => {
               id="BranchCode" 
               value={formData.BranchCode} 
               readOnly
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 bg-gray-100'
+              className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
             />
           </div>
 
@@ -487,7 +497,7 @@ const Branch = () => {
               id="Branch" 
               value={formData.Branch} 
               readOnly
-              className='mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1 bg-gray-100'
+              className='block w-full p-2 mt-1 bg-gray-100 border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
             />
           </div>
 
