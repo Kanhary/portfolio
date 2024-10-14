@@ -17,9 +17,9 @@ const Company = () => {
         <div className='my-3 border '></div>
         <div className="flex items-center justify-center" data-aos='fade-up'>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-md" data-aos='fade-right'>
-                <h2 className="mb-8 text-2xl font-semibold text-center text-gray-900">
+                {/* <h2 className="mb-8 text-2xl font-semibold text-center text-gray-900">
                     Company
-                </h2>
+                </h2> */}
                 <table className="w-full bg-white border-collapse table-auto">
                     <thead>
                     <tr className="bg-gray-100 border-b">
