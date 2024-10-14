@@ -136,6 +136,46 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
               />
+              
+            </ul>
+          </div>
+          <NavItem
+            icon={<FaCog />}
+            text="តារាងក្រុមហ៊ុន"
+            onClick={() => {toggleCompanyMenu(); handleLinkClick('Company');}}
+            isActive={activeItem === 'Company'}
+            dropdownIcon={isCompanyMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
+          />
+          <div
+            ref={CompanySubmenuRef}
+            style={{ height: companySubmenuHeight }}
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+          >
+            <ul className="ml-8 space-y-1 list-disc">
+              <SubmenuItem 
+                text="Department" 
+                to="/main-dashboard/company/department" 
+                onClick={() => handleLinkClick('User')} 
+                isActive={activeItem === 'User'} 
+              />
+              <SubmenuItem 
+                text="Office" 
+                to="/main-dashboard/company/office" 
+                onClick={() => handleLinkClick('Office')} 
+                isActive={activeItem === 'Office'} 
+              />
+              <SubmenuItem 
+                text="Branch" 
+                to="/main-dashboard/company/branch" 
+                onClick={() => handleLinkClick('Branch')} 
+                isActive={activeItem === 'Branch'} 
+              />
+              <SubmenuItem 
+                text="Company" 
+                to="/main-dashboard/company/company-list" 
+                onClick={() => handleLinkClick('company-list')} 
+                isActive={activeItem === 'company-list'} 
+              />
             </ul>
           </div>
           
