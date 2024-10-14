@@ -101,18 +101,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 onClick={() => handleLinkClick('Employee Information')} 
                 isActive={activeItem === 'Employee Information'} 
               />
-              <SubmenuItem
-                text="នាយកដ្ឋាន"
-                to="/main-dashboard/employee/department"
-                onClick={() => handleLinkClick('Department')}
-                isActive={activeItem === 'Department'}
-              />
-              <SubmenuItem
-                text="ការិយាល័យ"
-                to="/main-dashboard/employee/office"
-                onClick={() => handleLinkClick('Office')}
-                isActive={activeItem === 'Office'}
-              />
+              
             </ul>
           </div>
           <NavItem
@@ -143,8 +132,14 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               <SubmenuItem 
                 text="Branch" 
                 to="/main-dashboard/company/branch" 
-                onClick={() => handleLinkClick('Item-Permission')} 
-                isActive={activeItem === 'Item-Permission'} 
+                onClick={() => handleLinkClick('Branch')} 
+                isActive={activeItem === 'Branch'} 
+              />
+              <SubmenuItem 
+                text="Company" 
+                to="/main-dashboard/company/company" 
+                onClick={() => handleLinkClick('Company')} 
+                isActive={activeItem === 'Company'} 
               />
             </ul>
           </div>

@@ -1,14 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
 
 const HeaderPage = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const navigate = useNavigate();
-
-  // const dropdownRef = useRef(null);
+  
   const notificationsRef = useRef(null);
+
+  useEffect(() => {
+    // Retrieve username and email from localStorage after login
+    const storedUsername = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('userEmail');
+    if (storedUsername && storedEmail) {
+      setUsername(storedUsername);
+      setUserEmail(storedEmail);
+    }
+  }, []);
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
@@ -33,6 +44,7 @@ const HeaderPage = ({ toggleSidebar }) => {
     <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
       <div className='px-3 py-3 lg:px-5 lg:pl-3'>
         <div className='flex items-center justify-between'>
+          {/* Sidebar Toggle Button */}
           <div className='flex items-start justify-normal rtl:justify-end w-80'>
             <button 
               data-drawer-target="logo-sidebar" 
@@ -53,15 +65,7 @@ const HeaderPage = ({ toggleSidebar }) => {
             </a>
           </div>
 
-          <div className="items-center justify-center hidden overflow-hidden lg:flex grow">
-            <marquee behavior="" direction="left" className="text-sm font-normal text-blue-800 md:text-base font-khmer">
-              <span className="">
-                <img src="/Cambodia-m.gif" alt="logo" className="inline w-6 h-6 mx-2" />
-              </span>
-              <span className='ml-2 text-sm'>សូមស្វាគមន៍មកកាន់គេហទំព័រគ្រប់គ្រងទិន្នន័យរបស់​ ក.ស.ភ. យើងរីករាយវត្តមានរបស់អ្នកនៅទីនេះ</span>
-            </marquee>
-          </div>
-
+          {/* Notifications and Profile */}
           <div className='relative flex items-center ms-3'>
             <button 
               className="relative mr-5 text-gray-600 hover:text-gray-800" 
@@ -109,33 +113,32 @@ const HeaderPage = ({ toggleSidebar }) => {
               </div>
             )}
 
+            {/* Profile Dropdown */}
             <button 
               type='button' 
               className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 ' 
               aria-expanded={isDropdownOpen ? "true" : "false"} 
               onClick={handleDropdownToggle}
-              // ref={dropdownRef}
             >
               <span className='sr-only'>Open user menu</span>
               <img src="\blank-profile-picture.png" className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
             </button>
 
-
             {isDropdownOpen && (
               <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
                 <div className='px-4 py-3'>
-                  <p className='font-bold text-gray-900 text-ms'>Uk Kagnary</p>
-                  <p className='py-1 text-sm font-medium text-gray-400 truncate'>ukkanhary04@gmail.com</p>
+                  <p className='font-bold text-gray-900 text-ms'>{username}</p>
+                  <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p>
                 </div>
                 <ul className="py-1">
                   <li>
-                    <button className="block w-full px-4 py-2 text-sm text-blue-600 hover:bg-gray-100" onClick={handleEditProfile}>
-                      Edit Profile
+                    <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleEditProfile}>
+                      កែសម្រួលព័ត៌មាន
                     </button>
                   </li>
                   <li>
                     <button className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100" onClick={handleLogout}>
-                      Sign out
+                      ចាកចេញ
                     </button>
                   </li>
                 </ul>

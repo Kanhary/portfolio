@@ -22,6 +22,7 @@ import HeaderPage from './HeaderPage';
 import Department from '../Pages/Company/Department';
 import Office from '../Pages/Company/Office';
 import Branch from '../Pages/Company/Branch';
+import Company from '../Pages/Company/Company';
 
 function MainDashboard() {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Start with sidebar open for better UX
@@ -64,6 +65,7 @@ function MainDashboard() {
           <Route path='company/branch' element={<Branch/>} />
           <Route path='company/department' element={<Department/>} />
           <Route path='company/office' element={<Office/>}/>
+          <Route path='company/company' element={<Company/>} />
           <Route path='maintenance' element={<Maintenance />} />
           <Route path='setting' element={<Setting />} />
           <Route path='report' element={<Report />} />
