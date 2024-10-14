@@ -56,16 +56,11 @@ const OfficeList = () => {
   const closeAddModal = () => setIsAddModalOpen(false);
 
   // Assuming you have a function to open the edit modal
-const openEditModal = (officeData) => {
-  setFormData({
-    OfficeCode: officeData.OfficeCode,
-    OfficeName: officeData.OfficeName,
-    Department: officeData.Department,
-    BranchCode: officeData.BranchCode,
-    CompanyCode: officeData.CompanyCode,
-  });
-  setIsEditModalOpen(true);
-};
+  const openEditModal = (officeData) => {
+    setEditingOffice(officeData);
+    setFormData(officeData);
+    setIsEditModalOpen(true);
+  };
 
 
   const closeEditModal = () => {
@@ -113,6 +108,12 @@ const openEditModal = (officeData) => {
       BranchCode: selectedOption ? selectedOption.value : '',
     }));
   };
+  const handleCompanyChange = (selectedOption) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      CompanyCode: selectedOption ? selectedOption.value : '',
+    }));
+  };
   
   const customStyles = {
     control: (provided, state) => ({
@@ -146,6 +147,9 @@ const openEditModal = (officeData) => {
     {value: 'TS3', label: 'TS3'},
     {value: 'LM17', label: 'LM17'},
     
+  ]
+  const optionCompany = [
+    {value: 'PPAP', label: 'PPAP'}
   ]
 
   const optionsDepartment = [
@@ -289,7 +293,7 @@ const openEditModal = (officeData) => {
       {/* Add Office Modal */}
       {isAddModalOpen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-    <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
+    <div className="relative w-full max-w-lg mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
       <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
         <h2 className="text-xl font-bold text-white md:text-2xl">បន្ថែមការិយាល័យថ្មី</h2>
         <button onClick={closeAddModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
@@ -297,72 +301,71 @@ const openEditModal = (officeData) => {
         </button>
       </header>
       <div className="px-6 py-6 space-y-6">
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          {/* Input for Office Code */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="OfficeCode" className="block mb-2 text-sm font-semibold text-gray-700">Office Code</label>
-            <input
-              id="OfficeCode"
-              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-              value={formData.OfficeCode}
-              onChange={handleChange}
-            />
-          </div>
-          {/* Input for Office Name */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="OfficeName" className="block mb-2 text-sm font-semibold text-gray-700">Office Name</label>
-            <input
-              id="OfficeName"
-              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-              value={formData.OfficeName}
-              onChange={handleChange}
-            />
-          </div>
+        {/* Input for Office Code */}
+        <div className="w-full">
+          <label htmlFor="OfficeCode" className="block mb-2 text-sm font-semibold text-gray-700">Office Code</label>
+          <input
+            id="OfficeCode"
+            className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+            value={formData.OfficeCode}
+            onChange={handleChange}
+          />
         </div>
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          {/* Input for Department */}
-          <div className="w-full md:w-1/2">
-                    <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
-                    <Select
-                                  options={optionsDepartment}
-                                  onChange={handleDepartmentChange}
-                                  placeholder="Select Department"
-                                  value={optionsDepartment.find(option => option.value === formData.Department)}
-                                  isClearable
-                      
-                      className="basic-single"
-                      classNamePrefix="select"
-                      styles={customStyles}
-                    />
-                   
-                  </div>
-          {/* Input for Branch Code */}
-          <div className="w-full md:w-1/2">
-                    <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
-                    <Select
-                             options={optionsBranch}
-                             onChange={handleBranchChange}
-                             placeholder="Select Branch"
-                             value={optionsBranch.find(option => option.value === formData.BranchCode)}
-                             isClearable
-                      className="basic-single"
-                      classNamePrefix="select"
-                      styles={customStyles}
-                    />
-                    
-                  </div>
+
+        {/* Input for Office Name */}
+        <div className="w-full">
+          <label htmlFor="OfficeName" className="block mb-2 text-sm font-semibold text-gray-700">Office Name</label>
+          <input
+            id="OfficeName"
+            className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+            value={formData.OfficeName}
+            onChange={handleChange}
+          />
         </div>
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          {/* Input for Company Code */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="CompanyCode" className="block mb-2 text-sm font-semibold text-gray-700">Company Code</label>
-            <input
-              id="CompanyCode"
-              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-              value={formData.CompanyCode}
-              onChange={handleChange}
-            />
-          </div>
+
+        {/* Input for Department */}
+        <div className="w-full">
+          <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
+          <Select
+            options={optionsDepartment}
+            onChange={handleDepartmentChange}
+            placeholder="Select Department"
+            value={optionsDepartment.find(option => option.value === formData.Department)}
+            isClearable        
+            className="basic-single"
+            classNamePrefix="select"
+            styles={customStyles}
+          />
+        </div>
+
+        {/* Input for Branch Code */}
+        <div className="w-full">
+          <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Branch Code</label>
+          <Select
+            options={optionsBranch}
+            onChange={handleBranchChange}
+            placeholder="Select Branch"
+            value={optionsBranch.find(option => option.value === formData.BranchCode)}
+            isClearable
+            className="basic-single"
+            classNamePrefix="select"
+            styles={customStyles}
+          />
+        </div>
+
+        {/* Input for Company Code */}
+        <div className="w-full">
+          <label htmlFor="CompanyCode" className="block mb-2 text-sm font-semibold text-gray-700">Company Code</label>
+          <Select
+            options={optionCompany}
+            onChange={handleCompanyChange}
+            placeholder="Select Company"
+            value={optionCompany.find(option => option.value === formData.CompanyCode)}
+            isClearable
+            className="basic-single"
+            classNamePrefix="select"
+            styles={customStyles}
+          />
         </div>
       </div>
       <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
@@ -383,97 +386,99 @@ const openEditModal = (officeData) => {
 
       {/* Edit Office Modal */}
       {isEditModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-    <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
-      <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
-        <h2 className="text-xl font-bold text-white md:text-2xl">កែប្រែព័ត៌មានការិយាល័យ</h2>
-        <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
-          &times;
-        </button>
-      </header>
-      <div className="px-6 py-6 space-y-6">
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          {/* Input for Office Code */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="OfficeCode" className="block mb-2 text-sm font-semibold text-gray-700">Office Code</label>
-            <input
-              id="OfficeCode"
-              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-              value={formData.OfficeCode}
-              onChange={handleChange}
-            />
-          </div>
-          {/* Input for Office Name */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="OfficeName" className="block mb-2 text-sm font-semibold text-gray-700">Office Name</label>
-            <input
-              id="OfficeName"
-              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-              value={formData.OfficeName}
-              onChange={handleChange}
-            />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+          <div className="relative w-1/2 mx-auto transition-all transform bg-white shadow-2xl rounded-xl" data-aos='zoom-in'>
+            <header className="flex items-center justify-between px-6 py-4 shadow-lg bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700 rounded-t-xl">
+              <h2 className="text-xl font-bold text-white md:text-2xl">កែប្រែព័ត៌មានការិយាល័យ</h2>
+              <button onClick={closeEditModal} className="text-2xl text-white transition duration-200 hover:text-gray-300 md:text-3xl">
+                &times;
+              </button>
+            </header>
+            <div className="px-6 py-6 space-y-6">
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Office Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="OfficeCode" className="block mb-2 text-sm font-semibold text-gray-700">Office Code</label>
+                  <input
+                    id="OfficeCode"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                    value={formData.OfficeCode}
+                    onChange={handleChange}
+                  />
+                </div>
+                {/* Input for Office Name */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="OfficeName" className="block mb-2 text-sm font-semibold text-gray-700">Office Name</label>
+                  <input
+                    id="OfficeName"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                    value={formData.OfficeName}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Department */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
+                  <Select
+                    options={optionsDepartment}
+                    onChange={handleDepartmentChange}
+                    placeholder="Select Department"
+                    value={optionsDepartment.find(option => option.value === formData.Department)} // Ensure this correctly matches
+                    isClearable
+                    className="basic-single"
+                    classNamePrefix="select"
+                    styles={customStyles}
+                  />        
+                </div>
+                {/* Input for Branch Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
+                  <Select
+                    options={optionsBranch}
+                    onChange={handleBranchChange}
+                    placeholder="Select Branch"
+                    value={optionsBranch.find(option => option.value === formData.BranchCode)}
+                    isClearable
+                    className="basic-single"
+                    classNamePrefix="select"
+                    styles={customStyles}
+                  />
+                          
+                </div>
+              </div>
+              <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                {/* Input for Company Code */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="CompanyCode" className="block mb-2 text-sm font-semibold text-gray-700">Company Code</label>
+                  <Select
+                    options={optionCompany}
+                    onChange={handleCompanyChange}
+                    placeholder="Select Branch"
+                    value={optionCompany.find(option => option.value === formData.CompanyCode)}
+                    isClearable
+                    className="basic-single"
+                    classNamePrefix="select"
+                    styles={customStyles}
+                  />
+                </div>
+              </div>
+            </div>
+            <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
+              <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save & New
+              </button>
+              <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
+                Save
+              </button>
+              <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
+                Cancel
+              </button>
+            </footer>
           </div>
         </div>
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          {/* Input for Department */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
-            <Select
-  options={optionsDepartment}
-  onChange={handleDepartmentChange}
-  placeholder="Select Department"
-  value={optionsDepartment.find(option => option.value === formData.Department)} // Ensure this correctly matches
-  isClearable
-  className="basic-single"
-  classNamePrefix="select"
-  styles={customStyles}
-/>
-
-                   
-          </div>
-          {/* Input for Branch Code */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="staffCode" className="block mb-2 text-sm font-semibold text-gray-700">Staff Code</label>
-            <Select
-                     options={optionsBranch}
-                     onChange={handleBranchChange}
-                     placeholder="Select Branch"
-                     value={optionsBranch.find(option => option.value === formData.BranchCode)}
-                     isClearable
-              className="basic-single"
-              classNamePrefix="select"
-              styles={customStyles}
-            />
-                    
-          </div>
-        </div>
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          {/* Input for Company Code */}
-          <div className="w-full md:w-1/2">
-            <label htmlFor="CompanyCode" className="block mb-2 text-sm font-semibold text-gray-700">Company Code</label>
-            <input
-              id="CompanyCode"
-              className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-              value={formData.CompanyCode}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-      </div>
-      <footer className="flex flex-col-reverse items-center justify-end px-6 py-4 space-y-3 space-y-reverse bg-gray-100 rounded-b-xl md:flex-row md:space-x-3 md:space-y-0">
-        <button onClick={handleSaveNew} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105 md:w-auto">
-          Save & New
-        </button>
-        <button onClick={handleSave} className="w-full px-5 py-2 text-sm font-medium text-white transition duration-200 transform rounded-lg shadow-md bg-gradient-to-r from-green-500 to-green-700 hover:shadow-lg hover:scale-105 md:w-auto">
-          Save
-        </button>
-        <button onClick={closeEditModal} className="w-full px-5 py-2 text-sm font-medium text-gray-700 transition duration-200 transform bg-gray-200 rounded-lg shadow-md hover:shadow-lg hover:scale-105 md:w-auto">
-          Cancel
-        </button>
-      </footer>
-    </div>
-  </div>
-)}
+      )}
 
     </section>
   );

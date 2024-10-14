@@ -99,6 +99,17 @@ const Department = () => {
       BranchCode: selectedOption ? selectedOption.value : '',
     }));
   };
+
+  const handleCompanyCodeChange = (selectedOption) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      CompanyCode: selectedOption ? selectedOption.value : '',
+    }));
+  }
+
+  const optionCompany = [
+    {value: 'PPAP', label: 'PPAP'}
+  ]
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -278,11 +289,15 @@ const Department = () => {
                 {/* Input for Office Code */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="CompanyCode" className="block mb-2 text-sm font-semibold text-gray-700">Company Code</label>
-                  <input
-                    id="CompanyCode"
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    value={formData.CompanyCode}
-                    onChange={handleChange}
+                  <Select
+                    options={optionCompany}
+                    onChange={handleCompanyCodeChange}
+                    placeholder="Select Branch"
+                    value={optionCompany.find(option => option.value === formData.BranchCode)}
+                    isClearable
+                    className="basic-single"
+                    classNamePrefix="select"
+                    styles={customStyles}
                   />
                 </div>
                 {/* Input for Office Name */}
@@ -356,11 +371,15 @@ const Department = () => {
                 {/* Input for Office Code */}
                 <div className="w-full md:w-1/2">
                   <label htmlFor="CompanyCode" className="block mb-2 text-sm font-semibold text-gray-700">Company Code</label>
-                  <input
-                    id="CompanyCode"
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    value={formData.CompanyCode}
-                    onChange={handleChange}
+                  <Select
+                    options={optionCompany}
+                    onChange={handleCompanyCodeChange}
+                    placeholder="Select Branch"
+                    value={optionCompany.find(option => option.value === formData.CompanyCode)}
+                    isClearable
+                    className="basic-single"
+                    classNamePrefix="select"
+                    styles={customStyles}
                   />
                 </div>
                 {/* Input for Office Name */}
