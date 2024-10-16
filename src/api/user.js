@@ -65,8 +65,6 @@ export function Login({ username, password }) {
     });
 }
 
-
-
 export function GetAllStaff(params){
     console.log(params);
     return request({
@@ -98,4 +96,33 @@ export function UpdateStaff(id, data) {
         url: `/staffs/updateUser/${id}`,  // Use the Id to construct the URL
         data: data  // Include the data in the request body
     });
+}
+
+export function GetUserRole(){
+    return request({
+        method: "GET",
+        url: '',
+
+    })
+}
+
+export function GetDep(){
+    return request({
+        method: "GET",
+        url: '',
+    })
+}
+
+export function GetOffice(){
+    return request({
+        method: "GET",
+        url: '',
+    })
+}
+
+export function GetBranchCode(){
+    return request({
+        method: "",
+        url: '',
+    })
 }

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Select from 'react-select';
+import { GetBranchCode } from '../../../api/user';
 
 const Department = () => {
   
@@ -11,12 +12,22 @@ const Department = () => {
   const [formData, setFormData] = useState(INITAIL_FORM_DATA);
   const [editingOffice, setEditingOffice] = useState(null);
   const [selectedOption, setSelectedOption] = useState('');
-
+  const [branch, setBranch] = useState([]);
+  const [company, setCompany] = useState([]);
+  
   const DepList = [
     { CompanyCode: 'PPAP', DepartmentCode: 'Dep-admin', Department: 'នាយកដ្ឋាន រដ្ឋបាល',  BranchCode: 'TS3' },
     { CompanyCode: 'PPAP', DepartmentCode: 'Dep-HR', Department: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស',  BranchCode: 'TS3' },
     
   ];
+
+  // useEffect(() => {
+  //   const fetchBranch = async () => {
+  //     try{
+  //       const response = await 
+  //     }
+  //   }
+  // }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
@@ -107,9 +118,7 @@ const Department = () => {
     }));
   }
 
-  const optionCompany = [
-    {value: 'PPAP', label: 'PPAP'}
-  ]
+
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -143,6 +152,19 @@ const Department = () => {
     {value: 'LM17', label: 'LM17'},
     
   ]
+  // const optionsBranch = branch.map(branch => ({
+  //   value: branch.BranchCode,
+  //   label: `${branch.BranchCode} - ${branch.BranchName}`
+  // }));
+
+  const optionCompany = [
+    {value: 'PPAP', label: 'PPAP'}
+  ]
+  
+  // const optionCompany = company.map(com => ({
+  //   value: com.CompanyCode,
+  //   label: `${com.CompanyCode} - ${com.CompanyName}`
+  // }));
 
   return (
     <section className='mt-10 font-khmer'>
@@ -286,7 +308,17 @@ const Department = () => {
             </header>
             <div className="px-6 py-6 space-y-6">
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Department */}
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="DepartmentCode" className="block mb-2 text-sm font-semibold text-gray-700">Department Code</label>
+                  <input
+                    id="DepartmentCode"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                    value={formData.DepartmentCode}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+               
                 <div className="w-full md:w-1/2">
                   <label htmlFor="Department" className="block mb-2 text-sm font-semibold text-gray-700">Department Name</label>
                   <input
@@ -297,16 +329,7 @@ const Department = () => {
                   />
                 </div>
                 
-                {/* Input for Office Name */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="DepartmentCode" className="block mb-2 text-sm font-semibold text-gray-700">Department Code</label>
-                  <input
-                    id="DepartmentCode"
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    value={formData.DepartmentCode}
-                    onChange={handleChange}
-                  />
-                </div>
+
               </div>
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                 
@@ -369,24 +392,23 @@ const Department = () => {
             </header>
             <div className="px-6 py-6 space-y-6">
               <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-                {/* Input for Department */}
-                <div className="w-full md:w-1/2">
-                  <label htmlFor="Department" className="block mb-2 text-sm font-semibold text-gray-700">Department Name</label>
-                  <input
-                    id="Department"
-                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                    value={formData.Department}
-                    onChange={handleChange}
-                  />
-                </div>
-                
-                {/* Input for Office Name */}
+
                 <div className="w-full md:w-1/2">
                   <label htmlFor="DepartmentCode" className="block mb-2 text-sm font-semibold text-gray-700">Department Code</label>
                   <input
                     id="DepartmentCode"
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                     value={formData.DepartmentCode}
+                    onChange={handleChange}
+                  />
+                </div>
+                
+                <div className="w-full md:w-1/2">
+                  <label htmlFor="Department" className="block mb-2 text-sm font-semibold text-gray-700">Department Name</label>
+                  <input
+                    id="Department"
+                    className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
+                    value={formData.Department}
                     onChange={handleChange}
                   />
                 </div>

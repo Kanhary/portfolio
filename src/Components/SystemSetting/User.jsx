@@ -37,6 +37,7 @@ const User = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedOption, setSelectedOption] = useState('');
   const [pictureUrl, setPictureUrl] = useState(null);
+  const [role, setRole] = useState('');
   const recordsPerPage = 8;
 
 
@@ -290,6 +291,11 @@ const handleSave = async () => {
         setError(err.message || 'An error occurred');
       }
     };
+    // const fetchRole = async () => {
+    //   try{
+    //     const response = await 
+    //   }
+    // }
     
     fetchUsers();
     fetchEmployees();
@@ -487,6 +493,12 @@ const optionsRole = [
   {value: 'User', label: 'User'},
   {value: 'Guest', label: 'Guest'}
 ]
+
+  // const optionsRole = role.map(role => ({
+  //   value: role.role,
+  //   label: `{role.role}`
+  // }));
+
   
   return (
     <section className='mt-16 font-khmer'>

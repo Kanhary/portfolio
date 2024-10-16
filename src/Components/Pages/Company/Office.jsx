@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Select from 'react-select';
 
@@ -11,13 +11,21 @@ const OfficeList = () => {
   const [formData, setFormData] = useState(INITAIL_FORM_DATA);
   const [editingOffice, setEditingOffice] = useState(null);
   const [selectedOption, setSelectedOption] = useState('');
+  const [branch, setBranch] = useState([]);
+  const [company, setCompany] = useState([]);
+  const [department, setDepartment] = useState([]);
+  // const []
 
   const officeList = [
     { OfficeCode: 'ICT', OfficeName: 'ការិយាល័យ បច្ចេកវិទ្យា/ព័ត៏មានវិទ្យា', Department: 'នាយកដ្ឋាន រដ្ឋបាល', BranchCode: 'TS3', CompanyCode: 'PPAP' },
     { OfficeCode: 'CCTV', OfficeName: 'ការិយាល័យ សន្ដិសុខ/ប្រព័ន្ធ CCTV Camera', Department: 'នាយកដ្ឋាន រដ្ឋបាល', BranchCode: 'TS3', CompanyCode: 'PPAP' },
-    // Add more offices as needed
+  
   ];
 
+  useEffect(() =>{
+    
+  })
+  
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
   const filteredOffices = officeList.filter(office =>
@@ -148,15 +156,31 @@ const OfficeList = () => {
     {value: 'LM17', label: 'LM17'},
     
   ]
+
+  // const optionsBranch = branch.map(branch => ({
+  //   value: branch.BranchCode,
+  //   label: `${branch.BranchCode} - ${branch.BranchName}`
+  // }));
+  
   const optionCompany = [
     {value: 'PPAP', label: 'PPAP'}
   ]
 
+  // const optionCompany = company.map(com => ({
+  //   value: com.CompanyCode,
+  //   label: `${com.CompanyCode} - ${com.CompanyName}`
+  // }));
+    
   const optionsDepartment = [
     {value: 'នាយកដ្ឋាន រដ្ឋបាល', label: 'នាយកដ្ឋាន រដ្ឋបាល'},
     {value: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស', label: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស'},
     
   ]
+
+  // const optionsDepartment = department.map(dep => ({
+  //   value: dep.DepartmentCode,
+  //   label: `${dep.DepartmentCode} - ${dep.Department}`
+  // }));
 
 
   return (
