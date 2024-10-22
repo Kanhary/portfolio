@@ -20,7 +20,8 @@ const User = () => {
     cardId: '', 
     staffCode: '', 
     picture: null,
-    path: '' 
+    path: '',
+    branch: '' 
   };
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -782,16 +783,30 @@ const optionsRole = [
                     {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                   </div>
                 </div>
-                <div className="w-full">
+                <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+                  {/* Input for Phone Number */}
+                  <div className="w-full md:w-1/2">
                     <label htmlFor="cardId" className="block mb-2 text-sm font-semibold text-gray-700">Card ID</label>
                     <input
                       type="text"
                       id="cardId"
                       value={formData.cardId}
                       onChange={handleChange}
-                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.cardId ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                      className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                     />
-                    {errors.cardId && <p className="mt-1 text-xs text-red-500">{errors.cardId}</p>}
+                  </div>
+                  
+                  {/* <div className="w-full md:w-1/2">
+                    <label htmlFor="branch" className="block mb-2 text-sm font-semibold text-gray-700">Branch</label>
+                    <input
+                      type="text"
+                      id="branch"
+                      value={formData.branch}
+                      onChange={handleChange}
+                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.branch ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                    />
+                    {errors.branch && <p className="mt-1 text-xs text-red-500">{errors.branch}</p>}
+                  </div> */}
                 </div>
               </div>
 
