@@ -377,26 +377,21 @@ const TabMenu = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
-  <label htmlFor="department" className="text-sm font-medium text-gray-700">
-    Department
-  </label>
-  <select
-    id="department"
-    value={formData.department}
-    onChange={handleDepartmentChange}
-    className="block w-full p-3 text-sm text-gray-700 border border-gray-300 rounded-lg"
-  >
-    <option value="" disabled hidden>Select Department</option>
-    {departments && departments.length > 0 ? (
-      departments.map(dept => (
-        <option key={dept.id} value={dept.id}>{dept.name}</option>
-      ))
-    ) : (
-      <option disabled>No departments available</option>
-    )}
-  </select>
-</div>
-
+        <label htmlFor="department" className="text-sm font-medium text-gray-700">
+          Department
+        </label>
+        <select
+          id="department"
+          value={formData.department}
+          onChange={handleDepartmentChange}
+          className="block w-full p-3 text-sm text-gray-700 border border-gray-300 rounded-lg"
+        >
+          <option value="" disable hidden>Select Department</option>
+          {departments.map(dept => (
+            <option key={dept.id} value={dept.id}>{dept.name}</option>
+          ))}
+        </select>
+      </div>
 
       {/* Office Dropdown */}
       <div className="flex flex-col gap-2">
