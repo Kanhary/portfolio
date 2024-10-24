@@ -266,13 +266,13 @@ const Branch = () => {
             <table className='w-full text-sm text-left text-gray-500 '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r-2 border-t-2" >Action</th>
-                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '150px'}}>Company Code</th>
-                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Branch Code</th>
-                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Branch Name</th>
-                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Last By</th>
-                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Last Date</th>
-                </tr>
+                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r border-t" >Action</th>
+                  <th scope="col" className="px-4 py-3 border-r-2 border-t" style={{minWidth: '150px'}}>Company Code</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '200px'}}>Branch Code</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '200px'}}>Branch Name</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '200px'}}>Last By</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '200px'}}>Last Date</th>
+            </tr>
               </thead>
               <tbody>
   {currentBranches.map((branch, index) => (
@@ -280,7 +280,7 @@ const Branch = () => {
       key={index}
       className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'
     >
-      <td className="sticky left-0 z-10 flex items-center px-4 py-6 bg-white border-r-2" >
+      <td className="sticky left-0 z-10 flex items-center px-4 py-6 bg-white border-r" >
         <div className='flex gap-2'>
           {/* Checkbox */}
           <input type="checkbox" className="mr-2" />
@@ -302,11 +302,11 @@ const Branch = () => {
           </button>
         </div>
       </td>
-      <td className="px-4 py-4 border-r-2">{branch.CompanyCode}</td>
-      <td className="px-4 py-4 border-r-2">{branch.BranchCode}</td>
-      <td className="px-4 py-4 border-r-2">{branch.Branch}</td>
-      <td className="px-4 py-4 border-r-2">{branch.LastBy}</td>
-      <td className="px-4 py-4 border-r-2">{branch.LastDate}</td>
+      <td className="px-4 py-4 border-r">{branch.CompanyCode}</td>
+      <td className="px-4 py-4 border-r">{branch.BranchCode}</td>
+      <td className="px-4 py-4 border-r">{branch.Branch}</td>
+      <td className="px-4 py-4 border-r">{branch.LastBy}</td>
+      <td className="px-4 py-4 border-r">{branch.LastDate}</td>
     </tr>
   ))}
 </tbody>

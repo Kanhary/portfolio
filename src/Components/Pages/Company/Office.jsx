@@ -229,18 +229,17 @@ const OfficeList = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 border-r-2">Action</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '150px'}}>Office Code</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '300px'}}>Office Name</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '150px'}}>Department</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '150px'}}>Branch Code</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '150px'}}>Company Code</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '300px'}}>Office Name</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Department</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Branch Code</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Company Code</th>
                 </tr>
               </thead>
               <tbody>
                 {currentOffices.map((office, index) => (
                   <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-5 bg-white border-r-2'>
+                    <td className='sticky left-0 flex px-6 py-5 bg-white border-r'>
                       <input type="checkbox" className="mr-1 action-checkbox"/>
                       <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(office)} />
                       <FaTrashAlt className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteOffice(office.OfficeCode)} />

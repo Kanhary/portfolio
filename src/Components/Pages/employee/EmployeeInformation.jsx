@@ -580,38 +580,38 @@ const EmployeeInformation = () => {
               <table className='w-full text-sm text-left text-gray-500'>
                 <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
                   <tr>
-                    <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r-2">Action</th>
-                    <th scope="col" className="px-4 py-3 border-r-2">NO</th>
-                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '80px' }}>Code</th>
-                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Full Name</th>
-                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '180px' }}>Latan name</th>
-                    <th scope="col" className="px-4 py-3 border-r-2">Gender</th>
-                    <th scope="col" className="px-4 py-3 border-r-2">Height</th>
-                    <th scope="col" className="px-4 py-3 border-r-2 ">Weight</th>
-                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '120px' }}>Birthdate</th>
-                    <th scope="col" className="px-4 py-3 border-r-2">Nation</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '120px' }}>Nationality</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '120px' }}>Region</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '330px' }}>Birthdate Address</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '330px' }}>Address</th>
-                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px'}}>Phone Number</th>
-                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '220px' }}>Email</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '150px' }}>Special Number</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '140px' }}>Marital Status</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '200px' }}>Company</th>
-                    <th scope="col" className="px-4 py-3 border-r-2">Branch</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '150px' }}>Department</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Office</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Position</th>
-                    <th scope="col" className="px-4 py-30 border-r-2"style={{ minWidth: '200px' }}>Last Modified By</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Last Modified Date</th>
-                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Photo</th>
+                    <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r border-t">Action</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t">NO</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '80px' }}>Code</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Full Name</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '180px' }}>Latan name</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t">Gender</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t">Height</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t ">Weight</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '120px' }}>Birthdate</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t">Nation</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '120px' }}>Nationality</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '120px' }}>Region</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '330px' }}>Birthdate Address</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '330px' }}>Address</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px'}}>Phone Number</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '220px' }}>Email</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '150px' }}>Special Number</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '140px' }}>Marital Status</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '200px' }}>Company</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t">Branch</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '150px' }}>Department</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '250px' }}>Office</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '250px' }}>Position</th>
+                    <th scope="col" className="px-4 py-30 border-r border-t"style={{ minWidth: '200px' }}>Last Modified By</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '250px' }}>Last Modified Date</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t"style={{ minWidth: '250px' }}>Photo</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentEmployees.map(employee => (
                       <tr key={employee.id} className='transition-transform ease-in-out transform border border-b-gray-200 hover:bg-indigo-50 duration-1000'>
-                        <td className='sticky left-0 z-10 flex items-center px-4 py-5 bg-white border-r-2'>
+                        <td className='sticky left-0 z-10 flex items-center px-4 py-5 bg-white border-r'>
   <input type="checkbox" className="mr-3 action-checkbox" />
   <FaPen
     className="text-blue-500 cursor-pointer hover:text-blue-700"
@@ -678,32 +678,32 @@ const EmployeeInformation = () => {
   />
 </td>
 
-                      <td className='px-4 py-1 border-r-2'>{employee.id}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.staffCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.fullName}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.latanName}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.genderCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.height}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.weight}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.birthDate}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.nationals}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.nationality}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.region}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.birthdateAddress}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.address}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.phoneNumber1}</td>
-                      {/* <td className='px-41py-3'>{employee.phoneNumber2}</td>
-                      <td className='px-4 py-1'>{employee.phoneNumber3}</td> */}
-                      <td className='px-4 py-1 border-r-2'>{employee.email}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.specailPhoneNumber}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.familyStatus ? 'Married' : 'Single'}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.companyCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.companyBranchCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.departmentCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.officeCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.positionCode}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.lastBy}</td>
-                      <td className='px-4 py-1 border-r-2'>{employee.photo}</td>
+                      <td className='px-4 py-1 border-r'>{employee.id}</td>
+                      <td className='px-4 py-1 border-r'>{employee.staffCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.fullName}</td>
+                      <td className='px-4 py-1 border-r'>{employee.latanName}</td>
+                      <td className='px-4 py-1 border-r'>{employee.genderCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.height}</td>
+                      <td className='px-4 py-1 border-r'>{employee.weight}</td>
+                      <td className='px-4 py-1 border-r'>{employee.birthDate}</td>
+                      <td className='px-4 py-1 border-r'>{employee.nationals}</td>
+                      <td className='px-4 py-1 border-r'>{employee.nationality}</td>
+                      <td className='px-4 py-1 border-r'>{employee.region}</td>
+                      <td className='px-4 py-1 border-r'>{employee.birthdateAddress}</td>
+                      <td className='px-4 py-1 border-r'>{employee.address}</td>
+                      <td className='px-4 py-1 border-r'>{employee.phoneNumber1}</td>
+                      {/* <td className='px-41py-3'>{emoyee.phoneNumber2}</td>
+                      <td className='px-4 py-1'>{employ.phoneNumber3}</td> */}
+                      <td className='px-4 py-1 border-r'>{employee.email}</td>
+                      <td className='px-4 py-1 border-r'>{employee.specailPhoneNumber}</td>
+                      <td className='px-4 py-1 border-r'>{employee.familyStatus ? 'Married' : 'Single'}</td>
+                      <td className='px-4 py-1 border-r'>{employee.companyCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.companyBranchCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.departmentCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.officeCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.positionCode}</td>
+                      <td className='px-4 py-1 border-r'>{employee.lastBy}</td>
+                      <td className='px-4 py-1 border-r'>{employee.photo}</td>
                     </tr>
                   ))}
                 </tbody>

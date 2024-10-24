@@ -225,7 +225,7 @@ const Department = () => {
               <tbody>
                 {currentDepartment.map((dep, index) => (
                   <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-5 bg-white border-r-2'>
+                    <td className='sticky left-0 flex px-6 py-5 bg-white border-r'>
                       <input type="checkbox" className="mr-1 action-checkbox"/>
                       <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(dep)} />
                       <FaTrashAlt className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteOffice(dep.DepartmentCode)} />
