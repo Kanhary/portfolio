@@ -75,20 +75,20 @@ const Branch = () => {
   };
 
   const handleSave = async (event) => {
-    event.preventDefault(); // Prevent default form submission
-  
-    // Log the form data for debugging
-    console.log('Submitting form data:', formData);
+    event.preventDefault(); // Prevent default form submission behavior
+    console.log('Submitting form data:', formData); // Log the form data for debugging
   
     try {
-      // Call your save function, replace `AddStaff` with your actual API call
-      const response = await AddStaff(formData);
+      // Replace `AddBranch` with the actual API call function to save the branch data
+      const response = await AddBranch(formData); 
+  
+      console.log(response); // Log the response for debugging
   
       if (response.status === 200) {
         // Show success alert
         Swal.fire({
           title: "Successful",
-          text: "Employee created successfully",
+          text: "Branch created successfully",
           icon: "success",
           confirmButtonText: 'OK',
           customClass: {
@@ -97,9 +97,11 @@ const Branch = () => {
             confirmButton: 'px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700'
           }
         });
-        setIsAddModalOpen(false); // Close modal
+  
+        // Close the modal after successful save
+        setIsAddModalOpen(false);
       } else {
-        // Handle potential error responses
+        // Handle error responses
         const errorMessage = response.data.message || 'An unexpected error occurred.';
         Swal.fire({
           title: "Error",
@@ -114,6 +116,7 @@ const Branch = () => {
         });
       }
     } catch (error) {
+      // Catch any other errors that occur during the save process
       console.error('Error during save operation:', error);
       Swal.fire({
         title: "Error",
@@ -126,6 +129,61 @@ const Branch = () => {
           confirmButton: 'px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700'
         }
       });
+    }
+  };
+  
+  
+  const handleDelete = async (Id) => {
+    try {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#22c55e",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (result.isConfirmed) {
+            const response = await DelStaff(Id);
+            console.log('Response:', response);  // Log the response to debug
+
+            if (response.status === 200) {  // Check HTTP status code directly
+              Swal.fire({
+                  title: "Deleted!",
+                  text: "User has been deleted.",
+                  icon: "success",
+                  confirmButtonText: "Okay",
+              });
+          
+              const deleteStaff = employees.filter(employee => employee.id !== Id);
+              setEmployees(deleteStaff);
+          } else {
+              Swal.fire({
+                  title: "Error!",
+                  text: "Failed to delete user.",
+                  icon: "error",
+                  confirmButtonText: "Okay",
+              });
+          }
+          
+        }
+    } catch (error) {
+        console.error('Error:', error.response ? error.response.data : error.message);
+        
+        if (error.response) {
+            console.log('Error response:', error.response);  // Full error response
+        } else {
+            console.log('Error message:', error.message);  // Error message if no response
+        }
+
+        Swal.fire({
+            title: 'Error!',
+            text: error.response?.data?.message || 'Failed to connect to the server.',
+            icon: 'error',
+            confirmButtonText: 'Okay',
+        });
     }
   };
 
@@ -208,7 +266,7 @@ const Branch = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 flex">Action</th>
                   <th scope="col" className="px-4 py-3">Company Code</th>
                   <th scope="col" className="px-4 py-3">Branch Code</th>
                   <th scope="col" className="px-4 py-3">Branch Name</th>
@@ -239,7 +297,7 @@ const Branch = () => {
 
 
           {/* Delete Button */}
-          <button onClick={() => deleteBranch(branch.BranchCode)}>
+          <button onClick={() => handleDelete(branch.BranchCode)}>
             <FaTrashAlt className='text-red-600 hover:text-red-800' />
           </button>
         </div>
@@ -330,7 +388,7 @@ const Branch = () => {
               </button>
             </div>
 
-            <div className="px-4">
+            <div className="px-8">
               <form className="space-y-4" onSubmit={handleSave}> {/* Form submission handler */}
                 {/* Company Code Dropdown */}
                 <div className='mb-4'>
@@ -387,6 +445,7 @@ const Branch = () => {
                 <div className="flex justify-center gap-5 p-6 mt-4">
                   <button
                     type="submit" // Submit button
+                    onClick={handleSave}
                     className="px-8 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                   >
                     <p className='text-base font-normal'>រក្សាទុក</p>
@@ -404,7 +463,6 @@ const Branch = () => {
           </div>
         </div>
       )}
-
 
 
       {isEditModalOpen && (
@@ -425,7 +483,7 @@ const Branch = () => {
               </button>
             </div>
 
-            <div className="px-4">
+            <div className="px-8">
               <form className="space-y-4" onSubmit={handleSave}> {/* Add onSubmit to form */}
                 {/* Company Code Dropdown */}
                 <div className='mb-4'>
@@ -438,7 +496,7 @@ const Branch = () => {
                     className='block w-full p-2 mt-1 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-primary-500 focus:border-primary-500 focus:ring-1'
                     required
                   >
-                    <option value="" disabled>Select a Company Code</option>
+                    <option value="" disabled hidden>Select a Company Code</option>
                     <option value="PPAP">PPAP</option>
                     <option value="XYZ">XYZ</option>
                     <option value="ABC">ABC</option>

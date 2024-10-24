@@ -378,7 +378,7 @@ const TabMenu = ({
 
                 <div className="flex flex-col gap-2">
         <label htmlFor="department" className="text-sm font-medium text-gray-700">
-          Department
+          នាយកដ្ឋាន
         </label>
         <select
           id="department"
@@ -396,7 +396,7 @@ const TabMenu = ({
       {/* Office Dropdown */}
       <div className="flex flex-col gap-2">
         <label htmlFor="office" className="text-sm font-medium text-gray-700">
-          Office
+          ការិយាល័យ
         </label>
         <select
           id="office"
