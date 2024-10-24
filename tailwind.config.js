@@ -16,7 +16,7 @@ module.exports = {
       
     },
       fontFamily: {
-        khmer: ["Noto Serif Khmer","sans-serif"]
+        khmer: ["Poppins",'Noto Serif Khmer']
       }
   },
   plugins: [

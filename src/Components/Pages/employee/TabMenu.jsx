@@ -384,7 +384,7 @@ const TabMenu = ({
           id="department"
           value={formData.department}
           onChange={handleDepartmentChange}
-          className="block w-full p-3 border border-gray-300 rounded-lg text-sm text-gray-700"
+          className="block w-full p-3 text-sm text-gray-700 border border-gray-300 rounded-lg"
         >
           <option value="" disable hidden>Select Department</option>
           {departments.map(dept => (
@@ -402,7 +402,7 @@ const TabMenu = ({
           id="office"
           value={formData.office}
           onChange={handleOfficeChange}
-          className="block w-full p-3 border border-gray-300 rounded-lg text-sm text-gray-700"
+          className="block w-full p-3 text-sm text-gray-700 border border-gray-300 rounded-lg"
           disabled={!filteredOffices.length} // Disable if no offices available
         >
           <option value="" disable hidden>Select Office</option>

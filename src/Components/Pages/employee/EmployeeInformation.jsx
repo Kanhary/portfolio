@@ -602,7 +602,7 @@ const EmployeeInformation = () => {
                     <th scope="col" className="px-4 py-3">Branch</th>
                     <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Department</th>
                     <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Office</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Position</th>
+                    <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Position</th>
                     <th scope="col" className="px-4 py-30"style={{ minWidth: '200px' }}>Last Modified By</th>
                     <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Last Modified Date</th>
                     <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Photo</th>
