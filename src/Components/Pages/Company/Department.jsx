@@ -213,13 +213,13 @@ const Department = () => {
           
           <div className='w-full overflow-x-auto' data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100 border'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 border-r-2">Action</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '180px'}}>Company Code</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '180px'}}>Department Code</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '250px'}}>Department Name</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '150px'}}>Branch Code</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 border-r">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '180px'}}>Company Code</th>
+                  <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '180px'}}>Department Code</th>
+                  <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '250px'}}>Department Name</th>
+                  <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '150px'}}>Branch Code</th>
                 </tr>
               </thead>
               <tbody>
@@ -230,10 +230,10 @@ const Department = () => {
                       <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(dep)} />
                       <FaTrashAlt className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteOffice(dep.DepartmentCode)} />
                     </td>
-                    <td className='px-4 py-4 border-r-2'>{dep.CompanyCode}</td>
-                    <td className='px-4 py-4 border-r-2'>{dep.DepartmentCode}</td>
-                    <td className='px-4 py-4 border-r-2'>{dep.Department}</td>
-                    <td className='px-4 py-4 border-r-2'>{dep.BranchCode}</td>
+                    <td className='px-4 py-4 border-r'>{dep.CompanyCode}</td>
+                    <td className='px-4 py-4 border-r'>{dep.DepartmentCode}</td>
+                    <td className='px-4 py-4 border-r'>{dep.Department}</td>
+                    <td className='px-4 py-4 border-r'>{dep.BranchCode}</td>
                    
                   </tr>
                 ))}

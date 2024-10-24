@@ -266,7 +266,7 @@ const Branch = () => {
             <table className='w-full text-sm text-left text-gray-500 '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r-2" >Action</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r-2 border-t-2" >Action</th>
                   <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '150px'}}>Company Code</th>
                   <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Branch Code</th>
                   <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Branch Name</th>

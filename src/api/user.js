@@ -14,7 +14,7 @@ export function AddUser(data) {
 export function GetUser(params, id) {  
     return request({
         method: "GET",
-        url: `/user/getUserById/${id}`,
+        url: `/user/getLoginUser.do`,
         params: params 
     });
 }
