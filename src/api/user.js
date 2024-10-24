@@ -11,12 +11,11 @@ export function AddUser(data) {
     });
 }
 
-export function GetUser(params) {  
-    console.log(params);
+export function GetUser(params, id) {  
     return request({
         method: "GET",
-        url: '/userSystem/getAllUser',
-        params: params  
+        url: `/user/getUserById/${id}`,
+        params: params 
     });
 }
 

@@ -10,18 +10,17 @@ import { GiShipBow } from "react-icons/gi";
 
 const User = () => {
   const INITIAL_FORM_DATA = { 
-    userCode: '', 
-    userName: '', 
-    firstName: '', 
-    lastName: '', 
-    phone: '', 
-    email: '', 
-    password: '', 
-    cardId: '', 
+    username: '', 
+    nickname: '',
+    usercode: '', 
     staffCode: '', 
-    picture: null,
+    email: '', 
+    mobile: '',
+    sex: '',
+    avatar: null,
+    password: '', 
     path: '',
-    branch: '' 
+    status: '',
   };
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -91,14 +90,14 @@ const User = () => {
     const validationErrors = {};
 
     // Check required fields
-    if (!formData.userCode) validationErrors.userCode = 'User Code is required';
-    if (!formData.userName) validationErrors.userName = 'User Name is required';
-    if (!formData.firstName) validationErrors.firstName = 'First Name is required';
-    if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
-    if (!formData.email) validationErrors.email = 'Email is required';
-    if (!formData.password) validationErrors.password = 'Password is required';
-    if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
-    if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
+    // if (!formData.usercode) validationErrors.userCode = 'User Code is required';
+    // if (!formData.userName) validationErrors.userName = 'User Name is required';
+    // if (!formData.firstName) validationErrors.firstName = 'First Name is required';
+    // if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
+    // if (!formData.email) validationErrors.email = 'Email is required';
+    // if (!formData.password) validationErrors.password = 'Password is required';
+    // if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
+    // if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
 
     if (Object.keys(validationErrors).length > 0) {
         console.log('Validation errors:', validationErrors);
@@ -168,13 +167,13 @@ const handleSave = async () => {
 
     // Validation for required fields
     // if (!formData.userCode) validationErrors.userCode = 'User Code is required';
-    if (!formData.userName) validationErrors.userName = 'User Name is required';
-    if (!formData.firstName) validationErrors.firstName = 'First Name is required';
-    if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
-    if (!formData.email) validationErrors.email = 'Email is required';
-    if (!formData.password) validationErrors.password = 'Password is required';
-    if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
-    if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
+    // if (!formData.userName) validationErrors.userName = 'User Name is required';
+    // if (!formData.firstName) validationErrors.firstName = 'First Name is required';
+    // if (!formData.lastName) validationErrors.lastName = 'Last Name is required';
+    // if (!formData.email) validationErrors.email = 'Email is required';
+    // if (!formData.password) validationErrors.password = 'Password is required';
+    // if (!formData.cardId) validationErrors.cardId = 'Card ID is required';
+    // if (!selectedOption) validationErrors.staffCode = 'Staff Code is required';
 
     // If validation errors exist, stop and display the errors
     if (Object.keys(validationErrors).length > 0) {
@@ -277,12 +276,17 @@ const handleSave = async () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await GetUser();  
-        setUsers(response.data);
+          const userParams = { /* your params here, e.g., filters, pagination */ };
+          const userId = 5; // Replace this with the actual ID you want to fetch
+          
+          // Pass params and id to GetUser
+          const response = await GetUser(userParams, userId);
+          setUsers(response.data);
       } catch (err) {
-        setError(err.message || 'An error occurred');
+          setError(err.message || 'An error occurred');
       } 
-    };
+  };
+  
 
     const fetchEmployees = async () => {
       try {
@@ -545,27 +549,29 @@ const optionsRole = [
           
           <div className='w-full overflow-x-auto' data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
-                  {/* <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>User Code</th> */}
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Username</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>First Name</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Last Name</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Phone Number</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Email</th>
-                  {/* <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Password</th> */}
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Card ID</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px' }}>Staff Code</th>
-                  <th scope='col' className='px-4 py-3' style={{ minWidth: '150px '}}>Picture</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r-2">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>User Code</th>
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Username</th>
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Nickname</th>
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Phone Number</th>
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Email</th>
+                  {/* <th scope='col' className='px-4  border-r-2py-3' style={{ minWidth: '150px' }}>Password</th> */}
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Gender</th>
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Staff Code</th>
+                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px '}}>Avatar</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Status</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Creater</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Create Time</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Updater</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Update Time</th>
                 </tr>
               </thead>
               <tbody>
                 {currentPageUsers.map(user => (
                   <tr key={`${user.userCode}-${user.userName}`} className='border-b'>
-                    <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white'>
+                    <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white border-r-2'>
                       <button
                         className='text-blue-600 hover:text-blue-800'
                         onClick={() => openEditModal(user)}
@@ -581,18 +587,20 @@ const optionsRole = [
                       </button>
 
                     </td>
-                    {/* <td className='px-4 py-3'>{user.userCode}</td> */}
-                    <td className='px-4 py-3'>{user.userName}</td>
-                    <td className='px-4 py-3'>{user.firstName}</td>
-                    <td className='px-4 py-3'>{user.lastName}</td>
-                    <td className='px-4 py-3'>{user.phone}</td>
-                    <td className='px-4 py-3'>{user.email}</td>
-                    {/* <td className='px-4 py-3'>{user.password}</td> */}
-                    <td className='px-4 py-3'>{user.cardId}</td>
-                    <td className='px-4 py-3'>{user.staffCode}</td>
-                    <td className='px-4 py-3'>{user.picture}</td>
-                    <td className='px-4 py-3'>{user.lastBy}</td>
-                    <td className='px-4 py-3'>{user.lastDate}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.usercode}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.username}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.nickname}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.mobile}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.email}</td>
+                    {/* <td className='px-4  border-r-2py-3'>{user.password}</td> */}
+                    <td className='px-4 py-3 border-r-2'>{user.sex}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.staffCode}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.avatar}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.status}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.creator}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.create_time}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.updater}</td>
+                    <td className='px-4 py-3 border-r-2'>{user.update_time}</td>
                   </tr>
                 ))}
               </tbody>
@@ -677,28 +685,28 @@ const optionsRole = [
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                   {/* Input for Username */}
                   <div className="w-full md:w-1/2">
-                    <label htmlFor="userName" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                    <label htmlFor="usercode" className="block mb-2 text-sm font-semibold text-gray-700">User Code</label>
                     <input
                       type="text"
-                      id="userName"
-                      value={formData.userName}
+                      id="usercode"
+                      value={formData.usercode}
                       onChange={handleChange}
                       className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
-                      autoComplete="username"
+                      autoComplete="usercode"
                     />
-                    {errors.userName && <p className="mt-1 text-xs text-red-500">{errors.userName}</p>}
+                    {errors.usercode && <p className="mt-1 text-xs text-red-500">{errors.usercode}</p>}
                   </div>
 
                   {/* Input for Password */}
                   <div className="w-full md:w-1/2">
-                    <label htmlFor="password" className="block mb-2 text-sm font-semibold text-gray-700">Password</label>
+                    <label htmlFor="username" className="block mb-2 text-sm font-semibold text-gray-700">Username</label>
                     <input
-                      type="password"
-                      id="password"
-                      value={formData.password}
+                      type="text"
+                      id="username"
+                      value={formData.username}
                       onChange={handleChange}
-                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
-                      autoComplete="current-password"
+                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.username ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                      autoComplete="username"
                     />
                     {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
                   </div>
@@ -706,27 +714,27 @@ const optionsRole = [
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
                   {/* Input for First Name */}
                   <div className="w-full md:w-1/2">
-                    <label htmlFor="firstName" className="block mb-2 text-sm font-semibold text-gray-700">First Name</label>
+                    <label htmlFor="nickname" className="block mb-2 text-sm font-semibold text-gray-700">Nickname</label>
                     <input
                       type="text"
-                      id="firstName"
-                      value={formData.firstName}
+                      id="nickname"
+                      value={formData.nickname}
                       onChange={handleChange}
-                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.nickname ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
                     />
-                    {errors.firstName && <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>}
+                    {errors.nickname && <p className="mt-1 text-xs text-red-500">{errors.nickname}</p>}
                   </div>
                   {/* Input for Last Name */}
                   <div className="w-full md:w-1/2">
-                    <label htmlFor="lastName" className="block mb-2 text-sm font-semibold text-gray-700">Last Name</label>
+                    <label htmlFor="sex" className="block mb-2 text-sm font-semibold text-gray-700">Gender</label>
                     <input
                       type="text"
-                      id="lastName"
-                      value={formData.lastName}
+                      id="sex"
+                      value={formData.sex}
                       onChange={handleChange}
-                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
+                      className={`block w-full px-4 py-2 text-sm text-gray-800 border ${errors.sex ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200`}
                     />
-                    {errors.lastName && <p className="mt-1 text-xs text-red-500">{errors.lastName}</p>}
+                    {errors.sex && <p className="mt-1 text-xs text-red-500">{errors.sex}</p>}
                   </div>
                 </div>
                 <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">

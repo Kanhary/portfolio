@@ -556,7 +556,7 @@ const EmployeeInformation = () => {
                   <input
                     type="text"
                     id='simple-search'
-                    className='block w-96 p-3 pl-10 text-sm text-gray-900 border border-gray-400 rounded-3xl bg-gray-50 focus:ring-primary-700 focus:border-primary-00 focus:outline-none focus:ring-1 '
+                    className='block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-400 rounded-3xl bg-gray-50 focus:ring-primary-700 focus:border-primary-00 focus:outline-none focus:ring-1 '
                     placeholder='បញ្ចូលឈ្មោះឬក៏លេខកូដ'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -578,135 +578,132 @@ const EmployeeInformation = () => {
             <div className='w-full overflow-x-auto'
             data-aos='fade-right'>
               <table className='w-full text-sm text-left text-gray-500'>
-                <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+                <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
                   <tr>
-                    <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-50">Action</th>
-                    <th scope="col" className="px-4 py-3">NO</th>
-                    <th scope="col" className="px-4 py-3" style={{ minWidth: '120px' }}>Code</th>
-                    <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Full Name</th>
-                    <th scope="col" className="px-4 py-3" style={{ minWidth: '180px' }}>Latan name</th>
-                    <th scope="col" className="px-4 py-3">Gender</th>
-                    <th scope="col" className="px-4 py-3">Height</th>
-                    <th scope="col" className="px-4 py-3">Weight</th>
-                    <th scope="col" className="px-4 py-3" style={{ minWidth: '250px' }}>Birthdate</th>
-                    <th scope="col" className="px-4 py-3">Nation</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Nationality</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '120px' }}>Region</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Birthdate Address</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '330px' }}>Address</th>
-                    <th scope="col" className="px-4 py-3" style={{ minWidth: '150px'}}>Phone Number</th>
-                    <th scope="col" className="px-4 py-3" style={{ minWidth: '220px' }}>Email</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Special Number</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '140px' }}>Marital Status</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Company</th>
-                    <th scope="col" className="px-4 py-3">Branch</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '150px' }}>Department</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Office</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '200px' }}>Position</th>
-                    <th scope="col" className="px-4 py-30"style={{ minWidth: '200px' }}>Last Modified By</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Last Modified Date</th>
-                    <th scope="col" className="px-4 py-3"style={{ minWidth: '250px' }}>Photo</th>
+                    <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r-2">Action</th>
+                    <th scope="col" className="px-4 py-3 border-r-2">NO</th>
+                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '80px' }}>Code</th>
+                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Full Name</th>
+                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '180px' }}>Latan name</th>
+                    <th scope="col" className="px-4 py-3 border-r-2">Gender</th>
+                    <th scope="col" className="px-4 py-3 border-r-2">Height</th>
+                    <th scope="col" className="px-4 py-3 border-r-2 ">Weight</th>
+                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '120px' }}>Birthdate</th>
+                    <th scope="col" className="px-4 py-3 border-r-2">Nation</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '120px' }}>Nationality</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '120px' }}>Region</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '330px' }}>Birthdate Address</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '330px' }}>Address</th>
+                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px'}}>Phone Number</th>
+                    <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '220px' }}>Email</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '150px' }}>Special Number</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '140px' }}>Marital Status</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '200px' }}>Company</th>
+                    <th scope="col" className="px-4 py-3 border-r-2">Branch</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '150px' }}>Department</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Office</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Position</th>
+                    <th scope="col" className="px-4 py-30 border-r-2"style={{ minWidth: '200px' }}>Last Modified By</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Last Modified Date</th>
+                    <th scope="col" className="px-4 py-3 border-r-2"style={{ minWidth: '250px' }}>Photo</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentEmployees.map(employee => (
-                      <tr key={employee.id} className='transition-transform duration-300 ease-in-out transform border border-b-gray-200'>
-                        <td className='sticky left-0 flex px-6 py-4 mt-2 bg-white'>
-                        <input type="checkbox" className="mr-3 action-checkbox" />
-                        <FaPen
-                          className="text-blue-500 cursor-pointer hover:text-blue-700"
-                          onClick={() => openEditModal(
-                            employee.id,  // Pass the ID here
-                            employee.staffCode,
-                            employee.fullName,
-                            employee.latanName,
-                            employee.genderCode,
-                            employee.height,
-                            employee.weight,
-                            employee.birthDate,
-                            employee.nationals,
-                            employee.nationality,
-                            employee.region,
-                            employee.birthdateAddress,
-                            employee.address,
-                            employee.phoneNumber1,
-                            employee.email,
-                            employee.specailPhoneNumber,
-                            employee.familyStatus,
-                            employee.companyCode,
-                            employee.companyBranchCode,
-                            employee.departmentCode,
-                            employee.officeCode,
-                            employee.positionCode,
-                            employee.lastBy,
-                            employee.lastDate,
-                            employee.photo
-                          )}
-                        />
+                      <tr key={employee.id} className='transition-transform ease-in-out transform border border-b-gray-200 hover:bg-indigo-50 duration-1000'>
+                        <td className='sticky left-0 z-10 flex items-center px-4 py-5 bg-white border-r-2'>
+  <input type="checkbox" className="mr-3 action-checkbox" />
+  <FaPen
+    className="text-blue-500 cursor-pointer hover:text-blue-700"
+    onClick={() => openEditModal(
+      employee.id,
+      employee.staffCode,
+      employee.fullName,
+      employee.latanName,
+      employee.genderCode,
+      employee.height,
+      employee.weight,
+      employee.birthDate,
+      employee.nationals,
+      employee.nationality,
+      employee.region,
+      employee.birthdateAddress,
+      employee.address,
+      employee.phoneNumber1,
+      employee.email,
+      employee.specailPhoneNumber,
+      employee.familyStatus,
+      employee.companyCode,
+      employee.companyBranchCode,
+      employee.departmentCode,
+      employee.officeCode,
+      employee.positionCode,
+      employee.lastBy,
+      employee.lastDate,
+      employee.photo
+    )}
+  />
+  <FaEye
+    className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
+    onClick={() => openViewModal(
+      employee.staffCode,
+      employee.fullName,
+      employee.latanName,
+      employee.genderCode,
+      employee.height,
+      employee.weight,
+      employee.birthDate,
+      employee.nationals,
+      employee.nationality,
+      employee.region,
+      employee.birthdateAddress,
+      employee.address,
+      employee.phoneNumber1,
+      employee.email,
+      employee.specailPhoneNumber,
+      employee.familyStatus,
+      employee.companyCode,
+      employee.companyBranchCode,
+      employee.departmentCode,
+      employee.officeCode,
+      employee.positionCode,
+      employee.lastBy,
+      employee.lastDate,
+      employee.photo
+    )}
+  />
+  <FaTrashAlt
+    className="ml-3 text-red-500 cursor-pointer hover:text-red-700"
+    onClick={() => handleDelete(employee.id)}
+  />
+</td>
 
-                        <FaEye
-                          className="ml-3 text-indigo-500 cursor-pointer hover:text-indigo-700"
-                          onClick={() => openViewModal(
-                            employee.staffCode,
-                            employee.fullName,
-                            employee.latanName,
-                            employee.genderCode,
-                            employee.height,
-                            employee.weight,
-                            employee.birthDate,
-                            employee.nationals,
-                            employee.nationality,
-                            employee.region,
-                            employee.birthdateAddress,
-                            employee.address,
-                            employee.phoneNumber1,
-                            // employee.phoneNumber2,
-                            // employee.phoneNumber3,
-                            employee.email,
-                            employee.specailPhoneNumber,
-                            employee.familyStatus,
-                            employee.companyCode,
-                            employee.companyBranchCode,
-                            employee.departmentCode,
-                            employee.officeCode,
-                            employee.positionCode,
-                            employee.lastBy,
-                            employee.lastDate,
-                            employee.photo
-                          )}
-                        />
-                        <FaTrashAlt
-                          className="ml-3 text-red-500 cursor-pointer hover:text-red-700"
-                          onClick={() => handleDelete(employee.id)}
-
-                        />
-                      </td>
-                      <td className='px-4 py-3'>{employee.id}</td>
-                      <td className='px-4 py-3'>{employee.staffCode}</td>
-                      <td className='px-4 py-3'>{employee.fullName}</td>
-                      <td className='px-4 py-3'>{employee.latanName}</td>
-                      <td className='px-4 py-3'>{employee.genderCode}</td>
-                      <td className='px-4 py-3'>{employee.height}</td>
-                      <td className='px-4 py-3'>{employee.weight}</td>
-                      <td className='px-4 py-3'>{employee.birthDate}</td>
-                      <td className='px-4 py-3'>{employee.nationals}</td>
-                      <td className='px-4 py-3'>{employee.nationality}</td>
-                      <td className='px-4 py-3'>{employee.region}</td>
-                      <td className='px-4 py-3'>{employee.birthdateAddress}</td>
-                      <td className='px-4 py-3'>{employee.address}</td>
-                      <td className='px-4 py-3'>{employee.phoneNumber1}</td>
-                      {/* <td className='px-4 py-3'>{employee.phoneNumber2}</td>
-                      <td className='px-4 py-3'>{employee.phoneNumber3}</td> */}
-                      <td className='px-4 py-3'>{employee.email}</td>
-                      <td className='px-4 py-3'>{employee.specailPhoneNumber}</td>
-                      <td className='px-4 py-3'>{employee.familyStatus ? 'Married' : 'Single'}</td>
-                      <td className='px-4 py-3'>{employee.companyCode}</td>
-                      <td className='px-4 py-3'>{employee.companyBranchCode}</td>
-                      <td className='px-4 py-3'>{employee.departmentCode}</td>
-                      <td className='px-4 py-3'>{employee.officeCode}</td>
-                      <td className='px-4 py-3'>{employee.positionCode}</td>
-                      <td className='px-4 py-3'>{employee.lastBy}</td>
-                      <td className='px-4 py-3'>{employee.photo}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.id}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.staffCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.fullName}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.latanName}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.genderCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.height}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.weight}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.birthDate}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.nationals}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.nationality}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.region}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.birthdateAddress}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.address}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.phoneNumber1}</td>
+                      {/* <td className='px-41py-3'>{employee.phoneNumber2}</td>
+                      <td className='px-4 py-1'>{employee.phoneNumber3}</td> */}
+                      <td className='px-4 py-1 border-r-2'>{employee.email}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.specailPhoneNumber}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.familyStatus ? 'Married' : 'Single'}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.companyCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.companyBranchCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.departmentCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.officeCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.positionCode}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.lastBy}</td>
+                      <td className='px-4 py-1 border-r-2'>{employee.photo}</td>
                     </tr>
                   ))}
                 </tbody>

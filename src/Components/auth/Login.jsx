@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "remixicon/fonts/remixicon.css";
 import { Login } from "../../api/user";
+import { jwtDecode } from "jwt-decode";
 
 const LoginForm = () => {
   useEffect(() => {
@@ -16,18 +17,18 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  //static login
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (username === 'Pheakdey' && password === '123') {
-  //     navigate('/main-dashboard'); 
-  //   } else {
-  //     setError('Invalid username or password');
-  //   }
-  // };
+  // static login
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username === 'Pheakdey' && password === '123') {
+      navigate('/main-dashboard'); 
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
-//   const Login = async ({ username, password }) => {
-//     const response = await fetch('http://192.168.126.1:8899/auth/login.do', {
+//   const handleSubmit = async ({ username, password }) => {
+//     const response = await fetch('http://localhost:8888/auth/login.do', {
 //         method: 'POST',
 //         headers: {
 //             'Content-Type': 'application/json',
@@ -45,24 +46,45 @@ const LoginForm = () => {
 // };
 
   //Dynamic login
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+  
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setError(null);
 
-    try {
-        const response = await Login({ username, password });
-        if (response.status === 200) {
-            navigate('/main-dashboard'); 
-            console.log('Login')
-        } else {
-            setError('Invalid username or password');
-        }
-    } catch (err) {
-        setError('Invalid username or password');
-    } 
-};
+//     try {
+//         const response = await Login({ username, password });
+        
+//         if (response.status === 200) {
+//             const token = response.data.token; // Extract the token
+//             console.log('Captured token:', token); // Log the captured token
 
+//             // Decode the token to get user information
+//             const decodedToken = jwtDecode(token); // Decode the token
+//             console.log('Decoded Token:', decodedToken); // Log the decoded token
+
+//             // Adjust based on your token structure
+//             const userId = decodedToken.id || decodedToken.user?.id; 
+//             console.log('Captured user ID:', userId); // Log the captured user ID
+
+//             if (userId) {
+//                 // Store user ID or proceed with logic
+//                 navigate('/main-dashboard'); 
+//             } else {
+//                 setError('User ID not found in token');
+//             }
+//         } else {
+//             setError('Invalid username or password');
+//         }
+//     } catch (err) {
+//         console.error('Login error:', err);
+//         setError(err.response ? err.response.data.message : 'An error occurred during login');
+//     } finally {
+//         setLoading(false);
+//     }
+// };
+
+  
 
   const togglePassword = () => {
     const passwordField = document.getElementById("password");
@@ -110,7 +132,7 @@ const LoginForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               name="email"
               required
-              className="peer w-full px-3 py-4 text-[16px] md:text-[18px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="peer w-full px-3 py-4 text-[14px] md:text-[16px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder=" "
             />
             <label
@@ -128,7 +150,7 @@ const LoginForm = () => {
               onChange={(e) => setPassword(e.target.value)}
               name="password"
               required
-              className="peer w-full px-3 py-4 pr-10 text-[16px] md:text-[18px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="peer w-full px-3 py-4 pr-10 text-[16px] md:text-[16px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder=" "
             />
             <label

@@ -165,23 +165,23 @@ const MaintenancePage = () => {
 
       <div className="w-full overflow-hidden">
         <table className="w-full text-sm text-left text-gray-500">
-          <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
-            <tr className="bg-gray-200 border-b">
-              <th className="p-4 py-3">Computer Name</th>
-              <th className="p-4 py-3">Last Maintenance</th>
-              <th className="p-4 py-3">Technician</th>
-              <th className="p-4 py-3">Active User</th>
-              <th className="p-4 py-3">Actions</th>
+          <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
+            <tr className="bg-gray-100 border-b">
+              <th className="p-4 py-3 border-r-2">Computer Name</th>
+              <th className="p-4 py-3 border-r-2">Last Maintenance</th>
+              <th className="p-4 py-3 border-r-2">Technician</th>
+              <th className="p-4 py-3 border-r-2">Active User</th>
+              <th className="p-4 py-3 border-r-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentComputers.map((computer) => (
               <tr key={computer.id} className="transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50">
-                <td className="p-4 py-3 font-semibold">{computer.computerName}</td>
-                
-                <td className="p-4 py-3">{computer.lastMaintenance}</td>
-                <td className="p-4 py-3">{computer.technician}</td>
-                <td className="p-4 py-3">
+                <td className="p-4 py-3 border-r-2 font-semibold">{computer.computerName}</td>
+                 
+                <td className="p-4 py-3 border-r-2">{computer.lastMaintenance}</td>
+                <td className="p-4 py-3 border-r-2">{computer.technician}</td>
+                <td className="p-4 py-3 border-r-2">
                   <span className="font-semibold">{computer.activeUser.name}</span>
                 </td>
                 <td className="p-4 py-3">

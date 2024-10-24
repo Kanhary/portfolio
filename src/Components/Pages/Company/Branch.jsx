@@ -263,15 +263,15 @@ const Branch = () => {
             </div>
           </div>
           <div className='w-full overflow-x-auto'  data-aos='fade-right'>
-            <table className='w-full text-sm text-left text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+            <table className='w-full text-sm text-left text-gray-500 '>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 flex">Action</th>
-                  <th scope="col" className="px-4 py-3">Company Code</th>
-                  <th scope="col" className="px-4 py-3">Branch Code</th>
-                  <th scope="col" className="px-4 py-3">Branch Name</th>
-                  <th scope="col" className="px-4 py-3">Last By</th>
-                  <th scope="col" className="px-4 py-3">Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r-2" >Action</th>
+                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '150px'}}>Company Code</th>
+                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Branch Code</th>
+                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Branch Name</th>
+                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Last By</th>
+                  <th scope="col" className="px-4 py-3 border-r-2 border-t-2" style={{minWidth: '200px'}}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -280,33 +280,33 @@ const Branch = () => {
       key={index}
       className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'
     >
-      <td className="sticky left-0 px-4 py-2">
+      <td className="sticky left-0 z-10 flex items-center px-4 py-6 bg-white border-r-2" >
         <div className='flex gap-2'>
           {/* Checkbox */}
           <input type="checkbox" className="mr-2" />
 
-          {/* View Button */}
-          <button onClick={() => openViewModal(branch.BranchCode)}>
-              <FaEye className='text-green-600 hover:text-green-800' />
-          </button>
-
           {/* Edit Button */}
           <button onClick={() => openEditModal(branch.BranchCode, branch.Branch)}>
-            <FaPen className='text-blue-600 hover:text-blue-800' />
+            <FaPen className='text-blue-500 cursor-pointer hover:text-blue-700' />
+          </button>
+
+          {/* View Button */}
+          <button onClick={() => openViewModal(branch.BranchCode)}>
+              <FaEye className='ml-1 text-indigo-500 cursor-pointer hover:text-indigo-700' />
           </button>
 
 
           {/* Delete Button */}
           <button onClick={() => handleDelete(branch.BranchCode)}>
-            <FaTrashAlt className='text-red-600 hover:text-red-800' />
+            <FaTrashAlt className='ml-1 text-red-500 cursor-pointer hover:text-red-700' />
           </button>
         </div>
       </td>
-      <td className="px-4 py-4">{branch.CompanyCode}</td>
-      <td className="px-4 py-4">{branch.BranchCode}</td>
-      <td className="px-4 py-4">{branch.Branch}</td>
-      <td className="px-4 py-4">{branch.LastBy}</td>
-      <td className="px-4 py-4">{branch.LastDate}</td>
+      <td className="px-4 py-4 border-r-2">{branch.CompanyCode}</td>
+      <td className="px-4 py-4 border-r-2">{branch.BranchCode}</td>
+      <td className="px-4 py-4 border-r-2">{branch.Branch}</td>
+      <td className="px-4 py-4 border-r-2">{branch.LastBy}</td>
+      <td className="px-4 py-4 border-r-2">{branch.LastDate}</td>
     </tr>
   ))}
 </tbody>

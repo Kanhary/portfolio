@@ -154,29 +154,29 @@ const EmployeePositionList = () => {
           <div className='w-full overflow-x-auto' 
           data-aos='fade-right'>
             <table className='w-full text-[15px] left text-gray-500 text- '>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 text-start" style={{minWidth: '50px'}}>Action</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '50px'}}>ID</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Position</th>
-                  {/* <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '200px' }}>Description</th> */}
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 text-start border-r-2" >Action</th>
+                  <th scope="col" className="px-4 py-3 text-start border-r-2 " style={{ minWidth: '50px'}}>ID</th>
+                  <th scope="col" className="px-4 py-3 text-start border-r-2 " style={{ minWidth: '200px' }}>Position</th>
+                  {/* <th scope="col" className="px-4 py-3 text-s border-r-2 tart" style={{ minWidth: '200px' }}>Description</th> */}
+                  <th scope="col" className="px-4 py-3 text-start border-r-2 " style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 text-start border-r-2 " style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentEmployees.map(employee => (
                   <tr key={employee.ID} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-4 bg-white' style={{minWidth: '50px'}}>
+                    <td className='sticky left-0 flex px-6 py-4 bg-white border-r-2'>
                       <input type="checkbox" className="mr-3 action-checkbox" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(employee.ID, employee.Position)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteEmployee(employee.ID)} />
                     </td>
-                    <td className='px-4 py-3'>{employee.ID}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '250px' }}>{employee.Position}</td>
-                    {/* <td className='px-4 py-3' style={{ minWidth: '250px' }}>{employee.description}</td> */}
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
-                    <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
+                    <td className='px-2 py-3 border-r-2 '>{employee.ID}</td>
+                    <td className='px-2 py-3 border-r-2 ' style={{ minWidth: '250px' }}>{employee.Position}</td>
+                    {/* <td className='px-4  border-r-2 py-3' style={{ minWidth: '250px' }}>{employee.description}</td> */}
+                    <td className='px-2 py-3 border-r-2 ' style={{ minWidth: '150px' }}>Last Edited By</td>
+                    <td className='px-2 py-3 border-r-2 ' style={{ minWidth: '160px' }}>Last Edited Date</td>
                   </tr>
                 ))}
               </tbody>

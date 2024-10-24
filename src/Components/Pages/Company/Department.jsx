@@ -20,6 +20,9 @@ const Department = () => {
     { CompanyCode: 'PPAP', DepartmentCode: 'Dep-HR', Department: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស',  BranchCode: 'TS3' },
     
   ];
+  const departList = [
+    {EngName: 'Department of Administration', KHName: 'នាយកដ្ឋាន រដ្ឋបាល', DepartCode: 'dep-admin', Branch_Code:''}
+  ]
 
   // useEffect(() => {
   //   const fetchBranch = async () => {
@@ -210,27 +213,27 @@ const Department = () => {
           
           <div className='w-full overflow-x-auto' data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
-                  <th scope="col" className="px-4 py-3">Company Code</th>
-                  <th scope="col" className="px-4 py-3">Department Code</th>
-                  <th scope="col" className="px-4 py-3">Department Name</th>
-                  <th scope="col" className="px-4 py-3">Branch Code</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 border-r-2">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '180px'}}>Company Code</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '180px'}}>Department Code</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '250px'}}>Department Name</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{minWidth: '150px'}}>Branch Code</th>
                 </tr>
               </thead>
               <tbody>
                 {currentDepartment.map((dep, index) => (
                   <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-4 bg-white'>
+                    <td className='sticky left-0 flex px-6 py-5 bg-white border-r-2'>
                       <input type="checkbox" className="mr-1 action-checkbox"/>
                       <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(dep)} />
                       <FaTrashAlt className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteOffice(dep.DepartmentCode)} />
                     </td>
-                    <td className='px-4 py-4'>{dep.CompanyCode}</td>
-                    <td className='px-4 py-4'>{dep.DepartmentCode}</td>
-                    <td className='px-4 py-4'>{dep.Department}</td>
-                    <td className='px-4 py-4'>{dep.BranchCode}</td>
+                    <td className='px-4 py-4 border-r-2'>{dep.CompanyCode}</td>
+                    <td className='px-4 py-4 border-r-2'>{dep.DepartmentCode}</td>
+                    <td className='px-4 py-4 border-r-2'>{dep.Department}</td>
+                    <td className='px-4 py-4 border-r-2'>{dep.BranchCode}</td>
                    
                   </tr>
                 ))}

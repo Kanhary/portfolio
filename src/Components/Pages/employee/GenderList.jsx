@@ -137,27 +137,27 @@ const GenderList = () => {
           <div className='w-full overflow-x-auto'
           data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500 '>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 ">Action</th>
-                  <th scope="col" className="px-4 py-3">Code</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '200px' }}>Gender</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r-2">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r-2">Code</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Gender</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentGenders.map((gender, index) => (
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                      <td className='sticky left-0 flex px-6 py-4 bg-white'>
+                      <td className='sticky left-0 flex px-6 py-4 bg-white border-r-2'>
                         <input type="checkbox" className="mr-1 action-checkbox"/>
                         <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(gender.code, gender.gender)} />
                         <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteGender(gender.code)} />
                     </td>
-                    <td className='px-4 py-3'>{gender.code}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '250px' }}>{gender.gender}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>Last Edited By</td>
-                    <td className='px-4 py-3' style={{ minWidth: '160px' }}>Last Edited Date</td>
+                    <td className='px-4 py-3 border-r-2'>{gender.code}</td>
+                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '250px' }}>{gender.gender}</td>
+                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Last Edited By</td>
+                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '160px' }}>Last Edited Date</td>
                     </tr>
                 ))}
             </tbody>
