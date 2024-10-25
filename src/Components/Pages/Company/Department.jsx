@@ -20,9 +20,7 @@ const Department = () => {
     { CompanyCode: 'PPAP', DepartmentCode: 'Dep-HR', Department: 'នាយកដ្ឋាន បុគ្គលិក/ធនធានមនុស្ស',  BranchCode: 'TS3' },
     
   ];
-  const departList = [
-    {EngName: 'Department of Administration', KHName: 'នាយកដ្ឋាន រដ្ឋបាល', DepartCode: 'dep-admin', Branch_Code:''}
-  ]
+  
 
   // useEffect(() => {
   //   const fetchBranch = async () => {

@@ -273,39 +273,35 @@ const handleSave = async () => {
   
   
   // Fetch users and employees
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-          const userParams = { /* your params here, e.g., filters, pagination */ };
-          const userId = 5; // Replace this with the actual ID you want to fetch
-          
-          // Pass params and id to GetUser
-          const response = await GetUser(userParams, userId);
-          setUsers(response.data);
-      } catch (err) {
-          setError(err.message || 'An error occurred');
-      } 
-  };
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await GetUser();
+  //       setUsers(response.data.data)
+  //     } catch (err) {
+  //       setError(err.message || 'An error occurred');
+  //     }
+  //   };
   
 
-    const fetchEmployees = async () => {
-      try {
-        const response = await GetEmp();
-        setEmployees(response.data.data)
-      } catch (err) {
-        setError(err.message || 'An error occurred');
-      }
-    };
-    // const fetchRole = async () => {
-    //   try{
-    //     const response = await 
-    //   }
-    // }
+  //   const fetchEmployees = async () => {
+  //     try {
+  //       const response = await GetEmp();
+  //       setEmployees(response.data.data)
+  //     } catch (err) {
+  //       setError(err.message || 'An error occurred');
+  //     }
+  //   };
+  //   // const fetchRole = async () => {
+  //   //   try{
+  //   //     const response = await 
+  //   //   }
+  //   // }
     
-    fetchUsers();
-    fetchEmployees();
-    // setCurrentPage(0);
-  }, []);
+  //   fetchUsers();
+  //   fetchEmployees();
+  //   // setCurrentPage(0);
+  // }, []);
 
 
   useEffect(() => {
@@ -551,21 +547,21 @@ const optionsRole = [
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Action</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>User Code</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Username</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Nickname</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Phone Number</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Email</th>
-                  {/* <th scope='col' className='px-4  border-r border-tpy-3' style={{ minWidth: '150px' }}>Password</th> */}
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Gender</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Staff Code</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px '}}>Avatar</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Status</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Creater</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Create Time</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Updater</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Update Time</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-t border-r">Action</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>User Code</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px' }}>Username</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px' }}>Nickname</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px' }}>Phone Number</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px' }}>Email</th>
+                  {/* <th scope='col' className='px-4 border-r border-tpy-3' style={{ minWidth: '150px' }}>Password</th> */}
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px' }}>Gender</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px' }}>Staff Code</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px '}}>Avatar</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Status</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Creater</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Create Time</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Updater</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Update Time</th>
                 </tr>
               </thead>
               <tbody>
@@ -592,7 +588,7 @@ const optionsRole = [
                     <td className='px-4 py-3 border-r'>{user.nickname}</td>
                     <td className='px-4 py-3 border-r'>{user.mobile}</td>
                     <td className='px-4 py-3 border-r'>{user.email}</td>
-                    {/* <td className='px-4  border-rpy-3'>{user.password}</td> */}
+                    {/* <td className='px-4 border-rpy-3'>{user.password}</td> */}
                     <td className='px-4 py-3 border-r'>{user.sex}</td>
                     <td className='px-4 py-3 border-r'>{user.staffCode}</td>
                     <td className='px-4 py-3 border-r'>{user.avatar}</td>

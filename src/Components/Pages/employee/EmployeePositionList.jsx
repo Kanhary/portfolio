@@ -156,12 +156,12 @@ const EmployeePositionList = () => {
             <table className='w-full text-[15px] left text-gray-500 text- '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 text-start border-r border-t" >Action</th>
-                  <th scope="col" className="px-4 py-3 text-start border-r border-t" style={{ minWidth: '50px'}}>ID</th>
-                  <th scope="col" className="px-4 py-3 text-start border-r border-t" style={{ minWidth: '200px' }}>Position</th>
-                  {/* <th scope="col" className="px-4 py-3 text-s border-r border-ttart" style={{ minWidth: '200px' }}>Description</th> */}
-                  <th scope="col" className="px-4 py-3 text-start border-r border-t" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3 text-start border-r border-t" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-t border-r text-start" >Action</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r text-start" style={{ minWidth: '50px'}}>ID</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r text-start" style={{ minWidth: '300px' }}>Position</th>
+                  {/* <th scope="col" className="px-4 py-3 border-r text-s border-ttart" style={{ minWidth: '200px' }}>Description</th> */}
+                  <th scope="col" className="px-4 py-3 border-t border-r text-start" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r text-start" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -174,7 +174,7 @@ const EmployeePositionList = () => {
                     </td>
                     <td className='px-2 py-3 border-r '>{employee.ID}</td>
                     <td className='px-2 py-3 border-r ' style={{ minWidth: '250px' }}>{employee.Position}</td>
-                    {/* <td className='px-4  border-r py-3' style={{ minWidth: '250px' }}>{employee.description}</td> */}
+                    {/* <td className='px-4 py-3 border-r' style={{ minWidth: '250px' }}>{employee.description}</td> */}
                     <td className='px-2 py-3 border-r ' style={{ minWidth: '150px' }}>Last Edited By</td>
                     <td className='px-2 py-3 border-r ' style={{ minWidth: '160px' }}>Last Edited Date</td>
                   </tr>

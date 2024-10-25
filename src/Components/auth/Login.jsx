@@ -38,10 +38,8 @@ const LoginForm = () => {
             const response = await Login({ username, password });
 
             if (response.status === 200) {
-                const { token } = response.data; // Adjust this according to your response structure
-                setToken("token", token); // Store token using utility function
-
-                await makeAnotherApiRequest(); // Optional: Make another API request
+                const { token } = response.data; 
+                setToken("token", token); 
                 navigate('/main-dashboard'); 
                 console.log('Login successful');
             } else {
@@ -53,16 +51,7 @@ const LoginForm = () => {
             setLoading(false); 
         }
     };
-
-    const makeAnotherApiRequest = async () => {
-        try {
-            const response = await GetUser();
-            console.log("User data retrieved:", response.data); 
-        } catch (err) {
-            console.error("Error fetching user data:", err);
-        }
-    };
-
+    
     const togglePassword = () => {
         const passwordField = document.getElementById("password");
         const eyeOffIcon = document.querySelector(".ri-eye-off-line");
