@@ -9,6 +9,9 @@ const HeaderPage = ({ toggleSidebar }) => {
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [newProfileImage, setNewProfileImage] = useState(null);
   const navigate = useNavigate();
   
   const notificationsRef = useRef(null);
@@ -38,10 +41,25 @@ const HeaderPage = ({ toggleSidebar }) => {
   };
 
   const handleEditProfile = (e) => {
-    e.stopPropagation(); 
-    alert("Edit profile clicked!"); 
+    e.stopPropagation();
+    setIsEditModalOpen(true);
   };
 
+  const handleSaveProfileImage = () => {
+    if (newProfileImage) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+        localStorage.setItem('profileImage', reader.result);
+      };
+      reader.readAsDataURL(newProfileImage);
+    }
+    setIsEditModalOpen(false);
+  };
+
+  const handleImageChange = (e) => {
+    setNewProfileImage(e.target.files[0]);
+  };
   const handleLogout = (e) => {
     e.stopPropagation(); 
     localStorage.removeItem("userToken"); 
@@ -49,7 +67,8 @@ const HeaderPage = ({ toggleSidebar }) => {
   };
 
   return (
-    <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
+    <div>
+      <nav className='fixed top-0 z-50 w-full bg-white border border-b-gray-200'>
       <div className='px-3 py-3 lg:px-5 lg:pl-3'>
         <div className='flex items-center justify-between'>
           {/* Sidebar Toggle Button */}
@@ -135,6 +154,7 @@ const HeaderPage = ({ toggleSidebar }) => {
             {isDropdownOpen && (
               <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white border divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
                 <div className='px-4 py-3'>
+                {/* <img src={avatar || "/blank-profile-picture.png"} className="w-10 h-10 rounded-lg sm:w-15 sm:h-14 md:w-10 md:h-10 lg:w-16 lg:h-16" alt="User Photo" /> */}
                   <p className='font-normal text-gray-900 text-ms'>Welcome, {username}!</p>
                   <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p>
                 </div>
@@ -156,6 +176,53 @@ const HeaderPage = ({ toggleSidebar }) => {
         </div>
       </div>
     </nav>
+    {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-700 bg-opacity-50">
+          <div className="w-1/3 p-5 bg-white rounded-lg shadow-lg">
+            <h3 className="mb-3 text-xl font-semibold">Edit Profile Image</h3>
+            
+            {/* Display current profile image */}
+            <div className="mb-3">
+              <img 
+                src={profileImage || avatar} 
+                alt="Current Profile" 
+                className="w-full h-auto rounded"
+              />
+            </div>
+
+            <input 
+              type="file" 
+              accept="image/*" 
+              onChange={handleImageChange} 
+              className="mb-3"
+            />
+            {newProfileImage && (
+              <img 
+                src={URL.createObjectURL(newProfileImage)} 
+                alt="New Preview" 
+                className="mb-3 rounded"
+                style={{ width: '100%', height: 'auto' }} 
+              />
+            )}
+            <div className="flex justify-end space-x-3">
+              <button 
+                className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+                onClick={handleSaveProfileImage}
+              >
+                Save
+              </button>
+              <button 
+                className="px-4 py-2 text-gray-600 border rounded hover:bg-gray-100"
+                onClick={() => setIsEditModalOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
   );
 };
 
