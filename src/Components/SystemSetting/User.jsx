@@ -3,7 +3,7 @@ import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
 // import { AddUser, GetUser } from '../../api/user.js';
 import { AddUser, GetUser, GetEmp } from '@/api/user.js';
-import { CheckUser, DeleteUser, UpdateUser } from '../../api/user';
+// import { CheckUser, DeleteUser, UpdateUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
 import Select from 'react-select';
 import { GiShipBow } from "react-icons/gi";

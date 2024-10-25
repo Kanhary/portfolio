@@ -14,7 +14,7 @@ import EmployeeInformation from '../Pages/employee/EmployeeInformation';
 import Dashboard from '../Pages/Dashboard';
 import User from '../SystemSetting/User';
 import NotFound from '../Pages/NotFound';
-import GroupMaster from '../SystemSetting/GroupMaster';
+import GroupMaster from '../SystemSetting/Role';
 import ItemPermission from '../SystemSetting/ItemPermission';
 import GroupDetails from '../SystemSetting/GroupDetails';
 import HeaderPage from './HeaderPage';

@@ -45,21 +45,35 @@ const HeaderPage = ({ toggleSidebar }) => {
     setIsEditModalOpen(true);
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; // Get the selected file
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result); // Update profile image preview
+      };
+      reader.readAsDataURL(file); // Read the new image
+      setNewProfileImage(file); // Set the new profile image
+    }
+  };
+  
   const handleSaveProfileImage = () => {
+    // This code remains unchanged
     if (newProfileImage) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        // Update the profile image state and local storage
         setProfileImage(reader.result);
         localStorage.setItem('profileImage', reader.result);
       };
-      reader.readAsDataURL(newProfileImage);
+      reader.readAsDataURL(newProfileImage); // Read the new image
     }
+    // Close the modal
     setIsEditModalOpen(false);
+    // Clear the new image after saving
+    setNewProfileImage(null);
   };
-
-  const handleImageChange = (e) => {
-    setNewProfileImage(e.target.files[0]);
-  };
+  
   const handleLogout = (e) => {
     e.stopPropagation(); 
     localStorage.removeItem("userToken"); 
@@ -177,50 +191,30 @@ const HeaderPage = ({ toggleSidebar }) => {
       </div>
     </nav>
     {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-700 bg-opacity-50">
-          <div className="w-1/3 p-5 bg-white rounded-lg shadow-lg">
-            <h3 className="mb-3 text-xl font-semibold">Edit Profile Image</h3>
-            
-            {/* Display current profile image */}
-            <div className="mb-3">
-              <img 
-                src={profileImage || avatar} 
-                alt="Current Profile" 
-                className="w-full h-auto rounded"
-              />
-            </div>
-
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleImageChange} 
-              className="mb-3"
-            />
-            {newProfileImage && (
-              <img 
-                src={URL.createObjectURL(newProfileImage)} 
-                alt="New Preview" 
-                className="mb-3 rounded"
-                style={{ width: '100%', height: 'auto' }} 
-              />
-            )}
-            <div className="flex justify-end space-x-3">
-              <button 
-                className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-                onClick={handleSaveProfileImage}
-              >
-                Save
-              </button>
-              <button 
-                className="px-4 py-2 text-gray-600 border rounded hover:bg-gray-100"
-                onClick={() => setIsEditModalOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+          <h3 className="text-lg font-medium">កែសម្រួលរូបភាពប្រវត្តិរូប</h3>
+          <div className="flex items-center mt-4">
+            <img src={avatar} className="w-24 h-24 rounded-full" alt="Profile" />
+            <input type="file" accept="image/*" onChange={handleImageChange} className="ml-4" />
+          </div>
+          <div className="flex justify-end mt-4">
+            <button 
+              className="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-500"
+              onClick={handleSaveProfileImage}
+            >
+              រក្សាទុក
+            </button>
+            <button 
+              className="px-4 py-2 ml-2 text-sm text-gray-600 bg-gray-200 rounded hover:bg-gray-300"
+              onClick={() => setIsEditModalOpen(false)}
+            >
+              បិទ
+            </button>
           </div>
         </div>
-      )}
+      </div>
+    )}
 
     </div>
   );
