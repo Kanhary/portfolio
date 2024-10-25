@@ -230,8 +230,8 @@ const OfficeList = () => {
               <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
                   <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border">Action</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '300px'}}>Office Name</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Department</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Office Name</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '300px'}}>Department</th>
                   <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Branch Code</th>
                   <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Company Code</th>
                 </tr>

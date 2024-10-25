@@ -9,6 +9,7 @@ const HeaderPage = ({ toggleSidebar }) => {
   const [userEmail, setUserEmail] = useState('');
   const navigate = useNavigate();
   
+  
   const notificationsRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const HeaderPage = ({ toggleSidebar }) => {
     }
   }, []);
 
+  
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
   };
