@@ -549,29 +549,29 @@ const optionsRole = [
           
           <div className='w-full overflow-x-auto' data-aos='fade-right'>
             <table className='w-full text-sm text-left text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100 '>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r-2">Action</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>User Code</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Username</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Nickname</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Phone Number</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Email</th>
-                  {/* <th scope='col' className='px-4  border-r-2py-3' style={{ minWidth: '150px' }}>Password</th> */}
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Gender</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Staff Code</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '150px '}}>Avatar</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Status</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Creater</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Create Time</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Updater</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Update Time</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>User Code</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Username</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Nickname</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Phone Number</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Email</th>
+                  {/* <th scope='col' className='px-4  border-r border-tpy-3' style={{ minWidth: '150px' }}>Password</th> */}
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Gender</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px' }}>Staff Code</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '150px '}}>Avatar</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Status</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Creater</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Create Time</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Updater</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Update Time</th>
                 </tr>
               </thead>
               <tbody>
                 {currentPageUsers.map(user => (
                   <tr key={`${user.userCode}-${user.userName}`} className='border-b'>
-                    <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white border-r-2'>
+                    <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white border-r'>
                       <button
                         className='text-blue-600 hover:text-blue-800'
                         onClick={() => openEditModal(user)}
@@ -587,20 +587,20 @@ const optionsRole = [
                       </button>
 
                     </td>
-                    <td className='px-4 py-3 border-r-2'>{user.usercode}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.username}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.nickname}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.mobile}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.email}</td>
-                    {/* <td className='px-4  border-r-2py-3'>{user.password}</td> */}
-                    <td className='px-4 py-3 border-r-2'>{user.sex}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.staffCode}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.avatar}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.status}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.creator}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.create_time}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.updater}</td>
-                    <td className='px-4 py-3 border-r-2'>{user.update_time}</td>
+                    <td className='px-4 py-3 border-r'>{user.usercode}</td>
+                    <td className='px-4 py-3 border-r'>{user.username}</td>
+                    <td className='px-4 py-3 border-r'>{user.nickname}</td>
+                    <td className='px-4 py-3 border-r'>{user.mobile}</td>
+                    <td className='px-4 py-3 border-r'>{user.email}</td>
+                    {/* <td className='px-4  border-rpy-3'>{user.password}</td> */}
+                    <td className='px-4 py-3 border-r'>{user.sex}</td>
+                    <td className='px-4 py-3 border-r'>{user.staffCode}</td>
+                    <td className='px-4 py-3 border-r'>{user.avatar}</td>
+                    <td className='px-4 py-3 border-r'>{user.status}</td>
+                    <td className='px-4 py-3 border-r'>{user.creator}</td>
+                    <td className='px-4 py-3 border-r'>{user.create_time}</td>
+                    <td className='px-4 py-3 border-r'>{user.updater}</td>
+                    <td className='px-4 py-3 border-r'>{user.update_time}</td>
                   </tr>
                 ))}
               </tbody>

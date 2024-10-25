@@ -160,25 +160,25 @@ const ReportPage = () => {
                     <table className='w-full text-sm text-left text-gray-500'>
                         <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
                             <tr>
-                                <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r-2">Actions</th>
-                                <th scope="col" className="px-4 py-3 border-r-2">ID</th>
-                                <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '200px' }}>Title</th>
-                                <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Date</th>
-                                <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Type</th>
+                                <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Actions</th>
+                                <th scope="col" className="px-4 py-3 border-r border-t">ID</th>
+                                <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '200px' }}>Title</th>
+                                <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Date</th>
+                                <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Type</th>
                             </tr>
                         </thead>
                         <tbody>
                             {getCurrentReports().map(report => (
                                 <tr key={report.id} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                                    <td className='sticky left-0 flex px-6 py-4 bg-white border-r-2'>
+                                    <td className='sticky left-0 flex px-6 py-4 bg-white border-r'>
                                         <FaEye className="ml-2 text-indigo-500 cursor-pointer hover:text-indigo-700" onClick={() => handleViewReport(report)} />
                                         <FaPen className="ml-3 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => handleEditReport(report)} />
                                         <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => handleDeleteReport(report.id)} />
                                     </td>
-                                    <td className='px-4 py-3 border-r-2'>{report.id}</td>
-                                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '250px' }}>{report.title}</td>
-                                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>{report.date}</td>
-                                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '160px' }}>{report.type}</td>
+                                    <td className='px-4 py-3 border-r'>{report.id}</td>
+                                    <td className='px-4 py-3 border-r' style={{ minWidth: '250px' }}>{report.title}</td>
+                                    <td className='px-4 py-3 border-r' style={{ minWidth: '150px' }}>{report.date}</td>
+                                    <td className='px-4 py-3 border-r' style={{ minWidth: '160px' }}>{report.type}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -142,39 +142,39 @@ const Computer = () => {
           <div className='w-full overflow-x-auto' 
           data-aos='fade-right'>
             <table className='w-full text-[15px] text-gray-500'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50">Action</th>
-                  <th scope="col" className="px-4 py-3 text-start"style={{ minWidth: '150px' }}>Code</th>
-                  <th scope='col' className='px-4 py-3 text-start'style={{ minWidth: '150px' }}>Brand</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Model</th>
-                  <th scope='col' className='px-4 py-3 text-start'style={{ minWidth: '150px' }}>Processor</th>
-                  <th scope='col' className='px-4 py-3 text-start'style={{ minWidth: '150px' }}>RAM</th>
-                  <th scope='col' className='px-4 py-3 text-start'style={{ minWidth: '150px' }}>Department</th>
-                  <th scope='col' className='px-4 py-3 text-start' style={{ minWidth: '150px' }}>User</th>
-                  <th scope='col' className='px-4 py-3 text-start' style={{ minWidth: '150px' }}>Location</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3 text-start" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border">Action</th>
+                  <th scope="col" className="px-4 py-3 text-start border"style={{ minWidth: '150px' }}>Code</th>
+                  <th scope='col' className='px-4 py-3 text-start border'style={{ minWidth: '150px' }}>Brand</th>
+                  <th scope="col" className="px-4 py-3 text-start border" style={{ minWidth: '150px' }}>Model</th>
+                  <th scope='col' className='px-4 py-3 text-start border'style={{ minWidth: '150px' }}>Processor</th>
+                  <th scope='col' className='px-4 py-3 text-start border'style={{ minWidth: '150px' }}>RAM</th>
+                  <th scope='col' className='px-4 py-3 text-start border'style={{ minWidth: '150px' }}>Department</th>
+                  <th scope='col' className='px-4 py-3 text-start border' style={{ minWidth: '150px' }}>User</th>
+                  <th scope='col' className='px-4 py-3 text-start border' style={{ minWidth: '150px' }}>Location</th>
+                  <th scope="col" className="px-4 py-3 text-start border" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 text-start border" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentComputers.map(computer => (
                   <tr key={computer.code} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className='sticky left-0 flex px-6 py-4 bg-white'>
+                    <td className='sticky left-0 flex px-6 py-4 bg-white border-r'>
                       <input type="checkbox" className="mr-1 action-checkbox" />
                       <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700 ml-2" onClick={() => openEditModal(computer.code,computer.brand, computer.model, computer.processor, computer.ram, computer.department, computer.user, computer.location)} />
                       <FaTrashAlt className="ml-3 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteComputer(computer.code)} />
                     </td>
-                    <td className='px-4 py-3'>{computer.code}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '100px' }}>{computer.brand}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '200px' }}>{computer.model}</td>
-                    <td className='px-4 py-3'>{computer.processor}</td>
-                    <td className='px-4 py-3'>{computer.ram}</td>
-                    <td className='px-4 py-3'>{computer.department}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{computer.user}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>{computer.location}</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>Admin</td>
-                    <td className='px-4 py-3' style={{ minWidth: '150px' }}>2024-08-21</td>
+                    <td className='px-4 py-3 border-r '>{computer.code}</td>
+                    <td className='px-4 py-3 border-r ' style={{ minWidth: '100px' }}>{computer.brand}</td>
+                    <td className='px-4 py-3 border-r ' style={{ minWidth: '200px' }}>{computer.model}</td>
+                    <td className='px-4 py-3 border-r '>{computer.processor}</td>
+                    <td className='px-4 py-3 border-r '>{computer.ram}</td>
+                    <td className='px-4 py-3 border-r '>{computer.department}</td>
+                    <td className='px-4 py-3 border-r ' style={{ minWidth: '150px' }}>{computer.user}</td>
+                    <td className='px-4 py-3 border-r ' style={{ minWidth: '150px' }}>{computer.location}</td>
+                    <td className='px-4 py-3 border-r ' style={{ minWidth: '150px' }}>Admin</td>
+                    <td className='px-4 py-3 border-r ' style={{ minWidth: '150px' }}>2024-08-21</td>
                   </tr>
                 ))}
               </tbody>

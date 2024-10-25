@@ -557,7 +557,7 @@ const EmployeeInformation = () => {
                     type="text"
                     id='simple-search'
                     className='block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-400 rounded-3xl bg-gray-50 focus:ring-primary-700 focus:border-primary-00 focus:outline-none focus:ring-1 '
-                    placeholder='បញ្ចូលឈ្មោះឬក៏លេខកូដ'
+                    placeholder='Search Fullname or Code'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     required=""

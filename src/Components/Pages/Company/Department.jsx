@@ -215,7 +215,7 @@ const Department = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100 border'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-50 border-r">Action</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r">Action</th>
                   <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '180px'}}>Company Code</th>
                   <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '180px'}}>Department Code</th>
                   <th scope="col" className="px-4 py-3 border-r" style={{minWidth: '250px'}}>Department Name</th>

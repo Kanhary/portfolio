@@ -164,18 +164,18 @@ const ItemPermission = () => {
             <table className='w-full text-sm text-left text-gray-500 '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r-2">Action</th>
-                  <th scope="col" className="px-4 py-3 border-r-2">Code</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '300px' }}>Function Code</th>
-                  <th scope='col' className='px-4 py-3 border-r-2' style={{ minWidth: '300px' }}>Function Name</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3 border-r-2" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Action</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t">Code</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '300px' }}>Function Code</th>
+                  <th scope='col' className='px-4 py-3 border-r border-t' style={{ minWidth: '300px' }}>Function Name</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
                 {currentItemPermission.map((item, index) => (
                     <tr key={index} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                      <td className='sticky left-0 flex px-6 py-4 bg-white border-r-2'>
+                      <td className='sticky left-0 flex px-6 py-4 bg-white border-r'>
                         <input type="checkbox" className="mr-1 action-checkbox" />
                         <FaPen className="text-blue-500 cursor-pointer hover:text-blue-700 ml-2" 
                         onClick={() => openEditModal(item.code, item.functionCode, item.functionName)} 
@@ -184,11 +184,11 @@ const ItemPermission = () => {
                         onClick={() => deleteGender(item.code)} 
                         />
                     </td>
-                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>{item.code}</td>
-                    <td className='px-4 py-3 border-r-2' >{item.functionCode}</td>
-                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>{item.functionName}</td>
-                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '150px' }}>Last Edited By</td>
-                    <td className='px-4 py-3 border-r-2' style={{ minWidth: '160px' }}>Last Edited Date</td>
+                    <td className='px-4 py-3 border-r' style={{ minWidth: '150px' }}>{item.code}</td>
+                    <td className='px-4 py-3 border-r' >{item.functionCode}</td>
+                    <td className='px-4 py-3 border-r' style={{ minWidth: '150px' }}>{item.functionName}</td>
+                    <td className='px-4 py-3 border-r' style={{ minWidth: '150px' }}>Last Edited By</td>
+                    <td className='px-4 py-3 border-r' style={{ minWidth: '160px' }}>Last Edited Date</td>
                     </tr>
                 ))}
             </tbody>

@@ -167,21 +167,21 @@ const MaintenancePage = () => {
         <table className="w-full text-sm text-left text-gray-500">
           <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
             <tr className="bg-gray-100 border-b">
-              <th className="p-4 py-3 border-r-2">Computer Name</th>
-              <th className="p-4 py-3 border-r-2">Last Maintenance</th>
-              <th className="p-4 py-3 border-r-2">Technician</th>
-              <th className="p-4 py-3 border-r-2">Active User</th>
-              <th className="p-4 py-3 border-r-2">Actions</th>
+              <th className="p-4 py-3 border-r border-t">Computer Name</th>
+              <th className="p-4 py-3 border-r border-t">Last Maintenance</th>
+              <th className="p-4 py-3 border-r border-t">Technician</th>
+              <th className="p-4 py-3 border-r border-t">Active User</th>
+              <th className="p-4 py-3 border-r border-t">Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentComputers.map((computer) => (
               <tr key={computer.id} className="transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50">
-                <td className="p-4 py-3 border-r-2 font-semibold">{computer.computerName}</td>
-                 
-                <td className="p-4 py-3 border-r-2">{computer.lastMaintenance}</td>
-                <td className="p-4 py-3 border-r-2">{computer.technician}</td>
-                <td className="p-4 py-3 border-r-2">
+                <td className="p-4 py-3 border-r font-semibold">{computer.computerName}</td>
+              
+                <td className="p-4 py-3 border-r">{computer.lastMaintenance}</td>
+                <td className="p-4 py-3 border-r">{computer.technician}</td>
+                <td className="p-4 py-3 border-r">
                   <span className="font-semibold">{computer.activeUser.name}</span>
                 </td>
                 <td className="p-4 py-3">

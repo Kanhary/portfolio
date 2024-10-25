@@ -125,20 +125,20 @@ const HeaderPage = ({ toggleSidebar }) => {
             </button>
 
             {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
+              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer border'>
                 <div className='px-4 py-3'>
-                  <p className='font-bold text-gray-900 text-ms'>{username}</p>
+                  <p className='font-normal text-gray-900 text-ms'>Welcome !{username}</p>
                   <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p>
                 </div>
                 <ul className="py-1">
                   <li>
-                    <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleEditProfile}>
-                      កែសម្រួលព័ត៌មាន
+                    <button className="block w-full px-4 py-2 text-sm text-blue-700 hover:bg-blue-100" onClick={handleEditProfile}>
+                      Edit Profile
                     </button>
                   </li>
                   <li>
-                    <button className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100" onClick={handleLogout}>
-                      ចាកចេញ
+                    <button className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 " onClick={handleLogout}>
+                      Logout
                     </button>
                   </li>
                 </ul>

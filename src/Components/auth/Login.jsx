@@ -19,7 +19,7 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false); 
 
 
-    // const handleSubmit = (e) => {
+  //   const handleSubmit = (e) => {
   //   e.preventDefault();
   //   if (username === 'Pheakdey' && password === '123') {
   //     navigate('/main-dashboard'); 
@@ -29,30 +29,30 @@ const LoginForm = () => {
   // };
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     setError(null);
 
-        try {
-            const response = await Login({ username, password });
+    //     try {
+    //         const response = await Login({ username, password });
 
-            if (response.status === 200) {
-                const { token } = response.data; // Adjust this according to your response structure
-                setToken("token", token); // Store token using utility function
+    //         if (response.status === 200) {
+    //             const { token } = response.data; // Adjust this according to your response structure
+    //             setToken("token", token); // Store token using utility function
 
-                await makeAnotherApiRequest(); // Optional: Make another API request
-                navigate('/main-dashboard'); 
-                console.log('Login successful');
-            } else {
-                setError('Invalid username or password');
-            }
-        } catch (err) {
-            setError('Invalid username or password');
-        } finally {
-            setLoading(false); 
-        }
-    };
+    //             await makeAnotherApiRequest(); // Optional: Make another API request
+    //             navigate('/main-dashboard'); 
+    //             console.log('Login successful');
+    //         } else {
+    //             setError('Invalid username or password');
+    //         }
+    //     } catch (err) {
+    //         setError('Invalid username or password');
+    //     } finally {
+    //         setLoading(false); 
+    //     }
+    // };
 
     const makeAnotherApiRequest = async () => {
         try {

@@ -229,7 +229,7 @@ const OfficeList = () => {
             <table className='w-full text-sm text-left text-gray-500'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Action</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border">Action</th>
                   <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '300px'}}>Office Name</th>
                   <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Department</th>
                   <th scope="col" className="px-4 py-3 border-r border-t" style={{minWidth: '150px'}}>Branch Code</th>
@@ -244,11 +244,11 @@ const OfficeList = () => {
                       <FaPen className="ml-2 text-blue-500 cursor-pointer hover:text-blue-700" onClick={() => openEditModal(office)} />
                       <FaTrashAlt className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => deleteOffice(office.OfficeCode)} />
                     </td>
-                    <td className='px-4 py-4 border-r-2'>{office.OfficeCode}</td>
-                    <td className='px-4 py-4 border-r-2'>{office.OfficeName}</td>
-                    <td className='px-4 py-4 border-r-2'>{office.Department}</td>
-                    <td className='px-4 py-4 border-r-2'>{office.BranchCode}</td>
-                    <td className='px-4 py-4 border-r-2'>{office.CompanyCode}</td>
+                    <td className='px-4 py-4 border-r'>{office.OfficeCode}</td>
+                    <td className='px-4 py-4 border-r'>{office.OfficeName}</td>
+                    <td className='px-4 py-4 border-r'>{office.Department}</td>
+                    <td className='px-4 py-4 border-r'>{office.BranchCode}</td>
+                    <td className='px-4 py-4 border-r'>{office.CompanyCode}</td>
                   </tr>
                 ))}
               </tbody>
