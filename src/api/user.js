@@ -11,7 +11,7 @@ export function AddUser(data) {
     });
 }
 
-export function GetUser(params, id) {  
+export function GetUser(params) {  
     return request({
         method: "GET",
         url: `/user/getLoginUser.do`,

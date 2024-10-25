@@ -19,14 +19,14 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false); 
 
 
-  //   const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (username === 'Pheakdey' && password === '123') {
-  //     navigate('/main-dashboard'); 
-  //   } else {
-  //     setError('Invalid username or password');
-  //   }
-  // };
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username === 'Pheakdey' && password === '123') {
+      navigate('/main-dashboard'); 
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
 
     // const handleSubmit = async (e) => {
@@ -54,14 +54,14 @@ const LoginForm = () => {
     //     }
     // };
 
-    const makeAnotherApiRequest = async () => {
-        try {
-            const response = await GetUser();
-            console.log("User data retrieved:", response.data); 
-        } catch (err) {
-            console.error("Error fetching user data:", err);
-        }
-    };
+    // const makeAnotherApiRequest = async () => {
+    //     try {
+    //         const response = await GetUser();
+    //         console.log("User data retrieved:", response.data); 
+    //     } catch (err) {
+    //         console.error("Error fetching user data:", err);
+    //     }
+    // };
 
     const togglePassword = () => {
         const passwordField = document.getElementById("password");
