@@ -11,11 +11,18 @@ export function AddUser(data) {
     });
 }
 
-export function GetUser(params) {  
+
+export function GetUser() {  
+    return request({
+        method: "GET",
+        url: `/user/getLoginUser.do`, 
+    });
+}
+
+export function GetUserLogin() {  
     return request({
         method: "GET",
         url: `/user/getLoginUser.do`,
-        params: params 
     });
 }
 

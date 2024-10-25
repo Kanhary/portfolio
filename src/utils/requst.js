@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from './token/Token';
 
-const TOKEN_KEY = 'yourTokenKey'; // Define your token key here
+const TOKEN_KEY = 'token'; // Define your token key here
 
 const request = axios.create({
     baseURL: 'http://192.168.168.14:8888',
@@ -12,12 +12,13 @@ const request = axios.create({
 // Set default headers
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 
-// Request interceptor for adding token
 request.interceptors.request.use(
     (config) => {
         const token = getToken(TOKEN_KEY);
+        console.log("token", token)
         if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
+            console.log(token)
+            config.headers['Authorization'] = token; 
         }
         return config;
     },
@@ -25,6 +26,7 @@ request.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
 
 // Response interceptor
 request.interceptors.response.use(

@@ -1,22 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
+import { GetUserLogin } from '../../api/user'; 
 
 const HeaderPage = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [username, setUsername] = useState('');
+  const [avatar, setAvatar] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const navigate = useNavigate();
   
   const notificationsRef = useRef(null);
 
   useEffect(() => {
-    // Retrieve username and email from localStorage after login
-    const storedUsername = localStorage.getItem('username');
+    GetUserLogin()
+      .then(res => {
+        setUsername(res.data.data.username);
+        setAvatar(res.data.data.avatar);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+
     const storedEmail = localStorage.getItem('userEmail');
-    if (storedUsername && storedEmail) {
-      setUsername(storedUsername);
+    if (storedEmail) {
       setUserEmail(storedEmail);
     }
   }, []);
@@ -30,14 +38,14 @@ const HeaderPage = ({ toggleSidebar }) => {
   };
 
   const handleEditProfile = (e) => {
-    e.stopPropagation(); // Prevents dropdown from closing
-    alert("Edit profile clicked!"); // Replace this with actual logic
+    e.stopPropagation(); 
+    alert("Edit profile clicked!"); 
   };
 
   const handleLogout = (e) => {
-    e.stopPropagation(); // Prevents dropdown from closing
-    localStorage.removeItem("userToken"); // Clear user token or perform logout action
-    navigate("/"); // Redirect to login or home page
+    e.stopPropagation(); 
+    localStorage.removeItem("userToken"); 
+    navigate("/");
   };
 
   return (
@@ -121,13 +129,13 @@ const HeaderPage = ({ toggleSidebar }) => {
               onClick={handleDropdownToggle}
             >
               <span className='sr-only'>Open user menu</span>
-              <img src="\blank-profile-picture.png" className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
+              <img src={avatar || "/blank-profile-picture.png"} className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
             </button>
 
             {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white divide-y divide-gray-300 rounded shadow-lg top-full font-khmer border'>
+              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white border divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
                 <div className='px-4 py-3'>
-                  <p className='font-normal text-gray-900 text-ms'>Welcome !{username}</p>
+                  <p className='font-normal text-gray-900 text-ms'>Welcome, {username}!</p>
                   <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p>
                 </div>
                 <ul className="py-1">

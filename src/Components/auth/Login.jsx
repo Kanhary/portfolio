@@ -19,50 +19,39 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false); 
 
 
-    const handleSubmit = (e) => {
-    e.preventDefault();
-    if (username === 'Pheakdey' && password === '123') {
-      navigate('/main-dashboard'); 
-    } else {
-      setError('Invalid username or password');
-    }
-  };
+  //   const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (username === 'Pheakdey' && password === '123') {
+  //     navigate('/main-dashboard'); 
+  //   } else {
+  //     setError('Invalid username or password');
+  //   }
+  // };
 
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     setError(null);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
 
-    //     try {
-    //         const response = await Login({ username, password });
+        try {
+            const response = await Login({ username, password });
 
-    //         if (response.status === 200) {
-    //             const { token } = response.data; // Adjust this according to your response structure
-    //             setToken("token", token); // Store token using utility function
-
-    //             await makeAnotherApiRequest(); // Optional: Make another API request
-    //             navigate('/main-dashboard'); 
-    //             console.log('Login successful');
-    //         } else {
-    //             setError('Invalid username or password');
-    //         }
-    //     } catch (err) {
-    //         setError('Invalid username or password');
-    //     } finally {
-    //         setLoading(false); 
-    //     }
-    // };
-
-    // const makeAnotherApiRequest = async () => {
-    //     try {
-    //         const response = await GetUser();
-    //         console.log("User data retrieved:", response.data); 
-    //     } catch (err) {
-    //         console.error("Error fetching user data:", err);
-    //     }
-    // };
-
+            if (response.status === 200) {
+                const { token } = response.data; 
+                setToken("token", token); 
+                navigate('/main-dashboard'); 
+                console.log('Login successful');
+            } else {
+                setError('Invalid username or password');
+            }
+        } catch (err) {
+            setError('Invalid username or password');
+        } finally {
+            setLoading(false); 
+        }
+    };
+    
     const togglePassword = () => {
         const passwordField = document.getElementById("password");
         const eyeOffIcon = document.querySelector(".ri-eye-off-line");
