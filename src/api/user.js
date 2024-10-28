@@ -132,3 +132,11 @@ export function GetBranchCode(){
         url: '',
     })
 }
+
+
+export function GetMenu(){
+    return request({
+        method: "GET",
+        url: '/menu/getLoginUserMenu'
+    })
+}
