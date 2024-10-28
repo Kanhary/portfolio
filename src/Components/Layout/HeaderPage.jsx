@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BiBell } from "react-icons/bi";
 import { GetUserLogin } from '../../api/user'; 
+import { FaUpload } from 'react-icons/fa'; // Import the upload icon
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const HeaderPage = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -13,6 +15,8 @@ const HeaderPage = ({ toggleSidebar }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState(null);
   const navigate = useNavigate();
+  const [currentProfileImage, setCurrentProfileImage] = useState(avatar); // Replace with actual image URL
+
   
   const notificationsRef = useRef(null);
 
@@ -32,6 +36,7 @@ const HeaderPage = ({ toggleSidebar }) => {
     }
   }, []);
 
+  
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -70,8 +75,15 @@ const HeaderPage = ({ toggleSidebar }) => {
     }
     // Close the modal
     setIsEditModalOpen(false);
-    // Clear the new image after saving
-    setNewProfileImage(null);
+    Swal.fire({
+      title: 'Success!',
+      text: 'Your Profile Upload Success!',
+      icon: 'success',
+      confirmButtonText: 'Okay',
+      // Optionally, you can customize the buttons, colors, and more
+    }).then(() => {
+      setIsEditModalOpen(false); // Close the modal after alert
+    });
   };
   
   const handleLogout = (e) => {
@@ -124,7 +136,7 @@ const HeaderPage = ({ toggleSidebar }) => {
                 <div className="px-5 py-3 bg-gray-100 border-b border-gray-200">
                   <p className="flex items-center font-medium text-gray-900">
                     <BiBell size={20} className="mr-2 text-indigo-500" />
-                    សារជូនដំណឹង
+                    Notification
                   </p>
                 </div>
 
@@ -169,7 +181,7 @@ const HeaderPage = ({ toggleSidebar }) => {
               <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white border divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
                 <div className='px-4 py-3'>
                 {/* <img src={avatar || "/blank-profile-picture.png"} className="w-10 h-10 rounded-lg sm:w-15 sm:h-14 md:w-10 md:h-10 lg:w-16 lg:h-16" alt="User Photo" /> */}
-                  <p className='font-normal text-gray-900 text-ms'>Welcome, {username}!</p>
+                  <p className='flex justify-center font-normal text-gray-900 text-ms'>Welcome, {username}!</p>
                   <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p>
                 </div>
                 <ul className="py-1">
@@ -191,31 +203,52 @@ const HeaderPage = ({ toggleSidebar }) => {
       </div>
     </nav>
     {isEditModalOpen && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="p-6 bg-white rounded-lg shadow-lg w-96">
-          <h3 className="text-lg font-medium">កែសម្រួលរូបភាពប្រវត្តិរូប</h3>
-          <div className="flex items-center mt-4">
-            <img src={avatar} className="w-24 h-24 rounded-full" alt="Profile" />
-            <input type="file" accept="image/*" onChange={handleImageChange} className="ml-4" />
-          </div>
-          <div className="flex justify-end mt-4">
-            <button 
-              className="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-500"
-              onClick={handleSaveProfileImage}
-            >
-              រក្សាទុក
-            </button>
-            <button 
-              className="px-4 py-2 ml-2 text-sm text-gray-600 bg-gray-200 rounded hover:bg-gray-300"
-              onClick={() => setIsEditModalOpen(false)}
-            >
-              បិទ
-            </button>
-          </div>
-        </div>
-      </div>
-    )}
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60">
+    <div className="w-full max-w-md p-6 transition-all transform bg-white rounded-lg shadow-xl">
+      <h3 className="flex justify-center mb-4 text-2xl font-semibold text-gray-800">Edit Image</h3>
 
+      {/* Display Profile Image (Current or New) */}
+      <div className="flex justify-center mb-4">
+        <img 
+          src={newProfileImage ? URL.createObjectURL(newProfileImage) : avatar} 
+          alt="Profile" 
+          className="object-cover border-4 border-blue-500 rounded-full shadow-md w-52 h-52"
+        />
+      </div>
+
+      {/* File Input */}
+      <label className="flex justify-center block mb-4">
+        <input 
+          type="file" 
+          accept="image/*" 
+          onChange={handleImageChange} 
+          className="hidden" // Hide the input
+          id="file-input" // Give it an ID for the label to reference
+        />
+        <span className="inline-flex items-center px-4 py-2 mt-4 text-sm text-white bg-blue-600 rounded-full cursor-pointer w-42 hover:bg-blue-700">
+          <p>Upload Image</p>
+          <FaUpload className="ml-4" /> {/* Upload icon */}
+        </span>
+      </label>
+
+      {/* Action Buttons */}
+      <div className="flex justify-end mt-8 space-x-3">
+        <button 
+          className="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onClick={handleSaveProfileImage}
+        >
+          Save
+        </button>
+        <button 
+          className="px-5 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          onClick={() => setIsEditModalOpen(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

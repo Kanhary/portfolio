@@ -13,11 +13,7 @@ import {
   LineElement,
   TimeScale,
 } from 'chart.js';
-import {
-  FiMonitor,
-  FiUsers,
-  FiActivity,
-} from 'react-icons/fi';
+import { FiMonitor, FiUsers, FiActivity, FiAlertCircle } from 'react-icons/fi';
 
 ChartJS.register(
   BarElement,
@@ -32,16 +28,16 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const computerData = {
-    labels: ['Active', 'Inactive', 'Pending Repairs'],
+  const computerStatusData = {
+    labels: ['Active', 'Inactive', 'Broken'],
     datasets: [
       {
-        label: 'Computers',
-        data: [110, 10, 5],
+        label: 'Computer Status',
+        data: [100, 10, 5], // Example data for Active, Inactive, and Broken computers
         backgroundColor: [
-          'rgba(99, 102, 241, 0.7)',
-          'rgba(239, 68, 68, 0.7)',
-          'rgba(234, 179, 8, 0.7)',
+          'rgba(99, 102, 241, 0.7)', // Active
+          'rgba(239, 68, 68, 0.7)', // Inactive
+          'rgba(234, 179, 8, 0.7)',  // Broken
         ],
         borderColor: [
           'rgba(99, 102, 241, 1)',
@@ -59,55 +55,15 @@ const Dashboard = () => {
     ],
   };
 
-  const employeeData = {
-    labels: ['Active', 'On Leave', 'New Hires'],
-    datasets: [
-      {
-        label: 'Employees',
-        data: [70, 5, 10],
-        backgroundColor: [
-          'rgba(16, 185, 129, 0.7)',
-          'rgba(251, 146, 60, 0.7)',
-          'rgba(139, 92, 246, 0.7)',
-        ],
-        borderColor: [
-          'rgba(16, 185, 129, 1)',
-          'rgba(251, 146, 60, 1)',
-          'rgba(139, 92, 246, 1)',
-        ],
-        borderWidth: 2,
-        hoverBackgroundColor: [
-          'rgba(16, 185, 129, 0.9)',
-          'rgba(251, 146, 60, 0.9)',
-          'rgba(139, 92, 246, 0.9)',
-        ],
-      },
-    ],
-  };
-
   const computerTrendData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
     datasets: [
       {
-        label: 'Active Computers',
-        data: [100, 105, 107, 110, 115, 120],
+        label: 'Total Computers',
+        data: [90, 95, 100, 105, 110, 120], // Example trend data
         fill: false,
         backgroundColor: 'rgba(99, 102, 241, 1)',
         borderColor: 'rgba(99, 102, 241, 1)',
-        tension: 0.4,
-      },
-    ],
-  };
-
-  const employeeTrendData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        label: 'Active Employees',
-        data: [65, 66, 68, 70, 72, 75],
-        fill: false,
-        backgroundColor: 'rgba(16, 185, 129, 1)',
-        borderColor: 'rgba(16, 185, 129, 1)',
         tension: 0.4,
       },
     ],
@@ -185,23 +141,30 @@ const Dashboard = () => {
     },
     {
       id: 2,
-      icon: <FiUsers className="text-green-500" size={20} />,
-      activity: 'John Doe was promoted to Senior Developer.',
-      time: '5 hours ago',
-    },
-    {
-      id: 3,
       icon: <FiActivity className="text-yellow-500" size={20} />,
       activity: 'Scheduled maintenance completed successfully.',
       time: '1 day ago',
+    },
+    {
+      id: 3,
+      icon: <FiMonitor className="text-green-500" size={20} />,
+      activity: '10 computers updated to the latest software.',
+      time: '3 days ago',
+    },
+    {
+      id: 4,
+      icon: <FiAlertCircle className="text-red-500" size={20} />,
+      activity: '3 computers marked as broken.',
+      time: '5 days ago',
     },
   ];
 
   return (
     <div className="flex flex-col min-h-screen mt-10">
-      <h1 className='text-xl font-medium text-blue-800 font-khmer'>តារាងបង្ហាញទិន្នន័យ</h1>
-      <div className='mt-3 mb-3 border'></div>
-      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <h1 className="text-xl font-medium text-blue-800 font-khmer">Dashboard</h1>
+      <div className="mt-3 mb-3 border"></div>
+
+      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
         {/* Total Computers Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
@@ -232,69 +195,64 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Total Employees Card */}
+        {/* Inactive Computers Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
           whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col">
-            <p className="text-sm text-gray-500">Total Employees</p>
-            <p className="text-3xl font-semibold text-gray-800">80</p>
-            <div className="text-sm text-gray-500">+4 this month</div>
+            <p className="text-sm text-gray-500">Inactive Computers</p>
+            <p className="text-3xl font-semibold text-gray-800">10</p>
+            <div className="text-sm text-gray-500">No change this month</div>
           </div>
-          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-purple-100 rounded-full hover:scale-105">
-            <FiUsers className="text-purple-500" size={30} />
+          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-red-100 rounded-full hover:scale-105">
+            <FiMonitor className="text-red-500" size={30} />
           </div>
         </motion.div>
 
-        {/* Active Employees Card */}
+        {/* Broken Computers Card */}
         <motion.div
           className="flex items-center justify-between p-6 transition-all transition-transform duration-300 transform bg-white rounded-lg shadow-xl hover:shadow-2xl"
           whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col">
-            <p className="text-sm text-gray-500">Active Employees</p>
-            <p className="text-3xl font-semibold text-gray-800">70</p>
-            <div className="text-sm text-gray-500">+2 this month</div>
+            <p className="text-sm text-gray-500">Broken Computers</p>
+            <p className="text-3xl font-semibold text-gray-800">5</p>
+            <div className="text-sm text-gray-500">No change this month</div>
           </div>
-          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-blue-100 rounded-full hover:scale-105">
-            <FiUsers className="text-blue-500" size={30} />
+          <div className="flex items-center justify-center w-16 h-16 transition-transform transform bg-yellow-100 rounded-full hover:scale-105">
+            <FiAlertCircle className="text-yellow-500" size={30} />
           </div>
         </motion.div>
       </div>
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
-        {/* Computers Trend */}
         <div className="p-6 bg-white rounded-lg shadow-lg">
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">Active Computers Trend</h3>
-          <Line data={computerTrendData} options={chartOptions} />
+          <h2 className="mb-4 text-lg font-semibold text-gray-800">Computer Status Overview</h2>
+          <Pie data={computerStatusData} options={chartOptions} />
         </div>
 
-        {/* Employees Trend */}
         <div className="p-6 bg-white rounded-lg shadow-lg">
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">Active Employees Trend</h3>
-          <Line data={employeeTrendData} options={chartOptions} />
+          <h2 className="mb-4 text-lg font-semibold text-gray-800">Computer Trend Over Time</h2>
+          <Line data={computerTrendData} options={chartOptions} />
         </div>
       </div>
 
       {/* Recent Activities Section */}
       <div className="p-6 bg-white rounded-lg shadow-lg">
-        <h3 className="mb-4 text-lg font-semibold text-gray-800">Recent Activities</h3>
-        {recentActivities.map((activity) => (
-          <div
-            key={activity.id}
-            className="flex items-center px-6 py-4 transition duration-200 border-b border-gray-200 rounded-lg last:border-none hover:bg-gray-100"
-          >
-            <div className="p-3 bg-gray-200 rounded-full shadow-md">
-              {activity.icon}
-            </div>
-            <div className="ml-4">
-              <p className="text-sm text-gray-700">{activity.activity}</p>
-              <p className="text-xs text-gray-500">{activity.time}</p>
-            </div>
-          </div>
-        ))}
+        <h2 className="mb-4 text-lg font-semibold text-gray-800">Recent Activities</h2>
+        <ul className="space-y-4">
+          {recentActivities.map((activity) => (
+            <li key={activity.id} className="flex items-center">
+              <div className="mr-3">{activity.icon}</div>
+              <div>
+                <p className="text-gray-700">{activity.activity}</p>
+                <p className="text-sm text-gray-500">{activity.time}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

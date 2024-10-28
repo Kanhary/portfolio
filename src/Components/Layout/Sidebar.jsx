@@ -10,205 +10,165 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+// Define the menu structure
+const menuItems = [
+  {
+    text: "តារាងបង្ហាញទិន្នន័យ",
+    to: "/main-dashboard/dashboard",
+    icon: <AiFillHome />,
+    submenu: [],
+  },
+  {
+    text: "តារាងទិន្នន័យកុំព្យូទ័រ",
+    to: "/main-dashboard/computer",
+    icon: <FaLaptop />,
+    submenu: [],
+  },
+  {
+    text: "តារាងក្រុមហ៊ុន",
+    icon: <FaBuilding />,
+    submenu: [
+      {
+        text: "សាខា",
+        to: "/main-dashboard/company/branch",
+      },
+      {
+        text: "នាយកដ្ឋាន",
+        to: "/main-dashboard/company/department",
+      },
+      {
+        text: "ការិយាល័យ",
+        to: "/main-dashboard/company/office",
+      },
+      {
+        text: "ក្រុមហ៊ុន",
+        to: "/main-dashboard/company/company-list",
+      },
+    ],
+  },
+  {
+    text: "តារាងបុគ្គលិក",
+    icon: <FaUserFriends />,
+    submenu: [
+      {
+        text: "តារាងបញ្ជីមុខតំណែង",
+        to: "/main-dashboard/employee/position-list",
+      },
+      {
+        text: "តារាងបញ្ញីភេទបុគ្គលិក",
+        to: "/main-dashboard/employee/gender-list",
+      },
+      {
+        text: "តារាងបញ្ចូលព័ត៌មានបុគ្គលិក",
+        to: "/main-dashboard/employee/employee-information",
+      },
+    ],
+  },
+  {
+    text: "ការកំណត់ប្រព័ន្ធ",
+    icon: <FaCog />,
+    submenu: [
+      {
+        text: "អ្នកប្រើប្រាស់",
+        to: "/main-dashboard/system-setting/user",
+      },
+      {
+        text: "Group Master",
+        to: "/main-dashboard/system-setting/group-master",
+      },
+      {
+        text: "ការអនុញ្ញាតអ្នកប្រើប្រាស់",
+        to: "/main-dashboard/system-setting/item-permission",
+      },
+      {
+        text: "ព័ត៌មានលម្អិតនៅក្នុងក្រុម",
+        to: "/main-dashboard/system-setting/group-details",
+      },
+    ],
+  },
+  {
+    text: "ការថែទាំ",
+    to: "/main-dashboard/maintenance",
+    icon: <FaScrewdriverWrench />,
+    submenu: [],
+  },
+  {
+    text: "របាយកាណ៍",
+    to: "/main-dashboard/report",
+    icon: <HiChartBar />,
+    submenu: [],
+  },
+  {
+    text: "ជំនួយ",
+    to: "/main-dashboard/help",
+    icon: <BsFillQuestionCircleFill />,
+    submenu: [],
+  },
+];
+
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
-  const [isEmployeeMenuOpen, setEmployeeMenuOpen] = useState(false);
-  const [isSystemSettingMenuOpen, setSystemSettingMenuOpen] = useState(false);
-  const [isCompanyMenuOpen, setCompanyMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('');
-  const [submenuHeight, setSubmenuHeight] = useState('0px');
-  const [systemSubmenuHeight, setSystemSubmenuHeight] = useState('0px');
-  const [companySubmenuHeight, setCompanySubmenuHeight] = useState('0px');
-  const submenuRef = useRef(null);
-  const systemSubmenuRef = useRef(null);
-  const CompanySubmenuRef = useRef(null);
+  const [submenuStates, setSubmenuStates] = useState({});
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  useEffect(() => {
-    // Adjust submenu heights based on their open/close state
-    setSubmenuHeight(isEmployeeMenuOpen ? `${submenuRef.current.scrollHeight}px` : '0px');
-    setSystemSubmenuHeight(isSystemSettingMenuOpen ? `${systemSubmenuRef.current.scrollHeight}px` : '0px');
-    setCompanySubmenuHeight(isCompanyMenuOpen ? `${CompanySubmenuRef.current.scrollHeight}px` : '0px');
-  }, [isEmployeeMenuOpen, isSystemSettingMenuOpen, isCompanyMenuOpen]);
-
-  const toggleEmployeeMenu = () => {
-    setEmployeeMenuOpen(prevState => !prevState);
+  const toggleSubmenu = (index) => {
+    setSubmenuStates((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
-  const toggleSystemSettingMenu = () => {
-    setSystemSettingMenuOpen(prevState => !prevState);
-  };
-
-  const toggleCompanyMenu = () => {
-    setCompanyMenuOpen(prevState => !prevState);
-  };
   const handleLinkClick = (itemName) => {
     setActiveItem(itemName);
   };
 
   return (
     <aside
-      // data-aos='fade-in'
       className={`fixed left-0 top-0 h-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-lg transition-transform z-40 ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full' 
       } md:translate-x-0 md:w-64`}
     >
       <nav className="flex flex-col h-full overflow-y-auto" data-aos='fade-right' data-aos-delay='200'>
         <ul className="flex flex-col px-3 mt-20 space-y-1 font-khmer ">
-          <NavItem 
-            icon={<AiFillHome />} 
-            text="តារាងបង្ហាញទិន្នន័យ" 
-            to="/main-dashboard/dashboard" 
-            onClick={() => handleLinkClick('Dashboard')} 
-            isActive={activeItem === 'Dashboard'} 
-          />
-          <NavItem 
-            icon={<FaLaptop />} 
-            text="តារាងទិន្នន័យកុំព្យូទ័រ" 
-            to="/main-dashboard/computer" 
-            onClick={() => handleLinkClick('Computer')} 
-            isActive={activeItem === 'Computer'} 
-          />
-          <NavItem
-            icon={<FaBuilding />}  // Company icon representing a building
-            text="តារាងក្រុមហ៊ុន"
-            onClick={() => {toggleCompanyMenu(); handleLinkClick('Company');}}
-            isActive={activeItem === 'Company'}
-            dropdownIcon={isCompanyMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
-          />
-          <div
-            ref={CompanySubmenuRef}
-            style={{ height: companySubmenuHeight }}
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-          >
-            <ul className="ml-8 space-y-1 list-disc">
-              <SubmenuItem 
-                text="សាខា" 
-                to="/main-dashboard/company/branch" 
-                onClick={() => handleLinkClick('Item-Permission')} 
-                isActive={activeItem === 'Item-Permission'} 
+          {menuItems.map((item, index) => (
+            <React.Fragment key={index}>
+              <NavItem 
+                icon={item.icon} 
+                text={item.text} 
+                to={item.to} 
+                onClick={() => {
+                  if (item.submenu.length > 0) {
+                    toggleSubmenu(index);
+                  } else {
+                    handleLinkClick(item.text);
+                  }
+                }} 
+                isActive={activeItem === item.text} 
+                dropdownIcon={item.submenu.length > 0 ? (submenuStates[index] ? <FaChevronUp /> : <FaChevronDown />) : null}
               />
-              <SubmenuItem 
-                text="នាយកដ្ឋាន" 
-                to="/main-dashboard/company/department" 
-                onClick={() => handleLinkClick('User')} 
-                isActive={activeItem === 'User'} 
-              />
-              <SubmenuItem 
-                text="ការិយាល័យ" 
-                to="/main-dashboard/company/office" 
-                onClick={() => handleLinkClick('Office')} 
-                isActive={activeItem === 'Office'} 
-              />
-              <SubmenuItem 
-                text="ក្រុមហ៊ុន" 
-                to="/main-dashboard/company/company-list" 
-                onClick={() => handleLinkClick('company-list')} 
-                isActive={activeItem === 'company-list'} 
-              />
-            </ul>
-          </div>
-          <NavItem
-            icon={<FaUserFriends />}
-            text="តារាងបុគ្គលិក"
-            onClick={() => {toggleEmployeeMenu(); handleLinkClick('Employee');}}
-            isActive={activeItem === 'Employee'}
-            dropdownIcon={isEmployeeMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
-          />
-          <div
-            ref={submenuRef}
-            style={{ height: submenuHeight }}
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-          >
-            <ul className="ml-8 space-y-1 list-disc">
-              <SubmenuItem 
-                text="តារាងបញ្ជីមុខតំណែង" 
-                to="/main-dashboard/employee/position-list" 
-                onClick={() => handleLinkClick('Employee Position List')} 
-                isActive={activeItem === 'Employee Position List'} 
-              />
-              <SubmenuItem 
-                text="តារាងបញ្ញីភេទបុគ្គលិក" 
-                to="/main-dashboard/employee/gender-list" 
-                onClick={() => handleLinkClick('Gender List')}
-
-                isActive={activeItem === 'Gender List'} 
-              />
-              <SubmenuItem 
-                text="តារាងបញ្ចូលព័ត៌មានបុគ្គលិក" 
-                to="/main-dashboard/employee/employee-information" 
-                onClick={() => handleLinkClick('Employee Information')} 
-                isActive={activeItem === 'Employee Information'} 
-              />
-              
-            </ul>
-          </div>
-
-          
-          <NavItem
-            icon={<FaCog />}
-            text="ការកំណត់ប្រព័ន្ធ"
-            onClick={() => {toggleSystemSettingMenu(); handleLinkClick('System Setting');}}
-            isActive={activeItem === 'System Setting'}
-            dropdownIcon={isSystemSettingMenuOpen ? <FaChevronUp /> : <FaChevronDown />}
-          />
-          <div
-            ref={systemSubmenuRef}
-            style={{ height: systemSubmenuHeight }}
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-          >
-            <ul className="ml-8 space-y-1 list-disc">
-              <SubmenuItem 
-                text="អ្នកប្រើប្រាស់" 
-                to="/main-dashboard/system-setting/user" 
-                onClick={() => handleLinkClick('User')} 
-                isActive={activeItem === 'User'} 
-              />
-              <SubmenuItem 
-                text="Group Master" 
-                to="/main-dashboard/system-setting/group-master" 
-                onClick={() => handleLinkClick('Group-Master')} 
-                isActive={activeItem === 'Group-Master'} 
-              />
-              <SubmenuItem 
-                text="ការអនុញ្ញាតអ្នកប្រើប្រាស់" 
-                to="/main-dashboard/system-setting/item-permission" 
-                onClick={() => handleLinkClick('Item-Permission')} 
-                isActive={activeItem === 'Item-Permission'} 
-              />
-              <SubmenuItem 
-                text="ព័ត៌មានលម្អិតនៅក្នុងក្រុម" 
-                to="/main-dashboard/system-setting/group-details" 
-                onClick={() => handleLinkClick('Group-Details')} 
-                isActive={activeItem === 'Group-Details'} 
-              />
-            </ul>
-          </div>
-          
-          <NavItem 
-            icon={<FaScrewdriverWrench />} 
-            text="ការថែទាំ"
-
-            to="/main-dashboard/maintenance" 
-            onClick={() => handleLinkClick('Maintenance')} 
-            isActive={activeItem === 'Maintenance'} 
-          />
-          <NavItem 
-            icon={<HiChartBar />} 
-            text="របាយកាណ៍" 
-            to="/main-dashboard/report" 
-            onClick={() => handleLinkClick('Report')} 
-            isActive={activeItem === 'Report'} 
-          />
-          <NavItem 
-            icon={<BsFillQuestionCircleFill />}
-            text="ជំនួយ" 
-            to="/main-dashboard/help" 
-            onClick={() => handleLinkClick('Help')} 
-            isActive={activeItem === 'Help'} 
-          />
+              {item.submenu.length > 0 && (
+                <div
+                  style={{ height: submenuStates[index] ? 'auto' : '0px' }}
+                  className="overflow-hidden transition-all duration-300 ease-in-out"
+                >
+                  <ul className="ml-8 space-y-1 list-disc">
+                    {item.submenu.map((subitem, subIndex) => (
+                      <SubmenuItem 
+                        key={subIndex} 
+                        text={subitem.text} 
+                        to={subitem.to} 
+                        onClick={() => handleLinkClick(subitem.text)} 
+                        isActive={activeItem === subitem.text} 
+                      />
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
         </ul>
       </nav>
     </aside>
@@ -218,20 +178,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
   return (
     <li
-      className={`flex items-center justify-between px-4 py-3 transition-colors duration-200 cursor-pointer hover:bg-white/10 rounded-md ${
-        isActive ? 'bg-white/10' : ''
-      }`}
+      className={`flex items-center justify-between px-4 py-3 transition-colors duration-200 cursor-pointer hover:bg-white/10 rounded-md ${isActive ? 'bg-white/10' : ''}`}
       onClick={onClick ? onClick : null}
     >
       <Link to={to} className="flex items-center w-full" >
         <span className="text-xl">{icon}</span>
-        <span 
-          className="ml-3 text-base font-normal" 
-          // data-aos="fade-right" 
-          // data-aos-delay="200"
-        >
-          {text}
-        </span>
+        <span className="ml-3 text-base font-normal">{text}</span>
       </Link>
       {dropdownIcon && <span>{dropdownIcon}</span>}
     </li>
@@ -241,7 +193,7 @@ const NavItem = ({ icon, text, onClick, to, isActive, dropdownIcon }) => {
 const SubmenuItem = ({ text, to, onClick, isActive }) => {
   return (
     <li className={`flex items-center px-6 py-2 transition-colors duration-200 rounded-md cursor-pointer ${isActive ? 'text-sky-300' : ''}`}>
-      <Link to={to} className="w-full text-[13px]"  onClick={onClick}>
+      <Link to={to} className="w-full text-[13px]" onClick={onClick}>
         {text}
       </Link>
     </li>
