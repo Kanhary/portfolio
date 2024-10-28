@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "remixicon/fonts/remixicon.css";
 import { Login, GetUser } from "../../api/user";
+import { FiXCircle } from 'react-icons/fi';
 
 import { setToken, getToken, removeToken } from "../../utils/token/Token";
 const LoginForm = () => {
@@ -19,38 +20,38 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false); 
 
 
-  //   const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (username === 'Pheakdey' && password === '123') {
-  //     navigate('/main-dashboard'); 
-  //   } else {
-  //     setError('Invalid username or password');
-  //   }
-  // };
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username === 'Pheakdey' && password === '123') {
+      navigate('/main-dashboard'); 
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     setError(null);
 
-        try {
-            const response = await Login({ username, password });
+    //     try {
+    //         const response = await Login({ username, password });
 
-            if (response.status === 200) {
-                const { token } = response.data; 
-                setToken("token", token); 
-                navigate('/main-dashboard'); 
-                console.log('Login successful');
-            } else {
-                setError('Invalid username or password');
-            }
-        } catch (err) {
-            setError('Invalid username or password');
-        } finally {
-            setLoading(false); 
-        }
-    };
+    //         if (response.status === 200) {
+    //             const { token } = response.data; 
+    //             setToken("token", token); 
+    //             navigate('/main-dashboard'); 
+    //             console.log('Login successful');
+    //         } else {
+    //             setError('Invalid username or password');
+    //         }
+    //     } catch (err) {
+    //         setError('Invalid username or password');
+    //     } finally {
+    //         setLoading(false); 
+    //     }
+    // };
     
     const togglePassword = () => {
         const passwordField = document.getElementById("password");
@@ -85,7 +86,16 @@ const LoginForm = () => {
               <h2 className="text-[20px] md:text-[23px] font-normal mb-6 text-center">
                 ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យកុំព្យូទ័រ
               </h2>
-              {error && <p className='mb-4 text-red-500'>{error}</p>}
+             
+              {error && (
+                <p 
+                  data-aos="zoom-in" 
+                  className="mb-4 p-2 text-red-500 bg-red-100 border border-red-300 rounded flex items-center">
+                  <FiXCircle className="mr-2 text-red-600" />
+                  <span className="font-semibold"></span> {error}
+                </p>
+              )}
+
               <form action="#" 
               // method="POST" 
               // onSubmit={handleSubmit}
@@ -98,7 +108,7 @@ const LoginForm = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     name="email"
                     required
-                    className="peer w-full px-3 py-4 text-[16px] md:text-[18px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="peer w-full px-3 py-4 text-[16px] md:text-[15px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder=" "
                   />
                   <label
@@ -116,7 +126,7 @@ const LoginForm = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     name="password"
                     required
-                    className="peer w-full px-3 py-4 pr-10 text-[16px] md:text-[18px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="peer w-full px-3 py-4 pr-10 text-[16px] md:text-[15px] text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder=" "
                   />
                   <label

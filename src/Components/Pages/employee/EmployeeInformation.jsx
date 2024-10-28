@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FaPen, FaTrashAlt, FaEye } from 'react-icons/fa';
+import { FaPen, FaTrashAlt, FaEye } from 'react-icons/fa';  
 import Swal from 'sweetalert2';
 import TabMenu from './TabMenu';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { AiOutlineClose } from 'react-icons/ai';
 // import LongCourse from './LongCourse';
 import { DelStaff, GetAllStaff } from '../../../api/user';
 import { AddStaff , UpdateStaff} from '../../../api/user';
@@ -25,6 +26,7 @@ const EmployeeInformation = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('');
 
   const [errors, setErrors] = useState({});
 
@@ -148,6 +150,10 @@ const EmployeeInformation = () => {
     setIsReadOnly(true); // Set to read-only mode
     setIsEditModalOpen(true);
   };
+  const clearDateFilter = () => {
+    handleDateChange(''); // Reset the date to an empty string
+  };
+  
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -192,6 +198,11 @@ const EmployeeInformation = () => {
       ...prevData,
       photo: files[0],
     }));
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    // Add any additional logic here, such as filtering data based on the selected date
   };
 
   const handleDelete = async (Id) => {
@@ -543,37 +554,80 @@ const EmployeeInformation = () => {
       <div className='w-full mt-4'
       data-aos='fade-up'>
         <div className='relative w-full overflow-hidden bg-white shadow-md sm:rounded-lg'>
-          <div className='flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4'>
-            <div className='w-full md:w-1/2'>
-              <form className='flex items-center'>
-                <label htmlFor="simple-search" className='sr-only'>Search</label>
-                <div className='relative w-full'>
-                  <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
-                    <svg aria-hidden="true" className="w-5 h-5 text-gray-500 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    id='simple-search'
-                    className='block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-400 rounded-3xl bg-gray-50 focus:ring-primary-700 focus:border-primary-00 focus:outline-none focus:ring-1 '
-                    placeholder='Search Fullname or Code'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    required=""
-                  />
-                </div>
-              </form>
-            </div>
-            <div className='flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3'>
-              <button type='button' className='flex items-start justify-center px-4 py-3 text-sm font-medium text-white duration-300 rounded-3xl bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300' onClick={() => setIsAddModalOpen(true)}>
-              <svg className="h-3.5 w-3.5 mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                </svg>
-                <p className='text-base font-normal'> បញ្ចូលព័ត៌មានបុគ្គលិក</p>
-              </button>
-            </div>
-          </div>
+        <div className='flex flex-col md:flex-row items-center justify-between p-4 space-y-4 md:space-y-0'>
+  {/* Search Input */}
+  <div className='w-full md:w-full lg:w-[600px]'>
+  <form className='flex items-center justify-start'>
+    <label htmlFor="simple-search" className='sr-only'>Search</label>
+    <div className='relative w-full'>
+      <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
+        <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+        </svg>
+      </div>
+      <input
+        type="text"
+        id='simple-search'
+        className='block w-full p-3 pl-10 pr-10 text-sm text-gray-900 border border-gray-400 rounded-3xl bg-gray-50 focus:ring-primary-700 focus:border-primary-700 focus:outline-none focus:ring-1'
+        placeholder='Search Fullname or Code'
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        required
+      />
+      {searchTerm && (
+        <button
+          type="button"
+          onClick={() => setSearchTerm('')}
+          className='absolute inset-y-1 right-2 flex items-center justify-center w-10 h-10 pr-3 text-gray-500 hover:text-gray-700 focus:outline-none'
+        >
+          <AiOutlineClose className="w-5 h-5" />
+        </button>
+      )}
+    </div>
+  </form>
+</div>
+
+
+  {/* Date Filter with Label and Clear Button */}
+  <div className='flex flex-wrap items-center justify-end w-full space-x-3 md:w-full md:justify-end mr-3 '>
+  <label htmlFor="date-filter" className='text-sm font-medium text-gray-700'>Filter by Date:</label>
+  <input
+    type="date"
+    id="date-filter"
+    className='p-3 text-sm text-gray-900 border border-gray-400 rounded-3xl bg-gray-50 focus:ring-primary-700 focus:border-primary-700 focus:outline-none focus:ring-1'
+    value={selectedDate}
+    onChange={(e) => handleDateChange(e.target.value)}
+  />
+  <button
+    type="button"
+    className='px-6 py-3 text-sm font-medium text-red-700 bg-red-200 rounded-3xl hover:bg-red-300 focus:ring-2 focus:ring-red-400 duration-300'
+    onClick={() => clearDateFilter()}
+  >
+    សម្អាត
+  </button>
+</div>
+
+
+
+  {/* Add Information Button */}
+  <div className='flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3'>
+    <button
+      type='button'
+      className='flex items-center justify-center px-4 py-3 text-sm font-medium text-blue-600 duration-300 rounded-3xl bg-blue-200 hover:bg-blue-300 focus:ring-4 focus:ring-primary-300'
+      onClick={() => setIsAddModalOpen(true)}
+    >
+      <svg className="h-3.5 w-3.5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+      </svg>
+      <p className='text-sm font-normal'>បញ្ចូលព័ត៌មានបុគ្គលិក</p>
+    </button>
+  </div>
+</div>
+
+
+
+
+
           
             <div className='w-full overflow-x-auto'
             data-aos='fade-right'>
@@ -583,8 +637,8 @@ const EmployeeInformation = () => {
                     <th scope="col" className="sticky left-0 px-4 py-3 mr-3 bg-gray-100 border-r border-t">Action</th>
                     <th scope="col" className="px-4 py-3 border-r border-t">NO</th>
                     <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '80px' }}>Code</th>
-                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Full Name</th>
-                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '180px' }}>Latan name</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '200px' }}>Full Name</th>
+                    <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '200px' }}>Latan name</th>
                     <th scope="col" className="px-4 py-3 border-r border-t">Gender</th>
                     <th scope="col" className="px-4 py-3 border-r border-t">Height</th>
                     <th scope="col" className="px-4 py-3 border-r border-t ">Weight</th>
@@ -610,7 +664,7 @@ const EmployeeInformation = () => {
                 </thead>
                 <tbody>
                   {currentEmployees.map(employee => (
-                      <tr key={employee.id} className='transition-transform ease-in-out transform border border-b-gray-200 hover:bg-indigo-50 duration-1000'>
+                      <tr key={employee.id} className='transition ease-in-out duration-200 transform border border-b-gray-200 hover:bg-indigo-50 '>
                         <td className='sticky left-0 z-10 flex items-center px-4 py-5 bg-white border-r'>
   <input type="checkbox" className="mr-3 action-checkbox" />
   <FaPen

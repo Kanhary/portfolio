@@ -4,8 +4,13 @@ import { BiBell } from "react-icons/bi";
 import { GetUserLogin } from '../../api/user'; 
 import { FaUpload } from 'react-icons/fa'; // Import the upload icon
 import Swal from 'sweetalert2'; // Import SweetAlert2
+import { FiUser, FiLogOut } from 'react-icons/fi';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { FaCamera } from "react-icons/fa";
 
 const HeaderPage = ({ toggleSidebar }) => {
+  const [showImageRemovalAlert, setShowImageRemovalAlert] = useState(false); // New state for removal alert
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [username, setUsername] = useState('');
@@ -16,10 +21,11 @@ const HeaderPage = ({ toggleSidebar }) => {
   const [newProfileImage, setNewProfileImage] = useState(null);
   const navigate = useNavigate();
   const [currentProfileImage, setCurrentProfileImage] = useState(avatar); // Replace with actual image URL
-
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   
   const notificationsRef = useRef(null);
 
+  
   useEffect(() => {
     GetUserLogin()
       .then(res => {
@@ -36,7 +42,13 @@ const HeaderPage = ({ toggleSidebar }) => {
     }
   }, []);
 
-  
+    const handleRemoveProfileImage = () => {
+    setProfileImage(null); // Clear the uploaded image from state
+    setNewProfileImage(null); // Clear the new image file
+    document.getElementById("file-input").value = ""; // Reset the file input
+    localStorage.removeItem('profileImage'); // Remove the image from local storage
+  };
+
   const handleDropdownToggle = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -71,21 +83,31 @@ const HeaderPage = ({ toggleSidebar }) => {
         setProfileImage(reader.result);
         localStorage.setItem('profileImage', reader.result);
       };
-      reader.readAsDataURL(newProfileImage); // Read the new image
-    }
-    // Close the modal
+      reader.readAsDataURL(newProfileImage);
+      
+      // Close the edit modal and show success alert
+      setIsEditModalOpen(false);
+      setShowSuccessAlert(true);
+      
+      // Hide alert after 3 seconds
+      setTimeout(() => setShowSuccessAlert(false), 3000);
+      
+    } else {
+      // Handle case when the image is removed
+    setProfileImage(null);
+    localStorage.removeItem('profileImage'); // Remove image from local storage
     setIsEditModalOpen(false);
-    Swal.fire({
-      title: 'Success!',
-      text: 'Your Profile Upload Success!',
-      icon: 'success',
-      confirmButtonText: 'Okay',
-      // Optionally, you can customize the buttons, colors, and more
-    }).then(() => {
-      setIsEditModalOpen(false); // Close the modal after alert
-    });
+    setShowImageRemovalAlert(true); // Show alert for image removal
+
+    // Hide alert after 3 seconds
+    setTimeout(() => setShowImageRemovalAlert(false), 3000);
+    }
   };
   
+
+  // const handleImageChange = (e) => {
+  //   setNewProfileImage(e.target.files[0]);
+  // };
   const handleLogout = (e) => {
     e.stopPropagation(); 
     localStorage.removeItem("userToken"); 
@@ -169,32 +191,68 @@ const HeaderPage = ({ toggleSidebar }) => {
             {/* Profile Dropdown */}
             <button 
               type='button' 
-              className='flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 ' 
+              className='flex text-sm transition ease-in-out bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 duraiton-300' 
               aria-expanded={isDropdownOpen ? "true" : "false"} 
               onClick={handleDropdownToggle}
             >
               <span className='sr-only'>Open user menu</span>
-              <img src={avatar || "/blank-profile-picture.png"} className="w-8 h-8 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
+              <img src={avatar || "/blank-profile-picture.png"} className="w-8 h-8 border border-blue-600 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
             </button>
 
             {isDropdownOpen && (
-              <div className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white border divide-y divide-gray-300 rounded shadow-lg top-full font-khmer'>
-                <div className='px-4 py-3'>
-                {/* <img src={avatar || "/blank-profile-picture.png"} className="w-10 h-10 rounded-lg sm:w-15 sm:h-14 md:w-10 md:h-10 lg:w-16 lg:h-16" alt="User Photo" /> */}
-                  <p className='flex justify-center font-normal text-gray-900 text-ms'>Welcome, {username}!</p>
-                  <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p>
+              <div 
+              className='absolute right-0 z-50 w-64 mt-2 text-base list-none bg-white border divide-gray-300 rounded shadow-lg top-full font-khmer '>
+                <div className='flex items-center px-4 py-3'>
+                      <button 
+                        type='button' 
+                        className='flex items-center text-sm transition-all duration-300 ease-in-out bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300' 
+                        aria-expanded={isDropdownOpen ? "true" : "false"} 
+                        onClick={handleDropdownToggle}
+                      >
+                        <span className='sr-only'>Open user menu</span>
+                        <img src={avatar || "/blank-profile-picture.png"} className="w-8 h-8 border border-blue-600 rounded-full sm:w-12 sm:h-10 md:w-8 md:h-8 lg:w-8 lg:h-8" alt="User Photo" />
+                        
+                        {/* // Alert message Uload Profile Image// */}
+                        {showSuccessAlert && (
+                          <div 
+                          data-aos="slide-left" 
+                          className="fixed px-4 py-2 text-green-700 transition-opacity duration-300 ease-in-out bg-green-100 border border-green-300 rounded-lg shadow-md top-4 right-4">
+                            <span className="font-medium">Success!</span> Your Profile Upload Success!
+                          </div>
+                        )}
+
+                        {/* //Alert message Remove Profile Image// */}
+                        {showImageRemovalAlert && (
+                          <div 
+                            data-aos="slide-left" 
+                            className="fixed px-4 py-2 text-yellow-700 transition-opacity duration-300 ease-in-out bg-yellow-100 border border-yellow-300 rounded-lg shadow-md top-4 right-4">
+                            <span className="font-medium">Success!</span> Your Profile Image Has Been Removed!
+                          </div>
+                        )}
+                      </button>
+                      <div className='mt-2 ml-3'>
+                        <p className='font-normal text-gray-900 text-[14px]'>Welcome, {username}!</p>
+                        {/* <p className='py-1 text-sm font-medium text-gray-400 truncate'>{userEmail}</p> */}
+                      </div>
                 </div>
+
+                <hr className='mx-auto w-52' />
+
                 <ul className="py-1">
-                  <li>
-                    <button className="block w-full px-4 py-2 text-sm text-blue-700 hover:bg-blue-100" onClick={handleEditProfile}>
-                      Edit Profile
-                    </button>
-                  </li>
-                  <li>
-                    <button className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 " onClick={handleLogout}>
-                      Logout
-                    </button>
-                  </li>
+                    <li>
+                      <div className='flex justify-center'>
+                      <button className="flex items-center px-4 py-2 text-sm text-blue-700 duration-300 rounded-lg w-52 hover:bg-blue-50" onClick={handleEditProfile}>
+                        <FiUser className="mr-2" /> Edit Profile
+                      </button>
+                      </div>
+                    </li>
+                    <li>
+                      <div className='flex justify-center'> 
+                      <button className="flex items-center px-4 py-2 text-sm text-red-600 duration-300 rounded-lg w-52 hover:bg-red-50" onClick={handleLogout}>
+                        <FiLogOut className="mr-2" /> Sign Out
+                      </button>
+                      </div>
+                    </li>
                 </ul>
               </div>
             )}
@@ -203,49 +261,89 @@ const HeaderPage = ({ toggleSidebar }) => {
       </div>
     </nav>
     {isEditModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60">
-    <div className="w-full max-w-md p-6 transition-all transform bg-white rounded-lg shadow-xl">
+  <div 
+    className="fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ease-in-out bg-gray-900 bg-opacity-60"
+  >
+    <div 
+      className="w-full max-w-md p-6 transition-all transform bg-white rounded-lg shadow-xl"
+      data-aos="fade-right"
+    >
       <h3 className="flex justify-center mb-4 text-2xl font-semibold text-gray-800">Edit Image</h3>
 
       {/* Display Profile Image (Current or New) */}
-      <div className="flex justify-center mb-4">
-        <img 
-          src={newProfileImage ? URL.createObjectURL(newProfileImage) : avatar} 
-          alt="Profile" 
-          className="object-cover border-4 border-blue-500 rounded-full shadow-md w-52 h-52"
-        />
+      <div className="relative flex items-center justify-center mb-4">
+      {/* Profile Image with Icon */}
+        <div className="flex flex-col items-center justify-center overflow-hidden border-2 border-blue-500 border-dashed rounded-full shadow-md w-52 h-52">
+            {newProfileImage ? (
+              <img 
+                src={URL.createObjectURL(newProfileImage)}
+                alt="Profile"
+                className="object-cover w-full h-full"
+              />
+            ) : (
+              <>
+                <FaCamera className="text-5xl text-gray-500" />  {/* Display icon if no image is uploaded */}
+                <p className='mt-4 text-sm text-gray-600'>Upload Image <br />
+                (PNG or JPEG)</p> {/* Display text only if no image is uploaded */}
+              </>
+            )}
+          </div>
       </div>
 
-      {/* File Input */}
-      <label className="flex justify-center block mb-4">
+      {/* Upload and Remove Buttons */}
+      <div className="flex flex-col items-center space-y-2">
+        {/* Upload Button */}
+        <label 
+          htmlFor="file-input"
+          className="inline-flex items-center w-full px-4 py-2 text-sm text-green-600 duration-300 border-2 border-green-500 border-dashed rounded-lg cursor-pointer hover:bg-green-200"
+        >
+          <div className='flex justify-center mx-auto'>
+          <p className=''>Upload Image</p>
+          <FaUpload className="mt-1 ml-2" />
+          </div>
+        </label>
         <input 
           type="file" 
           accept="image/*" 
           onChange={handleImageChange} 
-          className="hidden" // Hide the input
-          id="file-input" // Give it an ID for the label to reference
+          className="hidden" 
+          id="file-input"
         />
-        <span className="inline-flex items-center px-4 py-2 mt-4 text-sm text-white bg-blue-600 rounded-full cursor-pointer w-42 hover:bg-blue-700">
-          <p>Upload Image</p>
-          <FaUpload className="ml-4" /> {/* Upload icon */}
+
+        {/* Remove Button */}
+        <span
+          className="inline-flex items-center w-full px-4 py-2 text-sm text-yellow-600 duration-300 bg-yellow-100 border-2 border-yellow-500 border-dashed rounded-lg cursor-pointer hover:bg-yellow-200"
+          onClick={handleRemoveProfileImage}
+        >
+          <p className='mx-auto'>Remove Image</p>
         </span>
-      </label>
+      </div>
 
       {/* Action Buttons */}
+      <div className="relative">
+      {/* Success Alert */}
+      {/* {showSuccessAlert && (
+        <div className="fixed px-4 py-2 text-green-700 transition-opacity duration-300 ease-in-out bg-green-100 border border-green-300 rounded-lg shadow-md top-4 right-4">
+          <span className="font-medium">Success!</span> Your Profile Upload Success!
+        </div>
+      )} */}
+
+      {/* Save and Cancel Buttons */}
       <div className="flex justify-end mt-8 space-x-3">
         <button 
-          className="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-5 py-2 text-sm font-normal text-blue-600 duration-300 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={handleSaveProfileImage}
         >
           Save
         </button>
         <button 
-          className="px-5 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="px-5 py-2 text-sm font-normal text-red-600 duration-300 rounded-lg bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500"
           onClick={() => setIsEditModalOpen(false)}
         >
           Cancel
         </button>
       </div>
+    </div>
     </div>
   </div>
 )}
