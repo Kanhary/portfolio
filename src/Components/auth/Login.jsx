@@ -20,38 +20,38 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false); 
 
 
-    const handleSubmit = (e) => {
-    e.preventDefault();
-    if (username === 'Pheakdey' && password === '123') {
-      navigate('/main-dashboard'); 
-    } else {
-      setError('Invalid username or password');
-    }
-  };
+  //   const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (username === 'Pheakdey' && password === '123') {
+  //     navigate('/main-dashboard'); 
+  //   } else {
+  //     setError('Invalid username or password');
+  //   }
+  // };
 
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     setError(null);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
 
-    //     try {
-    //         const response = await Login({ username, password });
+        try {
+            const response = await Login({ username, password });
 
-    //         if (response.status === 200) {
-    //             const { token } = response.data; 
-    //             setToken("token", token); 
-    //             navigate('/main-dashboard'); 
-    //             console.log('Login successful');
-    //         } else {
-    //             setError('Invalid username or password');
-    //         }
-    //     } catch (err) {
-    //         setError('Invalid username or password');
-    //     } finally {
-    //         setLoading(false); 
-    //     }
-    // };
+            if (response.status === 200) {
+                const { token } = response.data; 
+                setToken("token", token); 
+                navigate('/main-dashboard'); 
+                console.log('Login successful');
+            } else {
+                setError('Invalid username or password');
+            }
+        } catch (err) {
+            setError('Invalid username or password');
+        } finally {
+            setLoading(false); 
+        }
+    };
     
     const togglePassword = () => {
         const passwordField = document.getElementById("password");
@@ -90,7 +90,7 @@ const LoginForm = () => {
               {error && (
                 <p 
                   data-aos="zoom-in" 
-                  className="mb-4 p-2 text-red-500 bg-red-100 border border-red-300 rounded flex items-center">
+                  className="flex items-center p-2 mb-4 text-red-500 bg-red-100 border border-red-300 rounded">
                   <FiXCircle className="mr-2 text-red-600" />
                   <span className="font-semibold"></span> {error}
                 </p>
