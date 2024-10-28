@@ -47,8 +47,8 @@ const Sidebar = ({ isSidebarOpen }) => {
     const iconMap = {
       dashboard: <FaBuilding />,
       computer: <FaLaptop />,
-      employee: <FaUserFriends />,
-      system_setting: <FaCog />,
+      peoples: <FaUserFriends />,
+      setting: <FaCog />,
       report: <HiChartBar />,
       help: <BsFillQuestionCircleFill />
     };
