@@ -113,7 +113,7 @@ const HeaderPage = ({ toggleSidebar }) => {
     // localStorage.removeItem("userToken"); 
     // navigate("/");
     Logout(); 
-    // navigate("/");
+    navigate("/");
   };
 
   return (
