@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
 // import { AddUser, GetUser } from '../../api/user.js';
-import { AddUser, GetUser, GetEmp } from '@/api/user.js';
 // import { CheckUser, DeleteUser, UpdateUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
 import Select from 'react-select';
 import { GiShipBow } from "react-icons/gi";
+import { GetAllUser } from '../../api/user';
 
 const User = () => {
   const INITIAL_FORM_DATA = { 
@@ -273,35 +273,35 @@ const handleSave = async () => {
   
   
   // Fetch users and employees
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const response = await GetUser();
-  //       setUsers(response.data.data)
-  //     } catch (err) {
-  //       setError(err.message || 'An error occurred');
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await GetAllUser();
+        setUsers(response.data.data)
+      } catch (err) {
+        setError(err.message || 'An error occurred');
+      }
+    };
   
 
-  //   const fetchEmployees = async () => {
-  //     try {
-  //       const response = await GetEmp();
-  //       setEmployees(response.data.data)
-  //     } catch (err) {
-  //       setError(err.message || 'An error occurred');
-  //     }
-  //   };
-  //   // const fetchRole = async () => {
-  //   //   try{
-  //   //     const response = await 
-  //   //   }
-  //   // }
+    const fetchEmployees = async () => {
+      try {
+        const response = await GetEmp();
+        setEmployees(response.data.data)
+      } catch (err) {
+        setError(err.message || 'An error occurred');
+      }
+    };
+    // const fetchRole = async () => {
+    //   try{
+    //     const response = await 
+    //   }
+    // }
     
-  //   fetchUsers();
-  //   fetchEmployees();
-  //   // setCurrentPage(0);
-  // }, []);
+    fetchUsers();
+    fetchEmployees();
+    // setCurrentPage(0);
+  }, []);
 
 
   useEffect(() => {
@@ -309,9 +309,9 @@ const handleSave = async () => {
   }, [users]);
 
   const filteredUser = users.filter(user =>
-    (user.firstName && user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (user.userName && user.userName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (user.userCode && user.userCode.includes(searchTerm))
+    (user.nickname && user.nickname.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.id && user.id.includes(searchTerm))
   );
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -500,7 +500,10 @@ const optionsRole = [
   //   label: `{role.role}`
   // }));
 
-  
+  const formatDateTime = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleString();
+  };
   return (
     <section className='mt-16 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>
@@ -559,44 +562,52 @@ const optionsRole = [
                   <th scope='col' className='px-4 py-3 border-t border-r' style={{ minWidth: '150px '}}>Avatar</th>
                   <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Status</th>
                   <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Creater</th>
-                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Create Time</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '250px' }}>Create Time</th>
                   <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Updater</th>
-                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Update Time</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '250px' }}>Update Time</th>
                 </tr>
               </thead>
               <tbody>
                 {currentPageUsers.map(user => (
-                  <tr key={`${user.userCode}-${user.userName}`} className='border-b'>
-                    <td className='sticky left-0 flex items-center px-4 py-3 space-x-3 bg-white border-r'>
-                      <button
-                        className='text-blue-600 hover:text-blue-800'
-                        onClick={() => openEditModal(user)}
-                      >
-                        <FaPen />
-                      </button>
-                      <button
-                        key={user.id}
-                        className='text-red-600 hover:text-red-800'
-                        onClick={() => handleDelete(user.id)}
-                      >
-                        <FaTrashAlt />
-                      </button>
-
+                  <tr key={`${user.id}-${user.username}`} className='border-b'>
+                    <td className="sticky left-0 h-full px-4 py-3 bg-white border-r">
+                      <div className="flex items-center justify-center space-x-3">
+                        <button
+                          className="text-blue-600 hover:text-blue-800"
+                          onClick={() => openEditModal(user)}
+                        >
+                          <FaPen />
+                        </button>
+                        <button
+                          key={user.id}
+                          className="text-red-600 hover:text-red-800"
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </div>
                     </td>
-                    <td className='px-4 py-3 border-r'>{user.usercode}</td>
+
+                    <td className='px-4 py-3 border-r'>{user.id}</td>
                     <td className='px-4 py-3 border-r'>{user.username}</td>
                     <td className='px-4 py-3 border-r'>{user.nickname}</td>
                     <td className='px-4 py-3 border-r'>{user.mobile}</td>
                     <td className='px-4 py-3 border-r'>{user.email}</td>
                     {/* <td className='px-4 border-rpy-3'>{user.password}</td> */}
                     <td className='px-4 py-3 border-r'>{user.sex}</td>
-                    <td className='px-4 py-3 border-r'>{user.staffCode}</td>
-                    <td className='px-4 py-3 border-r'>{user.avatar}</td>
+                    <td className='px-4 py-3 border-r'>{user.staffcode}</td>
+                    <td className="px-4 py-3 border-r">
+                      <img
+                        src={user.avatar}
+                        alt={`${user.username}'s avatar`}
+                        className="object-cover w-10 h-10 rounded-full"
+                      />
+                    </td>
                     <td className='px-4 py-3 border-r'>{user.status}</td>
                     <td className='px-4 py-3 border-r'>{user.creator}</td>
-                    <td className='px-4 py-3 border-r'>{user.create_time}</td>
+                    <td className='px-4 py-3 border-r'>{formatDateTime(user.createTime)}</td>
                     <td className='px-4 py-3 border-r'>{user.updater}</td>
-                    <td className='px-4 py-3 border-r'>{user.update_time}</td>
+                    <td className='px-4 py-3 border-r'>{formatDateTime(user.updateTime)}</td>
                   </tr>
                 ))}
               </tbody>

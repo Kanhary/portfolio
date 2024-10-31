@@ -154,11 +154,11 @@ const GroupMaster = () => {
             <table className='w-full text-sm text-left text-gray-500 '>
               <thead className='text-xs text-gray-700 uppercase bg-gray-100 border-t-2'>
                 <tr>
-                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-r border-t">Action</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t'>Code Group</th>
-                  <th scope='col' className='px-4 py-3 border-r border-t'style={{ minWidth: '300px' }}>Code Name</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Last By</th>
-                  <th scope="col" className="px-4 py-3 border-r border-t" style={{ minWidth: '150px' }}>Last Date</th>
+                  <th scope="col" className="sticky left-0 px-4 py-3 bg-gray-100 border-t border-r">Action</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r'>Code Group</th>
+                  <th scope='col' className='px-4 py-3 border-t border-r'style={{ minWidth: '300px' }}>Code Name</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Last By</th>
+                  <th scope="col" className="px-4 py-3 border-t border-r" style={{ minWidth: '150px' }}>Last Date</th>
                 </tr>
               </thead>
               <tbody>
