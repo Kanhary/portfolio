@@ -907,7 +907,7 @@ const optionsRole = [
                   <input
                     type="text"
                     id="userName"
-                    value={formData.userName}
+                    value={formData.username}
                     onChange={handleChange}
                     className="block w-full px-4 py-2 text-sm text-gray-800 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
                     autoComplete="username"
