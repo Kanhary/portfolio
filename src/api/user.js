@@ -25,13 +25,14 @@ export function GetEmp(params) {
     });
 }
 
-export function UpdateUser(ID, data) {
+export function UpdateUser(userId, data) {
     return request({
-        method: 'POST',
-        url: `/user/updateUser/${ID}`,
+        method: 'POST', // Assuming your API expects a POST request
+        url: `/user/updateUser?id=${userId}`, // Use query parameter for user ID
         data: data
     });
 }
+
 
 export function CheckUser(data) {
     return request({
@@ -43,12 +44,17 @@ export function CheckUser(data) {
         // }
     });
 }
-export function DeleteUser(ID) {
+
+// Modify DeleteUser to accept username as a parameter
+export function DeleteUser(username) {
     return request({
-        method: 'POST',
-        url: `/userSystem/delete/${ID}`,
+        method: 'DELETE', // Assuming the backend uses the DELETE HTTP method
+        url: `/user/deleteUser?username=${username}`, // Add the username to the query parameter
     });
 }
+
+
+
 
 export function Login({ username, password }) {
     return request({
@@ -151,5 +157,24 @@ export function AddUser(data) {
         method: "POST",
         url: '/user/addNewUsers',
         data: data
+    });
+}
+
+// Assuming `request` is a function you've defined elsewhere for making HTTP requests
+export function uploadPicture(userId, imageFile) {
+    // Create a FormData object to hold the file
+    const formData = new FormData();
+    formData.append('image', imageFile); // Assuming the API expects the field to be named 'image'
+
+    // Log the form data (optional, can be removed)
+    console.log('Uploading image for userId:', userId);
+
+    return request({
+        method: "POST",
+        url: `/user/${userId}/upload-image`,
+        data: formData, // Send the FormData object containing the image
+        headers: {
+            'Content-Type': 'multipart/form-data', // Ensure the correct content type is set
+        },
     });
 }

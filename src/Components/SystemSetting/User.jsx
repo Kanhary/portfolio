@@ -7,7 +7,7 @@ import { IoMdRefresh } from "react-icons/io";
 import ReactPaginate from 'react-paginate';
 import Select from 'react-select';
 import { GiShipBow } from "react-icons/gi";
-import { GetAllUser, AddUser, GetUserLogin, UpdateUser } from '../../api/user';
+import { GetAllUser, AddUser, GetUserLogin, UpdateUser, DeleteUser } from '../../api/user';
 
 const User = () => {
   const INITIAL_FORM_DATA = { 
@@ -373,7 +373,7 @@ const handleSave = async () => {
   // const handleChangeSelection = (e) => {
   //   setSelectedOption(e.target.value);
   // };
-  const handleDelete = async (ID) => {
+  const handleDelete = async (username) => {
     try {
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -386,38 +386,31 @@ const handleSave = async () => {
         });
 
         if (result.isConfirmed) {
-            const response = await DeleteUser(ID);
-            console.log('Response:', response);  // Log the response to debug
+            const response = await DeleteUser(username); // Pass the username here
+            console.log('Response:', response);  // Log the response to confirm the deletion
 
-            if (response.status === 200) {  // Check HTTP status code directly
-              Swal.fire({
-                  title: "Deleted!",
-                  text: "User has been deleted.",
-                  icon: "success",
-                  confirmButtonText: "Okay",
-              });
-          
-              const deleteUSer = users.filter(user => user.id !== ID);
-              setUsers(deleteUSer);
-          } else {
-              Swal.fire({
-                  title: "Error!",
-                  text: "Failed to delete user.",
-                  icon: "error",
-                  confirmButtonText: "Okay",
-              });
-          }
-          
+            if (response.status === 200) {  // Check for a successful response
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "User has been deleted.",
+                    icon: "success",
+                    confirmButtonText: "Okay",
+                });
+                
+                // Remove the deleted user from the list
+                const updatedUsers = users.filter(user => user.username !== username);
+                setUsers(updatedUsers);
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Failed to delete user.",
+                    icon: "error",
+                    confirmButtonText: "Okay",
+                });
+            }
         }
     } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
-        
-        if (error.response) {
-            console.log('Error response:', error.response);  // Full error response
-        } else {
-            console.log('Error message:', error.message);  // Error message if no response
-        }
-
         Swal.fire({
             title: 'Error!',
             text: error.response?.data?.message || 'Failed to connect to the server.',
@@ -425,13 +418,15 @@ const handleSave = async () => {
             confirmButtonText: 'Okay',
         });
     }
-  };
+};
+
+
+
+
 
   const handleSaveEdit = async () => {
     try {
-      const updatedFormData = { ...formData, staffcode: selectedOption };
-  
-      setIsLoading(true); // Show a loading state (optional)
+      setIsLoading(true); // Show a loading state
   
       // Ensure you're editing a valid user
       if (!editingUser) {
@@ -439,12 +434,21 @@ const handleSave = async () => {
         return;
       }
   
-      // Log formData before making the API call to verify the correct data is sent
+      // Prepare updated form data
+      const updatedFormData = {
+        ...formData,
+        staffcode: selectedOption,
+        creator: currentUser, // Ensure currentUser is set correctly
+        updater: currentUser,
+        createTime: new Date().toISOString(),
+        updateTime: new Date().toISOString(),
+      };
+  
       console.log("Updated Form Data:", updatedFormData);
   
       // Make the API call to update the user
       const response = await UpdateUser(editingUser.id, updatedFormData);
-  
+      
       console.log('Update response:', response);
   
       if (response.status === 200) {
@@ -453,8 +457,7 @@ const handleSave = async () => {
           text: "User updated successfully.",
           icon: "success",
         });
-        // Optionally, close the modal after success
-        closeEditModal();
+        closeEditModal(); // Close modal after success
       } else {
         Swal.fire({
           title: "Error!",
@@ -473,6 +476,7 @@ const handleSave = async () => {
       setIsLoading(false); // Hide loading state
     }
   };
+  
   
   const handleChangeSelection = (selectedOption) => {
     // Ensure selectedOption is the correct value
@@ -626,7 +630,7 @@ const optionsRole = [
               <tbody>
                 {currentPageUsers.map(user => (
                   <tr key={`${user.id}-${user.username}`} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
-                    <td className="sticky left-0 h-full px-4 py-3 bg-white border-r">
+                    <td className="sticky left-0 w-full h-full px-4 py-3 bg-white border-r">
                       <div className="flex items-center justify-center space-x-3">
                         <button
                           className="text-blue-600 hover:text-blue-800"
@@ -635,9 +639,9 @@ const optionsRole = [
                           <FaPen />
                         </button>
                         <button
-                          key={user.id}
+                          key={user.username}
                           className="text-red-600 hover:text-red-800"
-                          onClick={() => handleDelete(user.id)}
+                          onClick={() => handleDelete(user.username)}
                         >
                           <FaTrashAlt />
                         </button>
