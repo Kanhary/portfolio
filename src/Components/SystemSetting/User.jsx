@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import { IoMdRefresh } from "react-icons/io";
 // import { AddUser, GetUser } from '../../api/user.js';
 // import { CheckUser, DeleteUser, UpdateUser } from '../../api/user';
 import ReactPaginate from 'react-paginate';
@@ -504,6 +505,11 @@ const optionsRole = [
     const date = new Date(isoString);
     return date.toLocaleString();
   };
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+  
   return (
     <section className='mt-16 font-khmer'>
       <h1 className='text-xl font-medium text-blue-800'>អ្នកប្រើប្រាស់</h1>
@@ -533,6 +539,13 @@ const optionsRole = [
               </form>
             </div>
             <div className='flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3'>
+              <button
+                onClick={handleRefresh}
+                className="flex items-center justify-center px-5 py-2 text-lg font-medium text-white transition-transform transform rounded-lg shadow-lg bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:scale-105 active:scale-95"
+              >
+                <IoMdRefresh />
+                Refresh
+              </button>
               <button
                 type='button'
                 className='flex items-center justify-center px-5 py-2 text-lg font-medium text-white transition-transform transform rounded-lg shadow-lg bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:scale-105 active:scale-95'
@@ -569,7 +582,7 @@ const optionsRole = [
               </thead>
               <tbody>
                 {currentPageUsers.map(user => (
-                  <tr key={`${user.id}-${user.username}`} className='border-b'>
+                  <tr key={`${user.id}-${user.username}`} className='transition-colors duration-200 border border-b-gray-200 hover:bg-indigo-50'>
                     <td className="sticky left-0 h-full px-4 py-3 bg-white border-r">
                       <div className="flex items-center justify-center space-x-3">
                         <button
