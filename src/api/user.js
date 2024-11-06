@@ -25,25 +25,19 @@ export function GetEmp(params) {
     });
 }
 
-export function UpdateUser(userId, data) {
-    return request({
-        method: 'POST', // Assuming your API expects a POST request
-        url: `/user/updateUser?id=${userId}`, // Use query parameter for user ID
-        data: data
-    });
-}
 
 
-export function CheckUser(data) {
-    return request({
-        method: 'POST',
-        url: '/userSystem/checkusers',
-        data: data,
-        // headers: {
-        //     'Content-Type': 'multipart/form-data'
-        // }
-    });
-}
+
+// export function CheckUser(data) {
+//     return request({
+//         method: 'POST',
+//         url: '/userSystem/checkusers',
+//         data: data,
+//         // headers: {
+//         //     'Content-Type': 'multipart/form-data'
+//         // }
+//     });
+// }
 
 // Modify DeleteUser to accept username as a parameter
 export function DeleteUser(username) {
@@ -160,11 +154,19 @@ export function AddUser(data) {
     });
 }
 
+export function UpdateUser(userId, data) {
+    return request({
+        method: 'POST', // Assuming your API expects a POST request
+        url: `/user/updateUser?id=${userId}`, // Use query parameter for user ID
+        data: data
+    });
+}
+
 // Assuming `request` is a function you've defined elsewhere for making HTTP requests
 export function uploadPicture(userId, imageFile) {
     // Create a FormData object to hold the file
     const formData = new FormData();
-    formData.append('image', imageFile); // Assuming the API expects the field to be named 'image'
+    formData.append('image', imageFile); 
 
     // Log the form data (optional, can be removed)
     console.log('Uploading image for userId:', userId);
@@ -172,9 +174,9 @@ export function uploadPicture(userId, imageFile) {
     return request({
         method: "POST",
         url: `/user/${userId}/upload-image`,
-        data: formData, // Send the FormData object containing the image
+        data: formData, 
         headers: {
-            'Content-Type': 'multipart/form-data', // Ensure the correct content type is set
+            'Content-Type': 'multipart/form-data', 
         },
     });
 }
